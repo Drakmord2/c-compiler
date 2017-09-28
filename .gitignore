@@ -19,9 +19,9 @@
 *.rar
 
 #Eclipse
-.settings/
-.classpath
-.project
+Compiler/**/.settings/
+Compiler/**/.classpath
+Compiler/**/.project
 Compiler/.metadata
 runtime-EclipseXtext
 
