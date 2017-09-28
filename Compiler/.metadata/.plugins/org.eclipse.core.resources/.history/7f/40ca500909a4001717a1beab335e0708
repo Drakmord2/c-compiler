@@ -1,0 +1,54 @@
+
+grammar com.poli.compilador.C with org.eclipse.xtext.common.Terminals
+
+generate c "http://www.poli.com/compilador/C"
+
+//--------------------------------------------------------------------
+
+Program: (definition+=Definition)* ;
+
+Definition	:  (val+=Function | Declaration);
+
+// TODO Comandos e Declarações
+		  	
+Function		: tipo=Type name=ID '(' (params+=Parameter)? ')' '{' (commands+=Command)* '}';
+Declaration 	: tipo=Type name+=ID* asg=Assignment;
+
+Command		: {Command} "if"'(' exp+=Expression ')''{' (commands+=Command)* '}' ("else"'{' (commands+=Command)* '}')?  
+			| {Command}"break" ';'
+			| {Command}"continue" ';' 
+			| {Command} "return" exp+=Expression? ';'; 
+			
+Parameter	: '1';
+Argument		: '1';
+Assignment	: '1';
+			
+Expression	: args+=RelExp ( {LogicExp.args+=current} val=LO args+=RelExp)* ;
+RelExp		: ArithExp ( {RelExp.args+=current} val=RO args+=ArithExp)? ;
+ArithExp		: Term ( {AritmExp.args+=current} val=AO1 args+=Term)* ;
+Term			: Factor ( {Term.args+=current} val=AO2 args+=Factor)* ;
+
+Factor		: {UnaryExp} val=UO args+=Atom
+	        | Atom ;
+	        
+Atom			: Literal
+			| '(' Expression ')' 
+			| lValue ;
+			
+lValue      : {IDVal} val=ID ('(' Argument ')')?
+			| PointerExp ;			
+
+PointerExp	: '**' ptr=Atom ;
+
+Type			: "int" | "bool" | "char" | "void";
+Literal		: {IntLit} valor=INT | {TrueLit} val=TRUE | {FalseLit} val=FALSE ;
+
+//--------------------------------------------------------------------
+
+terminal TRUE	: 'true' ;
+terminal FALSE	: 'false' ;
+terminal AO1		: '+' | '-' ;
+terminal AO2		: '*' | '/' ;
+terminal RO		: '>' | '>=' | '<' | '<=' | '==' | '!=' ;
+terminal LO		: '&&' | '||';
+terminal UO		: '~' | '++' | '--' | '&' ;

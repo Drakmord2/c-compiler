@@ -1,0 +1,40 @@
+grammar com.poli.compilador.C with org.eclipse.xtext.common.Terminals
+
+generate c "http://www.poli.com/compilador/C"
+
+//--------------------------------------------------------------------
+
+Program: (commands+=Command ';')* ;
+
+//TODO Comandos e Declarações
+
+Command		: Expression ;
+			
+Expression	: args+=RelExp ( {LogicExp.args+=current} val=LO args+=RelExp)* ;
+RelExp		: ArithExp ( {RelExp.args+=current} val=RO args+=ArithExp)? ;
+ArithExp		: Term ( {AritmExp.args+=current} val=AO1 args+=Term)* ;
+Term			: Factor ( {Term.args+=current} val=AO2 args+=Factor)* ;
+
+Factor		: {UnaryExp} val=UO args+=Atom
+	        | Atom ;
+	        
+Atom			: Literal
+			| '(' Expression ')' 
+			| lValue ;
+			
+lValue      : {IDVal} val=ID
+			| PointerExp ;			
+
+PointerExp	: '*' ptr=Atom ;
+
+Literal		: {IntLit} valor=INT | {TrueLit} val=TRUE | {FalseLit} val=FALSE ;
+
+//--------------------------------------------------------------------
+
+terminal TRUE	: 'true' ;
+terminal FALSE	: 'false' ;
+terminal AO1		: '+' | '-' ;
+terminal AO2		: '*' | '/' ;
+terminal RO		: '>' | '>=' | '<' | '<=' | '==' | '!=' ;
+terminal LO		: '&&' | '||';
+terminal UO		: '~' | '++' | '--' | '&' ;
