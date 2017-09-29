@@ -16,8 +16,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.Function#getTipo <em>Tipo</em>}</li>
- *   <li>{@link com.poli.compilador.c.Function#getName <em>Name</em>}</li>
  *   <li>{@link com.poli.compilador.c.Function#getParams <em>Params</em>}</li>
  *   <li>{@link com.poli.compilador.c.Function#getCommands <em>Commands</em>}</li>
  * </ul>
@@ -29,72 +27,20 @@ import org.eclipse.emf.ecore.EObject;
 public interface Function extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Tipo</b></em>' attribute.
+   * Returns the value of the '<em><b>Params</b></em>' containment reference list.
+   * The list contents are of type {@link com.poli.compilador.c.Parameter}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Tipo</em>' attribute isn't clear,
+   * If the meaning of the '<em>Params</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Tipo</em>' attribute.
-   * @see #setTipo(String)
-   * @see com.poli.compilador.c.CPackage#getFunction_Tipo()
-   * @model
-   * @generated
-   */
-  String getTipo();
-
-  /**
-   * Sets the value of the '{@link com.poli.compilador.c.Function#getTipo <em>Tipo</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Tipo</em>' attribute.
-   * @see #getTipo()
-   * @generated
-   */
-  void setTipo(String value);
-
-  /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see com.poli.compilador.c.CPackage#getFunction_Name()
-   * @model
-   * @generated
-   */
-  String getName();
-
-  /**
-   * Sets the value of the '{@link com.poli.compilador.c.Function#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
-
-  /**
-   * Returns the value of the '<em><b>Params</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Params</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Params</em>' attribute list.
+   * @return the value of the '<em>Params</em>' containment reference list.
    * @see com.poli.compilador.c.CPackage#getFunction_Params()
-   * @model unique="false"
+   * @model containment="true"
    * @generated
    */
-  EList<String> getParams();
+  EList<Parameter> getParams();
 
   /**
    * Returns the value of the '<em><b>Commands</b></em>' containment reference list.

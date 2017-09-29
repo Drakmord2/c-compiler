@@ -14,6 +14,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -46,7 +47,7 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
    * @generated
    * @ordered
    */
-  protected EList<RelExp> args;
+  protected EList<EObject> args;
 
   /**
    * The default value of the '{@link #getVal() <em>Val</em>}' attribute.
@@ -94,11 +95,11 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<RelExp> getArgs()
+  public EList<EObject> getArgs()
   {
     if (args == null)
     {
-      args = new EObjectContainmentEList<RelExp>(RelExp.class, this, CPackage.REL_EXP__ARGS);
+      args = new EObjectContainmentEList<EObject>(EObject.class, this, CPackage.REL_EXP__ARGS);
     }
     return args;
   }
@@ -173,7 +174,7 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
     {
       case CPackage.REL_EXP__ARGS:
         getArgs().clear();
-        getArgs().addAll((Collection<? extends RelExp>)newValue);
+        getArgs().addAll((Collection<? extends EObject>)newValue);
         return;
       case CPackage.REL_EXP__VAL:
         setVal((String)newValue);

@@ -98,7 +98,29 @@ public class CSwitch<T> extends Switch<T>
       {
         Declaration declaration = (Declaration)theEObject;
         T result = caseDeclaration(declaration);
-        if (result == null) result = caseDefinition(declaration);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.STRUCT:
+      {
+        Struct struct = (Struct)theEObject;
+        T result = caseStruct(struct);
+        if (result == null) result = caseDefinition(struct);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.ID_DEF:
+      {
+        IdDef idDef = (IdDef)theEObject;
+        T result = caseIdDef(idDef);
+        if (result == null) result = caseDefinition(idDef);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.VARIABLE:
+      {
+        Variable variable = (Variable)theEObject;
+        T result = caseVariable(variable);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -106,6 +128,27 @@ public class CSwitch<T> extends Switch<T>
       {
         Command command = (Command)theEObject;
         T result = caseCommand(command);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.PARAMETER:
+      {
+        Parameter parameter = (Parameter)theEObject;
+        T result = caseParameter(parameter);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.ARGUMENT:
+      {
+        Argument argument = (Argument)theEObject;
+        T result = caseArgument(argument);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.ASSIGNMENT:
+      {
+        Assignment assignment = (Assignment)theEObject;
+        T result = caseAssignment(assignment);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -182,12 +225,34 @@ public class CSwitch<T> extends Switch<T>
       {
         PointerExp pointerExp = (PointerExp)theEObject;
         T result = casePointerExp(pointerExp);
+        if (result == null) result = caseVariable(pointerExp);
         if (result == null) result = caselValue(pointerExp);
         if (result == null) result = caseAtom(pointerExp);
         if (result == null) result = caseFactor(pointerExp);
         if (result == null) result = caseTerm(pointerExp);
         if (result == null) result = caseArithExp(pointerExp);
         if (result == null) result = caseRelExp(pointerExp);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.ACCESS_EXP:
+      {
+        AccessExp accessExp = (AccessExp)theEObject;
+        T result = caseAccessExp(accessExp);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.CASE:
+      {
+        Case case_ = (Case)theEObject;
+        T result = caseCase(case_);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.TYPE:
+      {
+        Type type = (Type)theEObject;
+        T result = caseType(type);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -200,6 +265,86 @@ public class CSwitch<T> extends Switch<T>
         if (result == null) result = caseTerm(literal);
         if (result == null) result = caseArithExp(literal);
         if (result == null) result = caseRelExp(literal);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.IF_CMD:
+      {
+        ifCmd ifCmd = (ifCmd)theEObject;
+        T result = caseifCmd(ifCmd);
+        if (result == null) result = caseCommand(ifCmd);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.WHILE_CMD:
+      {
+        whileCmd whileCmd = (whileCmd)theEObject;
+        T result = casewhileCmd(whileCmd);
+        if (result == null) result = caseCommand(whileCmd);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.FOR_CMD:
+      {
+        forCmd forCmd = (forCmd)theEObject;
+        T result = caseforCmd(forCmd);
+        if (result == null) result = caseCommand(forCmd);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.SWITCH_CMD:
+      {
+        switchCmd switchCmd = (switchCmd)theEObject;
+        T result = caseswitchCmd(switchCmd);
+        if (result == null) result = caseCommand(switchCmd);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.DECL_CMD:
+      {
+        declCmd declCmd = (declCmd)theEObject;
+        T result = casedeclCmd(declCmd);
+        if (result == null) result = caseCommand(declCmd);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.DO_WHILE_CMD:
+      {
+        doWhileCmd doWhileCmd = (doWhileCmd)theEObject;
+        T result = casedoWhileCmd(doWhileCmd);
+        if (result == null) result = caseCommand(doWhileCmd);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.VAR_CMD:
+      {
+        varCmd varCmd = (varCmd)theEObject;
+        T result = casevarCmd(varCmd);
+        if (result == null) result = caseCommand(varCmd);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.BREAK_CMD:
+      {
+        breakCmd breakCmd = (breakCmd)theEObject;
+        T result = casebreakCmd(breakCmd);
+        if (result == null) result = caseCommand(breakCmd);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.CONTINUE_CMD:
+      {
+        continueCmd continueCmd = (continueCmd)theEObject;
+        T result = casecontinueCmd(continueCmd);
+        if (result == null) result = caseCommand(continueCmd);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.RETURN_CMD:
+      {
+        returnCmd returnCmd = (returnCmd)theEObject;
+        T result = casereturnCmd(returnCmd);
+        if (result == null) result = caseCommand(returnCmd);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -236,16 +381,19 @@ public class CSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CPackage.ID_VAL:
+      case CPackage.ARRAY_ACCESS:
       {
-        IDVal idVal = (IDVal)theEObject;
-        T result = caseIDVal(idVal);
-        if (result == null) result = caselValue(idVal);
-        if (result == null) result = caseAtom(idVal);
-        if (result == null) result = caseFactor(idVal);
-        if (result == null) result = caseTerm(idVal);
-        if (result == null) result = caseArithExp(idVal);
-        if (result == null) result = caseRelExp(idVal);
+        arrayAccess arrayAccess = (arrayAccess)theEObject;
+        T result = casearrayAccess(arrayAccess);
+        if (result == null) result = caseAccessExp(arrayAccess);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.FIELD_ACCESS:
+      {
+        fieldAccess fieldAccess = (fieldAccess)theEObject;
+        T result = casefieldAccess(fieldAccess);
+        if (result == null) result = caseAccessExp(fieldAccess);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -357,6 +505,54 @@ public class CSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Struct</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Struct</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseStruct(Struct object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Id Def</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Id Def</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIdDef(IdDef object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Variable</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Variable</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVariable(Variable object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Command</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -368,6 +564,54 @@ public class CSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseCommand(Command object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Parameter</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Parameter</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseParameter(Parameter object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Argument</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Argument</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseArgument(Argument object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Assignment</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Assignment</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAssignment(Assignment object)
   {
     return null;
   }
@@ -501,6 +745,54 @@ public class CSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Access Exp</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Access Exp</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAccessExp(AccessExp object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Case</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Case</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCase(Case object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseType(Type object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Literal</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -512,6 +804,166 @@ public class CSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseLiteral(Literal object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>if Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>if Cmd</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseifCmd(ifCmd object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>while Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>while Cmd</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casewhileCmd(whileCmd object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>for Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>for Cmd</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseforCmd(forCmd object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>switch Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>switch Cmd</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseswitchCmd(switchCmd object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>decl Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>decl Cmd</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casedeclCmd(declCmd object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>do While Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>do While Cmd</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casedoWhileCmd(doWhileCmd object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>var Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>var Cmd</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casevarCmd(varCmd object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>break Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>break Cmd</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casebreakCmd(breakCmd object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>continue Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>continue Cmd</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casecontinueCmd(continueCmd object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>return Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>return Cmd</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casereturnCmd(returnCmd object)
   {
     return null;
   }
@@ -565,17 +1017,33 @@ public class CSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>ID Val</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>array Access</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>ID Val</em>'.
+   * @return the result of interpreting the object as an instance of '<em>array Access</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseIDVal(IDVal object)
+  public T casearrayAccess(arrayAccess object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>field Access</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>field Access</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casefieldAccess(fieldAccess object)
   {
     return null;
   }

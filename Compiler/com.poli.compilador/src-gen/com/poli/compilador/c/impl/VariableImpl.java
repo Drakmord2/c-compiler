@@ -4,25 +4,27 @@
 package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
-import com.poli.compilador.c.IDVal;
+import com.poli.compilador.c.Variable;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>ID Val</b></em>'.
+ * An implementation of the model object '<em><b>Variable</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class IDValImpl extends lValueImpl implements IDVal
+public class VariableImpl extends MinimalEObjectImpl.Container implements Variable
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected IDValImpl()
+  protected VariableImpl()
   {
     super();
   }
@@ -35,7 +37,7 @@ public class IDValImpl extends lValueImpl implements IDVal
   @Override
   protected EClass eStaticClass()
   {
-    return CPackage.Literals.ID_VAL;
+    return CPackage.Literals.VARIABLE;
   }
 
-} //IDValImpl
+} //VariableImpl

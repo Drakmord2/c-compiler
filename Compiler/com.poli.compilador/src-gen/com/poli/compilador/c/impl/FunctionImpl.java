@@ -6,10 +6,10 @@ package com.poli.compilador.c.impl;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Command;
 import com.poli.compilador.c.Function;
+import com.poli.compilador.c.Parameter;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -17,10 +17,8 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -32,8 +30,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.FunctionImpl#getTipo <em>Tipo</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.FunctionImpl#getName <em>Name</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.FunctionImpl#getParams <em>Params</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.FunctionImpl#getCommands <em>Commands</em>}</li>
  * </ul>
@@ -43,54 +39,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class FunctionImpl extends MinimalEObjectImpl.Container implements Function
 {
   /**
-   * The default value of the '{@link #getTipo() <em>Tipo</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTipo()
-   * @generated
-   * @ordered
-   */
-  protected static final String TIPO_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getTipo() <em>Tipo</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTipo()
-   * @generated
-   * @ordered
-   */
-  protected String tipo = TIPO_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getParams() <em>Params</em>}' attribute list.
+   * The cached value of the '{@link #getParams() <em>Params</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getParams()
    * @generated
    * @ordered
    */
-  protected EList<String> params;
+  protected EList<Parameter> params;
 
   /**
    * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference list.
@@ -128,57 +84,11 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getTipo()
-  {
-    return tipo;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTipo(String newTipo)
-  {
-    String oldTipo = tipo;
-    tipo = newTipo;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.FUNCTION__TIPO, oldTipo, tipo));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.FUNCTION__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<String> getParams()
+  public EList<Parameter> getParams()
   {
     if (params == null)
     {
-      params = new EDataTypeEList<String>(String.class, this, CPackage.FUNCTION__PARAMS);
+      params = new EObjectContainmentEList<Parameter>(Parameter.class, this, CPackage.FUNCTION__PARAMS);
     }
     return params;
   }
@@ -207,6 +117,8 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
   {
     switch (featureID)
     {
+      case CPackage.FUNCTION__PARAMS:
+        return ((InternalEList<?>)getParams()).basicRemove(otherEnd, msgs);
       case CPackage.FUNCTION__COMMANDS:
         return ((InternalEList<?>)getCommands()).basicRemove(otherEnd, msgs);
     }
@@ -223,10 +135,6 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
   {
     switch (featureID)
     {
-      case CPackage.FUNCTION__TIPO:
-        return getTipo();
-      case CPackage.FUNCTION__NAME:
-        return getName();
       case CPackage.FUNCTION__PARAMS:
         return getParams();
       case CPackage.FUNCTION__COMMANDS:
@@ -246,15 +154,9 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
   {
     switch (featureID)
     {
-      case CPackage.FUNCTION__TIPO:
-        setTipo((String)newValue);
-        return;
-      case CPackage.FUNCTION__NAME:
-        setName((String)newValue);
-        return;
       case CPackage.FUNCTION__PARAMS:
         getParams().clear();
-        getParams().addAll((Collection<? extends String>)newValue);
+        getParams().addAll((Collection<? extends Parameter>)newValue);
         return;
       case CPackage.FUNCTION__COMMANDS:
         getCommands().clear();
@@ -274,12 +176,6 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
   {
     switch (featureID)
     {
-      case CPackage.FUNCTION__TIPO:
-        setTipo(TIPO_EDEFAULT);
-        return;
-      case CPackage.FUNCTION__NAME:
-        setName(NAME_EDEFAULT);
-        return;
       case CPackage.FUNCTION__PARAMS:
         getParams().clear();
         return;
@@ -300,37 +196,12 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
   {
     switch (featureID)
     {
-      case CPackage.FUNCTION__TIPO:
-        return TIPO_EDEFAULT == null ? tipo != null : !TIPO_EDEFAULT.equals(tipo);
-      case CPackage.FUNCTION__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case CPackage.FUNCTION__PARAMS:
         return params != null && !params.isEmpty();
       case CPackage.FUNCTION__COMMANDS:
         return commands != null && !commands.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (tipo: ");
-    result.append(tipo);
-    result.append(", name: ");
-    result.append(name);
-    result.append(", params: ");
-    result.append(params);
-    result.append(')');
-    return result.toString();
   }
 
 } //FunctionImpl

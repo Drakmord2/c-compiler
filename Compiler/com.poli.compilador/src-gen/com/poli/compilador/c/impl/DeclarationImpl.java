@@ -3,20 +3,24 @@
  */
 package com.poli.compilador.c.impl;
 
+import com.poli.compilador.c.Assignment;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Declaration;
+import com.poli.compilador.c.Variable;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,64 +30,33 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.DeclarationImpl#getTipo <em>Tipo</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.DeclarationImpl#getName <em>Name</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.DeclarationImpl#getAsg <em>Asg</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.DeclarationImpl#getVal <em>Val</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class DeclarationImpl extends DefinitionImpl implements Declaration
+public class DeclarationImpl extends MinimalEObjectImpl.Container implements Declaration
 {
   /**
-   * The default value of the '{@link #getTipo() <em>Tipo</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTipo()
-   * @generated
-   * @ordered
-   */
-  protected static final String TIPO_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getTipo() <em>Tipo</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTipo()
-   * @generated
-   * @ordered
-   */
-  protected String tipo = TIPO_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute list.
+   * The cached value of the '{@link #getName() <em>Name</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getName()
    * @generated
    * @ordered
    */
-  protected EList<String> name;
+  protected EList<Variable> name;
 
   /**
-   * The default value of the '{@link #getAsg() <em>Asg</em>}' attribute.
+   * The cached value of the '{@link #getVal() <em>Val</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getAsg()
+   * @see #getVal()
    * @generated
    * @ordered
    */
-  protected static final String ASG_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getAsg() <em>Asg</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getAsg()
-   * @generated
-   * @ordered
-   */
-  protected String asg = ASG_EDEFAULT;
+  protected EList<Assignment> val;
 
   /**
    * <!-- begin-user-doc -->
@@ -111,34 +84,11 @@ public class DeclarationImpl extends DefinitionImpl implements Declaration
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getTipo()
-  {
-    return tipo;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTipo(String newTipo)
-  {
-    String oldTipo = tipo;
-    tipo = newTipo;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.DECLARATION__TIPO, oldTipo, tipo));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<String> getName()
+  public EList<Variable> getName()
   {
     if (name == null)
     {
-      name = new EDataTypeEList<String>(String.class, this, CPackage.DECLARATION__NAME);
+      name = new EObjectContainmentEList<Variable>(Variable.class, this, CPackage.DECLARATION__NAME);
     }
     return name;
   }
@@ -148,9 +98,13 @@ public class DeclarationImpl extends DefinitionImpl implements Declaration
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getAsg()
+  public EList<Assignment> getVal()
   {
-    return asg;
+    if (val == null)
+    {
+      val = new EObjectContainmentEList<Assignment>(Assignment.class, this, CPackage.DECLARATION__VAL);
+    }
+    return val;
   }
 
   /**
@@ -158,12 +112,17 @@ public class DeclarationImpl extends DefinitionImpl implements Declaration
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setAsg(String newAsg)
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    String oldAsg = asg;
-    asg = newAsg;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.DECLARATION__ASG, oldAsg, asg));
+    switch (featureID)
+    {
+      case CPackage.DECLARATION__NAME:
+        return ((InternalEList<?>)getName()).basicRemove(otherEnd, msgs);
+      case CPackage.DECLARATION__VAL:
+        return ((InternalEList<?>)getVal()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -176,12 +135,10 @@ public class DeclarationImpl extends DefinitionImpl implements Declaration
   {
     switch (featureID)
     {
-      case CPackage.DECLARATION__TIPO:
-        return getTipo();
       case CPackage.DECLARATION__NAME:
         return getName();
-      case CPackage.DECLARATION__ASG:
-        return getAsg();
+      case CPackage.DECLARATION__VAL:
+        return getVal();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -197,15 +154,13 @@ public class DeclarationImpl extends DefinitionImpl implements Declaration
   {
     switch (featureID)
     {
-      case CPackage.DECLARATION__TIPO:
-        setTipo((String)newValue);
-        return;
       case CPackage.DECLARATION__NAME:
         getName().clear();
-        getName().addAll((Collection<? extends String>)newValue);
+        getName().addAll((Collection<? extends Variable>)newValue);
         return;
-      case CPackage.DECLARATION__ASG:
-        setAsg((String)newValue);
+      case CPackage.DECLARATION__VAL:
+        getVal().clear();
+        getVal().addAll((Collection<? extends Assignment>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -221,14 +176,11 @@ public class DeclarationImpl extends DefinitionImpl implements Declaration
   {
     switch (featureID)
     {
-      case CPackage.DECLARATION__TIPO:
-        setTipo(TIPO_EDEFAULT);
-        return;
       case CPackage.DECLARATION__NAME:
         getName().clear();
         return;
-      case CPackage.DECLARATION__ASG:
-        setAsg(ASG_EDEFAULT);
+      case CPackage.DECLARATION__VAL:
+        getVal().clear();
         return;
     }
     super.eUnset(featureID);
@@ -244,35 +196,12 @@ public class DeclarationImpl extends DefinitionImpl implements Declaration
   {
     switch (featureID)
     {
-      case CPackage.DECLARATION__TIPO:
-        return TIPO_EDEFAULT == null ? tipo != null : !TIPO_EDEFAULT.equals(tipo);
       case CPackage.DECLARATION__NAME:
         return name != null && !name.isEmpty();
-      case CPackage.DECLARATION__ASG:
-        return ASG_EDEFAULT == null ? asg != null : !ASG_EDEFAULT.equals(asg);
+      case CPackage.DECLARATION__VAL:
+        return val != null && !val.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (tipo: ");
-    result.append(tipo);
-    result.append(", name: ");
-    result.append(name);
-    result.append(", asg: ");
-    result.append(asg);
-    result.append(')');
-    return result.toString();
   }
 
 } //DeclarationImpl

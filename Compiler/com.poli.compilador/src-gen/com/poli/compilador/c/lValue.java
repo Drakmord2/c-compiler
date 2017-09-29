@@ -9,6 +9,12 @@ package com.poli.compilador.c;
  * A representation of the model object '<em><b>lValue</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link com.poli.compilador.c.lValue#getAcc <em>Acc</em>}</li>
+ * </ul>
  *
  * @see com.poli.compilador.c.CPackage#getlValue()
  * @model
@@ -16,4 +22,30 @@ package com.poli.compilador.c;
  */
 public interface lValue extends Atom
 {
+  /**
+   * Returns the value of the '<em><b>Acc</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Acc</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Acc</em>' containment reference.
+   * @see #setAcc(AccessExp)
+   * @see com.poli.compilador.c.CPackage#getlValue_Acc()
+   * @model containment="true"
+   * @generated
+   */
+  AccessExp getAcc();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.lValue#getAcc <em>Acc</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Acc</em>' containment reference.
+   * @see #getAcc()
+   * @generated
+   */
+  void setAcc(AccessExp value);
+
 } // lValue

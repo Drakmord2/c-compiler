@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.Definition#getVal <em>Val</em>}</li>
+ *   <li>{@link com.poli.compilador.c.Definition#getName <em>Name</em>}</li>
  * </ul>
  *
  * @see com.poli.compilador.c.CPackage#getDefinition()
@@ -26,19 +26,19 @@ import org.eclipse.emf.ecore.EObject;
 public interface Definition extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Val</b></em>' containment reference list.
-   * The list contents are of type {@link com.poli.compilador.c.Function}.
+   * Returns the value of the '<em><b>Name</b></em>' containment reference list.
+   * The list contents are of type {@link com.poli.compilador.c.Variable}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Val</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Name</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Val</em>' containment reference list.
-   * @see com.poli.compilador.c.CPackage#getDefinition_Val()
+   * @return the value of the '<em>Name</em>' containment reference list.
+   * @see com.poli.compilador.c.CPackage#getDefinition_Name()
    * @model containment="true"
    * @generated
    */
-  EList<Function> getVal();
+  EList<Variable> getName();
 
 } // Definition

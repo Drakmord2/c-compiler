@@ -7,26 +7,34 @@ generate c "http://www.poli.com/compilador/C"
 
 Program: (definition+=Definition)* ;
 
-Definition	:  (val+=Function | Declaration);
-
-// TODO Comandos e Declarações
+Definition	:  ( IdDef (val=Function | val=Declaration)) | Struct;
 		  	
-Function		: tipo=Type name=ID '(' (params+=Parameter)? ')' '{' (commands+=Command)* '}';
-Declaration 	: tipo=Type name+=ID* asg=Assignment;
+Function		: {Function} 	'(' (params+=Parameter)? ')' '{' (commands+=Command)* '}';
+Declaration 	: {Declaration}	(',' name+=Variable)* val+=Assignment? ';' ;
+Struct		: {Struct} 		'struct' name+=Variable '{' def+=IdDef decl+=Declaration '}' ';' ;
 
-Command		: {Command} "if"'(' exp+=Expression ')''{' (commands+=Command)* '}' ("else"'{' (commands+=Command)* '}')?  
-			| {Command}"break" ';'
-			| {Command}"continue" ';' 
-			| {Command} "return" exp+=Expression? ';'; 
+IdDef		: tipo=Type name+=Variable;
+Variable		: {Variable} ID | PointerExp;
+
+Command		: {ifCmd} 		'if''(' exp+=Expression ')''{' (commands+=Command)* '}' ('else''{' (commands+=Command)* '}')?  
+			| {whileCmd} 	'while''(' exp+=Expression ')''{' (commands+=Command)* '}'
+			| {forCmd} 		'for''('  ')''{' (commands+=Command)* '}'
+			| {switchCmd} 	'switch''(' exp+=Expression ')''{' cases+=Case* ('default'':' (commands+=Command)* )? '}'
+			| {declCmd} 		def+=IdDef decl+=Declaration
+			| {doWhileCmd}	'do''{' (commands+=Command)* '}''while''(' exp+=Expression ')'';'
+			| {varCmd}		(val+=lValue val+=Assignment? | ('struct' ID ID) ) ';'
+			| {breakCmd} 	'break'';'
+			| {continueCmd} 'continue'';' 
+			| {returnCmd} 	'return' exp+=Expression? ';';
 			
-Parameter	: '1';
-Argument		: '1';
-Assignment	: '1';
+Parameter	: def+=IdDef (',' def+=IdDef)* ;
+Argument		: exp+=Expression (',' exp+=Expression)* ;
+Assignment	: '=' exp=Expression;
 			
-Expression	: args+=RelExp ( {LogicExp.args+=current} val=LO args+=RelExp)* ;
-RelExp		: ArithExp ( {RelExp.args+=current} val=RO args+=ArithExp)? ;
-ArithExp		: Term ( {AritmExp.args+=current} val=AO1 args+=Term)* ;
-Term			: Factor ( {Term.args+=current} val=AO2 args+=Factor)* ;
+Expression	: args+=RelExp	( {LogicExp.args+=current} 	val=LO args+=RelExp)* ;
+RelExp		: ArithExp 		( {RelExp.args+=current} 	val=RO args+=ArithExp)? ;
+ArithExp		: Term 			( {AritmExp.args+=current}	val=AO1 args+=Term)* ;
+Term			: Factor 		( {Term.args+=current} 		val=AO2 args+=Factor)* ;
 
 Factor		: {UnaryExp} val=UO args+=Atom
 	        | Atom ;
@@ -35,17 +43,21 @@ Atom			: Literal
 			| '(' Expression ')' 
 			| lValue ;
 			
-lValue      : {IDVal} val=ID ('(' Argument ')')?
+lValue      : val=ID ('(' args+=Argument? ')' | acc=AccessExp )?
 			| PointerExp ;			
 
-PointerExp	: '**' ptr=Atom ;
+PointerExp	: {PointerExp} '**' (ID | '(' exp+=Expression ')' ) ;
+AccessExp	: {arrayAccess} '[' exp+=Expression? ']'
+			| {fieldAccess} '.' field=ID ;
 
-Type			: TYPELIT;
+Case			: 'case' val+=Atom ':' (commands+=Command)* ;
+
+Type			: tipo+=TYPELIT ('[' exp+=Expression? ']')?;
 Literal		: {IntLit} valor=INT | {TrueLit} val=TRUE | {FalseLit} val=FALSE ;
 
 //--------------------------------------------------------------------
 
-terminal TYPELIT	: "int" | "bool" | "char" | "void";
+terminal TYPELIT	: 'int' | 'float' | 'double' | 'bool' | 'char' | 'void';
 terminal TRUE	: 'true' ;
 terminal FALSE	: 'false' ;
 terminal AO1		: '+' | '-' ;

@@ -3,6 +3,7 @@
  */
 package com.poli.compilador.c;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -13,39 +14,29 @@ package com.poli.compilador.c;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.PointerExp#getPtr <em>Ptr</em>}</li>
+ *   <li>{@link com.poli.compilador.c.PointerExp#getExp <em>Exp</em>}</li>
  * </ul>
  *
  * @see com.poli.compilador.c.CPackage#getPointerExp()
  * @model
  * @generated
  */
-public interface PointerExp extends lValue
+public interface PointerExp extends Variable, lValue
 {
   /**
-   * Returns the value of the '<em><b>Ptr</b></em>' containment reference.
+   * Returns the value of the '<em><b>Exp</b></em>' containment reference list.
+   * The list contents are of type {@link com.poli.compilador.c.Expression}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Ptr</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Exp</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Ptr</em>' containment reference.
-   * @see #setPtr(Atom)
-   * @see com.poli.compilador.c.CPackage#getPointerExp_Ptr()
+   * @return the value of the '<em>Exp</em>' containment reference list.
+   * @see com.poli.compilador.c.CPackage#getPointerExp_Exp()
    * @model containment="true"
    * @generated
    */
-  Atom getPtr();
-
-  /**
-   * Sets the value of the '{@link com.poli.compilador.c.PointerExp#getPtr <em>Ptr</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Ptr</em>' containment reference.
-   * @see #getPtr()
-   * @generated
-   */
-  void setPtr(Atom value);
+  EList<Expression> getExp();
 
 } // PointerExp

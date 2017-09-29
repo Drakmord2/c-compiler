@@ -5,6 +5,8 @@ package com.poli.compilador.c;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Declaration</b></em>'.
@@ -14,83 +16,46 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.Declaration#getTipo <em>Tipo</em>}</li>
  *   <li>{@link com.poli.compilador.c.Declaration#getName <em>Name</em>}</li>
- *   <li>{@link com.poli.compilador.c.Declaration#getAsg <em>Asg</em>}</li>
+ *   <li>{@link com.poli.compilador.c.Declaration#getVal <em>Val</em>}</li>
  * </ul>
  *
  * @see com.poli.compilador.c.CPackage#getDeclaration()
  * @model
  * @generated
  */
-public interface Declaration extends Definition
+public interface Declaration extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Tipo</b></em>' attribute.
+   * Returns the value of the '<em><b>Name</b></em>' containment reference list.
+   * The list contents are of type {@link com.poli.compilador.c.Variable}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Tipo</em>' attribute isn't clear,
+   * If the meaning of the '<em>Name</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Tipo</em>' attribute.
-   * @see #setTipo(String)
-   * @see com.poli.compilador.c.CPackage#getDeclaration_Tipo()
-   * @model
-   * @generated
-   */
-  String getTipo();
-
-  /**
-   * Sets the value of the '{@link com.poli.compilador.c.Declaration#getTipo <em>Tipo</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Tipo</em>' attribute.
-   * @see #getTipo()
-   * @generated
-   */
-  void setTipo(String value);
-
-  /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute list.
+   * @return the value of the '<em>Name</em>' containment reference list.
    * @see com.poli.compilador.c.CPackage#getDeclaration_Name()
-   * @model unique="false"
+   * @model containment="true"
    * @generated
    */
-  EList<String> getName();
+  EList<Variable> getName();
 
   /**
-   * Returns the value of the '<em><b>Asg</b></em>' attribute.
+   * Returns the value of the '<em><b>Val</b></em>' containment reference list.
+   * The list contents are of type {@link com.poli.compilador.c.Assignment}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Asg</em>' attribute isn't clear,
+   * If the meaning of the '<em>Val</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Asg</em>' attribute.
-   * @see #setAsg(String)
-   * @see com.poli.compilador.c.CPackage#getDeclaration_Asg()
-   * @model
+   * @return the value of the '<em>Val</em>' containment reference list.
+   * @see com.poli.compilador.c.CPackage#getDeclaration_Val()
+   * @model containment="true"
    * @generated
    */
-  String getAsg();
-
-  /**
-   * Sets the value of the '{@link com.poli.compilador.c.Declaration#getAsg <em>Asg</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Asg</em>' attribute.
-   * @see #getAsg()
-   * @generated
-   */
-  void setAsg(String value);
+  EList<Assignment> getVal();
 
 } // Declaration

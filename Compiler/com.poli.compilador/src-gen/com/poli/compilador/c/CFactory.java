@@ -60,6 +60,33 @@ public interface CFactory extends EFactory
   Declaration createDeclaration();
 
   /**
+   * Returns a new object of class '<em>Struct</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Struct</em>'.
+   * @generated
+   */
+  Struct createStruct();
+
+  /**
+   * Returns a new object of class '<em>Id Def</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Id Def</em>'.
+   * @generated
+   */
+  IdDef createIdDef();
+
+  /**
+   * Returns a new object of class '<em>Variable</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Variable</em>'.
+   * @generated
+   */
+  Variable createVariable();
+
+  /**
    * Returns a new object of class '<em>Command</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -67,6 +94,33 @@ public interface CFactory extends EFactory
    * @generated
    */
   Command createCommand();
+
+  /**
+   * Returns a new object of class '<em>Parameter</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Parameter</em>'.
+   * @generated
+   */
+  Parameter createParameter();
+
+  /**
+   * Returns a new object of class '<em>Argument</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Argument</em>'.
+   * @generated
+   */
+  Argument createArgument();
+
+  /**
+   * Returns a new object of class '<em>Assignment</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Assignment</em>'.
+   * @generated
+   */
+  Assignment createAssignment();
 
   /**
    * Returns a new object of class '<em>Expression</em>'.
@@ -141,6 +195,33 @@ public interface CFactory extends EFactory
   PointerExp createPointerExp();
 
   /**
+   * Returns a new object of class '<em>Access Exp</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Access Exp</em>'.
+   * @generated
+   */
+  AccessExp createAccessExp();
+
+  /**
+   * Returns a new object of class '<em>Case</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Case</em>'.
+   * @generated
+   */
+  Case createCase();
+
+  /**
+   * Returns a new object of class '<em>Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type</em>'.
+   * @generated
+   */
+  Type createType();
+
+  /**
    * Returns a new object of class '<em>Literal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -148,6 +229,96 @@ public interface CFactory extends EFactory
    * @generated
    */
   Literal createLiteral();
+
+  /**
+   * Returns a new object of class '<em>if Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>if Cmd</em>'.
+   * @generated
+   */
+  ifCmd createifCmd();
+
+  /**
+   * Returns a new object of class '<em>while Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>while Cmd</em>'.
+   * @generated
+   */
+  whileCmd createwhileCmd();
+
+  /**
+   * Returns a new object of class '<em>for Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>for Cmd</em>'.
+   * @generated
+   */
+  forCmd createforCmd();
+
+  /**
+   * Returns a new object of class '<em>switch Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>switch Cmd</em>'.
+   * @generated
+   */
+  switchCmd createswitchCmd();
+
+  /**
+   * Returns a new object of class '<em>decl Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>decl Cmd</em>'.
+   * @generated
+   */
+  declCmd createdeclCmd();
+
+  /**
+   * Returns a new object of class '<em>do While Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>do While Cmd</em>'.
+   * @generated
+   */
+  doWhileCmd createdoWhileCmd();
+
+  /**
+   * Returns a new object of class '<em>var Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>var Cmd</em>'.
+   * @generated
+   */
+  varCmd createvarCmd();
+
+  /**
+   * Returns a new object of class '<em>break Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>break Cmd</em>'.
+   * @generated
+   */
+  breakCmd createbreakCmd();
+
+  /**
+   * Returns a new object of class '<em>continue Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>continue Cmd</em>'.
+   * @generated
+   */
+  continueCmd createcontinueCmd();
+
+  /**
+   * Returns a new object of class '<em>return Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>return Cmd</em>'.
+   * @generated
+   */
+  returnCmd createreturnCmd();
 
   /**
    * Returns a new object of class '<em>Logic Exp</em>'.
@@ -177,13 +348,22 @@ public interface CFactory extends EFactory
   UnaryExp createUnaryExp();
 
   /**
-   * Returns a new object of class '<em>ID Val</em>'.
+   * Returns a new object of class '<em>array Access</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>ID Val</em>'.
+   * @return a new object of class '<em>array Access</em>'.
    * @generated
    */
-  IDVal createIDVal();
+  arrayAccess createarrayAccess();
+
+  /**
+   * Returns a new object of class '<em>field Access</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>field Access</em>'.
+   * @generated
+   */
+  fieldAccess createfieldAccess();
 
   /**
    * Returns a new object of class '<em>Int Lit</em>'.

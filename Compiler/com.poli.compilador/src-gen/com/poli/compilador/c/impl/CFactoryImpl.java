@@ -69,7 +69,13 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
       case CPackage.DEFINITION: return createDefinition();
       case CPackage.FUNCTION: return createFunction();
       case CPackage.DECLARATION: return createDeclaration();
+      case CPackage.STRUCT: return createStruct();
+      case CPackage.ID_DEF: return createIdDef();
+      case CPackage.VARIABLE: return createVariable();
       case CPackage.COMMAND: return createCommand();
+      case CPackage.PARAMETER: return createParameter();
+      case CPackage.ARGUMENT: return createArgument();
+      case CPackage.ASSIGNMENT: return createAssignment();
       case CPackage.EXPRESSION: return createExpression();
       case CPackage.REL_EXP: return createRelExp();
       case CPackage.ARITH_EXP: return createArithExp();
@@ -78,11 +84,25 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
       case CPackage.ATOM: return createAtom();
       case CPackage.LVALUE: return createlValue();
       case CPackage.POINTER_EXP: return createPointerExp();
+      case CPackage.ACCESS_EXP: return createAccessExp();
+      case CPackage.CASE: return createCase();
+      case CPackage.TYPE: return createType();
       case CPackage.LITERAL: return createLiteral();
+      case CPackage.IF_CMD: return createifCmd();
+      case CPackage.WHILE_CMD: return createwhileCmd();
+      case CPackage.FOR_CMD: return createforCmd();
+      case CPackage.SWITCH_CMD: return createswitchCmd();
+      case CPackage.DECL_CMD: return createdeclCmd();
+      case CPackage.DO_WHILE_CMD: return createdoWhileCmd();
+      case CPackage.VAR_CMD: return createvarCmd();
+      case CPackage.BREAK_CMD: return createbreakCmd();
+      case CPackage.CONTINUE_CMD: return createcontinueCmd();
+      case CPackage.RETURN_CMD: return createreturnCmd();
       case CPackage.LOGIC_EXP: return createLogicExp();
       case CPackage.ARITM_EXP: return createAritmExp();
       case CPackage.UNARY_EXP: return createUnaryExp();
-      case CPackage.ID_VAL: return createIDVal();
+      case CPackage.ARRAY_ACCESS: return createarrayAccess();
+      case CPackage.FIELD_ACCESS: return createfieldAccess();
       case CPackage.INT_LIT: return createIntLit();
       case CPackage.TRUE_LIT: return createTrueLit();
       case CPackage.FALSE_LIT: return createFalseLit();
@@ -140,10 +160,76 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public Struct createStruct()
+  {
+    StructImpl struct = new StructImpl();
+    return struct;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IdDef createIdDef()
+  {
+    IdDefImpl idDef = new IdDefImpl();
+    return idDef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Variable createVariable()
+  {
+    VariableImpl variable = new VariableImpl();
+    return variable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Command createCommand()
   {
     CommandImpl command = new CommandImpl();
     return command;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Parameter createParameter()
+  {
+    ParameterImpl parameter = new ParameterImpl();
+    return parameter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Argument createArgument()
+  {
+    ArgumentImpl argument = new ArgumentImpl();
+    return argument;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Assignment createAssignment()
+  {
+    AssignmentImpl assignment = new AssignmentImpl();
+    return assignment;
   }
 
   /**
@@ -239,10 +325,153 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public AccessExp createAccessExp()
+  {
+    AccessExpImpl accessExp = new AccessExpImpl();
+    return accessExp;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Case createCase()
+  {
+    CaseImpl case_ = new CaseImpl();
+    return case_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Type createType()
+  {
+    TypeImpl type = new TypeImpl();
+    return type;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Literal createLiteral()
   {
     LiteralImpl literal = new LiteralImpl();
     return literal;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ifCmd createifCmd()
+  {
+    ifCmdImpl ifCmd = new ifCmdImpl();
+    return ifCmd;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public whileCmd createwhileCmd()
+  {
+    whileCmdImpl whileCmd = new whileCmdImpl();
+    return whileCmd;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public forCmd createforCmd()
+  {
+    forCmdImpl forCmd = new forCmdImpl();
+    return forCmd;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public switchCmd createswitchCmd()
+  {
+    switchCmdImpl switchCmd = new switchCmdImpl();
+    return switchCmd;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public declCmd createdeclCmd()
+  {
+    declCmdImpl declCmd = new declCmdImpl();
+    return declCmd;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public doWhileCmd createdoWhileCmd()
+  {
+    doWhileCmdImpl doWhileCmd = new doWhileCmdImpl();
+    return doWhileCmd;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public varCmd createvarCmd()
+  {
+    varCmdImpl varCmd = new varCmdImpl();
+    return varCmd;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public breakCmd createbreakCmd()
+  {
+    breakCmdImpl breakCmd = new breakCmdImpl();
+    return breakCmd;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public continueCmd createcontinueCmd()
+  {
+    continueCmdImpl continueCmd = new continueCmdImpl();
+    return continueCmd;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public returnCmd createreturnCmd()
+  {
+    returnCmdImpl returnCmd = new returnCmdImpl();
+    return returnCmd;
   }
 
   /**
@@ -283,10 +512,21 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public IDVal createIDVal()
+  public arrayAccess createarrayAccess()
   {
-    IDValImpl idVal = new IDValImpl();
-    return idVal;
+    arrayAccessImpl arrayAccess = new arrayAccessImpl();
+    return arrayAccess;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public fieldAccess createfieldAccess()
+  {
+    fieldAccessImpl fieldAccess = new fieldAccessImpl();
+    return fieldAccess;
   }
 
   /**

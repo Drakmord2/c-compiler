@@ -4,23 +4,40 @@
 package com.poli.compilador.serializer;
 
 import com.google.inject.Inject;
+import com.poli.compilador.c.Argument;
 import com.poli.compilador.c.AritmExp;
+import com.poli.compilador.c.Assignment;
 import com.poli.compilador.c.CPackage;
-import com.poli.compilador.c.Command;
+import com.poli.compilador.c.Case;
 import com.poli.compilador.c.Declaration;
-import com.poli.compilador.c.Definition;
 import com.poli.compilador.c.Expression;
 import com.poli.compilador.c.FalseLit;
 import com.poli.compilador.c.Function;
-import com.poli.compilador.c.IDVal;
+import com.poli.compilador.c.IdDef;
 import com.poli.compilador.c.IntLit;
 import com.poli.compilador.c.LogicExp;
 import com.poli.compilador.c.PointerExp;
 import com.poli.compilador.c.Program;
 import com.poli.compilador.c.RelExp;
+import com.poli.compilador.c.Struct;
 import com.poli.compilador.c.Term;
 import com.poli.compilador.c.TrueLit;
+import com.poli.compilador.c.Type;
 import com.poli.compilador.c.UnaryExp;
+import com.poli.compilador.c.Variable;
+import com.poli.compilador.c.arrayAccess;
+import com.poli.compilador.c.breakCmd;
+import com.poli.compilador.c.continueCmd;
+import com.poli.compilador.c.declCmd;
+import com.poli.compilador.c.doWhileCmd;
+import com.poli.compilador.c.fieldAccess;
+import com.poli.compilador.c.forCmd;
+import com.poli.compilador.c.ifCmd;
+import com.poli.compilador.c.lValue;
+import com.poli.compilador.c.returnCmd;
+import com.poli.compilador.c.switchCmd;
+import com.poli.compilador.c.varCmd;
+import com.poli.compilador.c.whileCmd;
 import com.poli.compilador.services.CGrammarAccess;
 import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
@@ -47,17 +64,20 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == CPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
+			case CPackage.ARGUMENT:
+				sequence_Argument(context, (Argument) semanticObject); 
+				return; 
 			case CPackage.ARITM_EXP:
 				sequence_ArithExp(context, (AritmExp) semanticObject); 
 				return; 
-			case CPackage.COMMAND:
-				sequence_Command(context, (Command) semanticObject); 
+			case CPackage.ASSIGNMENT:
+				sequence_Assignment(context, (Assignment) semanticObject); 
+				return; 
+			case CPackage.CASE:
+				sequence_Case(context, (Case) semanticObject); 
 				return; 
 			case CPackage.DECLARATION:
 				sequence_Declaration(context, (Declaration) semanticObject); 
-				return; 
-			case CPackage.DEFINITION:
-				sequence_Definition(context, (Definition) semanticObject); 
 				return; 
 			case CPackage.EXPRESSION:
 				sequence_Expression(context, (Expression) semanticObject); 
@@ -68,14 +88,24 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case CPackage.FUNCTION:
 				sequence_Function(context, (Function) semanticObject); 
 				return; 
-			case CPackage.ID_VAL:
-				sequence_lValue(context, (IDVal) semanticObject); 
-				return; 
+			case CPackage.ID_DEF:
+				if (rule == grammarAccess.getDefinitionRule()) {
+					sequence_Definition_IdDef(context, (IdDef) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getIdDefRule()) {
+					sequence_IdDef(context, (IdDef) semanticObject); 
+					return; 
+				}
+				else break;
 			case CPackage.INT_LIT:
 				sequence_Literal(context, (IntLit) semanticObject); 
 				return; 
 			case CPackage.LOGIC_EXP:
 				sequence_Expression(context, (LogicExp) semanticObject); 
+				return; 
+			case CPackage.PARAMETER:
+				sequence_Parameter(context, (com.poli.compilador.c.Parameter) semanticObject); 
 				return; 
 			case CPackage.POINTER_EXP:
 				sequence_PointerExp(context, (PointerExp) semanticObject); 
@@ -86,19 +116,109 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case CPackage.REL_EXP:
 				sequence_RelExp(context, (RelExp) semanticObject); 
 				return; 
+			case CPackage.STRUCT:
+				sequence_Struct(context, (Struct) semanticObject); 
+				return; 
 			case CPackage.TERM:
 				sequence_Term(context, (Term) semanticObject); 
 				return; 
 			case CPackage.TRUE_LIT:
 				sequence_Literal(context, (TrueLit) semanticObject); 
 				return; 
+			case CPackage.TYPE:
+				sequence_Type(context, (Type) semanticObject); 
+				return; 
 			case CPackage.UNARY_EXP:
 				sequence_Factor(context, (UnaryExp) semanticObject); 
+				return; 
+			case CPackage.VARIABLE:
+				sequence_Variable(context, (Variable) semanticObject); 
+				return; 
+			case CPackage.ARRAY_ACCESS:
+				sequence_AccessExp(context, (arrayAccess) semanticObject); 
+				return; 
+			case CPackage.BREAK_CMD:
+				sequence_Command(context, (breakCmd) semanticObject); 
+				return; 
+			case CPackage.CONTINUE_CMD:
+				sequence_Command(context, (continueCmd) semanticObject); 
+				return; 
+			case CPackage.DECL_CMD:
+				sequence_Command(context, (declCmd) semanticObject); 
+				return; 
+			case CPackage.DO_WHILE_CMD:
+				sequence_Command(context, (doWhileCmd) semanticObject); 
+				return; 
+			case CPackage.FIELD_ACCESS:
+				sequence_AccessExp(context, (fieldAccess) semanticObject); 
+				return; 
+			case CPackage.FOR_CMD:
+				sequence_Command(context, (forCmd) semanticObject); 
+				return; 
+			case CPackage.IF_CMD:
+				sequence_Command(context, (ifCmd) semanticObject); 
+				return; 
+			case CPackage.LVALUE:
+				sequence_lValue(context, (lValue) semanticObject); 
+				return; 
+			case CPackage.RETURN_CMD:
+				sequence_Command(context, (returnCmd) semanticObject); 
+				return; 
+			case CPackage.SWITCH_CMD:
+				sequence_Command(context, (switchCmd) semanticObject); 
+				return; 
+			case CPackage.VAR_CMD:
+				sequence_Command(context, (varCmd) semanticObject); 
+				return; 
+			case CPackage.WHILE_CMD:
+				sequence_Command(context, (whileCmd) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null)
 			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
+	
+	/**
+	 * Contexts:
+	 *     AccessExp returns arrayAccess
+	 *
+	 * Constraint:
+	 *     exp+=Expression?
+	 */
+	protected void sequence_AccessExp(ISerializationContext context, arrayAccess semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AccessExp returns fieldAccess
+	 *
+	 * Constraint:
+	 *     field=ID
+	 */
+	protected void sequence_AccessExp(ISerializationContext context, fieldAccess semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, CPackage.Literals.FIELD_ACCESS__FIELD) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CPackage.Literals.FIELD_ACCESS__FIELD));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAccessExpAccess().getFieldIDTerminalRuleCall_1_2_0(), semanticObject.getField());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Argument returns Argument
+	 *
+	 * Constraint:
+	 *     (exp+=Expression exp+=Expression*)
+	 */
+	protected void sequence_Argument(ISerializationContext context, Argument semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
 	
 	/**
 	 * Contexts:
@@ -117,23 +237,160 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     Command returns Command
+	 *     Assignment returns Assignment
 	 *
 	 * Constraint:
-	 *     ((exp+=Expression commands+=Command* commands+=Command*) | exp+=Expression)?
+	 *     exp=Expression
 	 */
-	protected void sequence_Command(ISerializationContext context, Command semanticObject) {
+	protected void sequence_Assignment(ISerializationContext context, Assignment semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, CPackage.Literals.ASSIGNMENT__EXP) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CPackage.Literals.ASSIGNMENT__EXP));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAssignmentAccess().getExpExpressionParserRuleCall_1_0(), semanticObject.getExp());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Case returns Case
+	 *
+	 * Constraint:
+	 *     (val+=Atom commands+=Command*)
+	 */
+	protected void sequence_Case(ISerializationContext context, Case semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     Definition returns Declaration
+	 *     Command returns breakCmd
+	 *
+	 * Constraint:
+	 *     {breakCmd}
+	 */
+	protected void sequence_Command(ISerializationContext context, breakCmd semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Command returns continueCmd
+	 *
+	 * Constraint:
+	 *     {continueCmd}
+	 */
+	protected void sequence_Command(ISerializationContext context, continueCmd semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Command returns declCmd
+	 *
+	 * Constraint:
+	 *     (def+=IdDef decl+=Declaration)
+	 */
+	protected void sequence_Command(ISerializationContext context, declCmd semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Command returns doWhileCmd
+	 *
+	 * Constraint:
+	 *     (commands+=Command* exp+=Expression)
+	 */
+	protected void sequence_Command(ISerializationContext context, doWhileCmd semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Command returns forCmd
+	 *
+	 * Constraint:
+	 *     commands+=Command*
+	 */
+	protected void sequence_Command(ISerializationContext context, forCmd semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Command returns ifCmd
+	 *
+	 * Constraint:
+	 *     (exp+=Expression commands+=Command* commands+=Command*)
+	 */
+	protected void sequence_Command(ISerializationContext context, ifCmd semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Command returns returnCmd
+	 *
+	 * Constraint:
+	 *     exp+=Expression?
+	 */
+	protected void sequence_Command(ISerializationContext context, returnCmd semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Command returns switchCmd
+	 *
+	 * Constraint:
+	 *     (exp+=Expression cases+=Case* commands+=Command*)
+	 */
+	protected void sequence_Command(ISerializationContext context, switchCmd semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Command returns varCmd
+	 *
+	 * Constraint:
+	 *     (val+=lValue val+=Assignment?)?
+	 */
+	protected void sequence_Command(ISerializationContext context, varCmd semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Command returns whileCmd
+	 *
+	 * Constraint:
+	 *     (exp+=Expression commands+=Command*)
+	 */
+	protected void sequence_Command(ISerializationContext context, whileCmd semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Declaration returns Declaration
 	 *
 	 * Constraint:
-	 *     (tipo=Type name+=ID* asg=Assignment)
+	 *     (name+=Variable* val+=Assignment?)
 	 */
 	protected void sequence_Declaration(ISerializationContext context, Declaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -142,12 +399,12 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     Definition returns Definition
+	 *     Definition returns IdDef
 	 *
 	 * Constraint:
-	 *     val+=Function
+	 *     (tipo=Type name+=Variable (val=Function | val=Declaration))
 	 */
-	protected void sequence_Definition(ISerializationContext context, Definition semanticObject) {
+	protected void sequence_Definition_IdDef(ISerializationContext context, IdDef semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -217,9 +474,21 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Function returns Function
 	 *
 	 * Constraint:
-	 *     (tipo=Type name=ID params+=Parameter? commands+=Command*)
+	 *     (params+=Parameter? commands+=Command*)
 	 */
 	protected void sequence_Function(ISerializationContext context, Function semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     IdDef returns IdDef
+	 *
+	 * Constraint:
+	 *     (tipo=Type name+=Variable)
+	 */
+	protected void sequence_IdDef(ISerializationContext context, IdDef semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -304,6 +573,19 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     Parameter returns Parameter
+	 *
+	 * Constraint:
+	 *     (def+=IdDef def+=IdDef*)
+	 */
+	protected void sequence_Parameter(ISerializationContext context, com.poli.compilador.c.Parameter semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Variable returns PointerExp
 	 *     RelExp returns PointerExp
 	 *     RelExp.RelExp_1_0 returns PointerExp
 	 *     ArithExp returns PointerExp
@@ -316,16 +598,10 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     PointerExp returns PointerExp
 	 *
 	 * Constraint:
-	 *     ptr=Atom
+	 *     exp+=Expression?
 	 */
 	protected void sequence_PointerExp(ISerializationContext context, PointerExp semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, CPackage.Literals.POINTER_EXP__PTR) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CPackage.Literals.POINTER_EXP__PTR));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getPointerExpAccess().getPtrAtomParserRuleCall_1_0(), semanticObject.getPtr());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -355,6 +631,19 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     Definition returns Struct
+	 *     Struct returns Struct
+	 *
+	 * Constraint:
+	 *     (name+=Variable def+=IdDef decl+=Declaration)
+	 */
+	protected void sequence_Struct(ISerializationContext context, Struct semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     RelExp returns Term
 	 *     RelExp.RelExp_1_0 returns Term
 	 *     ArithExp returns Term
@@ -372,27 +661,45 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     RelExp returns IDVal
-	 *     RelExp.RelExp_1_0 returns IDVal
-	 *     ArithExp returns IDVal
-	 *     ArithExp.AritmExp_1_0 returns IDVal
-	 *     Term returns IDVal
-	 *     Term.Term_1_0 returns IDVal
-	 *     Factor returns IDVal
-	 *     Atom returns IDVal
-	 *     lValue returns IDVal
+	 *     Type returns Type
 	 *
 	 * Constraint:
-	 *     val=ID
+	 *     (tipo+=TYPELIT exp+=Expression?)
 	 */
-	protected void sequence_lValue(ISerializationContext context, IDVal semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, CPackage.Literals.REL_EXP__VAL) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CPackage.Literals.REL_EXP__VAL));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getLValueAccess().getValIDTerminalRuleCall_0_1_0(), semanticObject.getVal());
-		feeder.finish();
+	protected void sequence_Type(ISerializationContext context, Type semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Variable returns Variable
+	 *
+	 * Constraint:
+	 *     {Variable}
+	 */
+	protected void sequence_Variable(ISerializationContext context, Variable semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     RelExp returns lValue
+	 *     RelExp.RelExp_1_0 returns lValue
+	 *     ArithExp returns lValue
+	 *     ArithExp.AritmExp_1_0 returns lValue
+	 *     Term returns lValue
+	 *     Term.Term_1_0 returns lValue
+	 *     Factor returns lValue
+	 *     Atom returns lValue
+	 *     lValue returns lValue
+	 *
+	 * Constraint:
+	 *     (val=ID (args+=Argument | acc=AccessExp)?)
+	 */
+	protected void sequence_lValue(ISerializationContext context, lValue semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

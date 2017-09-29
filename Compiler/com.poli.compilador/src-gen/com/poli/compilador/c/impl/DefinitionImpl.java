@@ -5,7 +5,7 @@ package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Definition;
-import com.poli.compilador.c.Function;
+import com.poli.compilador.c.Variable;
 
 import java.util.Collection;
 
@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.DefinitionImpl#getVal <em>Val</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.DefinitionImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
@@ -37,14 +37,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class DefinitionImpl extends MinimalEObjectImpl.Container implements Definition
 {
   /**
-   * The cached value of the '{@link #getVal() <em>Val</em>}' containment reference list.
+   * The cached value of the '{@link #getName() <em>Name</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVal()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected EList<Function> val;
+  protected EList<Variable> name;
 
   /**
    * <!-- begin-user-doc -->
@@ -72,13 +72,13 @@ public class DefinitionImpl extends MinimalEObjectImpl.Container implements Defi
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Function> getVal()
+  public EList<Variable> getName()
   {
-    if (val == null)
+    if (name == null)
     {
-      val = new EObjectContainmentEList<Function>(Function.class, this, CPackage.DEFINITION__VAL);
+      name = new EObjectContainmentEList<Variable>(Variable.class, this, CPackage.DEFINITION__NAME);
     }
-    return val;
+    return name;
   }
 
   /**
@@ -91,8 +91,8 @@ public class DefinitionImpl extends MinimalEObjectImpl.Container implements Defi
   {
     switch (featureID)
     {
-      case CPackage.DEFINITION__VAL:
-        return ((InternalEList<?>)getVal()).basicRemove(otherEnd, msgs);
+      case CPackage.DEFINITION__NAME:
+        return ((InternalEList<?>)getName()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -107,8 +107,8 @@ public class DefinitionImpl extends MinimalEObjectImpl.Container implements Defi
   {
     switch (featureID)
     {
-      case CPackage.DEFINITION__VAL:
-        return getVal();
+      case CPackage.DEFINITION__NAME:
+        return getName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -124,9 +124,9 @@ public class DefinitionImpl extends MinimalEObjectImpl.Container implements Defi
   {
     switch (featureID)
     {
-      case CPackage.DEFINITION__VAL:
-        getVal().clear();
-        getVal().addAll((Collection<? extends Function>)newValue);
+      case CPackage.DEFINITION__NAME:
+        getName().clear();
+        getName().addAll((Collection<? extends Variable>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -142,8 +142,8 @@ public class DefinitionImpl extends MinimalEObjectImpl.Container implements Defi
   {
     switch (featureID)
     {
-      case CPackage.DEFINITION__VAL:
-        getVal().clear();
+      case CPackage.DEFINITION__NAME:
+        getName().clear();
         return;
     }
     super.eUnset(featureID);
@@ -159,8 +159,8 @@ public class DefinitionImpl extends MinimalEObjectImpl.Container implements Defi
   {
     switch (featureID)
     {
-      case CPackage.DEFINITION__VAL:
-        return val != null && !val.isEmpty();
+      case CPackage.DEFINITION__NAME:
+        return name != null && !name.isEmpty();
     }
     return super.eIsSet(featureID);
   }

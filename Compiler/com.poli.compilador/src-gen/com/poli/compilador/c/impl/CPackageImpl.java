@@ -3,11 +3,15 @@
  */
 package com.poli.compilador.c.impl;
 
+import com.poli.compilador.c.AccessExp;
+import com.poli.compilador.c.Argument;
 import com.poli.compilador.c.ArithExp;
 import com.poli.compilador.c.AritmExp;
+import com.poli.compilador.c.Assignment;
 import com.poli.compilador.c.Atom;
 import com.poli.compilador.c.CFactory;
 import com.poli.compilador.c.CPackage;
+import com.poli.compilador.c.Case;
 import com.poli.compilador.c.Command;
 import com.poli.compilador.c.Declaration;
 import com.poli.compilador.c.Definition;
@@ -15,17 +19,33 @@ import com.poli.compilador.c.Expression;
 import com.poli.compilador.c.Factor;
 import com.poli.compilador.c.FalseLit;
 import com.poli.compilador.c.Function;
-import com.poli.compilador.c.IDVal;
+import com.poli.compilador.c.IdDef;
 import com.poli.compilador.c.IntLit;
 import com.poli.compilador.c.Literal;
 import com.poli.compilador.c.LogicExp;
+import com.poli.compilador.c.Parameter;
 import com.poli.compilador.c.PointerExp;
 import com.poli.compilador.c.Program;
 import com.poli.compilador.c.RelExp;
+import com.poli.compilador.c.Struct;
 import com.poli.compilador.c.Term;
 import com.poli.compilador.c.TrueLit;
+import com.poli.compilador.c.Type;
 import com.poli.compilador.c.UnaryExp;
+import com.poli.compilador.c.Variable;
+import com.poli.compilador.c.arrayAccess;
+import com.poli.compilador.c.breakCmd;
+import com.poli.compilador.c.continueCmd;
+import com.poli.compilador.c.declCmd;
+import com.poli.compilador.c.doWhileCmd;
+import com.poli.compilador.c.fieldAccess;
+import com.poli.compilador.c.forCmd;
+import com.poli.compilador.c.ifCmd;
 import com.poli.compilador.c.lValue;
+import com.poli.compilador.c.returnCmd;
+import com.poli.compilador.c.switchCmd;
+import com.poli.compilador.c.varCmd;
+import com.poli.compilador.c.whileCmd;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -75,7 +95,49 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass structEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass idDefEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass variableEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass commandEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass parameterEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass argumentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass assignmentEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -138,7 +200,98 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass accessExpEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass caseEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass literalEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass ifCmdEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass whileCmdEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass forCmdEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass switchCmdEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass declCmdEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass doWhileCmdEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass varCmdEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass breakCmdEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass continueCmdEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass returnCmdEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -166,7 +319,14 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass idValEClass = null;
+  private EClass arrayAccessEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass fieldAccessEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -287,7 +447,7 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getDefinition_Val()
+  public EReference getDefinition_Name()
   {
     return (EReference)definitionEClass.getEStructuralFeatures().get(0);
   }
@@ -307,29 +467,9 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFunction_Tipo()
+  public EReference getFunction_Params()
   {
-    return (EAttribute)functionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getFunction_Name()
-  {
-    return (EAttribute)functionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getFunction_Params()
-  {
-    return (EAttribute)functionEClass.getEStructuralFeatures().get(2);
+    return (EReference)functionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -339,7 +479,7 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    */
   public EReference getFunction_Commands()
   {
-    return (EReference)functionEClass.getEStructuralFeatures().get(3);
+    return (EReference)functionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -357,9 +497,9 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getDeclaration_Tipo()
+  public EReference getDeclaration_Name()
   {
-    return (EAttribute)declarationEClass.getEStructuralFeatures().get(0);
+    return (EReference)declarationEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -367,9 +507,9 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getDeclaration_Name()
+  public EReference getDeclaration_Val()
   {
-    return (EAttribute)declarationEClass.getEStructuralFeatures().get(1);
+    return (EReference)declarationEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -377,9 +517,69 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getDeclaration_Asg()
+  public EClass getStruct()
   {
-    return (EAttribute)declarationEClass.getEStructuralFeatures().get(2);
+    return structEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getStruct_Def()
+  {
+    return (EReference)structEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getStruct_Decl()
+  {
+    return (EReference)structEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getIdDef()
+  {
+    return idDefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getIdDef_Val()
+  {
+    return (EReference)idDefEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getIdDef_Tipo()
+  {
+    return (EReference)idDefEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getVariable()
+  {
+    return variableEClass;
   }
 
   /**
@@ -397,9 +597,9 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCommand_Exp()
+  public EClass getParameter()
   {
-    return (EReference)commandEClass.getEStructuralFeatures().get(0);
+    return parameterEClass;
   }
 
   /**
@@ -407,9 +607,49 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCommand_Commands()
+  public EReference getParameter_Def()
   {
-    return (EReference)commandEClass.getEStructuralFeatures().get(1);
+    return (EReference)parameterEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getArgument()
+  {
+    return argumentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getArgument_Exp()
+  {
+    return (EReference)argumentEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAssignment()
+  {
+    return assignmentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAssignment_Exp()
+  {
+    return (EReference)assignmentEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -507,6 +747,16 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getlValue_Acc()
+  {
+    return (EReference)lValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getPointerExp()
   {
     return pointerExpEClass;
@@ -517,9 +767,79 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPointerExp_Ptr()
+  public EReference getPointerExp_Exp()
   {
     return (EReference)pointerExpEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAccessExp()
+  {
+    return accessExpEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getCase()
+  {
+    return caseEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCase_Val()
+  {
+    return (EReference)caseEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCase_Commands()
+  {
+    return (EReference)caseEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getType()
+  {
+    return typeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getType_Tipo()
+  {
+    return (EAttribute)typeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getType_Exp()
+  {
+    return (EReference)typeEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -530,6 +850,246 @@ public class CPackageImpl extends EPackageImpl implements CPackage
   public EClass getLiteral()
   {
     return literalEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getifCmd()
+  {
+    return ifCmdEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getifCmd_Exp()
+  {
+    return (EReference)ifCmdEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getifCmd_Commands()
+  {
+    return (EReference)ifCmdEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getwhileCmd()
+  {
+    return whileCmdEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getwhileCmd_Exp()
+  {
+    return (EReference)whileCmdEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getwhileCmd_Commands()
+  {
+    return (EReference)whileCmdEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getforCmd()
+  {
+    return forCmdEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getforCmd_Commands()
+  {
+    return (EReference)forCmdEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getswitchCmd()
+  {
+    return switchCmdEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getswitchCmd_Exp()
+  {
+    return (EReference)switchCmdEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getswitchCmd_Cases()
+  {
+    return (EReference)switchCmdEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getswitchCmd_Commands()
+  {
+    return (EReference)switchCmdEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getdeclCmd()
+  {
+    return declCmdEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getdeclCmd_Def()
+  {
+    return (EReference)declCmdEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getdeclCmd_Decl()
+  {
+    return (EReference)declCmdEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getdoWhileCmd()
+  {
+    return doWhileCmdEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getdoWhileCmd_Commands()
+  {
+    return (EReference)doWhileCmdEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getdoWhileCmd_Exp()
+  {
+    return (EReference)doWhileCmdEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getvarCmd()
+  {
+    return varCmdEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getvarCmd_Val()
+  {
+    return (EReference)varCmdEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getbreakCmd()
+  {
+    return breakCmdEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getcontinueCmd()
+  {
+    return continueCmdEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getreturnCmd()
+  {
+    return returnCmdEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getreturnCmd_Exp()
+  {
+    return (EReference)returnCmdEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -567,9 +1127,39 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getIDVal()
+  public EClass getarrayAccess()
   {
-    return idValEClass;
+    return arrayAccessEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getarrayAccess_Exp()
+  {
+    return (EReference)arrayAccessEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getfieldAccess()
+  {
+    return fieldAccessEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getfieldAccess_Field()
+  {
+    return (EAttribute)fieldAccessEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -646,22 +1236,36 @@ public class CPackageImpl extends EPackageImpl implements CPackage
     createEReference(programEClass, PROGRAM__DEFINITION);
 
     definitionEClass = createEClass(DEFINITION);
-    createEReference(definitionEClass, DEFINITION__VAL);
+    createEReference(definitionEClass, DEFINITION__NAME);
 
     functionEClass = createEClass(FUNCTION);
-    createEAttribute(functionEClass, FUNCTION__TIPO);
-    createEAttribute(functionEClass, FUNCTION__NAME);
-    createEAttribute(functionEClass, FUNCTION__PARAMS);
+    createEReference(functionEClass, FUNCTION__PARAMS);
     createEReference(functionEClass, FUNCTION__COMMANDS);
 
     declarationEClass = createEClass(DECLARATION);
-    createEAttribute(declarationEClass, DECLARATION__TIPO);
-    createEAttribute(declarationEClass, DECLARATION__NAME);
-    createEAttribute(declarationEClass, DECLARATION__ASG);
+    createEReference(declarationEClass, DECLARATION__NAME);
+    createEReference(declarationEClass, DECLARATION__VAL);
+
+    structEClass = createEClass(STRUCT);
+    createEReference(structEClass, STRUCT__DEF);
+    createEReference(structEClass, STRUCT__DECL);
+
+    idDefEClass = createEClass(ID_DEF);
+    createEReference(idDefEClass, ID_DEF__VAL);
+    createEReference(idDefEClass, ID_DEF__TIPO);
+
+    variableEClass = createEClass(VARIABLE);
 
     commandEClass = createEClass(COMMAND);
-    createEReference(commandEClass, COMMAND__EXP);
-    createEReference(commandEClass, COMMAND__COMMANDS);
+
+    parameterEClass = createEClass(PARAMETER);
+    createEReference(parameterEClass, PARAMETER__DEF);
+
+    argumentEClass = createEClass(ARGUMENT);
+    createEReference(argumentEClass, ARGUMENT__EXP);
+
+    assignmentEClass = createEClass(ASSIGNMENT);
+    createEReference(assignmentEClass, ASSIGNMENT__EXP);
 
     expressionEClass = createEClass(EXPRESSION);
 
@@ -678,11 +1282,56 @@ public class CPackageImpl extends EPackageImpl implements CPackage
     atomEClass = createEClass(ATOM);
 
     lValueEClass = createEClass(LVALUE);
+    createEReference(lValueEClass, LVALUE__ACC);
 
     pointerExpEClass = createEClass(POINTER_EXP);
-    createEReference(pointerExpEClass, POINTER_EXP__PTR);
+    createEReference(pointerExpEClass, POINTER_EXP__EXP);
+
+    accessExpEClass = createEClass(ACCESS_EXP);
+
+    caseEClass = createEClass(CASE);
+    createEReference(caseEClass, CASE__VAL);
+    createEReference(caseEClass, CASE__COMMANDS);
+
+    typeEClass = createEClass(TYPE);
+    createEAttribute(typeEClass, TYPE__TIPO);
+    createEReference(typeEClass, TYPE__EXP);
 
     literalEClass = createEClass(LITERAL);
+
+    ifCmdEClass = createEClass(IF_CMD);
+    createEReference(ifCmdEClass, IF_CMD__EXP);
+    createEReference(ifCmdEClass, IF_CMD__COMMANDS);
+
+    whileCmdEClass = createEClass(WHILE_CMD);
+    createEReference(whileCmdEClass, WHILE_CMD__EXP);
+    createEReference(whileCmdEClass, WHILE_CMD__COMMANDS);
+
+    forCmdEClass = createEClass(FOR_CMD);
+    createEReference(forCmdEClass, FOR_CMD__COMMANDS);
+
+    switchCmdEClass = createEClass(SWITCH_CMD);
+    createEReference(switchCmdEClass, SWITCH_CMD__EXP);
+    createEReference(switchCmdEClass, SWITCH_CMD__CASES);
+    createEReference(switchCmdEClass, SWITCH_CMD__COMMANDS);
+
+    declCmdEClass = createEClass(DECL_CMD);
+    createEReference(declCmdEClass, DECL_CMD__DEF);
+    createEReference(declCmdEClass, DECL_CMD__DECL);
+
+    doWhileCmdEClass = createEClass(DO_WHILE_CMD);
+    createEReference(doWhileCmdEClass, DO_WHILE_CMD__COMMANDS);
+    createEReference(doWhileCmdEClass, DO_WHILE_CMD__EXP);
+
+    varCmdEClass = createEClass(VAR_CMD);
+    createEReference(varCmdEClass, VAR_CMD__VAL);
+
+    breakCmdEClass = createEClass(BREAK_CMD);
+
+    continueCmdEClass = createEClass(CONTINUE_CMD);
+
+    returnCmdEClass = createEClass(RETURN_CMD);
+    createEReference(returnCmdEClass, RETURN_CMD__EXP);
 
     logicExpEClass = createEClass(LOGIC_EXP);
 
@@ -690,7 +1339,11 @@ public class CPackageImpl extends EPackageImpl implements CPackage
 
     unaryExpEClass = createEClass(UNARY_EXP);
 
-    idValEClass = createEClass(ID_VAL);
+    arrayAccessEClass = createEClass(ARRAY_ACCESS);
+    createEReference(arrayAccessEClass, ARRAY_ACCESS__EXP);
+
+    fieldAccessEClass = createEClass(FIELD_ACCESS);
+    createEAttribute(fieldAccessEClass, FIELD_ACCESS__FIELD);
 
     intLitEClass = createEClass(INT_LIT);
     createEAttribute(intLitEClass, INT_LIT__VALOR);
@@ -729,19 +1382,32 @@ public class CPackageImpl extends EPackageImpl implements CPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    declarationEClass.getESuperTypes().add(this.getDefinition());
+    structEClass.getESuperTypes().add(this.getDefinition());
+    idDefEClass.getESuperTypes().add(this.getDefinition());
     expressionEClass.getESuperTypes().add(this.getAtom());
     arithExpEClass.getESuperTypes().add(this.getRelExp());
     termEClass.getESuperTypes().add(this.getArithExp());
     factorEClass.getESuperTypes().add(this.getTerm());
     atomEClass.getESuperTypes().add(this.getFactor());
     lValueEClass.getESuperTypes().add(this.getAtom());
+    pointerExpEClass.getESuperTypes().add(this.getVariable());
     pointerExpEClass.getESuperTypes().add(this.getlValue());
     literalEClass.getESuperTypes().add(this.getAtom());
+    ifCmdEClass.getESuperTypes().add(this.getCommand());
+    whileCmdEClass.getESuperTypes().add(this.getCommand());
+    forCmdEClass.getESuperTypes().add(this.getCommand());
+    switchCmdEClass.getESuperTypes().add(this.getCommand());
+    declCmdEClass.getESuperTypes().add(this.getCommand());
+    doWhileCmdEClass.getESuperTypes().add(this.getCommand());
+    varCmdEClass.getESuperTypes().add(this.getCommand());
+    breakCmdEClass.getESuperTypes().add(this.getCommand());
+    continueCmdEClass.getESuperTypes().add(this.getCommand());
+    returnCmdEClass.getESuperTypes().add(this.getCommand());
     logicExpEClass.getESuperTypes().add(this.getExpression());
     aritmExpEClass.getESuperTypes().add(this.getArithExp());
     unaryExpEClass.getESuperTypes().add(this.getFactor());
-    idValEClass.getESuperTypes().add(this.getlValue());
+    arrayAccessEClass.getESuperTypes().add(this.getAccessExp());
+    fieldAccessEClass.getESuperTypes().add(this.getAccessExp());
     intLitEClass.getESuperTypes().add(this.getLiteral());
     trueLitEClass.getESuperTypes().add(this.getLiteral());
     falseLitEClass.getESuperTypes().add(this.getLiteral());
@@ -751,27 +1417,41 @@ public class CPackageImpl extends EPackageImpl implements CPackage
     initEReference(getProgram_Definition(), this.getDefinition(), null, "definition", null, 0, -1, Program.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(definitionEClass, Definition.class, "Definition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getDefinition_Val(), this.getFunction(), null, "val", null, 0, -1, Definition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDefinition_Name(), this.getVariable(), null, "name", null, 0, -1, Definition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(functionEClass, Function.class, "Function", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getFunction_Tipo(), ecorePackage.getEString(), "tipo", null, 0, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getFunction_Name(), ecorePackage.getEString(), "name", null, 0, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getFunction_Params(), ecorePackage.getEString(), "params", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFunction_Params(), this.getParameter(), null, "params", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFunction_Commands(), this.getCommand(), null, "commands", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(declarationEClass, Declaration.class, "Declaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getDeclaration_Tipo(), ecorePackage.getEString(), "tipo", null, 0, 1, Declaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getDeclaration_Name(), ecorePackage.getEString(), "name", null, 0, -1, Declaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getDeclaration_Asg(), ecorePackage.getEString(), "asg", null, 0, 1, Declaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDeclaration_Name(), this.getVariable(), null, "name", null, 0, -1, Declaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDeclaration_Val(), this.getAssignment(), null, "val", null, 0, -1, Declaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(structEClass, Struct.class, "Struct", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getStruct_Def(), this.getIdDef(), null, "def", null, 0, -1, Struct.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStruct_Decl(), this.getDeclaration(), null, "decl", null, 0, -1, Struct.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(idDefEClass, IdDef.class, "IdDef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getIdDef_Val(), ecorePackage.getEObject(), null, "val", null, 0, 1, IdDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getIdDef_Tipo(), this.getType(), null, "tipo", null, 0, 1, IdDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(commandEClass, Command.class, "Command", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getCommand_Exp(), this.getExpression(), null, "exp", null, 0, -1, Command.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getCommand_Commands(), this.getCommand(), null, "commands", null, 0, -1, Command.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(parameterEClass, Parameter.class, "Parameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getParameter_Def(), this.getIdDef(), null, "def", null, 0, -1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(argumentEClass, Argument.class, "Argument", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getArgument_Exp(), this.getExpression(), null, "exp", null, 0, -1, Argument.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(assignmentEClass, Assignment.class, "Assignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAssignment_Exp(), this.getExpression(), null, "exp", null, 0, 1, Assignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(relExpEClass, RelExp.class, "RelExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getRelExp_Args(), this.getRelExp(), null, "args", null, 0, -1, RelExp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getRelExp_Args(), ecorePackage.getEObject(), null, "args", null, 0, -1, RelExp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getRelExp_Val(), ecorePackage.getEString(), "val", null, 0, 1, RelExp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(arithExpEClass, ArithExp.class, "ArithExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -783,11 +1463,56 @@ public class CPackageImpl extends EPackageImpl implements CPackage
     initEClass(atomEClass, Atom.class, "Atom", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(lValueEClass, lValue.class, "lValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getlValue_Acc(), this.getAccessExp(), null, "acc", null, 0, 1, lValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pointerExpEClass, PointerExp.class, "PointerExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPointerExp_Ptr(), this.getAtom(), null, "ptr", null, 0, 1, PointerExp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPointerExp_Exp(), this.getExpression(), null, "exp", null, 0, -1, PointerExp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(accessExpEClass, AccessExp.class, "AccessExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(caseEClass, Case.class, "Case", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCase_Val(), this.getAtom(), null, "val", null, 0, -1, Case.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCase_Commands(), this.getCommand(), null, "commands", null, 0, -1, Case.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(typeEClass, Type.class, "Type", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getType_Tipo(), ecorePackage.getEString(), "tipo", null, 0, -1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getType_Exp(), this.getExpression(), null, "exp", null, 0, -1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(literalEClass, Literal.class, "Literal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(ifCmdEClass, ifCmd.class, "ifCmd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getifCmd_Exp(), this.getExpression(), null, "exp", null, 0, -1, ifCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getifCmd_Commands(), this.getCommand(), null, "commands", null, 0, -1, ifCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(whileCmdEClass, whileCmd.class, "whileCmd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getwhileCmd_Exp(), this.getExpression(), null, "exp", null, 0, -1, whileCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getwhileCmd_Commands(), this.getCommand(), null, "commands", null, 0, -1, whileCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(forCmdEClass, forCmd.class, "forCmd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getforCmd_Commands(), this.getCommand(), null, "commands", null, 0, -1, forCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(switchCmdEClass, switchCmd.class, "switchCmd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getswitchCmd_Exp(), this.getExpression(), null, "exp", null, 0, -1, switchCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getswitchCmd_Cases(), this.getCase(), null, "cases", null, 0, -1, switchCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getswitchCmd_Commands(), this.getCommand(), null, "commands", null, 0, -1, switchCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(declCmdEClass, declCmd.class, "declCmd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getdeclCmd_Def(), this.getIdDef(), null, "def", null, 0, -1, declCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getdeclCmd_Decl(), this.getDeclaration(), null, "decl", null, 0, -1, declCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(doWhileCmdEClass, doWhileCmd.class, "doWhileCmd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getdoWhileCmd_Commands(), this.getCommand(), null, "commands", null, 0, -1, doWhileCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getdoWhileCmd_Exp(), this.getExpression(), null, "exp", null, 0, -1, doWhileCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(varCmdEClass, varCmd.class, "varCmd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getvarCmd_Val(), ecorePackage.getEObject(), null, "val", null, 0, -1, varCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(breakCmdEClass, breakCmd.class, "breakCmd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(continueCmdEClass, continueCmd.class, "continueCmd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(returnCmdEClass, returnCmd.class, "returnCmd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getreturnCmd_Exp(), this.getExpression(), null, "exp", null, 0, -1, returnCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(logicExpEClass, LogicExp.class, "LogicExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -795,7 +1520,11 @@ public class CPackageImpl extends EPackageImpl implements CPackage
 
     initEClass(unaryExpEClass, UnaryExp.class, "UnaryExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(idValEClass, IDVal.class, "IDVal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(arrayAccessEClass, arrayAccess.class, "arrayAccess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getarrayAccess_Exp(), this.getExpression(), null, "exp", null, 0, -1, arrayAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(fieldAccessEClass, fieldAccess.class, "fieldAccess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getfieldAccess_Field(), ecorePackage.getEString(), "field", null, 0, 1, fieldAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(intLitEClass, IntLit.class, "IntLit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getIntLit_Valor(), ecorePackage.getEInt(), "valor", null, 0, 1, IntLit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
