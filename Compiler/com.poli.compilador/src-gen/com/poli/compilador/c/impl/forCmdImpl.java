@@ -5,6 +5,7 @@ package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Command;
+import com.poli.compilador.c.Expression;
 import com.poli.compilador.c.forCmd;
 
 import java.util.Collection;
@@ -14,6 +15,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -27,6 +29,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link com.poli.compilador.c.impl.forCmdImpl#getVal <em>Val</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.forCmdImpl#getExp <em>Exp</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.forCmdImpl#getCommands <em>Commands</em>}</li>
  * </ul>
  *
@@ -34,6 +38,26 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class forCmdImpl extends CommandImpl implements forCmd
 {
+  /**
+   * The cached value of the '{@link #getVal() <em>Val</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVal()
+   * @generated
+   * @ordered
+   */
+  protected EList<EObject> val;
+
+  /**
+   * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getExp()
+   * @generated
+   * @ordered
+   */
+  protected EList<Expression> exp;
+
   /**
    * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -70,6 +94,34 @@ public class forCmdImpl extends CommandImpl implements forCmd
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<EObject> getVal()
+  {
+    if (val == null)
+    {
+      val = new EObjectContainmentEList<EObject>(EObject.class, this, CPackage.FOR_CMD__VAL);
+    }
+    return val;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Expression> getExp()
+  {
+    if (exp == null)
+    {
+      exp = new EObjectContainmentEList<Expression>(Expression.class, this, CPackage.FOR_CMD__EXP);
+    }
+    return exp;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<Command> getCommands()
   {
     if (commands == null)
@@ -89,6 +141,10 @@ public class forCmdImpl extends CommandImpl implements forCmd
   {
     switch (featureID)
     {
+      case CPackage.FOR_CMD__VAL:
+        return ((InternalEList<?>)getVal()).basicRemove(otherEnd, msgs);
+      case CPackage.FOR_CMD__EXP:
+        return ((InternalEList<?>)getExp()).basicRemove(otherEnd, msgs);
       case CPackage.FOR_CMD__COMMANDS:
         return ((InternalEList<?>)getCommands()).basicRemove(otherEnd, msgs);
     }
@@ -105,6 +161,10 @@ public class forCmdImpl extends CommandImpl implements forCmd
   {
     switch (featureID)
     {
+      case CPackage.FOR_CMD__VAL:
+        return getVal();
+      case CPackage.FOR_CMD__EXP:
+        return getExp();
       case CPackage.FOR_CMD__COMMANDS:
         return getCommands();
     }
@@ -122,6 +182,14 @@ public class forCmdImpl extends CommandImpl implements forCmd
   {
     switch (featureID)
     {
+      case CPackage.FOR_CMD__VAL:
+        getVal().clear();
+        getVal().addAll((Collection<? extends EObject>)newValue);
+        return;
+      case CPackage.FOR_CMD__EXP:
+        getExp().clear();
+        getExp().addAll((Collection<? extends Expression>)newValue);
+        return;
       case CPackage.FOR_CMD__COMMANDS:
         getCommands().clear();
         getCommands().addAll((Collection<? extends Command>)newValue);
@@ -140,6 +208,12 @@ public class forCmdImpl extends CommandImpl implements forCmd
   {
     switch (featureID)
     {
+      case CPackage.FOR_CMD__VAL:
+        getVal().clear();
+        return;
+      case CPackage.FOR_CMD__EXP:
+        getExp().clear();
+        return;
       case CPackage.FOR_CMD__COMMANDS:
         getCommands().clear();
         return;
@@ -157,6 +231,10 @@ public class forCmdImpl extends CommandImpl implements forCmd
   {
     switch (featureID)
     {
+      case CPackage.FOR_CMD__VAL:
+        return val != null && !val.isEmpty();
+      case CPackage.FOR_CMD__EXP:
+        return exp != null && !exp.isEmpty();
       case CPackage.FOR_CMD__COMMANDS:
         return commands != null && !commands.isEmpty();
     }

@@ -318,7 +318,14 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Command returns forCmd
 	 *
 	 * Constraint:
-	 *     commands+=Command*
+	 *     (
+	 *         val+=lValue 
+	 *         val+=Assignment 
+	 *         exp+=Expression 
+	 *         val+=lValue 
+	 *         val+=Assignment 
+	 *         commands+=Command*
+	 *     )
 	 */
 	protected void sequence_Command(ISerializationContext context, forCmd semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

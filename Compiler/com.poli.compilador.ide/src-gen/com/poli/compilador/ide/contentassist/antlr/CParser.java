@@ -108,7 +108,12 @@ public class CParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCommandAccess().getCommandsAssignment_0_8_2(), "rule__Command__CommandsAssignment_0_8_2");
 					put(grammarAccess.getCommandAccess().getExpAssignment_1_3(), "rule__Command__ExpAssignment_1_3");
 					put(grammarAccess.getCommandAccess().getCommandsAssignment_1_6(), "rule__Command__CommandsAssignment_1_6");
-					put(grammarAccess.getCommandAccess().getCommandsAssignment_2_5(), "rule__Command__CommandsAssignment_2_5");
+					put(grammarAccess.getCommandAccess().getValAssignment_2_3(), "rule__Command__ValAssignment_2_3");
+					put(grammarAccess.getCommandAccess().getValAssignment_2_4(), "rule__Command__ValAssignment_2_4");
+					put(grammarAccess.getCommandAccess().getExpAssignment_2_6(), "rule__Command__ExpAssignment_2_6");
+					put(grammarAccess.getCommandAccess().getValAssignment_2_8(), "rule__Command__ValAssignment_2_8");
+					put(grammarAccess.getCommandAccess().getValAssignment_2_9(), "rule__Command__ValAssignment_2_9");
+					put(grammarAccess.getCommandAccess().getCommandsAssignment_2_12(), "rule__Command__CommandsAssignment_2_12");
 					put(grammarAccess.getCommandAccess().getExpAssignment_3_3(), "rule__Command__ExpAssignment_3_3");
 					put(grammarAccess.getCommandAccess().getCasesAssignment_3_6(), "rule__Command__CasesAssignment_3_6");
 					put(grammarAccess.getCommandAccess().getCommandsAssignment_3_7_2(), "rule__Command__CommandsAssignment_3_7_2");

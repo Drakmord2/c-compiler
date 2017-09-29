@@ -73,6 +73,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//whileCmd/commands"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//forCmd">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//forCmd/val"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//forCmd/exp"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//forCmd/commands"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//switchCmd">

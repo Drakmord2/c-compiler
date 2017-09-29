@@ -939,13 +939,31 @@ public interface CPackage extends EPackage
   int FOR_CMD = 25;
 
   /**
+   * The feature id for the '<em><b>Val</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FOR_CMD__VAL = COMMAND_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Exp</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FOR_CMD__EXP = COMMAND_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Commands</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FOR_CMD__COMMANDS = COMMAND_FEATURE_COUNT + 0;
+  int FOR_CMD__COMMANDS = COMMAND_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>for Cmd</em>' class.
@@ -954,7 +972,7 @@ public interface CPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FOR_CMD_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 1;
+  int FOR_CMD_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link com.poli.compilador.c.impl.switchCmdImpl <em>switch Cmd</em>}' class.
@@ -1994,6 +2012,28 @@ public interface CPackage extends EPackage
   EClass getforCmd();
 
   /**
+   * Returns the meta object for the containment reference list '{@link com.poli.compilador.c.forCmd#getVal <em>Val</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Val</em>'.
+   * @see com.poli.compilador.c.forCmd#getVal()
+   * @see #getforCmd()
+   * @generated
+   */
+  EReference getforCmd_Val();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.poli.compilador.c.forCmd#getExp <em>Exp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Exp</em>'.
+   * @see com.poli.compilador.c.forCmd#getExp()
+   * @see #getforCmd()
+   * @generated
+   */
+  EReference getforCmd_Exp();
+
+  /**
    * Returns the meta object for the containment reference list '{@link com.poli.compilador.c.forCmd#getCommands <em>Commands</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2768,6 +2808,22 @@ public interface CPackage extends EPackage
      * @generated
      */
     EClass FOR_CMD = eINSTANCE.getforCmd();
+
+    /**
+     * The meta object literal for the '<em><b>Val</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FOR_CMD__VAL = eINSTANCE.getforCmd_Val();
+
+    /**
+     * The meta object literal for the '<em><b>Exp</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FOR_CMD__EXP = eINSTANCE.getforCmd_Exp();
 
     /**
      * The meta object literal for the '<em><b>Commands</b></em>' containment reference list feature.
