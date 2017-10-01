@@ -73,7 +73,6 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
       case CPackage.ID_DEF: return createIdDef();
       case CPackage.VARIABLE: return createVariable();
       case CPackage.COMMAND: return createCommand();
-      case CPackage.PARAMETER: return createParameter();
       case CPackage.ARGUMENT: return createArgument();
       case CPackage.ASSIGNMENT: return createAssignment();
       case CPackage.EXPRESSION: return createExpression();
@@ -92,7 +91,6 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
       case CPackage.WHILE_CMD: return createwhileCmd();
       case CPackage.FOR_CMD: return createforCmd();
       case CPackage.SWITCH_CMD: return createswitchCmd();
-      case CPackage.DECL_CMD: return createdeclCmd();
       case CPackage.DO_WHILE_CMD: return createdoWhileCmd();
       case CPackage.VAR_CMD: return createvarCmd();
       case CPackage.BREAK_CMD: return createbreakCmd();
@@ -197,17 +195,6 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
   {
     CommandImpl command = new CommandImpl();
     return command;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Parameter createParameter()
-  {
-    ParameterImpl parameter = new ParameterImpl();
-    return parameter;
   }
 
   /**
@@ -406,17 +393,6 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
   {
     switchCmdImpl switchCmd = new switchCmdImpl();
     return switchCmd;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public declCmd createdeclCmd()
-  {
-    declCmdImpl declCmd = new declCmdImpl();
-    return declCmd;
   }
 
   /**

@@ -5,7 +5,6 @@ package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Declaration;
-import com.poli.compilador.c.IdDef;
 import com.poli.compilador.c.Struct;
 
 import java.util.Collection;
@@ -28,7 +27,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.StructImpl#getDef <em>Def</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.StructImpl#getDecl <em>Decl</em>}</li>
  * </ul>
  *
@@ -36,16 +34,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class StructImpl extends DefinitionImpl implements Struct
 {
-  /**
-   * The cached value of the '{@link #getDef() <em>Def</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDef()
-   * @generated
-   * @ordered
-   */
-  protected EList<IdDef> def;
-
   /**
    * The cached value of the '{@link #getDecl() <em>Decl</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -82,20 +70,6 @@ public class StructImpl extends DefinitionImpl implements Struct
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<IdDef> getDef()
-  {
-    if (def == null)
-    {
-      def = new EObjectContainmentEList<IdDef>(IdDef.class, this, CPackage.STRUCT__DEF);
-    }
-    return def;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<Declaration> getDecl()
   {
     if (decl == null)
@@ -115,8 +89,6 @@ public class StructImpl extends DefinitionImpl implements Struct
   {
     switch (featureID)
     {
-      case CPackage.STRUCT__DEF:
-        return ((InternalEList<?>)getDef()).basicRemove(otherEnd, msgs);
       case CPackage.STRUCT__DECL:
         return ((InternalEList<?>)getDecl()).basicRemove(otherEnd, msgs);
     }
@@ -133,8 +105,6 @@ public class StructImpl extends DefinitionImpl implements Struct
   {
     switch (featureID)
     {
-      case CPackage.STRUCT__DEF:
-        return getDef();
       case CPackage.STRUCT__DECL:
         return getDecl();
     }
@@ -152,10 +122,6 @@ public class StructImpl extends DefinitionImpl implements Struct
   {
     switch (featureID)
     {
-      case CPackage.STRUCT__DEF:
-        getDef().clear();
-        getDef().addAll((Collection<? extends IdDef>)newValue);
-        return;
       case CPackage.STRUCT__DECL:
         getDecl().clear();
         getDecl().addAll((Collection<? extends Declaration>)newValue);
@@ -174,9 +140,6 @@ public class StructImpl extends DefinitionImpl implements Struct
   {
     switch (featureID)
     {
-      case CPackage.STRUCT__DEF:
-        getDef().clear();
-        return;
       case CPackage.STRUCT__DECL:
         getDecl().clear();
         return;
@@ -194,8 +157,6 @@ public class StructImpl extends DefinitionImpl implements Struct
   {
     switch (featureID)
     {
-      case CPackage.STRUCT__DEF:
-        return def != null && !def.isEmpty();
       case CPackage.STRUCT__DECL:
         return decl != null && !decl.isEmpty();
     }

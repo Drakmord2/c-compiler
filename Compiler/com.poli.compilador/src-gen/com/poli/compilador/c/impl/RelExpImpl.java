@@ -14,7 +14,6 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -32,7 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link com.poli.compilador.c.impl.RelExpImpl#getArgs <em>Args</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.RelExpImpl#getVal <em>Val</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.RelExpImpl#getOp <em>Op</em>}</li>
  * </ul>
  *
  * @generated
@@ -47,27 +46,27 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
    * @generated
    * @ordered
    */
-  protected EList<EObject> args;
+  protected EList<RelExp> args;
 
   /**
-   * The default value of the '{@link #getVal() <em>Val</em>}' attribute.
+   * The default value of the '{@link #getOp() <em>Op</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVal()
+   * @see #getOp()
    * @generated
    * @ordered
    */
-  protected static final String VAL_EDEFAULT = null;
+  protected static final String OP_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getVal() <em>Val</em>}' attribute.
+   * The cached value of the '{@link #getOp() <em>Op</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVal()
+   * @see #getOp()
    * @generated
    * @ordered
    */
-  protected String val = VAL_EDEFAULT;
+  protected String op = OP_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -95,11 +94,11 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<EObject> getArgs()
+  public EList<RelExp> getArgs()
   {
     if (args == null)
     {
-      args = new EObjectContainmentEList<EObject>(EObject.class, this, CPackage.REL_EXP__ARGS);
+      args = new EObjectContainmentEList<RelExp>(RelExp.class, this, CPackage.REL_EXP__ARGS);
     }
     return args;
   }
@@ -109,9 +108,9 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getVal()
+  public String getOp()
   {
-    return val;
+    return op;
   }
 
   /**
@@ -119,12 +118,12 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setVal(String newVal)
+  public void setOp(String newOp)
   {
-    String oldVal = val;
-    val = newVal;
+    String oldOp = op;
+    op = newOp;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.REL_EXP__VAL, oldVal, val));
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.REL_EXP__OP, oldOp, op));
   }
 
   /**
@@ -155,8 +154,8 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
     {
       case CPackage.REL_EXP__ARGS:
         return getArgs();
-      case CPackage.REL_EXP__VAL:
-        return getVal();
+      case CPackage.REL_EXP__OP:
+        return getOp();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -174,10 +173,10 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
     {
       case CPackage.REL_EXP__ARGS:
         getArgs().clear();
-        getArgs().addAll((Collection<? extends EObject>)newValue);
+        getArgs().addAll((Collection<? extends RelExp>)newValue);
         return;
-      case CPackage.REL_EXP__VAL:
-        setVal((String)newValue);
+      case CPackage.REL_EXP__OP:
+        setOp((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -196,8 +195,8 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
       case CPackage.REL_EXP__ARGS:
         getArgs().clear();
         return;
-      case CPackage.REL_EXP__VAL:
-        setVal(VAL_EDEFAULT);
+      case CPackage.REL_EXP__OP:
+        setOp(OP_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -215,8 +214,8 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
     {
       case CPackage.REL_EXP__ARGS:
         return args != null && !args.isEmpty();
-      case CPackage.REL_EXP__VAL:
-        return VAL_EDEFAULT == null ? val != null : !VAL_EDEFAULT.equals(val);
+      case CPackage.REL_EXP__OP:
+        return OP_EDEFAULT == null ? op != null : !OP_EDEFAULT.equals(op);
     }
     return super.eIsSet(featureID);
   }
@@ -232,8 +231,8 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (val: ");
-    result.append(val);
+    result.append(" (op: ");
+    result.append(op);
     result.append(')');
     return result.toString();
   }

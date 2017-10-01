@@ -16,8 +16,9 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.forCmd#getVal <em>Val</em>}</li>
+ *   <li>{@link com.poli.compilador.c.forCmd#getInit <em>Init</em>}</li>
  *   <li>{@link com.poli.compilador.c.forCmd#getExp <em>Exp</em>}</li>
+ *   <li>{@link com.poli.compilador.c.forCmd#getInc <em>Inc</em>}</li>
  *   <li>{@link com.poli.compilador.c.forCmd#getCommands <em>Commands</em>}</li>
  * </ul>
  *
@@ -28,36 +29,62 @@ import org.eclipse.emf.ecore.EObject;
 public interface forCmd extends Command
 {
   /**
-   * Returns the value of the '<em><b>Val</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Init</b></em>' containment reference list.
    * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Val</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Init</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Val</em>' containment reference list.
-   * @see com.poli.compilador.c.CPackage#getforCmd_Val()
+   * @return the value of the '<em>Init</em>' containment reference list.
+   * @see com.poli.compilador.c.CPackage#getforCmd_Init()
    * @model containment="true"
    * @generated
    */
-  EList<EObject> getVal();
+  EList<EObject> getInit();
 
   /**
-   * Returns the value of the '<em><b>Exp</b></em>' containment reference list.
-   * The list contents are of type {@link com.poli.compilador.c.Expression}.
+   * Returns the value of the '<em><b>Exp</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Exp</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Exp</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Exp</em>' containment reference list.
+   * @return the value of the '<em>Exp</em>' containment reference.
+   * @see #setExp(Expression)
    * @see com.poli.compilador.c.CPackage#getforCmd_Exp()
    * @model containment="true"
    * @generated
    */
-  EList<Expression> getExp();
+  Expression getExp();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.forCmd#getExp <em>Exp</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Exp</em>' containment reference.
+   * @see #getExp()
+   * @generated
+   */
+  void setExp(Expression value);
+
+  /**
+   * Returns the value of the '<em><b>Inc</b></em>' containment reference list.
+   * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Inc</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Inc</em>' containment reference list.
+   * @see com.poli.compilador.c.CPackage#getforCmd_Inc()
+   * @model containment="true"
+   * @generated
+   */
+  EList<EObject> getInc();
 
   /**
    * Returns the value of the '<em><b>Commands</b></em>' containment reference list.

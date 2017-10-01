@@ -4,7 +4,9 @@
 package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.AccessExp;
+import com.poli.compilador.c.Argument;
 import com.poli.compilador.c.CPackage;
+import com.poli.compilador.c.Definition;
 import com.poli.compilador.c.lValue;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -23,6 +25,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link com.poli.compilador.c.impl.lValueImpl#getValor <em>Valor</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.lValueImpl#getArg <em>Arg</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.lValueImpl#getAcc <em>Acc</em>}</li>
  * </ul>
  *
@@ -30,6 +34,26 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class lValueImpl extends AtomImpl implements lValue
 {
+  /**
+   * The cached value of the '{@link #getValor() <em>Valor</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getValor()
+   * @generated
+   * @ordered
+   */
+  protected Definition valor;
+
+  /**
+   * The cached value of the '{@link #getArg() <em>Arg</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getArg()
+   * @generated
+   * @ordered
+   */
+  protected Argument arg;
+
   /**
    * The cached value of the '{@link #getAcc() <em>Acc</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -59,6 +83,97 @@ public class lValueImpl extends AtomImpl implements lValue
   protected EClass eStaticClass()
   {
     return CPackage.Literals.LVALUE;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Definition getValor()
+  {
+    if (valor != null && valor.eIsProxy())
+    {
+      InternalEObject oldValor = (InternalEObject)valor;
+      valor = (Definition)eResolveProxy(oldValor);
+      if (valor != oldValor)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CPackage.LVALUE__VALOR, oldValor, valor));
+      }
+    }
+    return valor;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Definition basicGetValor()
+  {
+    return valor;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setValor(Definition newValor)
+  {
+    Definition oldValor = valor;
+    valor = newValor;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.LVALUE__VALOR, oldValor, valor));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Argument getArg()
+  {
+    return arg;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetArg(Argument newArg, NotificationChain msgs)
+  {
+    Argument oldArg = arg;
+    arg = newArg;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.LVALUE__ARG, oldArg, newArg);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setArg(Argument newArg)
+  {
+    if (newArg != arg)
+    {
+      NotificationChain msgs = null;
+      if (arg != null)
+        msgs = ((InternalEObject)arg).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.LVALUE__ARG, null, msgs);
+      if (newArg != null)
+        msgs = ((InternalEObject)newArg).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.LVALUE__ARG, null, msgs);
+      msgs = basicSetArg(newArg, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.LVALUE__ARG, newArg, newArg));
   }
 
   /**
@@ -119,6 +234,8 @@ public class lValueImpl extends AtomImpl implements lValue
   {
     switch (featureID)
     {
+      case CPackage.LVALUE__ARG:
+        return basicSetArg(null, msgs);
       case CPackage.LVALUE__ACC:
         return basicSetAcc(null, msgs);
     }
@@ -135,6 +252,11 @@ public class lValueImpl extends AtomImpl implements lValue
   {
     switch (featureID)
     {
+      case CPackage.LVALUE__VALOR:
+        if (resolve) return getValor();
+        return basicGetValor();
+      case CPackage.LVALUE__ARG:
+        return getArg();
       case CPackage.LVALUE__ACC:
         return getAcc();
     }
@@ -151,6 +273,12 @@ public class lValueImpl extends AtomImpl implements lValue
   {
     switch (featureID)
     {
+      case CPackage.LVALUE__VALOR:
+        setValor((Definition)newValue);
+        return;
+      case CPackage.LVALUE__ARG:
+        setArg((Argument)newValue);
+        return;
       case CPackage.LVALUE__ACC:
         setAcc((AccessExp)newValue);
         return;
@@ -168,6 +296,12 @@ public class lValueImpl extends AtomImpl implements lValue
   {
     switch (featureID)
     {
+      case CPackage.LVALUE__VALOR:
+        setValor((Definition)null);
+        return;
+      case CPackage.LVALUE__ARG:
+        setArg((Argument)null);
+        return;
       case CPackage.LVALUE__ACC:
         setAcc((AccessExp)null);
         return;
@@ -185,6 +319,10 @@ public class lValueImpl extends AtomImpl implements lValue
   {
     switch (featureID)
     {
+      case CPackage.LVALUE__VALOR:
+        return valor != null;
+      case CPackage.LVALUE__ARG:
+        return arg != null;
       case CPackage.LVALUE__ACC:
         return acc != null;
     }

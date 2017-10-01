@@ -23,6 +23,7 @@ public class CSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected CGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_Command___DefaultKeyword_3_7_0_ColonKeyword_3_7_1__q;
 	protected AbstractElementAlias match_Command___ElseKeyword_0_8_0_LeftCurlyBracketKeyword_0_8_1_RightCurlyBracketKeyword_0_8_3__q;
+	protected AbstractElementAlias match_Declaration_AsteriskAsteriskKeyword_1_0_1_q;
 	protected AbstractElementAlias match_Type___LeftSquareBracketKeyword_1_0_RightSquareBracketKeyword_1_2__q;
 	protected AbstractElementAlias match_lValue___LeftParenthesisKeyword_0_1_0_0_RightParenthesisKeyword_0_1_0_2__q;
 	
@@ -31,6 +32,7 @@ public class CSyntacticSequencer extends AbstractSyntacticSequencer {
 		grammarAccess = (CGrammarAccess) access;
 		match_Command___DefaultKeyword_3_7_0_ColonKeyword_3_7_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getCommandAccess().getDefaultKeyword_3_7_0()), new TokenAlias(false, false, grammarAccess.getCommandAccess().getColonKeyword_3_7_1()));
 		match_Command___ElseKeyword_0_8_0_LeftCurlyBracketKeyword_0_8_1_RightCurlyBracketKeyword_0_8_3__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getCommandAccess().getElseKeyword_0_8_0()), new TokenAlias(false, false, grammarAccess.getCommandAccess().getLeftCurlyBracketKeyword_0_8_1()), new TokenAlias(false, false, grammarAccess.getCommandAccess().getRightCurlyBracketKeyword_0_8_3()));
+		match_Declaration_AsteriskAsteriskKeyword_1_0_1_q = new TokenAlias(false, true, grammarAccess.getDeclarationAccess().getAsteriskAsteriskKeyword_1_0_1());
 		match_Type___LeftSquareBracketKeyword_1_0_RightSquareBracketKeyword_1_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getTypeAccess().getLeftSquareBracketKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getTypeAccess().getRightSquareBracketKeyword_1_2()));
 		match_lValue___LeftParenthesisKeyword_0_1_0_0_RightParenthesisKeyword_0_1_0_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getLValueAccess().getLeftParenthesisKeyword_0_1_0_0()), new TokenAlias(false, false, grammarAccess.getLValueAccess().getRightParenthesisKeyword_0_1_0_2()));
 	}
@@ -61,6 +63,8 @@ public class CSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_Command___DefaultKeyword_3_7_0_ColonKeyword_3_7_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_Command___ElseKeyword_0_8_0_LeftCurlyBracketKeyword_0_8_1_RightCurlyBracketKeyword_0_8_3__q.equals(syntax))
 				emit_Command___ElseKeyword_0_8_0_LeftCurlyBracketKeyword_0_8_1_RightCurlyBracketKeyword_0_8_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_Declaration_AsteriskAsteriskKeyword_1_0_1_q.equals(syntax))
+				emit_Declaration_AsteriskAsteriskKeyword_1_0_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_Type___LeftSquareBracketKeyword_1_0_RightSquareBracketKeyword_1_2__q.equals(syntax))
 				emit_Type___LeftSquareBracketKeyword_1_0_RightSquareBracketKeyword_1_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_lValue___LeftParenthesisKeyword_0_1_0_0_RightParenthesisKeyword_0_1_0_2__q.equals(syntax))
@@ -75,7 +79,7 @@ public class CSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     cases+=Case (ambiguity) '}' (rule end)
-	 *     exp+=Expression ')' '{' (ambiguity) '}' (rule end)
+	 *     exp=Expression ')' '{' (ambiguity) '}' (rule end)
 	 */
 	protected void emit_Command___DefaultKeyword_3_7_0_ColonKeyword_3_7_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -86,10 +90,21 @@ public class CSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('else' '{' '}')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     commands+=Command '}' (ambiguity) (rule end)
-	 *     exp+=Expression ')' '{' '}' (ambiguity) (rule end)
+	 *     exp=Expression ')' '{' '}' (ambiguity) (rule end)
+	 *     trueCommands+=Command '}' (ambiguity) (rule end)
 	 */
 	protected void emit_Command___ElseKeyword_0_8_0_LeftCurlyBracketKeyword_0_8_1_RightCurlyBracketKeyword_0_8_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '**'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     tipo=Type (ambiguity) name=ID
+	 */
+	protected void emit_Declaration_AsteriskAsteriskKeyword_1_0_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -98,7 +113,7 @@ public class CSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('[' ']')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     tipo+=TYPELIT (ambiguity) (rule end)
+	 *     tipo=TYPELIT (ambiguity) (rule end)
 	 */
 	protected void emit_Type___LeftSquareBracketKeyword_1_0_RightSquareBracketKeyword_1_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -109,7 +124,7 @@ public class CSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('(' ')')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     val=ID (ambiguity) (rule end)
+	 *     valor=[Definition|ID] (ambiguity) (rule end)
 	 */
 	protected void emit_lValue___LeftParenthesisKeyword_0_1_0_0_RightParenthesisKeyword_0_1_0_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

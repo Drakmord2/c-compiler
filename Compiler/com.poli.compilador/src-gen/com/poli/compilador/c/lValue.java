@@ -13,6 +13,8 @@ package com.poli.compilador.c;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link com.poli.compilador.c.lValue#getValor <em>Valor</em>}</li>
+ *   <li>{@link com.poli.compilador.c.lValue#getArg <em>Arg</em>}</li>
  *   <li>{@link com.poli.compilador.c.lValue#getAcc <em>Acc</em>}</li>
  * </ul>
  *
@@ -22,6 +24,58 @@ package com.poli.compilador.c;
  */
 public interface lValue extends Atom
 {
+  /**
+   * Returns the value of the '<em><b>Valor</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Valor</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Valor</em>' reference.
+   * @see #setValor(Definition)
+   * @see com.poli.compilador.c.CPackage#getlValue_Valor()
+   * @model
+   * @generated
+   */
+  Definition getValor();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.lValue#getValor <em>Valor</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Valor</em>' reference.
+   * @see #getValor()
+   * @generated
+   */
+  void setValor(Definition value);
+
+  /**
+   * Returns the value of the '<em><b>Arg</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Arg</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Arg</em>' containment reference.
+   * @see #setArg(Argument)
+   * @see com.poli.compilador.c.CPackage#getlValue_Arg()
+   * @model containment="true"
+   * @generated
+   */
+  Argument getArg();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.lValue#getArg <em>Arg</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Arg</em>' containment reference.
+   * @see #getArg()
+   * @generated
+   */
+  void setArg(Argument value);
+
   /**
    * Returns the value of the '<em><b>Acc</b></em>' containment reference.
    * <!-- begin-user-doc -->

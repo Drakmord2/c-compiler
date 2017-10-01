@@ -14,7 +14,6 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.Struct#getDef <em>Def</em>}</li>
  *   <li>{@link com.poli.compilador.c.Struct#getDecl <em>Decl</em>}</li>
  * </ul>
  *
@@ -24,22 +23,6 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Struct extends Definition
 {
-  /**
-   * Returns the value of the '<em><b>Def</b></em>' containment reference list.
-   * The list contents are of type {@link com.poli.compilador.c.IdDef}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Def</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Def</em>' containment reference list.
-   * @see com.poli.compilador.c.CPackage#getStruct_Def()
-   * @model containment="true"
-   * @generated
-   */
-  EList<IdDef> getDef();
-
   /**
    * Returns the value of the '<em><b>Decl</b></em>' containment reference list.
    * The list contents are of type {@link com.poli.compilador.c.Declaration}.

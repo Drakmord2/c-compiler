@@ -4,9 +4,11 @@
 package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.AccessExp;
+import com.poli.compilador.c.Argument;
 import com.poli.compilador.c.ArithExp;
 import com.poli.compilador.c.Atom;
 import com.poli.compilador.c.CPackage;
+import com.poli.compilador.c.Definition;
 import com.poli.compilador.c.Expression;
 import com.poli.compilador.c.Factor;
 import com.poli.compilador.c.PointerExp;
@@ -22,7 +24,6 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -39,7 +40,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link com.poli.compilador.c.impl.PointerExpImpl#getArgs <em>Args</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.PointerExpImpl#getVal <em>Val</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.PointerExpImpl#getOp <em>Op</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.PointerExpImpl#getValor <em>Valor</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.PointerExpImpl#getArg <em>Arg</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.PointerExpImpl#getAcc <em>Acc</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.PointerExpImpl#getExp <em>Exp</em>}</li>
  * </ul>
@@ -56,27 +59,47 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
    * @generated
    * @ordered
    */
-  protected EList<EObject> args;
+  protected EList<RelExp> args;
 
   /**
-   * The default value of the '{@link #getVal() <em>Val</em>}' attribute.
+   * The default value of the '{@link #getOp() <em>Op</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVal()
+   * @see #getOp()
    * @generated
    * @ordered
    */
-  protected static final String VAL_EDEFAULT = null;
+  protected static final String OP_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getVal() <em>Val</em>}' attribute.
+   * The cached value of the '{@link #getOp() <em>Op</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVal()
+   * @see #getOp()
    * @generated
    * @ordered
    */
-  protected String val = VAL_EDEFAULT;
+  protected String op = OP_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getValor() <em>Valor</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getValor()
+   * @generated
+   * @ordered
+   */
+  protected Definition valor;
+
+  /**
+   * The cached value of the '{@link #getArg() <em>Arg</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getArg()
+   * @generated
+   * @ordered
+   */
+  protected Argument arg;
 
   /**
    * The cached value of the '{@link #getAcc() <em>Acc</em>}' containment reference.
@@ -89,14 +112,14 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
   protected AccessExp acc;
 
   /**
-   * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference list.
+   * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getExp()
    * @generated
    * @ordered
    */
-  protected EList<Expression> exp;
+  protected Expression exp;
 
   /**
    * <!-- begin-user-doc -->
@@ -124,11 +147,11 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<EObject> getArgs()
+  public EList<RelExp> getArgs()
   {
     if (args == null)
     {
-      args = new EObjectContainmentEList<EObject>(EObject.class, this, CPackage.POINTER_EXP__ARGS);
+      args = new EObjectContainmentEList<RelExp>(RelExp.class, this, CPackage.POINTER_EXP__ARGS);
     }
     return args;
   }
@@ -138,9 +161,9 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getVal()
+  public String getOp()
   {
-    return val;
+    return op;
   }
 
   /**
@@ -148,12 +171,103 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setVal(String newVal)
+  public void setOp(String newOp)
   {
-    String oldVal = val;
-    val = newVal;
+    String oldOp = op;
+    op = newOp;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.POINTER_EXP__VAL, oldVal, val));
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.POINTER_EXP__OP, oldOp, op));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Definition getValor()
+  {
+    if (valor != null && valor.eIsProxy())
+    {
+      InternalEObject oldValor = (InternalEObject)valor;
+      valor = (Definition)eResolveProxy(oldValor);
+      if (valor != oldValor)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CPackage.POINTER_EXP__VALOR, oldValor, valor));
+      }
+    }
+    return valor;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Definition basicGetValor()
+  {
+    return valor;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setValor(Definition newValor)
+  {
+    Definition oldValor = valor;
+    valor = newValor;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.POINTER_EXP__VALOR, oldValor, valor));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Argument getArg()
+  {
+    return arg;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetArg(Argument newArg, NotificationChain msgs)
+  {
+    Argument oldArg = arg;
+    arg = newArg;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.POINTER_EXP__ARG, oldArg, newArg);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setArg(Argument newArg)
+  {
+    if (newArg != arg)
+    {
+      NotificationChain msgs = null;
+      if (arg != null)
+        msgs = ((InternalEObject)arg).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.POINTER_EXP__ARG, null, msgs);
+      if (newArg != null)
+        msgs = ((InternalEObject)newArg).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.POINTER_EXP__ARG, null, msgs);
+      msgs = basicSetArg(newArg, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.POINTER_EXP__ARG, newArg, newArg));
   }
 
   /**
@@ -209,13 +323,47 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Expression> getExp()
+  public Expression getExp()
   {
-    if (exp == null)
-    {
-      exp = new EObjectContainmentEList<Expression>(Expression.class, this, CPackage.POINTER_EXP__EXP);
-    }
     return exp;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetExp(Expression newExp, NotificationChain msgs)
+  {
+    Expression oldExp = exp;
+    exp = newExp;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.POINTER_EXP__EXP, oldExp, newExp);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setExp(Expression newExp)
+  {
+    if (newExp != exp)
+    {
+      NotificationChain msgs = null;
+      if (exp != null)
+        msgs = ((InternalEObject)exp).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.POINTER_EXP__EXP, null, msgs);
+      if (newExp != null)
+        msgs = ((InternalEObject)newExp).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.POINTER_EXP__EXP, null, msgs);
+      msgs = basicSetExp(newExp, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.POINTER_EXP__EXP, newExp, newExp));
   }
 
   /**
@@ -230,10 +378,12 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
     {
       case CPackage.POINTER_EXP__ARGS:
         return ((InternalEList<?>)getArgs()).basicRemove(otherEnd, msgs);
+      case CPackage.POINTER_EXP__ARG:
+        return basicSetArg(null, msgs);
       case CPackage.POINTER_EXP__ACC:
         return basicSetAcc(null, msgs);
       case CPackage.POINTER_EXP__EXP:
-        return ((InternalEList<?>)getExp()).basicRemove(otherEnd, msgs);
+        return basicSetExp(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -250,8 +400,13 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
     {
       case CPackage.POINTER_EXP__ARGS:
         return getArgs();
-      case CPackage.POINTER_EXP__VAL:
-        return getVal();
+      case CPackage.POINTER_EXP__OP:
+        return getOp();
+      case CPackage.POINTER_EXP__VALOR:
+        if (resolve) return getValor();
+        return basicGetValor();
+      case CPackage.POINTER_EXP__ARG:
+        return getArg();
       case CPackage.POINTER_EXP__ACC:
         return getAcc();
       case CPackage.POINTER_EXP__EXP:
@@ -273,17 +428,22 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
     {
       case CPackage.POINTER_EXP__ARGS:
         getArgs().clear();
-        getArgs().addAll((Collection<? extends EObject>)newValue);
+        getArgs().addAll((Collection<? extends RelExp>)newValue);
         return;
-      case CPackage.POINTER_EXP__VAL:
-        setVal((String)newValue);
+      case CPackage.POINTER_EXP__OP:
+        setOp((String)newValue);
+        return;
+      case CPackage.POINTER_EXP__VALOR:
+        setValor((Definition)newValue);
+        return;
+      case CPackage.POINTER_EXP__ARG:
+        setArg((Argument)newValue);
         return;
       case CPackage.POINTER_EXP__ACC:
         setAcc((AccessExp)newValue);
         return;
       case CPackage.POINTER_EXP__EXP:
-        getExp().clear();
-        getExp().addAll((Collection<? extends Expression>)newValue);
+        setExp((Expression)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -302,14 +462,20 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
       case CPackage.POINTER_EXP__ARGS:
         getArgs().clear();
         return;
-      case CPackage.POINTER_EXP__VAL:
-        setVal(VAL_EDEFAULT);
+      case CPackage.POINTER_EXP__OP:
+        setOp(OP_EDEFAULT);
+        return;
+      case CPackage.POINTER_EXP__VALOR:
+        setValor((Definition)null);
+        return;
+      case CPackage.POINTER_EXP__ARG:
+        setArg((Argument)null);
         return;
       case CPackage.POINTER_EXP__ACC:
         setAcc((AccessExp)null);
         return;
       case CPackage.POINTER_EXP__EXP:
-        getExp().clear();
+        setExp((Expression)null);
         return;
     }
     super.eUnset(featureID);
@@ -327,12 +493,16 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
     {
       case CPackage.POINTER_EXP__ARGS:
         return args != null && !args.isEmpty();
-      case CPackage.POINTER_EXP__VAL:
-        return VAL_EDEFAULT == null ? val != null : !VAL_EDEFAULT.equals(val);
+      case CPackage.POINTER_EXP__OP:
+        return OP_EDEFAULT == null ? op != null : !OP_EDEFAULT.equals(op);
+      case CPackage.POINTER_EXP__VALOR:
+        return valor != null;
+      case CPackage.POINTER_EXP__ARG:
+        return arg != null;
       case CPackage.POINTER_EXP__ACC:
         return acc != null;
       case CPackage.POINTER_EXP__EXP:
-        return exp != null && !exp.isEmpty();
+        return exp != null;
     }
     return super.eIsSet(featureID);
   }
@@ -350,7 +520,7 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
       switch (derivedFeatureID)
       {
         case CPackage.POINTER_EXP__ARGS: return CPackage.REL_EXP__ARGS;
-        case CPackage.POINTER_EXP__VAL: return CPackage.REL_EXP__VAL;
+        case CPackage.POINTER_EXP__OP: return CPackage.REL_EXP__OP;
         default: return -1;
       }
     }
@@ -386,6 +556,8 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
     {
       switch (derivedFeatureID)
       {
+        case CPackage.POINTER_EXP__VALOR: return CPackage.LVALUE__VALOR;
+        case CPackage.POINTER_EXP__ARG: return CPackage.LVALUE__ARG;
         case CPackage.POINTER_EXP__ACC: return CPackage.LVALUE__ACC;
         default: return -1;
       }
@@ -406,7 +578,7 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
       switch (baseFeatureID)
       {
         case CPackage.REL_EXP__ARGS: return CPackage.POINTER_EXP__ARGS;
-        case CPackage.REL_EXP__VAL: return CPackage.POINTER_EXP__VAL;
+        case CPackage.REL_EXP__OP: return CPackage.POINTER_EXP__OP;
         default: return -1;
       }
     }
@@ -442,6 +614,8 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
     {
       switch (baseFeatureID)
       {
+        case CPackage.LVALUE__VALOR: return CPackage.POINTER_EXP__VALOR;
+        case CPackage.LVALUE__ARG: return CPackage.POINTER_EXP__ARG;
         case CPackage.LVALUE__ACC: return CPackage.POINTER_EXP__ACC;
         default: return -1;
       }
@@ -460,8 +634,8 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (val: ");
-    result.append(val);
+    result.append(" (op: ");
+    result.append(op);
     result.append(')');
     return result.toString();
   }

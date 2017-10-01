@@ -27,20 +27,30 @@ import org.eclipse.emf.ecore.EObject;
 public interface Case extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Val</b></em>' containment reference list.
-   * The list contents are of type {@link com.poli.compilador.c.Atom}.
+   * Returns the value of the '<em><b>Val</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Val</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Val</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Val</em>' containment reference list.
+   * @return the value of the '<em>Val</em>' containment reference.
+   * @see #setVal(Atom)
    * @see com.poli.compilador.c.CPackage#getCase_Val()
    * @model containment="true"
    * @generated
    */
-  EList<Atom> getVal();
+  Atom getVal();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.Case#getVal <em>Val</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Val</em>' containment reference.
+   * @see #getVal()
+   * @generated
+   */
+  void setVal(Atom value);
 
   /**
    * Returns the value of the '<em><b>Commands</b></em>' containment reference list.

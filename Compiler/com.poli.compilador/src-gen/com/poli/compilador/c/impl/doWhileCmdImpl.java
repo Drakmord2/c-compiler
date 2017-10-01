@@ -10,12 +10,15 @@ import com.poli.compilador.c.doWhileCmd;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -47,14 +50,14 @@ public class doWhileCmdImpl extends CommandImpl implements doWhileCmd
   protected EList<Command> commands;
 
   /**
-   * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference list.
+   * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getExp()
    * @generated
    * @ordered
    */
-  protected EList<Expression> exp;
+  protected Expression exp;
 
   /**
    * <!-- begin-user-doc -->
@@ -96,13 +99,47 @@ public class doWhileCmdImpl extends CommandImpl implements doWhileCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Expression> getExp()
+  public Expression getExp()
   {
-    if (exp == null)
-    {
-      exp = new EObjectContainmentEList<Expression>(Expression.class, this, CPackage.DO_WHILE_CMD__EXP);
-    }
     return exp;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetExp(Expression newExp, NotificationChain msgs)
+  {
+    Expression oldExp = exp;
+    exp = newExp;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.DO_WHILE_CMD__EXP, oldExp, newExp);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setExp(Expression newExp)
+  {
+    if (newExp != exp)
+    {
+      NotificationChain msgs = null;
+      if (exp != null)
+        msgs = ((InternalEObject)exp).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.DO_WHILE_CMD__EXP, null, msgs);
+      if (newExp != null)
+        msgs = ((InternalEObject)newExp).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.DO_WHILE_CMD__EXP, null, msgs);
+      msgs = basicSetExp(newExp, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.DO_WHILE_CMD__EXP, newExp, newExp));
   }
 
   /**
@@ -118,7 +155,7 @@ public class doWhileCmdImpl extends CommandImpl implements doWhileCmd
       case CPackage.DO_WHILE_CMD__COMMANDS:
         return ((InternalEList<?>)getCommands()).basicRemove(otherEnd, msgs);
       case CPackage.DO_WHILE_CMD__EXP:
-        return ((InternalEList<?>)getExp()).basicRemove(otherEnd, msgs);
+        return basicSetExp(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -157,8 +194,7 @@ public class doWhileCmdImpl extends CommandImpl implements doWhileCmd
         getCommands().addAll((Collection<? extends Command>)newValue);
         return;
       case CPackage.DO_WHILE_CMD__EXP:
-        getExp().clear();
-        getExp().addAll((Collection<? extends Expression>)newValue);
+        setExp((Expression)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -178,7 +214,7 @@ public class doWhileCmdImpl extends CommandImpl implements doWhileCmd
         getCommands().clear();
         return;
       case CPackage.DO_WHILE_CMD__EXP:
-        getExp().clear();
+        setExp((Expression)null);
         return;
     }
     super.eUnset(featureID);
@@ -197,7 +233,7 @@ public class doWhileCmdImpl extends CommandImpl implements doWhileCmd
       case CPackage.DO_WHILE_CMD__COMMANDS:
         return commands != null && !commands.isEmpty();
       case CPackage.DO_WHILE_CMD__EXP:
-        return exp != null && !exp.isEmpty();
+        return exp != null;
     }
     return super.eIsSet(featureID);
   }

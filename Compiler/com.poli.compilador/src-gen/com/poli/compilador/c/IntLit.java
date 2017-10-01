@@ -13,7 +13,7 @@ package com.poli.compilador.c;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.IntLit#getValor <em>Valor</em>}</li>
+ *   <li>{@link com.poli.compilador.c.IntLit#getVal <em>Val</em>}</li>
  * </ul>
  *
  * @see com.poli.compilador.c.CPackage#getIntLit()
@@ -23,29 +23,29 @@ package com.poli.compilador.c;
 public interface IntLit extends Literal
 {
   /**
-   * Returns the value of the '<em><b>Valor</b></em>' attribute.
+   * Returns the value of the '<em><b>Val</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Valor</em>' attribute isn't clear,
+   * If the meaning of the '<em>Val</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Valor</em>' attribute.
-   * @see #setValor(int)
-   * @see com.poli.compilador.c.CPackage#getIntLit_Valor()
+   * @return the value of the '<em>Val</em>' attribute.
+   * @see #setVal(int)
+   * @see com.poli.compilador.c.CPackage#getIntLit_Val()
    * @model
    * @generated
    */
-  int getValor();
+  int getVal();
 
   /**
-   * Sets the value of the '{@link com.poli.compilador.c.IntLit#getValor <em>Valor</em>}' attribute.
+   * Sets the value of the '{@link com.poli.compilador.c.IntLit#getVal <em>Val</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Valor</em>' attribute.
-   * @see #getValor()
+   * @param value the new value of the '<em>Val</em>' attribute.
+   * @see #getVal()
    * @generated
    */
-  void setValor(int value);
+  void setVal(int value);
 
 } // IntLit

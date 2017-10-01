@@ -116,11 +116,6 @@ public class CAdapterFactory extends AdapterFactoryImpl
         return createCommandAdapter();
       }
       @Override
-      public Adapter caseParameter(Parameter object)
-      {
-        return createParameterAdapter();
-      }
-      @Override
       public Adapter caseArgument(Argument object)
       {
         return createArgumentAdapter();
@@ -209,11 +204,6 @@ public class CAdapterFactory extends AdapterFactoryImpl
       public Adapter caseswitchCmd(switchCmd object)
       {
         return createswitchCmdAdapter();
-      }
-      @Override
-      public Adapter casedeclCmd(declCmd object)
-      {
-        return createdeclCmdAdapter();
       }
       @Override
       public Adapter casedoWhileCmd(doWhileCmd object)
@@ -418,21 +408,6 @@ public class CAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createCommandAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.Parameter <em>Parameter</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.poli.compilador.c.Parameter
-   * @generated
-   */
-  public Adapter createParameterAdapter()
   {
     return null;
   }
@@ -703,21 +678,6 @@ public class CAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createswitchCmdAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.declCmd <em>decl Cmd</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.poli.compilador.c.declCmd
-   * @generated
-   */
-  public Adapter createdeclCmdAdapter()
   {
     return null;
   }

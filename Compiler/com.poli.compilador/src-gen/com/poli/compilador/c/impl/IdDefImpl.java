@@ -6,15 +6,16 @@ package com.poli.compilador.c.impl;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.IdDef;
 import com.poli.compilador.c.Type;
+import com.poli.compilador.c.Variable;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,24 +25,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.IdDefImpl#getVal <em>Val</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.IdDefImpl#getTipo <em>Tipo</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.IdDefImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class IdDefImpl extends DefinitionImpl implements IdDef
+public class IdDefImpl extends MinimalEObjectImpl.Container implements IdDef
 {
-  /**
-   * The cached value of the '{@link #getVal() <em>Val</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getVal()
-   * @generated
-   * @ordered
-   */
-  protected EObject val;
-
   /**
    * The cached value of the '{@link #getTipo() <em>Tipo</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -51,6 +42,16 @@ public class IdDefImpl extends DefinitionImpl implements IdDef
    * @ordered
    */
   protected Type tipo;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected Variable name;
 
   /**
    * <!-- begin-user-doc -->
@@ -71,54 +72,6 @@ public class IdDefImpl extends DefinitionImpl implements IdDef
   protected EClass eStaticClass()
   {
     return CPackage.Literals.ID_DEF;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EObject getVal()
-  {
-    return val;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetVal(EObject newVal, NotificationChain msgs)
-  {
-    EObject oldVal = val;
-    val = newVal;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.ID_DEF__VAL, oldVal, newVal);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setVal(EObject newVal)
-  {
-    if (newVal != val)
-    {
-      NotificationChain msgs = null;
-      if (val != null)
-        msgs = ((InternalEObject)val).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.ID_DEF__VAL, null, msgs);
-      if (newVal != null)
-        msgs = ((InternalEObject)newVal).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.ID_DEF__VAL, null, msgs);
-      msgs = basicSetVal(newVal, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.ID_DEF__VAL, newVal, newVal));
   }
 
   /**
@@ -174,15 +127,63 @@ public class IdDefImpl extends DefinitionImpl implements IdDef
    * <!-- end-user-doc -->
    * @generated
    */
+  public Variable getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetName(Variable newName, NotificationChain msgs)
+  {
+    Variable oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.ID_DEF__NAME, oldName, newName);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(Variable newName)
+  {
+    if (newName != name)
+    {
+      NotificationChain msgs = null;
+      if (name != null)
+        msgs = ((InternalEObject)name).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.ID_DEF__NAME, null, msgs);
+      if (newName != null)
+        msgs = ((InternalEObject)newName).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.ID_DEF__NAME, null, msgs);
+      msgs = basicSetName(newName, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.ID_DEF__NAME, newName, newName));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
     {
-      case CPackage.ID_DEF__VAL:
-        return basicSetVal(null, msgs);
       case CPackage.ID_DEF__TIPO:
         return basicSetTipo(null, msgs);
+      case CPackage.ID_DEF__NAME:
+        return basicSetName(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -197,10 +198,10 @@ public class IdDefImpl extends DefinitionImpl implements IdDef
   {
     switch (featureID)
     {
-      case CPackage.ID_DEF__VAL:
-        return getVal();
       case CPackage.ID_DEF__TIPO:
         return getTipo();
+      case CPackage.ID_DEF__NAME:
+        return getName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -215,11 +216,11 @@ public class IdDefImpl extends DefinitionImpl implements IdDef
   {
     switch (featureID)
     {
-      case CPackage.ID_DEF__VAL:
-        setVal((EObject)newValue);
-        return;
       case CPackage.ID_DEF__TIPO:
         setTipo((Type)newValue);
+        return;
+      case CPackage.ID_DEF__NAME:
+        setName((Variable)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -235,11 +236,11 @@ public class IdDefImpl extends DefinitionImpl implements IdDef
   {
     switch (featureID)
     {
-      case CPackage.ID_DEF__VAL:
-        setVal((EObject)null);
-        return;
       case CPackage.ID_DEF__TIPO:
         setTipo((Type)null);
+        return;
+      case CPackage.ID_DEF__NAME:
+        setName((Variable)null);
         return;
     }
     super.eUnset(featureID);
@@ -255,10 +256,10 @@ public class IdDefImpl extends DefinitionImpl implements IdDef
   {
     switch (featureID)
     {
-      case CPackage.ID_DEF__VAL:
-        return val != null;
       case CPackage.ID_DEF__TIPO:
         return tipo != null;
+      case CPackage.ID_DEF__NAME:
+        return name != null;
     }
     return super.eIsSet(featureID);
   }

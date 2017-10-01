@@ -91,6 +91,7 @@ public class CSwitch<T> extends Switch<T>
       {
         Function function = (Function)theEObject;
         T result = caseFunction(function);
+        if (result == null) result = caseDefinition(function);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -98,6 +99,8 @@ public class CSwitch<T> extends Switch<T>
       {
         Declaration declaration = (Declaration)theEObject;
         T result = caseDeclaration(declaration);
+        if (result == null) result = caseDefinition(declaration);
+        if (result == null) result = caseCommand(declaration);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -113,7 +116,6 @@ public class CSwitch<T> extends Switch<T>
       {
         IdDef idDef = (IdDef)theEObject;
         T result = caseIdDef(idDef);
-        if (result == null) result = caseDefinition(idDef);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -128,13 +130,6 @@ public class CSwitch<T> extends Switch<T>
       {
         Command command = (Command)theEObject;
         T result = caseCommand(command);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CPackage.PARAMETER:
-      {
-        Parameter parameter = (Parameter)theEObject;
-        T result = caseParameter(parameter);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -297,14 +292,6 @@ public class CSwitch<T> extends Switch<T>
         switchCmd switchCmd = (switchCmd)theEObject;
         T result = caseswitchCmd(switchCmd);
         if (result == null) result = caseCommand(switchCmd);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CPackage.DECL_CMD:
-      {
-        declCmd declCmd = (declCmd)theEObject;
-        T result = casedeclCmd(declCmd);
-        if (result == null) result = caseCommand(declCmd);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -564,22 +551,6 @@ public class CSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseCommand(Command object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Parameter</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Parameter</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseParameter(Parameter object)
   {
     return null;
   }
@@ -868,22 +839,6 @@ public class CSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseswitchCmd(switchCmd object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>decl Cmd</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>decl Cmd</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casedeclCmd(declCmd object)
   {
     return null;
   }

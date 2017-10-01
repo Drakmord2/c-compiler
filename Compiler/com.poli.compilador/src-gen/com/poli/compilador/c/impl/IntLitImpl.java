@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.IntLitImpl#getValor <em>Valor</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.IntLitImpl#getVal <em>Val</em>}</li>
  * </ul>
  *
  * @generated
@@ -28,24 +28,24 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public class IntLitImpl extends LiteralImpl implements IntLit
 {
   /**
-   * The default value of the '{@link #getValor() <em>Valor</em>}' attribute.
+   * The default value of the '{@link #getVal() <em>Val</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getValor()
+   * @see #getVal()
    * @generated
    * @ordered
    */
-  protected static final int VALOR_EDEFAULT = 0;
+  protected static final int VAL_EDEFAULT = 0;
 
   /**
-   * The cached value of the '{@link #getValor() <em>Valor</em>}' attribute.
+   * The cached value of the '{@link #getVal() <em>Val</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getValor()
+   * @see #getVal()
    * @generated
    * @ordered
    */
-  protected int valor = VALOR_EDEFAULT;
+  protected int val = VAL_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -73,9 +73,9 @@ public class IntLitImpl extends LiteralImpl implements IntLit
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getValor()
+  public int getVal()
   {
-    return valor;
+    return val;
   }
 
   /**
@@ -83,12 +83,12 @@ public class IntLitImpl extends LiteralImpl implements IntLit
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValor(int newValor)
+  public void setVal(int newVal)
   {
-    int oldValor = valor;
-    valor = newValor;
+    int oldVal = val;
+    val = newVal;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.INT_LIT__VALOR, oldValor, valor));
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.INT_LIT__VAL, oldVal, val));
   }
 
   /**
@@ -101,8 +101,8 @@ public class IntLitImpl extends LiteralImpl implements IntLit
   {
     switch (featureID)
     {
-      case CPackage.INT_LIT__VALOR:
-        return getValor();
+      case CPackage.INT_LIT__VAL:
+        return getVal();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -117,8 +117,8 @@ public class IntLitImpl extends LiteralImpl implements IntLit
   {
     switch (featureID)
     {
-      case CPackage.INT_LIT__VALOR:
-        setValor((Integer)newValue);
+      case CPackage.INT_LIT__VAL:
+        setVal((Integer)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -134,8 +134,8 @@ public class IntLitImpl extends LiteralImpl implements IntLit
   {
     switch (featureID)
     {
-      case CPackage.INT_LIT__VALOR:
-        setValor(VALOR_EDEFAULT);
+      case CPackage.INT_LIT__VAL:
+        setVal(VAL_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -151,8 +151,8 @@ public class IntLitImpl extends LiteralImpl implements IntLit
   {
     switch (featureID)
     {
-      case CPackage.INT_LIT__VALOR:
-        return valor != VALOR_EDEFAULT;
+      case CPackage.INT_LIT__VAL:
+        return val != VAL_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -168,8 +168,8 @@ public class IntLitImpl extends LiteralImpl implements IntLit
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (valor: ");
-    result.append(valor);
+    result.append(" (val: ");
+    result.append(val);
     result.append(')');
     return result.toString();
   }

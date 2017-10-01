@@ -5,21 +5,13 @@ package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Definition;
-import com.poli.compilador.c.Variable;
 
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,14 +29,24 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class DefinitionImpl extends MinimalEObjectImpl.Container implements Definition
 {
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' containment reference list.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getName()
    * @generated
    * @ordered
    */
-  protected EList<Variable> name;
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -72,12 +74,8 @@ public class DefinitionImpl extends MinimalEObjectImpl.Container implements Defi
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Variable> getName()
+  public String getName()
   {
-    if (name == null)
-    {
-      name = new EObjectContainmentEList<Variable>(Variable.class, this, CPackage.DEFINITION__NAME);
-    }
     return name;
   }
 
@@ -86,15 +84,12 @@ public class DefinitionImpl extends MinimalEObjectImpl.Container implements Defi
    * <!-- end-user-doc -->
    * @generated
    */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  public void setName(String newName)
   {
-    switch (featureID)
-    {
-      case CPackage.DEFINITION__NAME:
-        return ((InternalEList<?>)getName()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.DEFINITION__NAME, oldName, name));
   }
 
   /**
@@ -118,15 +113,13 @@ public class DefinitionImpl extends MinimalEObjectImpl.Container implements Defi
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
       case CPackage.DEFINITION__NAME:
-        getName().clear();
-        getName().addAll((Collection<? extends Variable>)newValue);
+        setName((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -143,7 +136,7 @@ public class DefinitionImpl extends MinimalEObjectImpl.Container implements Defi
     switch (featureID)
     {
       case CPackage.DEFINITION__NAME:
-        getName().clear();
+        setName(NAME_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -160,9 +153,26 @@ public class DefinitionImpl extends MinimalEObjectImpl.Container implements Defi
     switch (featureID)
     {
       case CPackage.DEFINITION__NAME:
-        return name != null && !name.isEmpty();
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
   }
 
 } //DefinitionImpl

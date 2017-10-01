@@ -5,8 +5,6 @@ package com.poli.compilador.c;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Function</b></em>'.
@@ -16,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link com.poli.compilador.c.Function#getTipo <em>Tipo</em>}</li>
  *   <li>{@link com.poli.compilador.c.Function#getParams <em>Params</em>}</li>
  *   <li>{@link com.poli.compilador.c.Function#getCommands <em>Commands</em>}</li>
  * </ul>
@@ -24,11 +23,37 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Function extends EObject
+public interface Function extends Definition
 {
   /**
+   * Returns the value of the '<em><b>Tipo</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Tipo</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Tipo</em>' containment reference.
+   * @see #setTipo(Type)
+   * @see com.poli.compilador.c.CPackage#getFunction_Tipo()
+   * @model containment="true"
+   * @generated
+   */
+  Type getTipo();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.Function#getTipo <em>Tipo</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Tipo</em>' containment reference.
+   * @see #getTipo()
+   * @generated
+   */
+  void setTipo(Type value);
+
+  /**
    * Returns the value of the '<em><b>Params</b></em>' containment reference list.
-   * The list contents are of type {@link com.poli.compilador.c.Parameter}.
+   * The list contents are of type {@link com.poli.compilador.c.IdDef}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Params</em>' containment reference list isn't clear,
@@ -40,7 +65,7 @@ public interface Function extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<Parameter> getParams();
+  EList<IdDef> getParams();
 
   /**
    * Returns the value of the '<em><b>Commands</b></em>' containment reference list.

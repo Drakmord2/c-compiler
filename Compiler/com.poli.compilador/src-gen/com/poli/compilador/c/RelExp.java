@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link com.poli.compilador.c.RelExp#getArgs <em>Args</em>}</li>
- *   <li>{@link com.poli.compilador.c.RelExp#getVal <em>Val</em>}</li>
+ *   <li>{@link com.poli.compilador.c.RelExp#getOp <em>Op</em>}</li>
  * </ul>
  *
  * @see com.poli.compilador.c.CPackage#getRelExp()
@@ -28,7 +28,7 @@ public interface RelExp extends EObject
 {
   /**
    * Returns the value of the '<em><b>Args</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
+   * The list contents are of type {@link com.poli.compilador.c.RelExp}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Args</em>' containment reference list isn't clear,
@@ -40,32 +40,32 @@ public interface RelExp extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<EObject> getArgs();
+  EList<RelExp> getArgs();
 
   /**
-   * Returns the value of the '<em><b>Val</b></em>' attribute.
+   * Returns the value of the '<em><b>Op</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Val</em>' attribute isn't clear,
+   * If the meaning of the '<em>Op</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Val</em>' attribute.
-   * @see #setVal(String)
-   * @see com.poli.compilador.c.CPackage#getRelExp_Val()
+   * @return the value of the '<em>Op</em>' attribute.
+   * @see #setOp(String)
+   * @see com.poli.compilador.c.CPackage#getRelExp_Op()
    * @model
    * @generated
    */
-  String getVal();
+  String getOp();
 
   /**
-   * Sets the value of the '{@link com.poli.compilador.c.RelExp#getVal <em>Val</em>}' attribute.
+   * Sets the value of the '{@link com.poli.compilador.c.RelExp#getOp <em>Op</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Val</em>' attribute.
-   * @see #getVal()
+   * @param value the new value of the '<em>Op</em>' attribute.
+   * @see #getOp()
    * @generated
    */
-  void setVal(String value);
+  void setOp(String value);
 
 } // RelExp

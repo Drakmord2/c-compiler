@@ -6,21 +6,16 @@ package com.poli.compilador.c.impl;
 import com.poli.compilador.c.Assignment;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Declaration;
-import com.poli.compilador.c.Variable;
+import com.poli.compilador.c.Struct;
+import com.poli.compilador.c.Type;
 
-import java.util.Collection;
-
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,33 +25,44 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.DeclarationImpl#getName <em>Name</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.DeclarationImpl#getTipo <em>Tipo</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.DeclarationImpl#getVal <em>Val</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.DeclarationImpl#getStr <em>Str</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class DeclarationImpl extends MinimalEObjectImpl.Container implements Declaration
+public class DeclarationImpl extends DefinitionImpl implements Declaration
 {
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' containment reference list.
+   * The cached value of the '{@link #getTipo() <em>Tipo</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getTipo()
    * @generated
    * @ordered
    */
-  protected EList<Variable> name;
+  protected Type tipo;
 
   /**
-   * The cached value of the '{@link #getVal() <em>Val</em>}' containment reference list.
+   * The cached value of the '{@link #getVal() <em>Val</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getVal()
    * @generated
    * @ordered
    */
-  protected EList<Assignment> val;
+  protected Assignment val;
+
+  /**
+   * The cached value of the '{@link #getStr() <em>Str</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getStr()
+   * @generated
+   * @ordered
+   */
+  protected Struct str;
 
   /**
    * <!-- begin-user-doc -->
@@ -84,13 +90,9 @@ public class DeclarationImpl extends MinimalEObjectImpl.Container implements Dec
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Variable> getName()
+  public Type getTipo()
   {
-    if (name == null)
-    {
-      name = new EObjectContainmentEList<Variable>(Variable.class, this, CPackage.DECLARATION__NAME);
-    }
-    return name;
+    return tipo;
   }
 
   /**
@@ -98,13 +100,128 @@ public class DeclarationImpl extends MinimalEObjectImpl.Container implements Dec
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Assignment> getVal()
+  public NotificationChain basicSetTipo(Type newTipo, NotificationChain msgs)
   {
-    if (val == null)
+    Type oldTipo = tipo;
+    tipo = newTipo;
+    if (eNotificationRequired())
     {
-      val = new EObjectContainmentEList<Assignment>(Assignment.class, this, CPackage.DECLARATION__VAL);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.DECLARATION__TIPO, oldTipo, newTipo);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
     }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTipo(Type newTipo)
+  {
+    if (newTipo != tipo)
+    {
+      NotificationChain msgs = null;
+      if (tipo != null)
+        msgs = ((InternalEObject)tipo).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.DECLARATION__TIPO, null, msgs);
+      if (newTipo != null)
+        msgs = ((InternalEObject)newTipo).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.DECLARATION__TIPO, null, msgs);
+      msgs = basicSetTipo(newTipo, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.DECLARATION__TIPO, newTipo, newTipo));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Assignment getVal()
+  {
     return val;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetVal(Assignment newVal, NotificationChain msgs)
+  {
+    Assignment oldVal = val;
+    val = newVal;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.DECLARATION__VAL, oldVal, newVal);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setVal(Assignment newVal)
+  {
+    if (newVal != val)
+    {
+      NotificationChain msgs = null;
+      if (val != null)
+        msgs = ((InternalEObject)val).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.DECLARATION__VAL, null, msgs);
+      if (newVal != null)
+        msgs = ((InternalEObject)newVal).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.DECLARATION__VAL, null, msgs);
+      msgs = basicSetVal(newVal, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.DECLARATION__VAL, newVal, newVal));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Struct getStr()
+  {
+    if (str != null && str.eIsProxy())
+    {
+      InternalEObject oldStr = (InternalEObject)str;
+      str = (Struct)eResolveProxy(oldStr);
+      if (str != oldStr)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CPackage.DECLARATION__STR, oldStr, str));
+      }
+    }
+    return str;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Struct basicGetStr()
+  {
+    return str;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setStr(Struct newStr)
+  {
+    Struct oldStr = str;
+    str = newStr;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.DECLARATION__STR, oldStr, str));
   }
 
   /**
@@ -117,10 +234,10 @@ public class DeclarationImpl extends MinimalEObjectImpl.Container implements Dec
   {
     switch (featureID)
     {
-      case CPackage.DECLARATION__NAME:
-        return ((InternalEList<?>)getName()).basicRemove(otherEnd, msgs);
+      case CPackage.DECLARATION__TIPO:
+        return basicSetTipo(null, msgs);
       case CPackage.DECLARATION__VAL:
-        return ((InternalEList<?>)getVal()).basicRemove(otherEnd, msgs);
+        return basicSetVal(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -135,10 +252,13 @@ public class DeclarationImpl extends MinimalEObjectImpl.Container implements Dec
   {
     switch (featureID)
     {
-      case CPackage.DECLARATION__NAME:
-        return getName();
+      case CPackage.DECLARATION__TIPO:
+        return getTipo();
       case CPackage.DECLARATION__VAL:
         return getVal();
+      case CPackage.DECLARATION__STR:
+        if (resolve) return getStr();
+        return basicGetStr();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -148,19 +268,19 @@ public class DeclarationImpl extends MinimalEObjectImpl.Container implements Dec
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case CPackage.DECLARATION__NAME:
-        getName().clear();
-        getName().addAll((Collection<? extends Variable>)newValue);
+      case CPackage.DECLARATION__TIPO:
+        setTipo((Type)newValue);
         return;
       case CPackage.DECLARATION__VAL:
-        getVal().clear();
-        getVal().addAll((Collection<? extends Assignment>)newValue);
+        setVal((Assignment)newValue);
+        return;
+      case CPackage.DECLARATION__STR:
+        setStr((Struct)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -176,11 +296,14 @@ public class DeclarationImpl extends MinimalEObjectImpl.Container implements Dec
   {
     switch (featureID)
     {
-      case CPackage.DECLARATION__NAME:
-        getName().clear();
+      case CPackage.DECLARATION__TIPO:
+        setTipo((Type)null);
         return;
       case CPackage.DECLARATION__VAL:
-        getVal().clear();
+        setVal((Assignment)null);
+        return;
+      case CPackage.DECLARATION__STR:
+        setStr((Struct)null);
         return;
     }
     super.eUnset(featureID);
@@ -196,10 +319,12 @@ public class DeclarationImpl extends MinimalEObjectImpl.Container implements Dec
   {
     switch (featureID)
     {
-      case CPackage.DECLARATION__NAME:
-        return name != null && !name.isEmpty();
+      case CPackage.DECLARATION__TIPO:
+        return tipo != null;
       case CPackage.DECLARATION__VAL:
-        return val != null && !val.isEmpty();
+        return val != null;
+      case CPackage.DECLARATION__STR:
+        return str != null;
     }
     return super.eIsSet(featureID);
   }

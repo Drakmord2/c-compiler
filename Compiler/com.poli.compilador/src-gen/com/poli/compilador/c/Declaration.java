@@ -3,9 +3,6 @@
  */
 package com.poli.compilador.c;
 
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -16,46 +13,93 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.Declaration#getName <em>Name</em>}</li>
+ *   <li>{@link com.poli.compilador.c.Declaration#getTipo <em>Tipo</em>}</li>
  *   <li>{@link com.poli.compilador.c.Declaration#getVal <em>Val</em>}</li>
+ *   <li>{@link com.poli.compilador.c.Declaration#getStr <em>Str</em>}</li>
  * </ul>
  *
  * @see com.poli.compilador.c.CPackage#getDeclaration()
  * @model
  * @generated
  */
-public interface Declaration extends EObject
+public interface Declaration extends Definition, Command
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' containment reference list.
-   * The list contents are of type {@link com.poli.compilador.c.Variable}.
+   * Returns the value of the '<em><b>Tipo</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Tipo</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' containment reference list.
-   * @see com.poli.compilador.c.CPackage#getDeclaration_Name()
+   * @return the value of the '<em>Tipo</em>' containment reference.
+   * @see #setTipo(Type)
+   * @see com.poli.compilador.c.CPackage#getDeclaration_Tipo()
    * @model containment="true"
    * @generated
    */
-  EList<Variable> getName();
+  Type getTipo();
 
   /**
-   * Returns the value of the '<em><b>Val</b></em>' containment reference list.
-   * The list contents are of type {@link com.poli.compilador.c.Assignment}.
+   * Sets the value of the '{@link com.poli.compilador.c.Declaration#getTipo <em>Tipo</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Tipo</em>' containment reference.
+   * @see #getTipo()
+   * @generated
+   */
+  void setTipo(Type value);
+
+  /**
+   * Returns the value of the '<em><b>Val</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Val</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Val</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Val</em>' containment reference list.
+   * @return the value of the '<em>Val</em>' containment reference.
+   * @see #setVal(Assignment)
    * @see com.poli.compilador.c.CPackage#getDeclaration_Val()
    * @model containment="true"
    * @generated
    */
-  EList<Assignment> getVal();
+  Assignment getVal();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.Declaration#getVal <em>Val</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Val</em>' containment reference.
+   * @see #getVal()
+   * @generated
+   */
+  void setVal(Assignment value);
+
+  /**
+   * Returns the value of the '<em><b>Str</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Str</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Str</em>' reference.
+   * @see #setStr(Struct)
+   * @see com.poli.compilador.c.CPackage#getDeclaration_Str()
+   * @model
+   * @generated
+   */
+  Struct getStr();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.Declaration#getStr <em>Str</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Str</em>' reference.
+   * @see #getStr()
+   * @generated
+   */
+  void setStr(Struct value);
 
 } // Declaration

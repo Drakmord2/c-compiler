@@ -10,12 +10,15 @@ import com.poli.compilador.c.whileCmd;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -37,14 +40,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class whileCmdImpl extends CommandImpl implements whileCmd
 {
   /**
-   * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference list.
+   * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getExp()
    * @generated
    * @ordered
    */
-  protected EList<Expression> exp;
+  protected Expression exp;
 
   /**
    * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference list.
@@ -82,13 +85,47 @@ public class whileCmdImpl extends CommandImpl implements whileCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Expression> getExp()
+  public Expression getExp()
   {
-    if (exp == null)
-    {
-      exp = new EObjectContainmentEList<Expression>(Expression.class, this, CPackage.WHILE_CMD__EXP);
-    }
     return exp;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetExp(Expression newExp, NotificationChain msgs)
+  {
+    Expression oldExp = exp;
+    exp = newExp;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.WHILE_CMD__EXP, oldExp, newExp);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setExp(Expression newExp)
+  {
+    if (newExp != exp)
+    {
+      NotificationChain msgs = null;
+      if (exp != null)
+        msgs = ((InternalEObject)exp).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.WHILE_CMD__EXP, null, msgs);
+      if (newExp != null)
+        msgs = ((InternalEObject)newExp).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.WHILE_CMD__EXP, null, msgs);
+      msgs = basicSetExp(newExp, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.WHILE_CMD__EXP, newExp, newExp));
   }
 
   /**
@@ -116,7 +153,7 @@ public class whileCmdImpl extends CommandImpl implements whileCmd
     switch (featureID)
     {
       case CPackage.WHILE_CMD__EXP:
-        return ((InternalEList<?>)getExp()).basicRemove(otherEnd, msgs);
+        return basicSetExp(null, msgs);
       case CPackage.WHILE_CMD__COMMANDS:
         return ((InternalEList<?>)getCommands()).basicRemove(otherEnd, msgs);
     }
@@ -153,8 +190,7 @@ public class whileCmdImpl extends CommandImpl implements whileCmd
     switch (featureID)
     {
       case CPackage.WHILE_CMD__EXP:
-        getExp().clear();
-        getExp().addAll((Collection<? extends Expression>)newValue);
+        setExp((Expression)newValue);
         return;
       case CPackage.WHILE_CMD__COMMANDS:
         getCommands().clear();
@@ -175,7 +211,7 @@ public class whileCmdImpl extends CommandImpl implements whileCmd
     switch (featureID)
     {
       case CPackage.WHILE_CMD__EXP:
-        getExp().clear();
+        setExp((Expression)null);
         return;
       case CPackage.WHILE_CMD__COMMANDS:
         getCommands().clear();
@@ -195,7 +231,7 @@ public class whileCmdImpl extends CommandImpl implements whileCmd
     switch (featureID)
     {
       case CPackage.WHILE_CMD__EXP:
-        return exp != null && !exp.isEmpty();
+        return exp != null;
       case CPackage.WHILE_CMD__COMMANDS:
         return commands != null && !commands.isEmpty();
     }

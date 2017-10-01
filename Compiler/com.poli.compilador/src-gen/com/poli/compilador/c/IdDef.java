@@ -14,42 +14,16 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.IdDef#getVal <em>Val</em>}</li>
  *   <li>{@link com.poli.compilador.c.IdDef#getTipo <em>Tipo</em>}</li>
+ *   <li>{@link com.poli.compilador.c.IdDef#getName <em>Name</em>}</li>
  * </ul>
  *
  * @see com.poli.compilador.c.CPackage#getIdDef()
  * @model
  * @generated
  */
-public interface IdDef extends Definition
+public interface IdDef extends EObject
 {
-  /**
-   * Returns the value of the '<em><b>Val</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Val</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Val</em>' containment reference.
-   * @see #setVal(EObject)
-   * @see com.poli.compilador.c.CPackage#getIdDef_Val()
-   * @model containment="true"
-   * @generated
-   */
-  EObject getVal();
-
-  /**
-   * Sets the value of the '{@link com.poli.compilador.c.IdDef#getVal <em>Val</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Val</em>' containment reference.
-   * @see #getVal()
-   * @generated
-   */
-  void setVal(EObject value);
-
   /**
    * Returns the value of the '<em><b>Tipo</b></em>' containment reference.
    * <!-- begin-user-doc -->
@@ -75,5 +49,31 @@ public interface IdDef extends Definition
    * @generated
    */
   void setTipo(Type value);
+
+  /**
+   * Returns the value of the '<em><b>Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Name</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Name</em>' containment reference.
+   * @see #setName(Variable)
+   * @see com.poli.compilador.c.CPackage#getIdDef_Name()
+   * @model containment="true"
+   * @generated
+   */
+  Variable getName();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.IdDef#getName <em>Name</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name</em>' containment reference.
+   * @see #getName()
+   * @generated
+   */
+  void setName(Variable value);
 
 } // IdDef

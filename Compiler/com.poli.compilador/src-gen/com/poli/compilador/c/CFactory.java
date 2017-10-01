@@ -96,15 +96,6 @@ public interface CFactory extends EFactory
   Command createCommand();
 
   /**
-   * Returns a new object of class '<em>Parameter</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Parameter</em>'.
-   * @generated
-   */
-  Parameter createParameter();
-
-  /**
    * Returns a new object of class '<em>Argument</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -265,15 +256,6 @@ public interface CFactory extends EFactory
    * @generated
    */
   switchCmd createswitchCmd();
-
-  /**
-   * Returns a new object of class '<em>decl Cmd</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>decl Cmd</em>'.
-   * @generated
-   */
-  declCmd createdeclCmd();
 
   /**
    * Returns a new object of class '<em>do While Cmd</em>'.

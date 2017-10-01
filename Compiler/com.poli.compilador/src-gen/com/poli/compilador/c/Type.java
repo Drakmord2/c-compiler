@@ -3,8 +3,6 @@
  */
 package com.poli.compilador.c;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -27,35 +25,55 @@ import org.eclipse.emf.ecore.EObject;
 public interface Type extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Tipo</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
+   * Returns the value of the '<em><b>Tipo</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Tipo</em>' attribute list isn't clear,
+   * If the meaning of the '<em>Tipo</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Tipo</em>' attribute list.
+   * @return the value of the '<em>Tipo</em>' attribute.
+   * @see #setTipo(String)
    * @see com.poli.compilador.c.CPackage#getType_Tipo()
-   * @model unique="false"
+   * @model
    * @generated
    */
-  EList<String> getTipo();
+  String getTipo();
 
   /**
-   * Returns the value of the '<em><b>Exp</b></em>' containment reference list.
-   * The list contents are of type {@link com.poli.compilador.c.Expression}.
+   * Sets the value of the '{@link com.poli.compilador.c.Type#getTipo <em>Tipo</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Tipo</em>' attribute.
+   * @see #getTipo()
+   * @generated
+   */
+  void setTipo(String value);
+
+  /**
+   * Returns the value of the '<em><b>Exp</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Exp</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Exp</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Exp</em>' containment reference list.
+   * @return the value of the '<em>Exp</em>' containment reference.
+   * @see #setExp(Expression)
    * @see com.poli.compilador.c.CPackage#getType_Exp()
    * @model containment="true"
    * @generated
    */
-  EList<Expression> getExp();
+  Expression getExp();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.Type#getExp <em>Exp</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Exp</em>' containment reference.
+   * @see #getExp()
+   * @generated
+   */
+  void setExp(Expression value);
 
 } // Type
