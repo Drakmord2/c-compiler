@@ -133,6 +133,13 @@ public class CSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CPackage.COMMAND_BLOCK:
+      {
+        CommandBlock commandBlock = (CommandBlock)theEObject;
+        T result = caseCommandBlock(commandBlock);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CPackage.ARGUMENT:
       {
         Argument argument = (Argument)theEObject;
@@ -152,10 +159,6 @@ public class CSwitch<T> extends Switch<T>
         Expression expression = (Expression)theEObject;
         T result = caseExpression(expression);
         if (result == null) result = caseAtom(expression);
-        if (result == null) result = caseFactor(expression);
-        if (result == null) result = caseTerm(expression);
-        if (result == null) result = caseArithExp(expression);
-        if (result == null) result = caseRelExp(expression);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -197,10 +200,6 @@ public class CSwitch<T> extends Switch<T>
       {
         Atom atom = (Atom)theEObject;
         T result = caseAtom(atom);
-        if (result == null) result = caseFactor(atom);
-        if (result == null) result = caseTerm(atom);
-        if (result == null) result = caseArithExp(atom);
-        if (result == null) result = caseRelExp(atom);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -209,10 +208,6 @@ public class CSwitch<T> extends Switch<T>
         lValue lValue = (lValue)theEObject;
         T result = caselValue(lValue);
         if (result == null) result = caseAtom(lValue);
-        if (result == null) result = caseFactor(lValue);
-        if (result == null) result = caseTerm(lValue);
-        if (result == null) result = caseArithExp(lValue);
-        if (result == null) result = caseRelExp(lValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -223,10 +218,6 @@ public class CSwitch<T> extends Switch<T>
         if (result == null) result = caseVariable(pointerExp);
         if (result == null) result = caselValue(pointerExp);
         if (result == null) result = caseAtom(pointerExp);
-        if (result == null) result = caseFactor(pointerExp);
-        if (result == null) result = caseTerm(pointerExp);
-        if (result == null) result = caseArithExp(pointerExp);
-        if (result == null) result = caseRelExp(pointerExp);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -256,10 +247,6 @@ public class CSwitch<T> extends Switch<T>
         Literal literal = (Literal)theEObject;
         T result = caseLiteral(literal);
         if (result == null) result = caseAtom(literal);
-        if (result == null) result = caseFactor(literal);
-        if (result == null) result = caseTerm(literal);
-        if (result == null) result = caseArithExp(literal);
-        if (result == null) result = caseRelExp(literal);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -341,10 +328,6 @@ public class CSwitch<T> extends Switch<T>
         T result = caseLogicExp(logicExp);
         if (result == null) result = caseExpression(logicExp);
         if (result == null) result = caseAtom(logicExp);
-        if (result == null) result = caseFactor(logicExp);
-        if (result == null) result = caseTerm(logicExp);
-        if (result == null) result = caseArithExp(logicExp);
-        if (result == null) result = caseRelExp(logicExp);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -354,17 +337,6 @@ public class CSwitch<T> extends Switch<T>
         T result = caseAritmExp(aritmExp);
         if (result == null) result = caseArithExp(aritmExp);
         if (result == null) result = caseRelExp(aritmExp);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CPackage.UNARY_EXP:
-      {
-        UnaryExp unaryExp = (UnaryExp)theEObject;
-        T result = caseUnaryExp(unaryExp);
-        if (result == null) result = caseFactor(unaryExp);
-        if (result == null) result = caseTerm(unaryExp);
-        if (result == null) result = caseArithExp(unaryExp);
-        if (result == null) result = caseRelExp(unaryExp);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -390,10 +362,6 @@ public class CSwitch<T> extends Switch<T>
         T result = caseIntLit(intLit);
         if (result == null) result = caseLiteral(intLit);
         if (result == null) result = caseAtom(intLit);
-        if (result == null) result = caseFactor(intLit);
-        if (result == null) result = caseTerm(intLit);
-        if (result == null) result = caseArithExp(intLit);
-        if (result == null) result = caseRelExp(intLit);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -403,10 +371,6 @@ public class CSwitch<T> extends Switch<T>
         T result = caseTrueLit(trueLit);
         if (result == null) result = caseLiteral(trueLit);
         if (result == null) result = caseAtom(trueLit);
-        if (result == null) result = caseFactor(trueLit);
-        if (result == null) result = caseTerm(trueLit);
-        if (result == null) result = caseArithExp(trueLit);
-        if (result == null) result = caseRelExp(trueLit);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -416,10 +380,6 @@ public class CSwitch<T> extends Switch<T>
         T result = caseFalseLit(falseLit);
         if (result == null) result = caseLiteral(falseLit);
         if (result == null) result = caseAtom(falseLit);
-        if (result == null) result = caseFactor(falseLit);
-        if (result == null) result = caseTerm(falseLit);
-        if (result == null) result = caseArithExp(falseLit);
-        if (result == null) result = caseRelExp(falseLit);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -551,6 +511,22 @@ public class CSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseCommand(Command object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Command Block</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Command Block</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCommandBlock(CommandBlock object)
   {
     return null;
   }
@@ -951,22 +927,6 @@ public class CSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAritmExp(AritmExp object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Unary Exp</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Unary Exp</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseUnaryExp(UnaryExp object)
   {
     return null;
   }

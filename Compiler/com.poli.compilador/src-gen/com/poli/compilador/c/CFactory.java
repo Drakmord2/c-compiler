@@ -96,6 +96,15 @@ public interface CFactory extends EFactory
   Command createCommand();
 
   /**
+   * Returns a new object of class '<em>Command Block</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Command Block</em>'.
+   * @generated
+   */
+  CommandBlock createCommandBlock();
+
+  /**
    * Returns a new object of class '<em>Argument</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -319,15 +328,6 @@ public interface CFactory extends EFactory
    * @generated
    */
   AritmExp createAritmExp();
-
-  /**
-   * Returns a new object of class '<em>Unary Exp</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Unary Exp</em>'.
-   * @generated
-   */
-  UnaryExp createUnaryExp();
 
   /**
    * Returns a new object of class '<em>array Access</em>'.

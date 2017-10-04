@@ -336,6 +336,34 @@ public interface CPackage extends EPackage
   int COMMAND_FEATURE_COUNT = 0;
 
   /**
+   * The meta object id for the '{@link com.poli.compilador.c.impl.CommandBlockImpl <em>Command Block</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.poli.compilador.c.impl.CommandBlockImpl
+   * @see com.poli.compilador.c.impl.CPackageImpl#getCommandBlock()
+   * @generated
+   */
+  int COMMAND_BLOCK = 8;
+
+  /**
+   * The feature id for the '<em><b>Commands</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMMAND_BLOCK__COMMANDS = 0;
+
+  /**
+   * The number of structural features of the '<em>Command Block</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMMAND_BLOCK_FEATURE_COUNT = 1;
+
+  /**
    * The meta object id for the '{@link com.poli.compilador.c.impl.ArgumentImpl <em>Argument</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -343,7 +371,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getArgument()
    * @generated
    */
-  int ARGUMENT = 8;
+  int ARGUMENT = 9;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference list.
@@ -371,7 +399,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getAssignment()
    * @generated
    */
-  int ASSIGNMENT = 9;
+  int ASSIGNMENT = 10;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -392,6 +420,53 @@ public interface CPackage extends EPackage
   int ASSIGNMENT_FEATURE_COUNT = 1;
 
   /**
+   * The meta object id for the '{@link com.poli.compilador.c.impl.AtomImpl <em>Atom</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.poli.compilador.c.impl.AtomImpl
+   * @see com.poli.compilador.c.impl.CPackageImpl#getAtom()
+   * @generated
+   */
+  int ATOM = 16;
+
+  /**
+   * The number of structural features of the '<em>Atom</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ATOM_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link com.poli.compilador.c.impl.ExpressionImpl <em>Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.poli.compilador.c.impl.ExpressionImpl
+   * @see com.poli.compilador.c.impl.CPackageImpl#getExpression()
+   * @generated
+   */
+  int EXPRESSION = 11;
+
+  /**
+   * The feature id for the '<em><b>Args</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPRESSION__ARGS = ATOM_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPRESSION_FEATURE_COUNT = ATOM_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link com.poli.compilador.c.impl.RelExpImpl <em>Rel Exp</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -399,7 +474,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getRelExp()
    * @generated
    */
-  int REL_EXP = 11;
+  int REL_EXP = 12;
 
   /**
    * The feature id for the '<em><b>Args</b></em>' containment reference list.
@@ -436,7 +511,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getArithExp()
    * @generated
    */
-  int ARITH_EXP = 12;
+  int ARITH_EXP = 13;
 
   /**
    * The feature id for the '<em><b>Args</b></em>' containment reference list.
@@ -473,7 +548,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getTerm()
    * @generated
    */
-  int TERM = 13;
+  int TERM = 14;
 
   /**
    * The feature id for the '<em><b>Args</b></em>' containment reference list.
@@ -510,7 +585,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getFactor()
    * @generated
    */
-  int FACTOR = 14;
+  int FACTOR = 15;
 
   /**
    * The feature id for the '<em><b>Args</b></em>' containment reference list.
@@ -531,87 +606,31 @@ public interface CPackage extends EPackage
   int FACTOR__OP = TERM__OP;
 
   /**
+   * The feature id for the '<em><b>Uo</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FACTOR__UO = TERM_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Arg</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FACTOR__ARG = TERM_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Factor</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FACTOR_FEATURE_COUNT = TERM_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link com.poli.compilador.c.impl.AtomImpl <em>Atom</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.poli.compilador.c.impl.AtomImpl
-   * @see com.poli.compilador.c.impl.CPackageImpl#getAtom()
-   * @generated
-   */
-  int ATOM = 15;
-
-  /**
-   * The feature id for the '<em><b>Args</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ATOM__ARGS = FACTOR__ARGS;
-
-  /**
-   * The feature id for the '<em><b>Op</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ATOM__OP = FACTOR__OP;
-
-  /**
-   * The number of structural features of the '<em>Atom</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ATOM_FEATURE_COUNT = FACTOR_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link com.poli.compilador.c.impl.ExpressionImpl <em>Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.poli.compilador.c.impl.ExpressionImpl
-   * @see com.poli.compilador.c.impl.CPackageImpl#getExpression()
-   * @generated
-   */
-  int EXPRESSION = 10;
-
-  /**
-   * The feature id for the '<em><b>Args</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRESSION__ARGS = ATOM__ARGS;
-
-  /**
-   * The feature id for the '<em><b>Op</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRESSION__OP = ATOM__OP;
-
-  /**
-   * The number of structural features of the '<em>Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRESSION_FEATURE_COUNT = ATOM_FEATURE_COUNT + 0;
+  int FACTOR_FEATURE_COUNT = TERM_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link com.poli.compilador.c.impl.lValueImpl <em>lValue</em>}' class.
@@ -621,25 +640,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getlValue()
    * @generated
    */
-  int LVALUE = 16;
-
-  /**
-   * The feature id for the '<em><b>Args</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LVALUE__ARGS = ATOM__ARGS;
-
-  /**
-   * The feature id for the '<em><b>Op</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LVALUE__OP = ATOM__OP;
+  int LVALUE = 17;
 
   /**
    * The feature id for the '<em><b>Valor</b></em>' reference.
@@ -685,25 +686,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getPointerExp()
    * @generated
    */
-  int POINTER_EXP = 17;
-
-  /**
-   * The feature id for the '<em><b>Args</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int POINTER_EXP__ARGS = VARIABLE_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Op</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int POINTER_EXP__OP = VARIABLE_FEATURE_COUNT + 1;
+  int POINTER_EXP = 18;
 
   /**
    * The feature id for the '<em><b>Valor</b></em>' reference.
@@ -712,7 +695,7 @@ public interface CPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POINTER_EXP__VALOR = VARIABLE_FEATURE_COUNT + 2;
+  int POINTER_EXP__VALOR = VARIABLE_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Arg</b></em>' containment reference.
@@ -721,7 +704,7 @@ public interface CPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POINTER_EXP__ARG = VARIABLE_FEATURE_COUNT + 3;
+  int POINTER_EXP__ARG = VARIABLE_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Acc</b></em>' containment reference.
@@ -730,7 +713,7 @@ public interface CPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POINTER_EXP__ACC = VARIABLE_FEATURE_COUNT + 4;
+  int POINTER_EXP__ACC = VARIABLE_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -739,7 +722,7 @@ public interface CPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POINTER_EXP__EXP = VARIABLE_FEATURE_COUNT + 5;
+  int POINTER_EXP__EXP = VARIABLE_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Pointer Exp</em>' class.
@@ -748,7 +731,7 @@ public interface CPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POINTER_EXP_FEATURE_COUNT = VARIABLE_FEATURE_COUNT + 6;
+  int POINTER_EXP_FEATURE_COUNT = VARIABLE_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link com.poli.compilador.c.impl.AccessExpImpl <em>Access Exp</em>}' class.
@@ -758,7 +741,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getAccessExp()
    * @generated
    */
-  int ACCESS_EXP = 18;
+  int ACCESS_EXP = 19;
 
   /**
    * The number of structural features of the '<em>Access Exp</em>' class.
@@ -777,7 +760,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getCase()
    * @generated
    */
-  int CASE = 19;
+  int CASE = 20;
 
   /**
    * The feature id for the '<em><b>Val</b></em>' containment reference.
@@ -814,7 +797,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getType()
    * @generated
    */
-  int TYPE = 20;
+  int TYPE = 21;
 
   /**
    * The feature id for the '<em><b>Tipo</b></em>' attribute.
@@ -851,25 +834,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getLiteral()
    * @generated
    */
-  int LITERAL = 21;
-
-  /**
-   * The feature id for the '<em><b>Args</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LITERAL__ARGS = ATOM__ARGS;
-
-  /**
-   * The feature id for the '<em><b>Op</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LITERAL__OP = ATOM__OP;
+  int LITERAL = 22;
 
   /**
    * The number of structural features of the '<em>Literal</em>' class.
@@ -888,7 +853,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getifCmd()
    * @generated
    */
-  int IF_CMD = 22;
+  int IF_CMD = 23;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -900,7 +865,7 @@ public interface CPackage extends EPackage
   int IF_CMD__EXP = COMMAND_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>True Commands</b></em>' containment reference list.
+   * The feature id for the '<em><b>True Commands</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -909,7 +874,7 @@ public interface CPackage extends EPackage
   int IF_CMD__TRUE_COMMANDS = COMMAND_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>False Commands</b></em>' containment reference list.
+   * The feature id for the '<em><b>False Commands</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -934,7 +899,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getwhileCmd()
    * @generated
    */
-  int WHILE_CMD = 23;
+  int WHILE_CMD = 24;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -946,7 +911,7 @@ public interface CPackage extends EPackage
   int WHILE_CMD__EXP = COMMAND_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Commands</b></em>' containment reference list.
+   * The feature id for the '<em><b>Commands</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -971,7 +936,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getforCmd()
    * @generated
    */
-  int FOR_CMD = 24;
+  int FOR_CMD = 25;
 
   /**
    * The feature id for the '<em><b>Init</b></em>' containment reference list.
@@ -1001,7 +966,7 @@ public interface CPackage extends EPackage
   int FOR_CMD__INC = COMMAND_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Commands</b></em>' containment reference list.
+   * The feature id for the '<em><b>Commands</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1026,7 +991,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getswitchCmd()
    * @generated
    */
-  int SWITCH_CMD = 25;
+  int SWITCH_CMD = 26;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -1072,10 +1037,10 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getdoWhileCmd()
    * @generated
    */
-  int DO_WHILE_CMD = 26;
+  int DO_WHILE_CMD = 27;
 
   /**
-   * The feature id for the '<em><b>Commands</b></em>' containment reference list.
+   * The feature id for the '<em><b>Commands</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1109,7 +1074,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getvarCmd()
    * @generated
    */
-  int VAR_CMD = 27;
+  int VAR_CMD = 28;
 
   /**
    * The feature id for the '<em><b>Val</b></em>' containment reference list.
@@ -1137,7 +1102,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getbreakCmd()
    * @generated
    */
-  int BREAK_CMD = 28;
+  int BREAK_CMD = 29;
 
   /**
    * The number of structural features of the '<em>break Cmd</em>' class.
@@ -1156,7 +1121,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getcontinueCmd()
    * @generated
    */
-  int CONTINUE_CMD = 29;
+  int CONTINUE_CMD = 30;
 
   /**
    * The number of structural features of the '<em>continue Cmd</em>' class.
@@ -1175,7 +1140,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getreturnCmd()
    * @generated
    */
-  int RETURN_CMD = 30;
+  int RETURN_CMD = 31;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference list.
@@ -1203,7 +1168,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getLogicExp()
    * @generated
    */
-  int LOGIC_EXP = 31;
+  int LOGIC_EXP = 32;
 
   /**
    * The feature id for the '<em><b>Args</b></em>' containment reference list.
@@ -1221,7 +1186,7 @@ public interface CPackage extends EPackage
    * @generated
    * @ordered
    */
-  int LOGIC_EXP__OP = EXPRESSION__OP;
+  int LOGIC_EXP__OP = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Logic Exp</em>' class.
@@ -1230,7 +1195,7 @@ public interface CPackage extends EPackage
    * @generated
    * @ordered
    */
-  int LOGIC_EXP_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
+  int LOGIC_EXP_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link com.poli.compilador.c.impl.AritmExpImpl <em>Aritm Exp</em>}' class.
@@ -1240,7 +1205,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getAritmExp()
    * @generated
    */
-  int ARITM_EXP = 32;
+  int ARITM_EXP = 33;
 
   /**
    * The feature id for the '<em><b>Args</b></em>' containment reference list.
@@ -1268,52 +1233,6 @@ public interface CPackage extends EPackage
    * @ordered
    */
   int ARITM_EXP_FEATURE_COUNT = ARITH_EXP_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link com.poli.compilador.c.impl.UnaryExpImpl <em>Unary Exp</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.poli.compilador.c.impl.UnaryExpImpl
-   * @see com.poli.compilador.c.impl.CPackageImpl#getUnaryExp()
-   * @generated
-   */
-  int UNARY_EXP = 33;
-
-  /**
-   * The feature id for the '<em><b>Args</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UNARY_EXP__ARGS = FACTOR__ARGS;
-
-  /**
-   * The feature id for the '<em><b>Op</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UNARY_EXP__OP = FACTOR__OP;
-
-  /**
-   * The feature id for the '<em><b>Arg</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UNARY_EXP__ARG = FACTOR_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Unary Exp</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UNARY_EXP_FEATURE_COUNT = FACTOR_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link com.poli.compilador.c.impl.arrayAccessImpl <em>array Access</em>}' class.
@@ -1382,24 +1301,6 @@ public interface CPackage extends EPackage
   int INT_LIT = 36;
 
   /**
-   * The feature id for the '<em><b>Args</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INT_LIT__ARGS = LITERAL__ARGS;
-
-  /**
-   * The feature id for the '<em><b>Op</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INT_LIT__OP = LITERAL__OP;
-
-  /**
    * The feature id for the '<em><b>Val</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1428,24 +1329,6 @@ public interface CPackage extends EPackage
   int TRUE_LIT = 37;
 
   /**
-   * The feature id for the '<em><b>Args</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TRUE_LIT__ARGS = LITERAL__ARGS;
-
-  /**
-   * The feature id for the '<em><b>Op</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TRUE_LIT__OP = LITERAL__OP;
-
-  /**
    * The feature id for the '<em><b>Val</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1472,24 +1355,6 @@ public interface CPackage extends EPackage
    * @generated
    */
   int FALSE_LIT = 38;
-
-  /**
-   * The feature id for the '<em><b>Args</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FALSE_LIT__ARGS = LITERAL__ARGS;
-
-  /**
-   * The feature id for the '<em><b>Op</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FALSE_LIT__OP = LITERAL__OP;
 
   /**
    * The feature id for the '<em><b>Val</b></em>' attribute.
@@ -1712,6 +1577,27 @@ public interface CPackage extends EPackage
   EClass getCommand();
 
   /**
+   * Returns the meta object for class '{@link com.poli.compilador.c.CommandBlock <em>Command Block</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Command Block</em>'.
+   * @see com.poli.compilador.c.CommandBlock
+   * @generated
+   */
+  EClass getCommandBlock();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.poli.compilador.c.CommandBlock#getCommands <em>Commands</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Commands</em>'.
+   * @see com.poli.compilador.c.CommandBlock#getCommands()
+   * @see #getCommandBlock()
+   * @generated
+   */
+  EReference getCommandBlock_Commands();
+
+  /**
    * Returns the meta object for class '{@link com.poli.compilador.c.Argument <em>Argument</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1762,6 +1648,17 @@ public interface CPackage extends EPackage
    * @generated
    */
   EClass getExpression();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.poli.compilador.c.Expression#getArgs <em>Args</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Args</em>'.
+   * @see com.poli.compilador.c.Expression#getArgs()
+   * @see #getExpression()
+   * @generated
+   */
+  EReference getExpression_Args();
 
   /**
    * Returns the meta object for class '{@link com.poli.compilador.c.RelExp <em>Rel Exp</em>}'.
@@ -1824,6 +1721,28 @@ public interface CPackage extends EPackage
    * @generated
    */
   EClass getFactor();
+
+  /**
+   * Returns the meta object for the attribute list '{@link com.poli.compilador.c.Factor#getUo <em>Uo</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Uo</em>'.
+   * @see com.poli.compilador.c.Factor#getUo()
+   * @see #getFactor()
+   * @generated
+   */
+  EAttribute getFactor_Uo();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.poli.compilador.c.Factor#getArg <em>Arg</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Arg</em>'.
+   * @see com.poli.compilador.c.Factor#getArg()
+   * @see #getFactor()
+   * @generated
+   */
+  EReference getFactor_Arg();
 
   /**
    * Returns the meta object for class '{@link com.poli.compilador.c.Atom <em>Atom</em>}'.
@@ -2005,10 +1924,10 @@ public interface CPackage extends EPackage
   EReference getifCmd_Exp();
 
   /**
-   * Returns the meta object for the containment reference list '{@link com.poli.compilador.c.ifCmd#getTrueCommands <em>True Commands</em>}'.
+   * Returns the meta object for the containment reference '{@link com.poli.compilador.c.ifCmd#getTrueCommands <em>True Commands</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>True Commands</em>'.
+   * @return the meta object for the containment reference '<em>True Commands</em>'.
    * @see com.poli.compilador.c.ifCmd#getTrueCommands()
    * @see #getifCmd()
    * @generated
@@ -2016,10 +1935,10 @@ public interface CPackage extends EPackage
   EReference getifCmd_TrueCommands();
 
   /**
-   * Returns the meta object for the containment reference list '{@link com.poli.compilador.c.ifCmd#getFalseCommands <em>False Commands</em>}'.
+   * Returns the meta object for the containment reference '{@link com.poli.compilador.c.ifCmd#getFalseCommands <em>False Commands</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>False Commands</em>'.
+   * @return the meta object for the containment reference '<em>False Commands</em>'.
    * @see com.poli.compilador.c.ifCmd#getFalseCommands()
    * @see #getifCmd()
    * @generated
@@ -2048,10 +1967,10 @@ public interface CPackage extends EPackage
   EReference getwhileCmd_Exp();
 
   /**
-   * Returns the meta object for the containment reference list '{@link com.poli.compilador.c.whileCmd#getCommands <em>Commands</em>}'.
+   * Returns the meta object for the containment reference '{@link com.poli.compilador.c.whileCmd#getCommands <em>Commands</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Commands</em>'.
+   * @return the meta object for the containment reference '<em>Commands</em>'.
    * @see com.poli.compilador.c.whileCmd#getCommands()
    * @see #getwhileCmd()
    * @generated
@@ -2102,10 +2021,10 @@ public interface CPackage extends EPackage
   EReference getforCmd_Inc();
 
   /**
-   * Returns the meta object for the containment reference list '{@link com.poli.compilador.c.forCmd#getCommands <em>Commands</em>}'.
+   * Returns the meta object for the containment reference '{@link com.poli.compilador.c.forCmd#getCommands <em>Commands</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Commands</em>'.
+   * @return the meta object for the containment reference '<em>Commands</em>'.
    * @see com.poli.compilador.c.forCmd#getCommands()
    * @see #getforCmd()
    * @generated
@@ -2166,10 +2085,10 @@ public interface CPackage extends EPackage
   EClass getdoWhileCmd();
 
   /**
-   * Returns the meta object for the containment reference list '{@link com.poli.compilador.c.doWhileCmd#getCommands <em>Commands</em>}'.
+   * Returns the meta object for the containment reference '{@link com.poli.compilador.c.doWhileCmd#getCommands <em>Commands</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Commands</em>'.
+   * @return the meta object for the containment reference '<em>Commands</em>'.
    * @see com.poli.compilador.c.doWhileCmd#getCommands()
    * @see #getdoWhileCmd()
    * @generated
@@ -2260,6 +2179,17 @@ public interface CPackage extends EPackage
   EClass getLogicExp();
 
   /**
+   * Returns the meta object for the attribute '{@link com.poli.compilador.c.LogicExp#getOp <em>Op</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Op</em>'.
+   * @see com.poli.compilador.c.LogicExp#getOp()
+   * @see #getLogicExp()
+   * @generated
+   */
+  EAttribute getLogicExp_Op();
+
+  /**
    * Returns the meta object for class '{@link com.poli.compilador.c.AritmExp <em>Aritm Exp</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2268,27 +2198,6 @@ public interface CPackage extends EPackage
    * @generated
    */
   EClass getAritmExp();
-
-  /**
-   * Returns the meta object for class '{@link com.poli.compilador.c.UnaryExp <em>Unary Exp</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Unary Exp</em>'.
-   * @see com.poli.compilador.c.UnaryExp
-   * @generated
-   */
-  EClass getUnaryExp();
-
-  /**
-   * Returns the meta object for the containment reference '{@link com.poli.compilador.c.UnaryExp#getArg <em>Arg</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Arg</em>'.
-   * @see com.poli.compilador.c.UnaryExp#getArg()
-   * @see #getUnaryExp()
-   * @generated
-   */
-  EReference getUnaryExp_Arg();
 
   /**
    * Returns the meta object for class '{@link com.poli.compilador.c.arrayAccess <em>array Access</em>}'.
@@ -2587,6 +2496,24 @@ public interface CPackage extends EPackage
     EClass COMMAND = eINSTANCE.getCommand();
 
     /**
+     * The meta object literal for the '{@link com.poli.compilador.c.impl.CommandBlockImpl <em>Command Block</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.poli.compilador.c.impl.CommandBlockImpl
+     * @see com.poli.compilador.c.impl.CPackageImpl#getCommandBlock()
+     * @generated
+     */
+    EClass COMMAND_BLOCK = eINSTANCE.getCommandBlock();
+
+    /**
+     * The meta object literal for the '<em><b>Commands</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference COMMAND_BLOCK__COMMANDS = eINSTANCE.getCommandBlock_Commands();
+
+    /**
      * The meta object literal for the '{@link com.poli.compilador.c.impl.ArgumentImpl <em>Argument</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2631,6 +2558,14 @@ public interface CPackage extends EPackage
      * @generated
      */
     EClass EXPRESSION = eINSTANCE.getExpression();
+
+    /**
+     * The meta object literal for the '<em><b>Args</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EXPRESSION__ARGS = eINSTANCE.getExpression_Args();
 
     /**
      * The meta object literal for the '{@link com.poli.compilador.c.impl.RelExpImpl <em>Rel Exp</em>}' class.
@@ -2687,6 +2622,22 @@ public interface CPackage extends EPackage
      * @generated
      */
     EClass FACTOR = eINSTANCE.getFactor();
+
+    /**
+     * The meta object literal for the '<em><b>Uo</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FACTOR__UO = eINSTANCE.getFactor_Uo();
+
+    /**
+     * The meta object literal for the '<em><b>Arg</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FACTOR__ARG = eINSTANCE.getFactor_Arg();
 
     /**
      * The meta object literal for the '{@link com.poli.compilador.c.impl.AtomImpl <em>Atom</em>}' class.
@@ -2841,7 +2792,7 @@ public interface CPackage extends EPackage
     EReference IF_CMD__EXP = eINSTANCE.getifCmd_Exp();
 
     /**
-     * The meta object literal for the '<em><b>True Commands</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>True Commands</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2849,7 +2800,7 @@ public interface CPackage extends EPackage
     EReference IF_CMD__TRUE_COMMANDS = eINSTANCE.getifCmd_TrueCommands();
 
     /**
-     * The meta object literal for the '<em><b>False Commands</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>False Commands</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2875,7 +2826,7 @@ public interface CPackage extends EPackage
     EReference WHILE_CMD__EXP = eINSTANCE.getwhileCmd_Exp();
 
     /**
-     * The meta object literal for the '<em><b>Commands</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Commands</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2917,7 +2868,7 @@ public interface CPackage extends EPackage
     EReference FOR_CMD__INC = eINSTANCE.getforCmd_Inc();
 
     /**
-     * The meta object literal for the '<em><b>Commands</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Commands</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2969,7 +2920,7 @@ public interface CPackage extends EPackage
     EClass DO_WHILE_CMD = eINSTANCE.getdoWhileCmd();
 
     /**
-     * The meta object literal for the '<em><b>Commands</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Commands</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -3051,6 +3002,14 @@ public interface CPackage extends EPackage
     EClass LOGIC_EXP = eINSTANCE.getLogicExp();
 
     /**
+     * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute LOGIC_EXP__OP = eINSTANCE.getLogicExp_Op();
+
+    /**
      * The meta object literal for the '{@link com.poli.compilador.c.impl.AritmExpImpl <em>Aritm Exp</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3059,24 +3018,6 @@ public interface CPackage extends EPackage
      * @generated
      */
     EClass ARITM_EXP = eINSTANCE.getAritmExp();
-
-    /**
-     * The meta object literal for the '{@link com.poli.compilador.c.impl.UnaryExpImpl <em>Unary Exp</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.poli.compilador.c.impl.UnaryExpImpl
-     * @see com.poli.compilador.c.impl.CPackageImpl#getUnaryExp()
-     * @generated
-     */
-    EClass UNARY_EXP = eINSTANCE.getUnaryExp();
-
-    /**
-     * The meta object literal for the '<em><b>Arg</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference UNARY_EXP__ARG = eINSTANCE.getUnaryExp_Arg();
 
     /**
      * The meta object literal for the '{@link com.poli.compilador.c.impl.arrayAccessImpl <em>array Access</em>}' class.

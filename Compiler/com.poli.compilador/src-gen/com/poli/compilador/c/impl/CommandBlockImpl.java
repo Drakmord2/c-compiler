@@ -4,7 +4,8 @@
 package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
-import com.poli.compilador.c.Expression;
+import com.poli.compilador.c.Command;
+import com.poli.compilador.c.CommandBlock;
 
 import java.util.Collection;
 
@@ -13,43 +14,44 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Expression</b></em>'.
+ * An implementation of the model object '<em><b>Command Block</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.ExpressionImpl#getArgs <em>Args</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.CommandBlockImpl#getCommands <em>Commands</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ExpressionImpl extends AtomImpl implements Expression
+public class CommandBlockImpl extends MinimalEObjectImpl.Container implements CommandBlock
 {
   /**
-   * The cached value of the '{@link #getArgs() <em>Args</em>}' containment reference list.
+   * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getArgs()
+   * @see #getCommands()
    * @generated
    * @ordered
    */
-  protected EList<EObject> args;
+  protected EList<Command> commands;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ExpressionImpl()
+  protected CommandBlockImpl()
   {
     super();
   }
@@ -62,7 +64,7 @@ public class ExpressionImpl extends AtomImpl implements Expression
   @Override
   protected EClass eStaticClass()
   {
-    return CPackage.Literals.EXPRESSION;
+    return CPackage.Literals.COMMAND_BLOCK;
   }
 
   /**
@@ -70,13 +72,13 @@ public class ExpressionImpl extends AtomImpl implements Expression
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<EObject> getArgs()
+  public EList<Command> getCommands()
   {
-    if (args == null)
+    if (commands == null)
     {
-      args = new EObjectContainmentEList<EObject>(EObject.class, this, CPackage.EXPRESSION__ARGS);
+      commands = new EObjectContainmentEList<Command>(Command.class, this, CPackage.COMMAND_BLOCK__COMMANDS);
     }
-    return args;
+    return commands;
   }
 
   /**
@@ -89,8 +91,8 @@ public class ExpressionImpl extends AtomImpl implements Expression
   {
     switch (featureID)
     {
-      case CPackage.EXPRESSION__ARGS:
-        return ((InternalEList<?>)getArgs()).basicRemove(otherEnd, msgs);
+      case CPackage.COMMAND_BLOCK__COMMANDS:
+        return ((InternalEList<?>)getCommands()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -105,8 +107,8 @@ public class ExpressionImpl extends AtomImpl implements Expression
   {
     switch (featureID)
     {
-      case CPackage.EXPRESSION__ARGS:
-        return getArgs();
+      case CPackage.COMMAND_BLOCK__COMMANDS:
+        return getCommands();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -122,9 +124,9 @@ public class ExpressionImpl extends AtomImpl implements Expression
   {
     switch (featureID)
     {
-      case CPackage.EXPRESSION__ARGS:
-        getArgs().clear();
-        getArgs().addAll((Collection<? extends EObject>)newValue);
+      case CPackage.COMMAND_BLOCK__COMMANDS:
+        getCommands().clear();
+        getCommands().addAll((Collection<? extends Command>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -140,8 +142,8 @@ public class ExpressionImpl extends AtomImpl implements Expression
   {
     switch (featureID)
     {
-      case CPackage.EXPRESSION__ARGS:
-        getArgs().clear();
+      case CPackage.COMMAND_BLOCK__COMMANDS:
+        getCommands().clear();
         return;
     }
     super.eUnset(featureID);
@@ -157,10 +159,10 @@ public class ExpressionImpl extends AtomImpl implements Expression
   {
     switch (featureID)
     {
-      case CPackage.EXPRESSION__ARGS:
-        return args != null && !args.isEmpty();
+      case CPackage.COMMAND_BLOCK__COMMANDS:
+        return commands != null && !commands.isEmpty();
     }
     return super.eIsSet(featureID);
   }
 
-} //ExpressionImpl
+} //CommandBlockImpl

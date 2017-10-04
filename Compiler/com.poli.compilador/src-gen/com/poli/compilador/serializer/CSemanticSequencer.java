@@ -9,8 +9,10 @@ import com.poli.compilador.c.AritmExp;
 import com.poli.compilador.c.Assignment;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Case;
+import com.poli.compilador.c.CommandBlock;
 import com.poli.compilador.c.Declaration;
 import com.poli.compilador.c.Expression;
+import com.poli.compilador.c.Factor;
 import com.poli.compilador.c.FalseLit;
 import com.poli.compilador.c.Function;
 import com.poli.compilador.c.IdDef;
@@ -23,7 +25,6 @@ import com.poli.compilador.c.Struct;
 import com.poli.compilador.c.Term;
 import com.poli.compilador.c.TrueLit;
 import com.poli.compilador.c.Type;
-import com.poli.compilador.c.UnaryExp;
 import com.poli.compilador.c.Variable;
 import com.poli.compilador.c.arrayAccess;
 import com.poli.compilador.c.breakCmd;
@@ -75,11 +76,17 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case CPackage.CASE:
 				sequence_Case(context, (Case) semanticObject); 
 				return; 
+			case CPackage.COMMAND_BLOCK:
+				sequence_CommandBlock(context, (CommandBlock) semanticObject); 
+				return; 
 			case CPackage.DECLARATION:
 				sequence_Declaration(context, (Declaration) semanticObject); 
 				return; 
 			case CPackage.EXPRESSION:
 				sequence_Expression(context, (Expression) semanticObject); 
+				return; 
+			case CPackage.FACTOR:
+				sequence_Factor(context, (Factor) semanticObject); 
 				return; 
 			case CPackage.FALSE_LIT:
 				sequence_Literal(context, (FalseLit) semanticObject); 
@@ -116,9 +123,6 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case CPackage.TYPE:
 				sequence_Type(context, (Type) semanticObject); 
-				return; 
-			case CPackage.UNARY_EXP:
-				sequence_Factor(context, (UnaryExp) semanticObject); 
 				return; 
 			case CPackage.VARIABLE:
 				sequence_Variable(context, (Variable) semanticObject); 
@@ -253,6 +257,18 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     CommandBlock returns CommandBlock
+	 *
+	 * Constraint:
+	 *     commands+=Command*
+	 */
+	protected void sequence_CommandBlock(ISerializationContext context, CommandBlock semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Command returns breakCmd
 	 *
 	 * Constraint:
@@ -280,10 +296,19 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Command returns doWhileCmd
 	 *
 	 * Constraint:
-	 *     (commands+=Command* exp=Expression)
+	 *     (commands=CommandBlock exp=Expression)
 	 */
 	protected void sequence_Command(ISerializationContext context, doWhileCmd semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, CPackage.Literals.DO_WHILE_CMD__COMMANDS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CPackage.Literals.DO_WHILE_CMD__COMMANDS));
+			if (transientValues.isValueTransient(semanticObject, CPackage.Literals.DO_WHILE_CMD__EXP) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CPackage.Literals.DO_WHILE_CMD__EXP));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCommandAccess().getCommandsCommandBlockParserRuleCall_5_2_0(), semanticObject.getCommands());
+		feeder.accept(grammarAccess.getCommandAccess().getExpExpressionParserRuleCall_5_5_0(), semanticObject.getExp());
+		feeder.finish();
 	}
 	
 	
@@ -296,9 +321,9 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         init+=lValue 
 	 *         init+=Assignment 
 	 *         exp=Expression 
-	 *         inc+=lValue 
-	 *         inc+=Assignment 
-	 *         commands+=Command*
+	 *         inc+=Factor 
+	 *         inc+=Assignment? 
+	 *         commands=CommandBlock
 	 *     )
 	 */
 	protected void sequence_Command(ISerializationContext context, forCmd semanticObject) {
@@ -311,7 +336,7 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Command returns ifCmd
 	 *
 	 * Constraint:
-	 *     (exp=Expression trueCommands+=Command* falseCommands+=Command*)
+	 *     (exp=Expression trueCommands=CommandBlock falseCommands=CommandBlock?)
 	 */
 	protected void sequence_Command(ISerializationContext context, ifCmd semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -347,7 +372,7 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Command returns varCmd
 	 *
 	 * Constraint:
-	 *     (val+=lValue val+=Assignment?)
+	 *     (val+=Factor val+=Assignment?)
 	 */
 	protected void sequence_Command(ISerializationContext context, varCmd semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -359,10 +384,19 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Command returns whileCmd
 	 *
 	 * Constraint:
-	 *     (exp=Expression commands+=Command*)
+	 *     (exp=Expression commands=CommandBlock)
 	 */
 	protected void sequence_Command(ISerializationContext context, whileCmd semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, CPackage.Literals.WHILE_CMD__EXP) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CPackage.Literals.WHILE_CMD__EXP));
+			if (transientValues.isValueTransient(semanticObject, CPackage.Literals.WHILE_CMD__COMMANDS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CPackage.Literals.WHILE_CMD__COMMANDS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCommandAccess().getExpExpressionParserRuleCall_1_3_0(), semanticObject.getExp());
+		feeder.accept(grammarAccess.getCommandAccess().getCommandsCommandBlockParserRuleCall_1_5_0(), semanticObject.getCommands());
+		feeder.finish();
 	}
 	
 	
@@ -384,13 +418,6 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 * Contexts:
 	 *     Expression returns Expression
 	 *     Expression.LogicExp_1_0 returns Expression
-	 *     RelExp returns Expression
-	 *     RelExp.RelExp_1_0 returns Expression
-	 *     ArithExp returns Expression
-	 *     ArithExp.AritmExp_1_0 returns Expression
-	 *     Term returns Expression
-	 *     Term.Term_1_0 returns Expression
-	 *     Factor returns Expression
 	 *     Atom returns Expression
 	 *
 	 * Constraint:
@@ -405,13 +432,6 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 * Contexts:
 	 *     Expression returns LogicExp
 	 *     Expression.LogicExp_1_0 returns LogicExp
-	 *     RelExp returns LogicExp
-	 *     RelExp.RelExp_1_0 returns LogicExp
-	 *     ArithExp returns LogicExp
-	 *     ArithExp.AritmExp_1_0 returns LogicExp
-	 *     Term returns LogicExp
-	 *     Term.Term_1_0 returns LogicExp
-	 *     Factor returns LogicExp
 	 *     Atom returns LogicExp
 	 *
 	 * Constraint:
@@ -424,28 +444,19 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     RelExp returns UnaryExp
-	 *     RelExp.RelExp_1_0 returns UnaryExp
-	 *     ArithExp returns UnaryExp
-	 *     ArithExp.AritmExp_1_0 returns UnaryExp
-	 *     Term returns UnaryExp
-	 *     Term.Term_1_0 returns UnaryExp
-	 *     Factor returns UnaryExp
+	 *     RelExp returns Factor
+	 *     RelExp.RelExp_1_0 returns Factor
+	 *     ArithExp returns Factor
+	 *     ArithExp.AritmExp_1_0 returns Factor
+	 *     Term returns Factor
+	 *     Term.Term_1_0 returns Factor
+	 *     Factor returns Factor
 	 *
 	 * Constraint:
-	 *     (op=UO arg=Atom)
+	 *     (uo+=UO? arg=Atom uo+=UO?)
 	 */
-	protected void sequence_Factor(ISerializationContext context, UnaryExp semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, CPackage.Literals.REL_EXP__OP) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CPackage.Literals.REL_EXP__OP));
-			if (transientValues.isValueTransient(semanticObject, CPackage.Literals.UNARY_EXP__ARG) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CPackage.Literals.UNARY_EXP__ARG));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getFactorAccess().getOpUOTerminalRuleCall_0_1_0(), semanticObject.getOp());
-		feeder.accept(grammarAccess.getFactorAccess().getArgAtomParserRuleCall_0_2_0(), semanticObject.getArg());
-		feeder.finish();
+	protected void sequence_Factor(ISerializationContext context, Factor semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -485,13 +496,6 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     RelExp returns FalseLit
-	 *     RelExp.RelExp_1_0 returns FalseLit
-	 *     ArithExp returns FalseLit
-	 *     ArithExp.AritmExp_1_0 returns FalseLit
-	 *     Term returns FalseLit
-	 *     Term.Term_1_0 returns FalseLit
-	 *     Factor returns FalseLit
 	 *     Atom returns FalseLit
 	 *     Literal returns FalseLit
 	 *
@@ -511,13 +515,6 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     RelExp returns IntLit
-	 *     RelExp.RelExp_1_0 returns IntLit
-	 *     ArithExp returns IntLit
-	 *     ArithExp.AritmExp_1_0 returns IntLit
-	 *     Term returns IntLit
-	 *     Term.Term_1_0 returns IntLit
-	 *     Factor returns IntLit
 	 *     Atom returns IntLit
 	 *     Literal returns IntLit
 	 *
@@ -537,13 +534,6 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     RelExp returns TrueLit
-	 *     RelExp.RelExp_1_0 returns TrueLit
-	 *     ArithExp returns TrueLit
-	 *     ArithExp.AritmExp_1_0 returns TrueLit
-	 *     Term returns TrueLit
-	 *     Term.Term_1_0 returns TrueLit
-	 *     Factor returns TrueLit
 	 *     Atom returns TrueLit
 	 *     Literal returns TrueLit
 	 *
@@ -564,13 +554,6 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	/**
 	 * Contexts:
 	 *     Variable returns PointerExp
-	 *     RelExp returns PointerExp
-	 *     RelExp.RelExp_1_0 returns PointerExp
-	 *     ArithExp returns PointerExp
-	 *     ArithExp.AritmExp_1_0 returns PointerExp
-	 *     Term returns PointerExp
-	 *     Term.Term_1_0 returns PointerExp
-	 *     Factor returns PointerExp
 	 *     Atom returns PointerExp
 	 *     lValue returns PointerExp
 	 *     PointerExp returns PointerExp
@@ -663,13 +646,6 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     RelExp returns lValue
-	 *     RelExp.RelExp_1_0 returns lValue
-	 *     ArithExp returns lValue
-	 *     ArithExp.AritmExp_1_0 returns lValue
-	 *     Term returns lValue
-	 *     Term.Term_1_0 returns lValue
-	 *     Factor returns lValue
 	 *     Atom returns lValue
 	 *     lValue returns lValue
 	 *

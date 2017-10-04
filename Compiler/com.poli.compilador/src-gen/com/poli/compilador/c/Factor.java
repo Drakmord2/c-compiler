@@ -3,12 +3,20 @@
  */
 package com.poli.compilador.c;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Factor</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link com.poli.compilador.c.Factor#getUo <em>Uo</em>}</li>
+ *   <li>{@link com.poli.compilador.c.Factor#getArg <em>Arg</em>}</li>
+ * </ul>
  *
  * @see com.poli.compilador.c.CPackage#getFactor()
  * @model
@@ -16,4 +24,46 @@ package com.poli.compilador.c;
  */
 public interface Factor extends Term
 {
+  /**
+   * Returns the value of the '<em><b>Uo</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Uo</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Uo</em>' attribute list.
+   * @see com.poli.compilador.c.CPackage#getFactor_Uo()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getUo();
+
+  /**
+   * Returns the value of the '<em><b>Arg</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Arg</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Arg</em>' containment reference.
+   * @see #setArg(Atom)
+   * @see com.poli.compilador.c.CPackage#getFactor_Arg()
+   * @model containment="true"
+   * @generated
+   */
+  Atom getArg();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.Factor#getArg <em>Arg</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Arg</em>' containment reference.
+   * @see #getArg()
+   * @generated
+   */
+  void setArg(Atom value);
+
 } // Factor

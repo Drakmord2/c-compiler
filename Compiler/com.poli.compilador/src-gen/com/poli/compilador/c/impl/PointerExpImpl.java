@@ -5,31 +5,20 @@ package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.AccessExp;
 import com.poli.compilador.c.Argument;
-import com.poli.compilador.c.ArithExp;
 import com.poli.compilador.c.Atom;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Definition;
 import com.poli.compilador.c.Expression;
-import com.poli.compilador.c.Factor;
 import com.poli.compilador.c.PointerExp;
-import com.poli.compilador.c.RelExp;
-import com.poli.compilador.c.Term;
 import com.poli.compilador.c.lValue;
-
-import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,8 +28,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.PointerExpImpl#getArgs <em>Args</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.PointerExpImpl#getOp <em>Op</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.PointerExpImpl#getValor <em>Valor</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.PointerExpImpl#getArg <em>Arg</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.PointerExpImpl#getAcc <em>Acc</em>}</li>
@@ -51,36 +38,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class PointerExpImpl extends VariableImpl implements PointerExp
 {
-  /**
-   * The cached value of the '{@link #getArgs() <em>Args</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getArgs()
-   * @generated
-   * @ordered
-   */
-  protected EList<RelExp> args;
-
-  /**
-   * The default value of the '{@link #getOp() <em>Op</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getOp()
-   * @generated
-   * @ordered
-   */
-  protected static final String OP_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getOp() <em>Op</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getOp()
-   * @generated
-   * @ordered
-   */
-  protected String op = OP_EDEFAULT;
-
   /**
    * The cached value of the '{@link #getValor() <em>Valor</em>}' reference.
    * <!-- begin-user-doc -->
@@ -140,43 +97,6 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
   protected EClass eStaticClass()
   {
     return CPackage.Literals.POINTER_EXP;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<RelExp> getArgs()
-  {
-    if (args == null)
-    {
-      args = new EObjectContainmentEList<RelExp>(RelExp.class, this, CPackage.POINTER_EXP__ARGS);
-    }
-    return args;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getOp()
-  {
-    return op;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setOp(String newOp)
-  {
-    String oldOp = op;
-    op = newOp;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.POINTER_EXP__OP, oldOp, op));
   }
 
   /**
@@ -376,8 +296,6 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
   {
     switch (featureID)
     {
-      case CPackage.POINTER_EXP__ARGS:
-        return ((InternalEList<?>)getArgs()).basicRemove(otherEnd, msgs);
       case CPackage.POINTER_EXP__ARG:
         return basicSetArg(null, msgs);
       case CPackage.POINTER_EXP__ACC:
@@ -398,10 +316,6 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
   {
     switch (featureID)
     {
-      case CPackage.POINTER_EXP__ARGS:
-        return getArgs();
-      case CPackage.POINTER_EXP__OP:
-        return getOp();
       case CPackage.POINTER_EXP__VALOR:
         if (resolve) return getValor();
         return basicGetValor();
@@ -420,19 +334,11 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case CPackage.POINTER_EXP__ARGS:
-        getArgs().clear();
-        getArgs().addAll((Collection<? extends RelExp>)newValue);
-        return;
-      case CPackage.POINTER_EXP__OP:
-        setOp((String)newValue);
-        return;
       case CPackage.POINTER_EXP__VALOR:
         setValor((Definition)newValue);
         return;
@@ -459,12 +365,6 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
   {
     switch (featureID)
     {
-      case CPackage.POINTER_EXP__ARGS:
-        getArgs().clear();
-        return;
-      case CPackage.POINTER_EXP__OP:
-        setOp(OP_EDEFAULT);
-        return;
       case CPackage.POINTER_EXP__VALOR:
         setValor((Definition)null);
         return;
@@ -491,10 +391,6 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
   {
     switch (featureID)
     {
-      case CPackage.POINTER_EXP__ARGS:
-        return args != null && !args.isEmpty();
-      case CPackage.POINTER_EXP__OP:
-        return OP_EDEFAULT == null ? op != null : !OP_EDEFAULT.equals(op);
       case CPackage.POINTER_EXP__VALOR:
         return valor != null;
       case CPackage.POINTER_EXP__ARG:
@@ -515,36 +411,6 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
-    if (baseClass == RelExp.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case CPackage.POINTER_EXP__ARGS: return CPackage.REL_EXP__ARGS;
-        case CPackage.POINTER_EXP__OP: return CPackage.REL_EXP__OP;
-        default: return -1;
-      }
-    }
-    if (baseClass == ArithExp.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == Term.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == Factor.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
     if (baseClass == Atom.class)
     {
       switch (derivedFeatureID)
@@ -573,36 +439,6 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
-    if (baseClass == RelExp.class)
-    {
-      switch (baseFeatureID)
-      {
-        case CPackage.REL_EXP__ARGS: return CPackage.POINTER_EXP__ARGS;
-        case CPackage.REL_EXP__OP: return CPackage.POINTER_EXP__OP;
-        default: return -1;
-      }
-    }
-    if (baseClass == ArithExp.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == Term.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == Factor.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
     if (baseClass == Atom.class)
     {
       switch (baseFeatureID)
@@ -621,23 +457,6 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
       }
     }
     return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (op: ");
-    result.append(op);
-    result.append(')');
-    return result.toString();
   }
 
 } //PointerExpImpl

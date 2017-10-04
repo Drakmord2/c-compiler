@@ -16,16 +16,18 @@ Struct		: {Struct} 		'struct' name=ID '{' decl+=Declaration* '}' ';' ;
 IdDef		: tipo=Type name=Variable;
 Variable		: {Variable} ID | PointerExp;
 
-Command		: {ifCmd} 		'if''(' exp=Expression ')' '{' (trueCommands+=Command)* '}' ('else''{' (falseCommands+=Command)* '}')?  
-			| {whileCmd} 	'while''(' exp=Expression ')''{' (commands+=Command)* '}'
-			| {forCmd} 		'for''(' init+=lValue init+=Assignment ';' exp=Expression ';' inc+=lValue inc+=Assignment ')''{' (commands+=Command)* '}'
+Command		: {ifCmd} 		'if''(' exp=Expression ')' trueCommands=CommandBlock ('else' falseCommands=CommandBlock)?  
+			| {whileCmd} 	'while''(' exp=Expression ')' commands=CommandBlock
+			| {forCmd} 		'for''(' init+=lValue init+=Assignment ';' exp=Expression ';' inc+=Factor inc+=Assignment? ')' commands=CommandBlock	
 			| {switchCmd} 	'switch''(' exp=Expression ')''{' cases+=Case* ('default'':' (commands+=Command)* )? '}'
 			| Declaration
-			| {doWhileCmd}	'do''{' (commands+=Command)* '}''while''(' exp=Expression ')'';'
-			| {varCmd}		val+=lValue val+=Assignment? ';'
+			| {doWhileCmd}	'do' commands=CommandBlock 'while''(' exp=Expression ')'';'
+			| {varCmd}		val+=Factor val+=Assignment?';'
 			| {breakCmd} 	'break'';'
 			| {continueCmd} 'continue'';' 
 			| {returnCmd} 	'return' exp+=Expression? ';';
+			
+CommandBlock: {CommandBlock} '{' (commands+=Command)* '}';
 			
 Argument		: exp+=Expression (',' exp+=Expression)* ;
 Assignment	: '=' exp=Expression;
@@ -35,8 +37,7 @@ RelExp		: ArithExp 		( {RelExp.args+=current} 	op=RO args+=ArithExp)? ;
 ArithExp		: Term 			( {AritmExp.args+=current}	op=AO1 args+=Term)* ;
 Term			: Factor 		( {Term.args+=current} 		op=AO2 args+=Factor)* ;
 
-Factor		: {UnaryExp} op=UO arg=Atom
-	        | Atom ;
+Factor		: uo+=UO? arg=Atom uo+=UO? ;
 	        
 Atom			: Literal
 			| '(' Expression ')' 
@@ -56,11 +57,11 @@ Literal		: {IntLit} val=INT | {TrueLit} val=TRUE | {FalseLit} val=FALSE ;
 
 //--------------------------------------------------------------------
 
-terminal TYPELIT	: 'int' | 'float' | 'double' | 'bool' | 'char' | 'void';
+terminal TYPELIT	: 'int' | 'bool' | 'char' | 'void';
 terminal TRUE	: 'true' ;
 terminal FALSE	: 'false' ;
 terminal AO1		: '+' | '-' ;
 terminal AO2		: '*' | '/' ;
 terminal RO		: '>' | '>=' | '<' | '<=' | '==' | '!=' ;
 terminal LO		: '&&' | '||';
-terminal UO		: '~' | '++' | '--' | '&' ;
+terminal UO		: '!' | '++' | '--' | '&' ;

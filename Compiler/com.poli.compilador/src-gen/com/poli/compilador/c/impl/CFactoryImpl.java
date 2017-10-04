@@ -73,6 +73,7 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
       case CPackage.ID_DEF: return createIdDef();
       case CPackage.VARIABLE: return createVariable();
       case CPackage.COMMAND: return createCommand();
+      case CPackage.COMMAND_BLOCK: return createCommandBlock();
       case CPackage.ARGUMENT: return createArgument();
       case CPackage.ASSIGNMENT: return createAssignment();
       case CPackage.EXPRESSION: return createExpression();
@@ -98,7 +99,6 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
       case CPackage.RETURN_CMD: return createreturnCmd();
       case CPackage.LOGIC_EXP: return createLogicExp();
       case CPackage.ARITM_EXP: return createAritmExp();
-      case CPackage.UNARY_EXP: return createUnaryExp();
       case CPackage.ARRAY_ACCESS: return createarrayAccess();
       case CPackage.FIELD_ACCESS: return createfieldAccess();
       case CPackage.INT_LIT: return createIntLit();
@@ -195,6 +195,17 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
   {
     CommandImpl command = new CommandImpl();
     return command;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CommandBlock createCommandBlock()
+  {
+    CommandBlockImpl commandBlock = new CommandBlockImpl();
+    return commandBlock;
   }
 
   /**
@@ -470,17 +481,6 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
   {
     AritmExpImpl aritmExp = new AritmExpImpl();
     return aritmExp;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public UnaryExp createUnaryExp()
-  {
-    UnaryExpImpl unaryExp = new UnaryExpImpl();
-    return unaryExp;
   }
 
   /**

@@ -28,7 +28,7 @@ public interface RelExp extends EObject
 {
   /**
    * Returns the value of the '<em><b>Args</b></em>' containment reference list.
-   * The list contents are of type {@link com.poli.compilador.c.RelExp}.
+   * The list contents are of type {@link com.poli.compilador.c.ArithExp}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Args</em>' containment reference list isn't clear,
@@ -40,7 +40,7 @@ public interface RelExp extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<RelExp> getArgs();
+  EList<ArithExp> getArgs();
 
   /**
    * Returns the value of the '<em><b>Op</b></em>' attribute.

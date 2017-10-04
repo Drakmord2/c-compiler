@@ -4,24 +4,17 @@
 package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
-import com.poli.compilador.c.Command;
+import com.poli.compilador.c.CommandBlock;
 import com.poli.compilador.c.Expression;
 import com.poli.compilador.c.ifCmd;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,24 +44,24 @@ public class ifCmdImpl extends CommandImpl implements ifCmd
   protected Expression exp;
 
   /**
-   * The cached value of the '{@link #getTrueCommands() <em>True Commands</em>}' containment reference list.
+   * The cached value of the '{@link #getTrueCommands() <em>True Commands</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getTrueCommands()
    * @generated
    * @ordered
    */
-  protected EList<Command> trueCommands;
+  protected CommandBlock trueCommands;
 
   /**
-   * The cached value of the '{@link #getFalseCommands() <em>False Commands</em>}' containment reference list.
+   * The cached value of the '{@link #getFalseCommands() <em>False Commands</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getFalseCommands()
    * @generated
    * @ordered
    */
-  protected EList<Command> falseCommands;
+  protected CommandBlock falseCommands;
 
   /**
    * <!-- begin-user-doc -->
@@ -144,12 +137,8 @@ public class ifCmdImpl extends CommandImpl implements ifCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Command> getTrueCommands()
+  public CommandBlock getTrueCommands()
   {
-    if (trueCommands == null)
-    {
-      trueCommands = new EObjectContainmentEList<Command>(Command.class, this, CPackage.IF_CMD__TRUE_COMMANDS);
-    }
     return trueCommands;
   }
 
@@ -158,13 +147,85 @@ public class ifCmdImpl extends CommandImpl implements ifCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Command> getFalseCommands()
+  public NotificationChain basicSetTrueCommands(CommandBlock newTrueCommands, NotificationChain msgs)
   {
-    if (falseCommands == null)
+    CommandBlock oldTrueCommands = trueCommands;
+    trueCommands = newTrueCommands;
+    if (eNotificationRequired())
     {
-      falseCommands = new EObjectContainmentEList<Command>(Command.class, this, CPackage.IF_CMD__FALSE_COMMANDS);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.IF_CMD__TRUE_COMMANDS, oldTrueCommands, newTrueCommands);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
     }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTrueCommands(CommandBlock newTrueCommands)
+  {
+    if (newTrueCommands != trueCommands)
+    {
+      NotificationChain msgs = null;
+      if (trueCommands != null)
+        msgs = ((InternalEObject)trueCommands).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.IF_CMD__TRUE_COMMANDS, null, msgs);
+      if (newTrueCommands != null)
+        msgs = ((InternalEObject)newTrueCommands).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.IF_CMD__TRUE_COMMANDS, null, msgs);
+      msgs = basicSetTrueCommands(newTrueCommands, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.IF_CMD__TRUE_COMMANDS, newTrueCommands, newTrueCommands));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CommandBlock getFalseCommands()
+  {
     return falseCommands;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetFalseCommands(CommandBlock newFalseCommands, NotificationChain msgs)
+  {
+    CommandBlock oldFalseCommands = falseCommands;
+    falseCommands = newFalseCommands;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.IF_CMD__FALSE_COMMANDS, oldFalseCommands, newFalseCommands);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFalseCommands(CommandBlock newFalseCommands)
+  {
+    if (newFalseCommands != falseCommands)
+    {
+      NotificationChain msgs = null;
+      if (falseCommands != null)
+        msgs = ((InternalEObject)falseCommands).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.IF_CMD__FALSE_COMMANDS, null, msgs);
+      if (newFalseCommands != null)
+        msgs = ((InternalEObject)newFalseCommands).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.IF_CMD__FALSE_COMMANDS, null, msgs);
+      msgs = basicSetFalseCommands(newFalseCommands, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.IF_CMD__FALSE_COMMANDS, newFalseCommands, newFalseCommands));
   }
 
   /**
@@ -180,9 +241,9 @@ public class ifCmdImpl extends CommandImpl implements ifCmd
       case CPackage.IF_CMD__EXP:
         return basicSetExp(null, msgs);
       case CPackage.IF_CMD__TRUE_COMMANDS:
-        return ((InternalEList<?>)getTrueCommands()).basicRemove(otherEnd, msgs);
+        return basicSetTrueCommands(null, msgs);
       case CPackage.IF_CMD__FALSE_COMMANDS:
-        return ((InternalEList<?>)getFalseCommands()).basicRemove(otherEnd, msgs);
+        return basicSetFalseCommands(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -212,7 +273,6 @@ public class ifCmdImpl extends CommandImpl implements ifCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -222,12 +282,10 @@ public class ifCmdImpl extends CommandImpl implements ifCmd
         setExp((Expression)newValue);
         return;
       case CPackage.IF_CMD__TRUE_COMMANDS:
-        getTrueCommands().clear();
-        getTrueCommands().addAll((Collection<? extends Command>)newValue);
+        setTrueCommands((CommandBlock)newValue);
         return;
       case CPackage.IF_CMD__FALSE_COMMANDS:
-        getFalseCommands().clear();
-        getFalseCommands().addAll((Collection<? extends Command>)newValue);
+        setFalseCommands((CommandBlock)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -247,10 +305,10 @@ public class ifCmdImpl extends CommandImpl implements ifCmd
         setExp((Expression)null);
         return;
       case CPackage.IF_CMD__TRUE_COMMANDS:
-        getTrueCommands().clear();
+        setTrueCommands((CommandBlock)null);
         return;
       case CPackage.IF_CMD__FALSE_COMMANDS:
-        getFalseCommands().clear();
+        setFalseCommands((CommandBlock)null);
         return;
     }
     super.eUnset(featureID);
@@ -269,9 +327,9 @@ public class ifCmdImpl extends CommandImpl implements ifCmd
       case CPackage.IF_CMD__EXP:
         return exp != null;
       case CPackage.IF_CMD__TRUE_COMMANDS:
-        return trueCommands != null && !trueCommands.isEmpty();
+        return trueCommands != null;
       case CPackage.IF_CMD__FALSE_COMMANDS:
-        return falseCommands != null && !falseCommands.isEmpty();
+        return falseCommands != null;
     }
     return super.eIsSet(featureID);
   }

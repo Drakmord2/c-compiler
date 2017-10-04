@@ -3,6 +3,7 @@
  */
 package com.poli.compilador.c.impl;
 
+import com.poli.compilador.c.ArithExp;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.RelExp;
 
@@ -46,7 +47,7 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
    * @generated
    * @ordered
    */
-  protected EList<RelExp> args;
+  protected EList<ArithExp> args;
 
   /**
    * The default value of the '{@link #getOp() <em>Op</em>}' attribute.
@@ -94,11 +95,11 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<RelExp> getArgs()
+  public EList<ArithExp> getArgs()
   {
     if (args == null)
     {
-      args = new EObjectContainmentEList<RelExp>(RelExp.class, this, CPackage.REL_EXP__ARGS);
+      args = new EObjectContainmentEList<ArithExp>(ArithExp.class, this, CPackage.REL_EXP__ARGS);
     }
     return args;
   }
@@ -173,7 +174,7 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
     {
       case CPackage.REL_EXP__ARGS:
         getArgs().clear();
-        getArgs().addAll((Collection<? extends RelExp>)newValue);
+        getArgs().addAll((Collection<? extends ArithExp>)newValue);
         return;
       case CPackage.REL_EXP__OP:
         setOp((String)newValue);

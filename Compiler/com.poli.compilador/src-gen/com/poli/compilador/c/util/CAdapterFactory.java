@@ -116,6 +116,11 @@ public class CAdapterFactory extends AdapterFactoryImpl
         return createCommandAdapter();
       }
       @Override
+      public Adapter caseCommandBlock(CommandBlock object)
+      {
+        return createCommandBlockAdapter();
+      }
+      @Override
       public Adapter caseArgument(Argument object)
       {
         return createArgumentAdapter();
@@ -239,11 +244,6 @@ public class CAdapterFactory extends AdapterFactoryImpl
       public Adapter caseAritmExp(AritmExp object)
       {
         return createAritmExpAdapter();
-      }
-      @Override
-      public Adapter caseUnaryExp(UnaryExp object)
-      {
-        return createUnaryExpAdapter();
       }
       @Override
       public Adapter casearrayAccess(arrayAccess object)
@@ -408,6 +408,21 @@ public class CAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createCommandAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.CommandBlock <em>Command Block</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.poli.compilador.c.CommandBlock
+   * @generated
+   */
+  public Adapter createCommandBlockAdapter()
   {
     return null;
   }
@@ -783,21 +798,6 @@ public class CAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAritmExpAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.UnaryExp <em>Unary Exp</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.poli.compilador.c.UnaryExp
-   * @generated
-   */
-  public Adapter createUnaryExpAdapter()
   {
     return null;
   }

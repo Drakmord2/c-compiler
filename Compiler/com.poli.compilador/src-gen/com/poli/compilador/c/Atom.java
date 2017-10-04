@@ -3,6 +3,7 @@
  */
 package com.poli.compilador.c;
 
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -14,6 +15,6 @@ package com.poli.compilador.c;
  * @model
  * @generated
  */
-public interface Atom extends Factor
+public interface Atom extends EObject
 {
 } // Atom

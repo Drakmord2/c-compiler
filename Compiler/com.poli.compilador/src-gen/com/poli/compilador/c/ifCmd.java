@@ -3,7 +3,6 @@
  */
 package com.poli.compilador.c;
 
-import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -52,35 +51,55 @@ public interface ifCmd extends Command
   void setExp(Expression value);
 
   /**
-   * Returns the value of the '<em><b>True Commands</b></em>' containment reference list.
-   * The list contents are of type {@link com.poli.compilador.c.Command}.
+   * Returns the value of the '<em><b>True Commands</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>True Commands</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>True Commands</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>True Commands</em>' containment reference list.
+   * @return the value of the '<em>True Commands</em>' containment reference.
+   * @see #setTrueCommands(CommandBlock)
    * @see com.poli.compilador.c.CPackage#getifCmd_TrueCommands()
    * @model containment="true"
    * @generated
    */
-  EList<Command> getTrueCommands();
+  CommandBlock getTrueCommands();
 
   /**
-   * Returns the value of the '<em><b>False Commands</b></em>' containment reference list.
-   * The list contents are of type {@link com.poli.compilador.c.Command}.
+   * Sets the value of the '{@link com.poli.compilador.c.ifCmd#getTrueCommands <em>True Commands</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>True Commands</em>' containment reference.
+   * @see #getTrueCommands()
+   * @generated
+   */
+  void setTrueCommands(CommandBlock value);
+
+  /**
+   * Returns the value of the '<em><b>False Commands</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>False Commands</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>False Commands</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>False Commands</em>' containment reference list.
+   * @return the value of the '<em>False Commands</em>' containment reference.
+   * @see #setFalseCommands(CommandBlock)
    * @see com.poli.compilador.c.CPackage#getifCmd_FalseCommands()
    * @model containment="true"
    * @generated
    */
-  EList<Command> getFalseCommands();
+  CommandBlock getFalseCommands();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.ifCmd#getFalseCommands <em>False Commands</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>False Commands</em>' containment reference.
+   * @see #getFalseCommands()
+   * @generated
+   */
+  void setFalseCommands(CommandBlock value);
 
 } // ifCmd
