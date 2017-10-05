@@ -20,12 +20,12 @@ Command		: {ifCmd} 		'if''(' exp=Expression ')' trueCommands=CommandBlock ('else
 			| {whileCmd} 	'while''(' exp=Expression ')' commands=CommandBlock
 			| {forCmd} 		'for''(' init+=lValue init+=Assignment ';' exp=Expression ';' inc+=Factor inc+=Assignment? ')' commands=CommandBlock	
 			| {switchCmd} 	'switch''(' exp=Expression ')''{' cases+=Case* ('default'':' (commands+=Command)* )? '}'
-			| Declaration
 			| {doWhileCmd}	'do' commands=CommandBlock 'while''(' exp=Expression ')'';'
 			| {varCmd}		val+=Factor val+=Assignment?';'
 			| {breakCmd} 	'break'';'
 			| {continueCmd} 'continue'';' 
-			| {returnCmd} 	'return' exp+=Expression? ';';
+			| {returnCmd} 	'return' exp+=Expression? ';'
+			| Declaration ;
 			
 CommandBlock: {CommandBlock} '{' (commands+=Command)* '}';
 			
@@ -57,11 +57,11 @@ Literal		: {IntLit} val=INT | {TrueLit} val=TRUE | {FalseLit} val=FALSE ;
 
 //--------------------------------------------------------------------
 
-terminal TYPELIT	: 'int' | 'bool' | 'char' | 'void';
-terminal TRUE	: 'true' ;
-terminal FALSE	: 'false' ;
+terminal TYPELIT	: 'int' | 'bool' | 'char' | 'void' ;
+terminal TRUE	: 'true' | 'TRUE' ;
+terminal FALSE	: 'false' | 'FALSE' ;
 terminal AO1		: '+' | '-' ;
 terminal AO2		: '*' | '/' ;
 terminal RO		: '>' | '>=' | '<' | '<=' | '==' | '!=' ;
-terminal LO		: '&&' | '||';
+terminal LO		: '&&' | '||' ;
 terminal UO		: '!' | '++' | '--' | '&' ;

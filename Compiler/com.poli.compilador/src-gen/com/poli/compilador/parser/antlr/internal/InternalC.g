@@ -1002,33 +1002,24 @@ ruleCommand returns [EObject current=null]
 			}
 		)
 		    |
-		{
-			newCompositeNode(grammarAccess.getCommandAccess().getDeclarationParserRuleCall_4());
-		}
-		this_Declaration_37=ruleDeclaration
-		{
-			$current = $this_Declaration_37.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
 		(
 			(
 				{
 					$current = forceCreateModelElement(
-						grammarAccess.getCommandAccess().getDoWhileCmdAction_5_0(),
+						grammarAccess.getCommandAccess().getDoWhileCmdAction_4_0(),
 						$current);
 				}
 			)
-			otherlv_39='do'
+			otherlv_38='do'
 			{
-				newLeafNode(otherlv_39, grammarAccess.getCommandAccess().getDoKeyword_5_1());
+				newLeafNode(otherlv_38, grammarAccess.getCommandAccess().getDoKeyword_4_1());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getCommandAccess().getCommandsCommandBlockParserRuleCall_5_2_0());
+						newCompositeNode(grammarAccess.getCommandAccess().getCommandsCommandBlockParserRuleCall_4_2_0());
 					}
-					lv_commands_40_0=ruleCommandBlock
+					lv_commands_39_0=ruleCommandBlock
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getCommandRule());
@@ -1036,26 +1027,26 @@ ruleCommand returns [EObject current=null]
 						set(
 							$current,
 							"commands",
-							lv_commands_40_0,
+							lv_commands_39_0,
 							"com.poli.compilador.C.CommandBlock");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
-			otherlv_41='while'
+			otherlv_40='while'
 			{
-				newLeafNode(otherlv_41, grammarAccess.getCommandAccess().getWhileKeyword_5_3());
+				newLeafNode(otherlv_40, grammarAccess.getCommandAccess().getWhileKeyword_4_3());
 			}
-			otherlv_42='('
+			otherlv_41='('
 			{
-				newLeafNode(otherlv_42, grammarAccess.getCommandAccess().getLeftParenthesisKeyword_5_4());
+				newLeafNode(otherlv_41, grammarAccess.getCommandAccess().getLeftParenthesisKeyword_4_4());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getCommandAccess().getExpExpressionParserRuleCall_5_5_0());
+						newCompositeNode(grammarAccess.getCommandAccess().getExpExpressionParserRuleCall_4_5_0());
 					}
-					lv_exp_43_0=ruleExpression
+					lv_exp_42_0=ruleExpression
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getCommandRule());
@@ -1063,19 +1054,19 @@ ruleCommand returns [EObject current=null]
 						set(
 							$current,
 							"exp",
-							lv_exp_43_0,
+							lv_exp_42_0,
 							"com.poli.compilador.C.Expression");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
-			otherlv_44=')'
+			otherlv_43=')'
 			{
-				newLeafNode(otherlv_44, grammarAccess.getCommandAccess().getRightParenthesisKeyword_5_6());
+				newLeafNode(otherlv_43, grammarAccess.getCommandAccess().getRightParenthesisKeyword_4_6());
 			}
-			otherlv_45=';'
+			otherlv_44=';'
 			{
-				newLeafNode(otherlv_45, grammarAccess.getCommandAccess().getSemicolonKeyword_5_7());
+				newLeafNode(otherlv_44, grammarAccess.getCommandAccess().getSemicolonKeyword_4_7());
 			}
 		)
 		    |
@@ -1083,16 +1074,16 @@ ruleCommand returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElement(
-						grammarAccess.getCommandAccess().getVarCmdAction_6_0(),
+						grammarAccess.getCommandAccess().getVarCmdAction_5_0(),
 						$current);
 				}
 			)
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getCommandAccess().getValFactorParserRuleCall_6_1_0());
+						newCompositeNode(grammarAccess.getCommandAccess().getValFactorParserRuleCall_5_1_0());
 					}
-					lv_val_47_0=ruleFactor
+					lv_val_46_0=ruleFactor
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getCommandRule());
@@ -1100,7 +1091,7 @@ ruleCommand returns [EObject current=null]
 						add(
 							$current,
 							"val",
-							lv_val_47_0,
+							lv_val_46_0,
 							"com.poli.compilador.C.Factor");
 						afterParserOrEnumRuleCall();
 					}
@@ -1109,9 +1100,9 @@ ruleCommand returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getCommandAccess().getValAssignmentParserRuleCall_6_2_0());
+						newCompositeNode(grammarAccess.getCommandAccess().getValAssignmentParserRuleCall_5_2_0());
 					}
-					lv_val_48_0=ruleAssignment
+					lv_val_47_0=ruleAssignment
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getCommandRule());
@@ -1119,15 +1110,15 @@ ruleCommand returns [EObject current=null]
 						add(
 							$current,
 							"val",
-							lv_val_48_0,
+							lv_val_47_0,
 							"com.poli.compilador.C.Assignment");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)?
-			otherlv_49=';'
+			otherlv_48=';'
 			{
-				newLeafNode(otherlv_49, grammarAccess.getCommandAccess().getSemicolonKeyword_6_3());
+				newLeafNode(otherlv_48, grammarAccess.getCommandAccess().getSemicolonKeyword_5_3());
 			}
 		)
 		    |
@@ -1135,17 +1126,17 @@ ruleCommand returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElement(
-						grammarAccess.getCommandAccess().getBreakCmdAction_7_0(),
+						grammarAccess.getCommandAccess().getBreakCmdAction_6_0(),
 						$current);
 				}
 			)
-			otherlv_51='break'
+			otherlv_50='break'
 			{
-				newLeafNode(otherlv_51, grammarAccess.getCommandAccess().getBreakKeyword_7_1());
+				newLeafNode(otherlv_50, grammarAccess.getCommandAccess().getBreakKeyword_6_1());
 			}
-			otherlv_52=';'
+			otherlv_51=';'
 			{
-				newLeafNode(otherlv_52, grammarAccess.getCommandAccess().getSemicolonKeyword_7_2());
+				newLeafNode(otherlv_51, grammarAccess.getCommandAccess().getSemicolonKeyword_6_2());
 			}
 		)
 		    |
@@ -1153,17 +1144,17 @@ ruleCommand returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElement(
-						grammarAccess.getCommandAccess().getContinueCmdAction_8_0(),
+						grammarAccess.getCommandAccess().getContinueCmdAction_7_0(),
 						$current);
 				}
 			)
-			otherlv_54='continue'
+			otherlv_53='continue'
 			{
-				newLeafNode(otherlv_54, grammarAccess.getCommandAccess().getContinueKeyword_8_1());
+				newLeafNode(otherlv_53, grammarAccess.getCommandAccess().getContinueKeyword_7_1());
 			}
-			otherlv_55=';'
+			otherlv_54=';'
 			{
-				newLeafNode(otherlv_55, grammarAccess.getCommandAccess().getSemicolonKeyword_8_2());
+				newLeafNode(otherlv_54, grammarAccess.getCommandAccess().getSemicolonKeyword_7_2());
 			}
 		)
 		    |
@@ -1171,20 +1162,20 @@ ruleCommand returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElement(
-						grammarAccess.getCommandAccess().getReturnCmdAction_9_0(),
+						grammarAccess.getCommandAccess().getReturnCmdAction_8_0(),
 						$current);
 				}
 			)
-			otherlv_57='return'
+			otherlv_56='return'
 			{
-				newLeafNode(otherlv_57, grammarAccess.getCommandAccess().getReturnKeyword_9_1());
+				newLeafNode(otherlv_56, grammarAccess.getCommandAccess().getReturnKeyword_8_1());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getCommandAccess().getExpExpressionParserRuleCall_9_2_0());
+						newCompositeNode(grammarAccess.getCommandAccess().getExpExpressionParserRuleCall_8_2_0());
 					}
-					lv_exp_58_0=ruleExpression
+					lv_exp_57_0=ruleExpression
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getCommandRule());
@@ -1192,17 +1183,26 @@ ruleCommand returns [EObject current=null]
 						add(
 							$current,
 							"exp",
-							lv_exp_58_0,
+							lv_exp_57_0,
 							"com.poli.compilador.C.Expression");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)?
-			otherlv_59=';'
+			otherlv_58=';'
 			{
-				newLeafNode(otherlv_59, grammarAccess.getCommandAccess().getSemicolonKeyword_9_3());
+				newLeafNode(otherlv_58, grammarAccess.getCommandAccess().getSemicolonKeyword_8_3());
 			}
 		)
+		    |
+		{
+			newCompositeNode(grammarAccess.getCommandAccess().getDeclarationParserRuleCall_9());
+		}
+		this_Declaration_59=ruleDeclaration
+		{
+			$current = $this_Declaration_59.current;
+			afterParserOrEnumRuleCall();
+		}
 	)
 ;
 
@@ -2278,9 +2278,9 @@ ruleLiteral returns [EObject current=null]
 
 RULE_TYPELIT : ('int'|'bool'|'char'|'void');
 
-RULE_TRUE : 'true';
+RULE_TRUE : ('true'|'TRUE');
 
-RULE_FALSE : 'false';
+RULE_FALSE : ('false'|'FALSE');
 
 RULE_AO1 : ('+'|'-');
 

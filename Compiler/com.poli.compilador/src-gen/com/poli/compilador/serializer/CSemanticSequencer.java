@@ -306,8 +306,8 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CPackage.Literals.DO_WHILE_CMD__EXP));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getCommandAccess().getCommandsCommandBlockParserRuleCall_5_2_0(), semanticObject.getCommands());
-		feeder.accept(grammarAccess.getCommandAccess().getExpExpressionParserRuleCall_5_5_0(), semanticObject.getExp());
+		feeder.accept(grammarAccess.getCommandAccess().getCommandsCommandBlockParserRuleCall_4_2_0(), semanticObject.getCommands());
+		feeder.accept(grammarAccess.getCommandAccess().getExpExpressionParserRuleCall_4_5_0(), semanticObject.getExp());
 		feeder.finish();
 	}
 	
