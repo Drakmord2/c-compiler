@@ -6,44 +6,19 @@ package com.poli.compilador.c.impl;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Expression;
 
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Expression</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * The following features are implemented:
- * </p>
- * <ul>
- *   <li>{@link com.poli.compilador.c.impl.ExpressionImpl#getArgs <em>Args</em>}</li>
- * </ul>
  *
  * @generated
  */
-public class ExpressionImpl extends AtomImpl implements Expression
+public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expression
 {
-  /**
-   * The cached value of the '{@link #getArgs() <em>Args</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getArgs()
-   * @generated
-   * @ordered
-   */
-  protected EList<EObject> args;
-
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -63,104 +38,6 @@ public class ExpressionImpl extends AtomImpl implements Expression
   protected EClass eStaticClass()
   {
     return CPackage.Literals.EXPRESSION;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<EObject> getArgs()
-  {
-    if (args == null)
-    {
-      args = new EObjectContainmentEList<EObject>(EObject.class, this, CPackage.EXPRESSION__ARGS);
-    }
-    return args;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case CPackage.EXPRESSION__ARGS:
-        return ((InternalEList<?>)getArgs()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Object eGet(int featureID, boolean resolve, boolean coreType)
-  {
-    switch (featureID)
-    {
-      case CPackage.EXPRESSION__ARGS:
-        return getArgs();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @SuppressWarnings("unchecked")
-  @Override
-  public void eSet(int featureID, Object newValue)
-  {
-    switch (featureID)
-    {
-      case CPackage.EXPRESSION__ARGS:
-        getArgs().clear();
-        getArgs().addAll((Collection<? extends EObject>)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void eUnset(int featureID)
-  {
-    switch (featureID)
-    {
-      case CPackage.EXPRESSION__ARGS:
-        getArgs().clear();
-        return;
-    }
-    super.eUnset(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public boolean eIsSet(int featureID)
-  {
-    switch (featureID)
-    {
-      case CPackage.EXPRESSION__ARGS:
-        return args != null && !args.isEmpty();
-    }
-    return super.eIsSet(featureID);
   }
 
 } //ExpressionImpl

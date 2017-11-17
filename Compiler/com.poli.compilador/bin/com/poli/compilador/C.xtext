@@ -5,61 +5,58 @@ generate c "http://www.poli.com/compilador/C"
 
 //--------------------------------------------------------------------
 
-Program: (definition+=Definition)* ;
-
-Definition	:   Struct | Function | Declaration;
+Program		: (definition+=Definition)* ;
+Definition	: Struct | Function | Declaration;
 		  	
 Function		: {Function}		'function' tipo=Type name=ID '(' (params+=IdDef (',' params+=IdDef)*)? ')' '{' (commands+=Command)* '}';
-Declaration 	: {Declaration}	(tipo=Type '**'? name=ID (val=Assignment)? | 'struct' str=[Struct|ID] name=ID) ';' ;
+Declaration 	: {Declaration}	( {VarDecl.obj=current} (tipo=Type '**'? name=ID (val=Assignment)?) | {StrDecl.obj=current} ('struct' str=[Struct|ID] name=ID) ) ';' ;
 Struct		: {Struct} 		'struct' name=ID '{' decl+=Declaration* '}' ';' ;
 
 IdDef		: tipo=Type name=Variable;
 Variable		: {Variable} ID | PointerExp;
 
-Command		: {ifCmd} 		'if''(' exp=Expression ')' trueCommands=CommandBlock ('else' falseCommands=CommandBlock)?  
-			| {whileCmd} 	'while''(' exp=Expression ')' commands=CommandBlock
-			| {forCmd} 		'for''(' init+=lValue init+=Assignment ';' exp=Expression ';' inc+=Factor inc+=Assignment? ')' commands=CommandBlock	
+Command		: {ifCmd} 		'if''(' exp=Expression ')' '{' (trueCommands+=Command)* '}' ('else' '{' (falseCommands+=Command)* '}')?  
+			| {whileCmd} 	'while''(' exp=Expression ')' '{' (commands+=Command)* '}'
+			| {forCmd} 		'for''(' init+=lValue init+=Assignment ';' exp=Expression ';' inc+=Factor inc+=Assignment? ')' '{' (commands+=Command)* '}'	
 			| {switchCmd} 	'switch''(' exp=Expression ')''{' cases+=Case* ('default'':' (commands+=Command)* )? '}'
-			| {doWhileCmd}	'do' commands=CommandBlock 'while''(' exp=Expression ')'';'
+			| {doWhileCmd}	'do''{' (commands+=Command)* '}' 'while''(' exp=Expression ')'';'
 			| {varCmd}		val+=Factor val+=Assignment?';'
 			| {breakCmd} 	'break'';'
 			| {continueCmd} 'continue'';' 
-			| {returnCmd} 	'return' exp+=Expression? ';'
-			| Declaration ;
-			
-CommandBlock: {CommandBlock} '{' (commands+=Command)* '}';
+			| {returnCmd} 	'return' exp=Expression? ';'
+			| {DeclCmd} 		val=Declaration ;
 			
 Argument		: exp+=Expression (',' exp+=Expression)* ;
 Assignment	: '=' exp=Expression;
 			
-Expression	: args+=RelExp	( {LogicExp.args+=current} 	op=LO args+=RelExp)* ;
-RelExp		: ArithExp 		( {RelExp.args+=current} 	op=RO args+=ArithExp)? ;
-ArithExp		: Term 			( {AritmExp.args+=current}	op=AO1 args+=Term)* ;
-Term			: Factor 		( {Term.args+=current} 		op=AO2 args+=Factor)* ;
-
-Factor		: uo+=UO? arg=Atom uo+=UO? ;
+Expression	: RelExp    						( {LogicExp.args+=current} 	op=LO args+=RelExp)* ;
+RelExp		returns Expression : ArithExp	( {RelExp.args+=current} 	op=RO args+=ArithExp)* ;
+ArithExp		returns Expression : Term 		( {ArithExp.args+=current}	op=AO1 args+=Term)* ;
+Term			returns Expression : Factor 		( {Term.args+=current} 		op=AO2 args+=Factor)* ;
+Factor		returns Expression : Atom 		({PostfixOp.arg=current} uo=UO)? 
+	        | {PrefixOp} uo=UO arg=Atom ;
 	        
-Atom			: Literal
-			| '(' Expression ')' 
+Atom			returns Expression : Literal
+			| {Parenteses} '(' exp=Expression ')' 
 			| lValue ;
 			
-lValue      : valor=[Definition|ID] ('(' arg=Argument? ')' | acc=AccessExp )?
+lValue      returns Expression : {Var} valor=[Definition|ID] (
+	               ({FuncCall.def=current} '(' arg=Argument? ')') | 
+	               ({FieldAccess.obj=current} '.' field=ID) |
+	               ({ArrayAccess.arr=current} '[' index=Expression ']')
+                   )*
 			| PointerExp ;			
 
-PointerExp	: {PointerExp} '**' (ID | '(' exp=Expression ')' ) ;
-AccessExp	: {arrayAccess} '[' exp=Expression? ']'
-			| {fieldAccess} '.' field=ID ;
+PointerExp	: {PointerExp} '**' '(' exp=Expression ')' ;
 
 Case			: 'case' val=Atom ':' (commands+=Command)* ;
 
 Type			: tipo=TYPELIT ('[' exp=Expression? ']')?;
-Literal		: {IntLit} val=INT | {TrueLit} val=TRUE | {FalseLit} val=FALSE ;
+Literal		: {IntLit} val=INT | {TrueLit} 'true' | {FalseLit} 'false' ;
 
 //--------------------------------------------------------------------
 
 terminal TYPELIT	: 'int' | 'bool' | 'char' | 'void' ;
-terminal TRUE	: 'true' | 'TRUE' ;
-terminal FALSE	: 'false' | 'FALSE' ;
 terminal AO1		: '+' | '-' ;
 terminal AO2		: '*' | '/' ;
 terminal RO		: '>' | '>=' | '<' | '<=' | '==' | '!=' ;

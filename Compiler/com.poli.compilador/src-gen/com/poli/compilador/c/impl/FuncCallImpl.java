@@ -3,49 +3,44 @@
  */
 package com.poli.compilador.c.impl;
 
-import com.poli.compilador.c.Atom;
+import com.poli.compilador.c.Argument;
 import com.poli.compilador.c.CPackage;
-import com.poli.compilador.c.Factor;
-
-import java.util.Collection;
+import com.poli.compilador.c.Expression;
+import com.poli.compilador.c.FuncCall;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
-
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Factor</b></em>'.
+ * An implementation of the model object '<em><b>Func Call</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.FactorImpl#getUo <em>Uo</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.FactorImpl#getArg <em>Arg</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.FuncCallImpl#getDef <em>Def</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.FuncCallImpl#getArg <em>Arg</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class FactorImpl extends TermImpl implements Factor
+public class FuncCallImpl extends ExpressionImpl implements FuncCall
 {
   /**
-   * The cached value of the '{@link #getUo() <em>Uo</em>}' attribute list.
+   * The cached value of the '{@link #getDef() <em>Def</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUo()
+   * @see #getDef()
    * @generated
    * @ordered
    */
-  protected EList<String> uo;
+  protected Expression def;
 
   /**
    * The cached value of the '{@link #getArg() <em>Arg</em>}' containment reference.
@@ -55,14 +50,14 @@ public class FactorImpl extends TermImpl implements Factor
    * @generated
    * @ordered
    */
-  protected Atom arg;
+  protected Argument arg;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected FactorImpl()
+  protected FuncCallImpl()
   {
     super();
   }
@@ -75,7 +70,7 @@ public class FactorImpl extends TermImpl implements Factor
   @Override
   protected EClass eStaticClass()
   {
-    return CPackage.Literals.FACTOR;
+    return CPackage.Literals.FUNC_CALL;
   }
 
   /**
@@ -83,13 +78,9 @@ public class FactorImpl extends TermImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getUo()
+  public Expression getDef()
   {
-    if (uo == null)
-    {
-      uo = new EDataTypeEList<String>(String.class, this, CPackage.FACTOR__UO);
-    }
-    return uo;
+    return def;
   }
 
   /**
@@ -97,23 +88,13 @@ public class FactorImpl extends TermImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
-  public Atom getArg()
+  public NotificationChain basicSetDef(Expression newDef, NotificationChain msgs)
   {
-    return arg;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetArg(Atom newArg, NotificationChain msgs)
-  {
-    Atom oldArg = arg;
-    arg = newArg;
+    Expression oldDef = def;
+    def = newDef;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.FACTOR__ARG, oldArg, newArg);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.FUNC_CALL__DEF, oldDef, newDef);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -124,20 +105,68 @@ public class FactorImpl extends TermImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setArg(Atom newArg)
+  public void setDef(Expression newDef)
+  {
+    if (newDef != def)
+    {
+      NotificationChain msgs = null;
+      if (def != null)
+        msgs = ((InternalEObject)def).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.FUNC_CALL__DEF, null, msgs);
+      if (newDef != null)
+        msgs = ((InternalEObject)newDef).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.FUNC_CALL__DEF, null, msgs);
+      msgs = basicSetDef(newDef, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.FUNC_CALL__DEF, newDef, newDef));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Argument getArg()
+  {
+    return arg;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetArg(Argument newArg, NotificationChain msgs)
+  {
+    Argument oldArg = arg;
+    arg = newArg;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.FUNC_CALL__ARG, oldArg, newArg);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setArg(Argument newArg)
   {
     if (newArg != arg)
     {
       NotificationChain msgs = null;
       if (arg != null)
-        msgs = ((InternalEObject)arg).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.FACTOR__ARG, null, msgs);
+        msgs = ((InternalEObject)arg).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.FUNC_CALL__ARG, null, msgs);
       if (newArg != null)
-        msgs = ((InternalEObject)newArg).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.FACTOR__ARG, null, msgs);
+        msgs = ((InternalEObject)newArg).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.FUNC_CALL__ARG, null, msgs);
       msgs = basicSetArg(newArg, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.FACTOR__ARG, newArg, newArg));
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.FUNC_CALL__ARG, newArg, newArg));
   }
 
   /**
@@ -150,7 +179,9 @@ public class FactorImpl extends TermImpl implements Factor
   {
     switch (featureID)
     {
-      case CPackage.FACTOR__ARG:
+      case CPackage.FUNC_CALL__DEF:
+        return basicSetDef(null, msgs);
+      case CPackage.FUNC_CALL__ARG:
         return basicSetArg(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -166,9 +197,9 @@ public class FactorImpl extends TermImpl implements Factor
   {
     switch (featureID)
     {
-      case CPackage.FACTOR__UO:
-        return getUo();
-      case CPackage.FACTOR__ARG:
+      case CPackage.FUNC_CALL__DEF:
+        return getDef();
+      case CPackage.FUNC_CALL__ARG:
         return getArg();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -179,18 +210,16 @@ public class FactorImpl extends TermImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case CPackage.FACTOR__UO:
-        getUo().clear();
-        getUo().addAll((Collection<? extends String>)newValue);
+      case CPackage.FUNC_CALL__DEF:
+        setDef((Expression)newValue);
         return;
-      case CPackage.FACTOR__ARG:
-        setArg((Atom)newValue);
+      case CPackage.FUNC_CALL__ARG:
+        setArg((Argument)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -206,11 +235,11 @@ public class FactorImpl extends TermImpl implements Factor
   {
     switch (featureID)
     {
-      case CPackage.FACTOR__UO:
-        getUo().clear();
+      case CPackage.FUNC_CALL__DEF:
+        setDef((Expression)null);
         return;
-      case CPackage.FACTOR__ARG:
-        setArg((Atom)null);
+      case CPackage.FUNC_CALL__ARG:
+        setArg((Argument)null);
         return;
     }
     super.eUnset(featureID);
@@ -226,29 +255,12 @@ public class FactorImpl extends TermImpl implements Factor
   {
     switch (featureID)
     {
-      case CPackage.FACTOR__UO:
-        return uo != null && !uo.isEmpty();
-      case CPackage.FACTOR__ARG:
+      case CPackage.FUNC_CALL__DEF:
+        return def != null;
+      case CPackage.FUNC_CALL__ARG:
         return arg != null;
     }
     return super.eIsSet(featureID);
   }
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (uo: ");
-    result.append(uo);
-    result.append(')');
-    return result.toString();
-  }
-
-} //FactorImpl
+} //FuncCallImpl

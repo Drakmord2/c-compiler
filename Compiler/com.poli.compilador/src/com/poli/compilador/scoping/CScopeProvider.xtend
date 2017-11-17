@@ -3,7 +3,6 @@
  */
 package com.poli.compilador.scoping
 
-
 /**
  * This class contains custom scoping description.
  * 
@@ -11,5 +10,5 @@ package com.poli.compilador.scoping
  * on how and when to use it.
  */
 class CScopeProvider extends AbstractCScopeProvider {
-
+	
 }

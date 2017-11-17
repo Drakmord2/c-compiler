@@ -96,15 +96,6 @@ public interface CFactory extends EFactory
   Command createCommand();
 
   /**
-   * Returns a new object of class '<em>Command Block</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Command Block</em>'.
-   * @generated
-   */
-  CommandBlock createCommandBlock();
-
-  /**
    * Returns a new object of class '<em>Argument</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -132,60 +123,6 @@ public interface CFactory extends EFactory
   Expression createExpression();
 
   /**
-   * Returns a new object of class '<em>Rel Exp</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Rel Exp</em>'.
-   * @generated
-   */
-  RelExp createRelExp();
-
-  /**
-   * Returns a new object of class '<em>Arith Exp</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Arith Exp</em>'.
-   * @generated
-   */
-  ArithExp createArithExp();
-
-  /**
-   * Returns a new object of class '<em>Term</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Term</em>'.
-   * @generated
-   */
-  Term createTerm();
-
-  /**
-   * Returns a new object of class '<em>Factor</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Factor</em>'.
-   * @generated
-   */
-  Factor createFactor();
-
-  /**
-   * Returns a new object of class '<em>Atom</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Atom</em>'.
-   * @generated
-   */
-  Atom createAtom();
-
-  /**
-   * Returns a new object of class '<em>lValue</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>lValue</em>'.
-   * @generated
-   */
-  lValue createlValue();
-
-  /**
    * Returns a new object of class '<em>Pointer Exp</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -193,15 +130,6 @@ public interface CFactory extends EFactory
    * @generated
    */
   PointerExp createPointerExp();
-
-  /**
-   * Returns a new object of class '<em>Access Exp</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Access Exp</em>'.
-   * @generated
-   */
-  AccessExp createAccessExp();
 
   /**
    * Returns a new object of class '<em>Case</em>'.
@@ -229,6 +157,24 @@ public interface CFactory extends EFactory
    * @generated
    */
   Literal createLiteral();
+
+  /**
+   * Returns a new object of class '<em>Var Decl</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Var Decl</em>'.
+   * @generated
+   */
+  VarDecl createVarDecl();
+
+  /**
+   * Returns a new object of class '<em>Str Decl</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Str Decl</em>'.
+   * @generated
+   */
+  StrDecl createStrDecl();
 
   /**
    * Returns a new object of class '<em>if Cmd</em>'.
@@ -312,6 +258,15 @@ public interface CFactory extends EFactory
   returnCmd createreturnCmd();
 
   /**
+   * Returns a new object of class '<em>Decl Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Decl Cmd</em>'.
+   * @generated
+   */
+  DeclCmd createDeclCmd();
+
+  /**
    * Returns a new object of class '<em>Logic Exp</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -321,31 +276,94 @@ public interface CFactory extends EFactory
   LogicExp createLogicExp();
 
   /**
-   * Returns a new object of class '<em>Aritm Exp</em>'.
+   * Returns a new object of class '<em>Rel Exp</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Aritm Exp</em>'.
+   * @return a new object of class '<em>Rel Exp</em>'.
    * @generated
    */
-  AritmExp createAritmExp();
+  RelExp createRelExp();
 
   /**
-   * Returns a new object of class '<em>array Access</em>'.
+   * Returns a new object of class '<em>Arith Exp</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>array Access</em>'.
+   * @return a new object of class '<em>Arith Exp</em>'.
    * @generated
    */
-  arrayAccess createarrayAccess();
+  ArithExp createArithExp();
 
   /**
-   * Returns a new object of class '<em>field Access</em>'.
+   * Returns a new object of class '<em>Term</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>field Access</em>'.
+   * @return a new object of class '<em>Term</em>'.
    * @generated
    */
-  fieldAccess createfieldAccess();
+  Term createTerm();
+
+  /**
+   * Returns a new object of class '<em>Postfix Op</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Postfix Op</em>'.
+   * @generated
+   */
+  PostfixOp createPostfixOp();
+
+  /**
+   * Returns a new object of class '<em>Prefix Op</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Prefix Op</em>'.
+   * @generated
+   */
+  PrefixOp createPrefixOp();
+
+  /**
+   * Returns a new object of class '<em>Parenteses</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Parenteses</em>'.
+   * @generated
+   */
+  Parenteses createParenteses();
+
+  /**
+   * Returns a new object of class '<em>Var</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Var</em>'.
+   * @generated
+   */
+  Var createVar();
+
+  /**
+   * Returns a new object of class '<em>Func Call</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Func Call</em>'.
+   * @generated
+   */
+  FuncCall createFuncCall();
+
+  /**
+   * Returns a new object of class '<em>Field Access</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Field Access</em>'.
+   * @generated
+   */
+  FieldAccess createFieldAccess();
+
+  /**
+   * Returns a new object of class '<em>Array Access</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Array Access</em>'.
+   * @generated
+   */
+  ArrayAccess createArrayAccess();
 
   /**
    * Returns a new object of class '<em>Int Lit</em>'.

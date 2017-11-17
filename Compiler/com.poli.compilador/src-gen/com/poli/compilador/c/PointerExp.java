@@ -20,7 +20,7 @@ package com.poli.compilador.c;
  * @model
  * @generated
  */
-public interface PointerExp extends Variable, lValue
+public interface PointerExp extends Variable, Expression
 {
   /**
    * Returns the value of the '<em><b>Exp</b></em>' containment reference.

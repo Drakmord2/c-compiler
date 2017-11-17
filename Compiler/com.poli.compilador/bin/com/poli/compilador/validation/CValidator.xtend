@@ -3,6 +3,17 @@
  */
 package com.poli.compilador.validation
 
+import org.eclipse.xtext.validation.Check
+import com.poli.compilador.c.CPackage
+import com.poli.compilador.c.ifCmd
+import com.poli.compilador.c.whileCmd
+import com.poli.compilador.c.doWhileCmd
+import com.poli.compilador.c.forCmd
+import com.poli.compilador.c.switchCmd
+import com.poli.compilador.c.Expression
+import com.poli.compilador.c.FieldAccess
+import com.poli.compilador.c.Var
+import com.poli.compilador.c.StrDecl
 
 /**
  * This class contains custom validation rules. 
@@ -11,15 +22,75 @@ package com.poli.compilador.validation
  */
 class CValidator extends AbstractCValidator {
 	
-//	public static val INVALID_NAME = 'invalidName'
-//
-//	@Check
-//	def checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.name.charAt(0))) {
-//			warning('Name should start with a capital', 
-//					CPackage.Literals.GREETING__NAME,
-//					INVALID_NAME)
-//		}
-//	}
+	@Check
+	def checkIf (ifCmd c) {
+		val tipo = Validator.tipode(c.exp, null)
+		
+		if ( tipo != Validator.Tipo.BOOL) {
+			error('Condition must be a Bool. '+tipo+' given.', c, CPackage.Literals.IF_CMD__EXP)
+		}  
+	} 
+	
+	@Check
+	def checkWhile (whileCmd c) {
+		val tipo = Validator.tipode(c.exp, null)
+		
+		if ( tipo != Validator.Tipo.BOOL) {
+			error('Condition must be a Bool. '+tipo+' given.', c, CPackage.Literals.WHILE_CMD__EXP)
+		}  
+	}
+	
+	@Check
+	def checkDoWhile (doWhileCmd c) {
+		val tipo = Validator.tipode(c.exp, null)
+		
+		if ( tipo != Validator.Tipo.BOOL) {
+			error('Condition must be a Bool. '+tipo+' given.', c, CPackage.Literals.DO_WHILE_CMD__EXP)
+		}  
+	}
+	
+	@Check
+	def checkSwitch (switchCmd c) {
+		val tipo = Validator.tipode(c.exp, null)
+		
+		if ( tipo != Validator.Tipo.BOOL) {
+			error('Condition must be a Bool. '+tipo+' given.', c, CPackage.Literals.SWITCH_CMD__EXP)
+		}  
+	}
+	
+	@Check
+	def checkFor (forCmd c) {
+		val tipo = Validator.tipode(c.exp, null)
+		
+		if ( tipo != Validator.Tipo.BOOL) {
+			error('Condition must be a Bool. '+tipo+' given.', c, CPackage.Literals.FOR_CMD__EXP)
+		} 
+	}
+	
+	@Check
+	def checkAccess (Expression v) {
+		if (v instanceof FieldAccess ) {
+			val lvalue 	= v.obj as Var
+			
+			if (lvalue.valor instanceof StrDecl != true) {
+				error('Illegal access. Not a struct.', v, CPackage.Literals.FIELD_ACCESS__OBJ)
+				return
+			}
+			
+			val strDecl	= lvalue.valor as StrDecl
+			val struct 	= strDecl.str
+			val decls	= struct.decl
+			val campo 	= v.field
+			
+			for (d : decls) {
+				if (d.name == campo) {
+					return
+				}
+			}
+			
+			error('Struct field not defined.', v, CPackage.Literals.FIELD_ACCESS__FIELD)
+		}
+		
+	}
 	
 }

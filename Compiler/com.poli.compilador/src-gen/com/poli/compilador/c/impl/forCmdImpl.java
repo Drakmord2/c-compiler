@@ -4,7 +4,7 @@
 package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
-import com.poli.compilador.c.CommandBlock;
+import com.poli.compilador.c.Command;
 import com.poli.compilador.c.Expression;
 import com.poli.compilador.c.forCmd;
 
@@ -73,14 +73,14 @@ public class forCmdImpl extends CommandImpl implements forCmd
   protected EList<EObject> inc;
 
   /**
-   * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference.
+   * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getCommands()
    * @generated
    * @ordered
    */
-  protected CommandBlock commands;
+  protected EList<Command> commands;
 
   /**
    * <!-- begin-user-doc -->
@@ -184,47 +184,13 @@ public class forCmdImpl extends CommandImpl implements forCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  public CommandBlock getCommands()
+  public EList<Command> getCommands()
   {
+    if (commands == null)
+    {
+      commands = new EObjectContainmentEList<Command>(Command.class, this, CPackage.FOR_CMD__COMMANDS);
+    }
     return commands;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetCommands(CommandBlock newCommands, NotificationChain msgs)
-  {
-    CommandBlock oldCommands = commands;
-    commands = newCommands;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.FOR_CMD__COMMANDS, oldCommands, newCommands);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCommands(CommandBlock newCommands)
-  {
-    if (newCommands != commands)
-    {
-      NotificationChain msgs = null;
-      if (commands != null)
-        msgs = ((InternalEObject)commands).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.FOR_CMD__COMMANDS, null, msgs);
-      if (newCommands != null)
-        msgs = ((InternalEObject)newCommands).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.FOR_CMD__COMMANDS, null, msgs);
-      msgs = basicSetCommands(newCommands, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.FOR_CMD__COMMANDS, newCommands, newCommands));
   }
 
   /**
@@ -244,7 +210,7 @@ public class forCmdImpl extends CommandImpl implements forCmd
       case CPackage.FOR_CMD__INC:
         return ((InternalEList<?>)getInc()).basicRemove(otherEnd, msgs);
       case CPackage.FOR_CMD__COMMANDS:
-        return basicSetCommands(null, msgs);
+        return ((InternalEList<?>)getCommands()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -294,7 +260,8 @@ public class forCmdImpl extends CommandImpl implements forCmd
         getInc().addAll((Collection<? extends EObject>)newValue);
         return;
       case CPackage.FOR_CMD__COMMANDS:
-        setCommands((CommandBlock)newValue);
+        getCommands().clear();
+        getCommands().addAll((Collection<? extends Command>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -320,7 +287,7 @@ public class forCmdImpl extends CommandImpl implements forCmd
         getInc().clear();
         return;
       case CPackage.FOR_CMD__COMMANDS:
-        setCommands((CommandBlock)null);
+        getCommands().clear();
         return;
     }
     super.eUnset(featureID);
@@ -343,7 +310,7 @@ public class forCmdImpl extends CommandImpl implements forCmd
       case CPackage.FOR_CMD__INC:
         return inc != null && !inc.isEmpty();
       case CPackage.FOR_CMD__COMMANDS:
-        return commands != null;
+        return commands != null && !commands.isEmpty();
     }
     return super.eIsSet(featureID);
   }

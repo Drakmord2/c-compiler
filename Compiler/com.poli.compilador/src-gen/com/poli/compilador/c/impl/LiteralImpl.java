@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class LiteralImpl extends AtomImpl implements Literal
+public class LiteralImpl extends ExpressionImpl implements Literal
 {
   /**
    * <!-- begin-user-doc -->

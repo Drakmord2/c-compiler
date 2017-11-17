@@ -6,22 +6,49 @@ package com.poli.compilador.c;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>field Access</b></em>'.
+ * A representation of the model object '<em><b>Field Access</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.fieldAccess#getField <em>Field</em>}</li>
+ *   <li>{@link com.poli.compilador.c.FieldAccess#getObj <em>Obj</em>}</li>
+ *   <li>{@link com.poli.compilador.c.FieldAccess#getField <em>Field</em>}</li>
  * </ul>
  *
- * @see com.poli.compilador.c.CPackage#getfieldAccess()
+ * @see com.poli.compilador.c.CPackage#getFieldAccess()
  * @model
  * @generated
  */
-public interface fieldAccess extends AccessExp
+public interface FieldAccess extends Expression
 {
+  /**
+   * Returns the value of the '<em><b>Obj</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Obj</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Obj</em>' containment reference.
+   * @see #setObj(Expression)
+   * @see com.poli.compilador.c.CPackage#getFieldAccess_Obj()
+   * @model containment="true"
+   * @generated
+   */
+  Expression getObj();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.FieldAccess#getObj <em>Obj</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Obj</em>' containment reference.
+   * @see #getObj()
+   * @generated
+   */
+  void setObj(Expression value);
+
   /**
    * Returns the value of the '<em><b>Field</b></em>' attribute.
    * <!-- begin-user-doc -->
@@ -32,14 +59,14 @@ public interface fieldAccess extends AccessExp
    * <!-- end-user-doc -->
    * @return the value of the '<em>Field</em>' attribute.
    * @see #setField(String)
-   * @see com.poli.compilador.c.CPackage#getfieldAccess_Field()
+   * @see com.poli.compilador.c.CPackage#getFieldAccess_Field()
    * @model
    * @generated
    */
   String getField();
 
   /**
-   * Sets the value of the '{@link com.poli.compilador.c.fieldAccess#getField <em>Field</em>}' attribute.
+   * Sets the value of the '{@link com.poli.compilador.c.FieldAccess#getField <em>Field</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Field</em>' attribute.
@@ -48,4 +75,4 @@ public interface fieldAccess extends AccessExp
    */
   void setField(String value);
 
-} // fieldAccess
+} // FieldAccess

@@ -1,0 +1,26 @@
+-------------------------------------------------------------------
+
+TYPE Comp => Int | Char | Bool
+TYPE Enu	m => Int | Char
+
+-------------------------------------------------------------------
+
+LeftExp ( EE )
+	( Definition ) Id  					:: typeof Id
+	( Declaration ) Id '[' ED ']' 		:: typeof Id
+	( Declaration ) Id ('.') EE  		:: typeof EE
+	('**') EE							:: Comp * 
+	
+RightExp ( ED )
+	ED ( '&&' | '||' ) ED				:: ( Bool, Bool ) -> Bool
+	ED ( '>' | '>=' | '<' | '<=' ) ED	:: ( Enum, Enum ) -> Bool 
+	ED ( '==' | '!=' ) ED 				:: ( Comp, Comp ) -> Bool
+	ED ( '+' | '-' | '*' | '/' ) ED 		:: ( Int, Int )   -> Int
+	( '!' ) EE							:: ( Bool ) -> Bool
+	( '&' ) EE							:: ( Comp ) -> Int
+	( '++' | '--' ) EE					:: ( Int ) -> Int
+	EE ( '++' | '--' )					:: ( Int ) -> Int
+	'(' EE ')'							:: typeof EE
+	EE									:: typeof EE
+	LITERAL								:: typeof LITERAL
+	

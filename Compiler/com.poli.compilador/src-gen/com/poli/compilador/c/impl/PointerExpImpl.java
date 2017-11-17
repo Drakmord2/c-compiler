@@ -3,14 +3,9 @@
  */
 package com.poli.compilador.c.impl;
 
-import com.poli.compilador.c.AccessExp;
-import com.poli.compilador.c.Argument;
-import com.poli.compilador.c.Atom;
 import com.poli.compilador.c.CPackage;
-import com.poli.compilador.c.Definition;
 import com.poli.compilador.c.Expression;
 import com.poli.compilador.c.PointerExp;
-import com.poli.compilador.c.lValue;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -28,9 +23,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.PointerExpImpl#getValor <em>Valor</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.PointerExpImpl#getArg <em>Arg</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.PointerExpImpl#getAcc <em>Acc</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.PointerExpImpl#getExp <em>Exp</em>}</li>
  * </ul>
  *
@@ -38,36 +30,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class PointerExpImpl extends VariableImpl implements PointerExp
 {
-  /**
-   * The cached value of the '{@link #getValor() <em>Valor</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getValor()
-   * @generated
-   * @ordered
-   */
-  protected Definition valor;
-
-  /**
-   * The cached value of the '{@link #getArg() <em>Arg</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getArg()
-   * @generated
-   * @ordered
-   */
-  protected Argument arg;
-
-  /**
-   * The cached value of the '{@link #getAcc() <em>Acc</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getAcc()
-   * @generated
-   * @ordered
-   */
-  protected AccessExp acc;
-
   /**
    * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -97,145 +59,6 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
   protected EClass eStaticClass()
   {
     return CPackage.Literals.POINTER_EXP;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Definition getValor()
-  {
-    if (valor != null && valor.eIsProxy())
-    {
-      InternalEObject oldValor = (InternalEObject)valor;
-      valor = (Definition)eResolveProxy(oldValor);
-      if (valor != oldValor)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CPackage.POINTER_EXP__VALOR, oldValor, valor));
-      }
-    }
-    return valor;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Definition basicGetValor()
-  {
-    return valor;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setValor(Definition newValor)
-  {
-    Definition oldValor = valor;
-    valor = newValor;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.POINTER_EXP__VALOR, oldValor, valor));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Argument getArg()
-  {
-    return arg;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetArg(Argument newArg, NotificationChain msgs)
-  {
-    Argument oldArg = arg;
-    arg = newArg;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.POINTER_EXP__ARG, oldArg, newArg);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setArg(Argument newArg)
-  {
-    if (newArg != arg)
-    {
-      NotificationChain msgs = null;
-      if (arg != null)
-        msgs = ((InternalEObject)arg).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.POINTER_EXP__ARG, null, msgs);
-      if (newArg != null)
-        msgs = ((InternalEObject)newArg).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.POINTER_EXP__ARG, null, msgs);
-      msgs = basicSetArg(newArg, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.POINTER_EXP__ARG, newArg, newArg));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AccessExp getAcc()
-  {
-    return acc;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetAcc(AccessExp newAcc, NotificationChain msgs)
-  {
-    AccessExp oldAcc = acc;
-    acc = newAcc;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.POINTER_EXP__ACC, oldAcc, newAcc);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setAcc(AccessExp newAcc)
-  {
-    if (newAcc != acc)
-    {
-      NotificationChain msgs = null;
-      if (acc != null)
-        msgs = ((InternalEObject)acc).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.POINTER_EXP__ACC, null, msgs);
-      if (newAcc != null)
-        msgs = ((InternalEObject)newAcc).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.POINTER_EXP__ACC, null, msgs);
-      msgs = basicSetAcc(newAcc, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.POINTER_EXP__ACC, newAcc, newAcc));
   }
 
   /**
@@ -296,10 +119,6 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
   {
     switch (featureID)
     {
-      case CPackage.POINTER_EXP__ARG:
-        return basicSetArg(null, msgs);
-      case CPackage.POINTER_EXP__ACC:
-        return basicSetAcc(null, msgs);
       case CPackage.POINTER_EXP__EXP:
         return basicSetExp(null, msgs);
     }
@@ -316,13 +135,6 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
   {
     switch (featureID)
     {
-      case CPackage.POINTER_EXP__VALOR:
-        if (resolve) return getValor();
-        return basicGetValor();
-      case CPackage.POINTER_EXP__ARG:
-        return getArg();
-      case CPackage.POINTER_EXP__ACC:
-        return getAcc();
       case CPackage.POINTER_EXP__EXP:
         return getExp();
     }
@@ -339,15 +151,6 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
   {
     switch (featureID)
     {
-      case CPackage.POINTER_EXP__VALOR:
-        setValor((Definition)newValue);
-        return;
-      case CPackage.POINTER_EXP__ARG:
-        setArg((Argument)newValue);
-        return;
-      case CPackage.POINTER_EXP__ACC:
-        setAcc((AccessExp)newValue);
-        return;
       case CPackage.POINTER_EXP__EXP:
         setExp((Expression)newValue);
         return;
@@ -365,15 +168,6 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
   {
     switch (featureID)
     {
-      case CPackage.POINTER_EXP__VALOR:
-        setValor((Definition)null);
-        return;
-      case CPackage.POINTER_EXP__ARG:
-        setArg((Argument)null);
-        return;
-      case CPackage.POINTER_EXP__ACC:
-        setAcc((AccessExp)null);
-        return;
       case CPackage.POINTER_EXP__EXP:
         setExp((Expression)null);
         return;
@@ -391,72 +185,10 @@ public class PointerExpImpl extends VariableImpl implements PointerExp
   {
     switch (featureID)
     {
-      case CPackage.POINTER_EXP__VALOR:
-        return valor != null;
-      case CPackage.POINTER_EXP__ARG:
-        return arg != null;
-      case CPackage.POINTER_EXP__ACC:
-        return acc != null;
       case CPackage.POINTER_EXP__EXP:
         return exp != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
-  {
-    if (baseClass == Atom.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == lValue.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case CPackage.POINTER_EXP__VALOR: return CPackage.LVALUE__VALOR;
-        case CPackage.POINTER_EXP__ARG: return CPackage.LVALUE__ARG;
-        case CPackage.POINTER_EXP__ACC: return CPackage.LVALUE__ACC;
-        default: return -1;
-      }
-    }
-    return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
-  {
-    if (baseClass == Atom.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == lValue.class)
-    {
-      switch (baseFeatureID)
-      {
-        case CPackage.LVALUE__VALOR: return CPackage.POINTER_EXP__VALOR;
-        case CPackage.LVALUE__ARG: return CPackage.POINTER_EXP__ARG;
-        case CPackage.LVALUE__ACC: return CPackage.POINTER_EXP__ACC;
-        default: return -1;
-      }
-    }
-    return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
   }
 
 } //PointerExpImpl

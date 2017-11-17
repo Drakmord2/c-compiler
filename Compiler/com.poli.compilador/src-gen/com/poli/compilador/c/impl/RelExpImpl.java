@@ -3,8 +3,8 @@
  */
 package com.poli.compilador.c.impl;
 
-import com.poli.compilador.c.ArithExp;
 import com.poli.compilador.c.CPackage;
+import com.poli.compilador.c.Expression;
 import com.poli.compilador.c.RelExp;
 
 import java.util.Collection;
@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -37,7 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
+public class RelExpImpl extends ExpressionImpl implements RelExp
 {
   /**
    * The cached value of the '{@link #getArgs() <em>Args</em>}' containment reference list.
@@ -47,7 +46,7 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
    * @generated
    * @ordered
    */
-  protected EList<ArithExp> args;
+  protected EList<Expression> args;
 
   /**
    * The default value of the '{@link #getOp() <em>Op</em>}' attribute.
@@ -95,11 +94,11 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ArithExp> getArgs()
+  public EList<Expression> getArgs()
   {
     if (args == null)
     {
-      args = new EObjectContainmentEList<ArithExp>(ArithExp.class, this, CPackage.REL_EXP__ARGS);
+      args = new EObjectContainmentEList<Expression>(Expression.class, this, CPackage.REL_EXP__ARGS);
     }
     return args;
   }
@@ -174,7 +173,7 @@ public class RelExpImpl extends MinimalEObjectImpl.Container implements RelExp
     {
       case CPackage.REL_EXP__ARGS:
         getArgs().clear();
-        getArgs().addAll((Collection<? extends ArithExp>)newValue);
+        getArgs().addAll((Collection<? extends Expression>)newValue);
         return;
       case CPackage.REL_EXP__OP:
         setOp((String)newValue);

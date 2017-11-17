@@ -3,10 +3,10 @@
  */
 package com.poli.compilador.c.impl;
 
-import com.poli.compilador.c.Atom;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Case;
 import com.poli.compilador.c.Command;
+import com.poli.compilador.c.Expression;
 
 import java.util.Collection;
 
@@ -48,7 +48,7 @@ public class CaseImpl extends MinimalEObjectImpl.Container implements Case
    * @generated
    * @ordered
    */
-  protected Atom val;
+  protected Expression val;
 
   /**
    * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference list.
@@ -86,7 +86,7 @@ public class CaseImpl extends MinimalEObjectImpl.Container implements Case
    * <!-- end-user-doc -->
    * @generated
    */
-  public Atom getVal()
+  public Expression getVal()
   {
     return val;
   }
@@ -96,9 +96,9 @@ public class CaseImpl extends MinimalEObjectImpl.Container implements Case
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetVal(Atom newVal, NotificationChain msgs)
+  public NotificationChain basicSetVal(Expression newVal, NotificationChain msgs)
   {
-    Atom oldVal = val;
+    Expression oldVal = val;
     val = newVal;
     if (eNotificationRequired())
     {
@@ -113,7 +113,7 @@ public class CaseImpl extends MinimalEObjectImpl.Container implements Case
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setVal(Atom newVal)
+  public void setVal(Expression newVal)
   {
     if (newVal != val)
     {
@@ -191,7 +191,7 @@ public class CaseImpl extends MinimalEObjectImpl.Container implements Case
     switch (featureID)
     {
       case CPackage.CASE__VAL:
-        setVal((Atom)newValue);
+        setVal((Expression)newValue);
         return;
       case CPackage.CASE__COMMANDS:
         getCommands().clear();
@@ -212,7 +212,7 @@ public class CaseImpl extends MinimalEObjectImpl.Container implements Case
     switch (featureID)
     {
       case CPackage.CASE__VAL:
-        setVal((Atom)null);
+        setVal((Expression)null);
         return;
       case CPackage.CASE__COMMANDS:
         getCommands().clear();

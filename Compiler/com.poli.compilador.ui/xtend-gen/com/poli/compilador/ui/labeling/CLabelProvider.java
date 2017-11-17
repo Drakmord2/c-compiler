@@ -4,6 +4,29 @@
 package com.poli.compilador.ui.labeling;
 
 import com.google.inject.Inject;
+import com.poli.compilador.c.ArithExp;
+import com.poli.compilador.c.Command;
+import com.poli.compilador.c.Declaration;
+import com.poli.compilador.c.Expression;
+import com.poli.compilador.c.FalseLit;
+import com.poli.compilador.c.Function;
+import com.poli.compilador.c.IntLit;
+import com.poli.compilador.c.LogicExp;
+import com.poli.compilador.c.Parenteses;
+import com.poli.compilador.c.PostfixOp;
+import com.poli.compilador.c.PrefixOp;
+import com.poli.compilador.c.RelExp;
+import com.poli.compilador.c.Struct;
+import com.poli.compilador.c.Term;
+import com.poli.compilador.c.TrueLit;
+import com.poli.compilador.c.Var;
+import com.poli.compilador.c.breakCmd;
+import com.poli.compilador.c.doWhileCmd;
+import com.poli.compilador.c.forCmd;
+import com.poli.compilador.c.ifCmd;
+import com.poli.compilador.c.returnCmd;
+import com.poli.compilador.c.switchCmd;
+import com.poli.compilador.c.whileCmd;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 
@@ -17,5 +40,81 @@ public class CLabelProvider extends DefaultEObjectLabelProvider {
   @Inject
   public CLabelProvider(final AdapterFactoryLabelProvider delegate) {
     super(delegate);
+  }
+  
+  public String text(final Function f) {
+    String _name = f.getName();
+    return ("Function - " + _name);
+  }
+  
+  public String text(final Struct s) {
+    String _name = s.getName();
+    return ("Struct - " + _name);
+  }
+  
+  public String text(final Command c) {
+    if ((c instanceof ifCmd)) {
+      return "If";
+    }
+    if ((c instanceof whileCmd)) {
+      return "While";
+    }
+    if ((c instanceof forCmd)) {
+      return "For";
+    }
+    if ((c instanceof doWhileCmd)) {
+      return "Do-While";
+    }
+    if ((c instanceof Declaration)) {
+      String _name = ((Declaration)c).getName();
+      return ("Declaration - " + _name);
+    }
+    if ((c instanceof breakCmd)) {
+      return "Break";
+    }
+    if ((c instanceof returnCmd)) {
+      return "Return";
+    }
+    if ((c instanceof switchCmd)) {
+      return "Switch";
+    }
+    return "Command";
+  }
+  
+  public Object text(final Expression e) {
+    if ((e instanceof LogicExp)) {
+      return "Logic";
+    }
+    if ((e instanceof RelExp)) {
+      return "Relational";
+    }
+    if ((e instanceof ArithExp)) {
+      return "Arithmetic";
+    }
+    if ((e instanceof Term)) {
+      return "Term";
+    }
+    if ((e instanceof PostfixOp)) {
+      return "Postfix";
+    }
+    if ((e instanceof PrefixOp)) {
+      return "Prefix";
+    }
+    if ((e instanceof Parenteses)) {
+      return "Parenteses";
+    }
+    if ((e instanceof IntLit)) {
+      return Integer.valueOf(((IntLit)e).getVal());
+    }
+    if ((e instanceof TrueLit)) {
+      return "True";
+    }
+    if ((e instanceof FalseLit)) {
+      return "False";
+    }
+    if ((e instanceof Var)) {
+      return ((Var)e).getValor().getName();
+    }
+    return "Expression";
   }
 }

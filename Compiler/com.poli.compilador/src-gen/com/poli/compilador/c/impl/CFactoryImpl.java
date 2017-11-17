@@ -73,21 +73,15 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
       case CPackage.ID_DEF: return createIdDef();
       case CPackage.VARIABLE: return createVariable();
       case CPackage.COMMAND: return createCommand();
-      case CPackage.COMMAND_BLOCK: return createCommandBlock();
       case CPackage.ARGUMENT: return createArgument();
       case CPackage.ASSIGNMENT: return createAssignment();
       case CPackage.EXPRESSION: return createExpression();
-      case CPackage.REL_EXP: return createRelExp();
-      case CPackage.ARITH_EXP: return createArithExp();
-      case CPackage.TERM: return createTerm();
-      case CPackage.FACTOR: return createFactor();
-      case CPackage.ATOM: return createAtom();
-      case CPackage.LVALUE: return createlValue();
       case CPackage.POINTER_EXP: return createPointerExp();
-      case CPackage.ACCESS_EXP: return createAccessExp();
       case CPackage.CASE: return createCase();
       case CPackage.TYPE: return createType();
       case CPackage.LITERAL: return createLiteral();
+      case CPackage.VAR_DECL: return createVarDecl();
+      case CPackage.STR_DECL: return createStrDecl();
       case CPackage.IF_CMD: return createifCmd();
       case CPackage.WHILE_CMD: return createwhileCmd();
       case CPackage.FOR_CMD: return createforCmd();
@@ -97,10 +91,18 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
       case CPackage.BREAK_CMD: return createbreakCmd();
       case CPackage.CONTINUE_CMD: return createcontinueCmd();
       case CPackage.RETURN_CMD: return createreturnCmd();
+      case CPackage.DECL_CMD: return createDeclCmd();
       case CPackage.LOGIC_EXP: return createLogicExp();
-      case CPackage.ARITM_EXP: return createAritmExp();
-      case CPackage.ARRAY_ACCESS: return createarrayAccess();
-      case CPackage.FIELD_ACCESS: return createfieldAccess();
+      case CPackage.REL_EXP: return createRelExp();
+      case CPackage.ARITH_EXP: return createArithExp();
+      case CPackage.TERM: return createTerm();
+      case CPackage.POSTFIX_OP: return createPostfixOp();
+      case CPackage.PREFIX_OP: return createPrefixOp();
+      case CPackage.PARENTESES: return createParenteses();
+      case CPackage.VAR: return createVar();
+      case CPackage.FUNC_CALL: return createFuncCall();
+      case CPackage.FIELD_ACCESS: return createFieldAccess();
+      case CPackage.ARRAY_ACCESS: return createArrayAccess();
       case CPackage.INT_LIT: return createIntLit();
       case CPackage.TRUE_LIT: return createTrueLit();
       case CPackage.FALSE_LIT: return createFalseLit();
@@ -202,17 +204,6 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public CommandBlock createCommandBlock()
-  {
-    CommandBlockImpl commandBlock = new CommandBlockImpl();
-    return commandBlock;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public Argument createArgument()
   {
     ArgumentImpl argument = new ArgumentImpl();
@@ -246,87 +237,10 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public RelExp createRelExp()
-  {
-    RelExpImpl relExp = new RelExpImpl();
-    return relExp;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ArithExp createArithExp()
-  {
-    ArithExpImpl arithExp = new ArithExpImpl();
-    return arithExp;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Term createTerm()
-  {
-    TermImpl term = new TermImpl();
-    return term;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Factor createFactor()
-  {
-    FactorImpl factor = new FactorImpl();
-    return factor;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Atom createAtom()
-  {
-    AtomImpl atom = new AtomImpl();
-    return atom;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public lValue createlValue()
-  {
-    lValueImpl lValue = new lValueImpl();
-    return lValue;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public PointerExp createPointerExp()
   {
     PointerExpImpl pointerExp = new PointerExpImpl();
     return pointerExp;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AccessExp createAccessExp()
-  {
-    AccessExpImpl accessExp = new AccessExpImpl();
-    return accessExp;
   }
 
   /**
@@ -360,6 +274,28 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
   {
     LiteralImpl literal = new LiteralImpl();
     return literal;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VarDecl createVarDecl()
+  {
+    VarDeclImpl varDecl = new VarDeclImpl();
+    return varDecl;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public StrDecl createStrDecl()
+  {
+    StrDeclImpl strDecl = new StrDeclImpl();
+    return strDecl;
   }
 
   /**
@@ -466,6 +402,17 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public DeclCmd createDeclCmd()
+  {
+    DeclCmdImpl declCmd = new DeclCmdImpl();
+    return declCmd;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public LogicExp createLogicExp()
   {
     LogicExpImpl logicExp = new LogicExpImpl();
@@ -477,10 +424,10 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AritmExp createAritmExp()
+  public RelExp createRelExp()
   {
-    AritmExpImpl aritmExp = new AritmExpImpl();
-    return aritmExp;
+    RelExpImpl relExp = new RelExpImpl();
+    return relExp;
   }
 
   /**
@@ -488,10 +435,10 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public arrayAccess createarrayAccess()
+  public ArithExp createArithExp()
   {
-    arrayAccessImpl arrayAccess = new arrayAccessImpl();
-    return arrayAccess;
+    ArithExpImpl arithExp = new ArithExpImpl();
+    return arithExp;
   }
 
   /**
@@ -499,10 +446,87 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public fieldAccess createfieldAccess()
+  public Term createTerm()
   {
-    fieldAccessImpl fieldAccess = new fieldAccessImpl();
+    TermImpl term = new TermImpl();
+    return term;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PostfixOp createPostfixOp()
+  {
+    PostfixOpImpl postfixOp = new PostfixOpImpl();
+    return postfixOp;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PrefixOp createPrefixOp()
+  {
+    PrefixOpImpl prefixOp = new PrefixOpImpl();
+    return prefixOp;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Parenteses createParenteses()
+  {
+    ParentesesImpl parenteses = new ParentesesImpl();
+    return parenteses;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Var createVar()
+  {
+    VarImpl var = new VarImpl();
+    return var;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FuncCall createFuncCall()
+  {
+    FuncCallImpl funcCall = new FuncCallImpl();
+    return funcCall;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FieldAccess createFieldAccess()
+  {
+    FieldAccessImpl fieldAccess = new FieldAccessImpl();
     return fieldAccess;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ArrayAccess createArrayAccess()
+  {
+    ArrayAccessImpl arrayAccess = new ArrayAccessImpl();
+    return arrayAccess;
   }
 
   /**

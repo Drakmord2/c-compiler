@@ -35,12 +35,12 @@ public interface Case extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Val</em>' containment reference.
-   * @see #setVal(Atom)
+   * @see #setVal(Expression)
    * @see com.poli.compilador.c.CPackage#getCase_Val()
    * @model containment="true"
    * @generated
    */
-  Atom getVal();
+  Expression getVal();
 
   /**
    * Sets the value of the '{@link com.poli.compilador.c.Case#getVal <em>Val</em>}' containment reference.
@@ -50,7 +50,7 @@ public interface Case extends EObject
    * @see #getVal()
    * @generated
    */
-  void setVal(Atom value);
+  void setVal(Expression value);
 
   /**
    * Returns the value of the '<em><b>Commands</b></em>' containment reference list.

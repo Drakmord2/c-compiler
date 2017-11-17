@@ -6,46 +6,73 @@ package com.poli.compilador.c;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>array Access</b></em>'.
+ * A representation of the model object '<em><b>Array Access</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.arrayAccess#getExp <em>Exp</em>}</li>
+ *   <li>{@link com.poli.compilador.c.ArrayAccess#getArr <em>Arr</em>}</li>
+ *   <li>{@link com.poli.compilador.c.ArrayAccess#getIndex <em>Index</em>}</li>
  * </ul>
  *
- * @see com.poli.compilador.c.CPackage#getarrayAccess()
+ * @see com.poli.compilador.c.CPackage#getArrayAccess()
  * @model
  * @generated
  */
-public interface arrayAccess extends AccessExp
+public interface ArrayAccess extends Expression
 {
   /**
-   * Returns the value of the '<em><b>Exp</b></em>' containment reference.
+   * Returns the value of the '<em><b>Arr</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Exp</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Arr</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Exp</em>' containment reference.
-   * @see #setExp(Expression)
-   * @see com.poli.compilador.c.CPackage#getarrayAccess_Exp()
+   * @return the value of the '<em>Arr</em>' containment reference.
+   * @see #setArr(Expression)
+   * @see com.poli.compilador.c.CPackage#getArrayAccess_Arr()
    * @model containment="true"
    * @generated
    */
-  Expression getExp();
+  Expression getArr();
 
   /**
-   * Sets the value of the '{@link com.poli.compilador.c.arrayAccess#getExp <em>Exp</em>}' containment reference.
+   * Sets the value of the '{@link com.poli.compilador.c.ArrayAccess#getArr <em>Arr</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Exp</em>' containment reference.
-   * @see #getExp()
+   * @param value the new value of the '<em>Arr</em>' containment reference.
+   * @see #getArr()
    * @generated
    */
-  void setExp(Expression value);
+  void setArr(Expression value);
 
-} // arrayAccess
+  /**
+   * Returns the value of the '<em><b>Index</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Index</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Index</em>' containment reference.
+   * @see #setIndex(Expression)
+   * @see com.poli.compilador.c.CPackage#getArrayAccess_Index()
+   * @model containment="true"
+   * @generated
+   */
+  Expression getIndex();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.ArrayAccess#getIndex <em>Index</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Index</em>' containment reference.
+   * @see #getIndex()
+   * @generated
+   */
+  void setIndex(Expression value);
+
+} // ArrayAccess

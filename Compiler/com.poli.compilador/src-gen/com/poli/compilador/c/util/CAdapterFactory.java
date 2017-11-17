@@ -116,11 +116,6 @@ public class CAdapterFactory extends AdapterFactoryImpl
         return createCommandAdapter();
       }
       @Override
-      public Adapter caseCommandBlock(CommandBlock object)
-      {
-        return createCommandBlockAdapter();
-      }
-      @Override
       public Adapter caseArgument(Argument object)
       {
         return createArgumentAdapter();
@@ -136,44 +131,9 @@ public class CAdapterFactory extends AdapterFactoryImpl
         return createExpressionAdapter();
       }
       @Override
-      public Adapter caseRelExp(RelExp object)
-      {
-        return createRelExpAdapter();
-      }
-      @Override
-      public Adapter caseArithExp(ArithExp object)
-      {
-        return createArithExpAdapter();
-      }
-      @Override
-      public Adapter caseTerm(Term object)
-      {
-        return createTermAdapter();
-      }
-      @Override
-      public Adapter caseFactor(Factor object)
-      {
-        return createFactorAdapter();
-      }
-      @Override
-      public Adapter caseAtom(Atom object)
-      {
-        return createAtomAdapter();
-      }
-      @Override
-      public Adapter caselValue(lValue object)
-      {
-        return createlValueAdapter();
-      }
-      @Override
       public Adapter casePointerExp(PointerExp object)
       {
         return createPointerExpAdapter();
-      }
-      @Override
-      public Adapter caseAccessExp(AccessExp object)
-      {
-        return createAccessExpAdapter();
       }
       @Override
       public Adapter caseCase(Case object)
@@ -189,6 +149,16 @@ public class CAdapterFactory extends AdapterFactoryImpl
       public Adapter caseLiteral(Literal object)
       {
         return createLiteralAdapter();
+      }
+      @Override
+      public Adapter caseVarDecl(VarDecl object)
+      {
+        return createVarDeclAdapter();
+      }
+      @Override
+      public Adapter caseStrDecl(StrDecl object)
+      {
+        return createStrDeclAdapter();
       }
       @Override
       public Adapter caseifCmd(ifCmd object)
@@ -236,24 +206,64 @@ public class CAdapterFactory extends AdapterFactoryImpl
         return createreturnCmdAdapter();
       }
       @Override
+      public Adapter caseDeclCmd(DeclCmd object)
+      {
+        return createDeclCmdAdapter();
+      }
+      @Override
       public Adapter caseLogicExp(LogicExp object)
       {
         return createLogicExpAdapter();
       }
       @Override
-      public Adapter caseAritmExp(AritmExp object)
+      public Adapter caseRelExp(RelExp object)
       {
-        return createAritmExpAdapter();
+        return createRelExpAdapter();
       }
       @Override
-      public Adapter casearrayAccess(arrayAccess object)
+      public Adapter caseArithExp(ArithExp object)
       {
-        return createarrayAccessAdapter();
+        return createArithExpAdapter();
       }
       @Override
-      public Adapter casefieldAccess(fieldAccess object)
+      public Adapter caseTerm(Term object)
       {
-        return createfieldAccessAdapter();
+        return createTermAdapter();
+      }
+      @Override
+      public Adapter casePostfixOp(PostfixOp object)
+      {
+        return createPostfixOpAdapter();
+      }
+      @Override
+      public Adapter casePrefixOp(PrefixOp object)
+      {
+        return createPrefixOpAdapter();
+      }
+      @Override
+      public Adapter caseParenteses(Parenteses object)
+      {
+        return createParentesesAdapter();
+      }
+      @Override
+      public Adapter caseVar(Var object)
+      {
+        return createVarAdapter();
+      }
+      @Override
+      public Adapter caseFuncCall(FuncCall object)
+      {
+        return createFuncCallAdapter();
+      }
+      @Override
+      public Adapter caseFieldAccess(FieldAccess object)
+      {
+        return createFieldAccessAdapter();
+      }
+      @Override
+      public Adapter caseArrayAccess(ArrayAccess object)
+      {
+        return createArrayAccessAdapter();
       }
       @Override
       public Adapter caseIntLit(IntLit object)
@@ -413,21 +423,6 @@ public class CAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.CommandBlock <em>Command Block</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.poli.compilador.c.CommandBlock
-   * @generated
-   */
-  public Adapter createCommandBlockAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link com.poli.compilador.c.Argument <em>Argument</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -473,96 +468,6 @@ public class CAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.RelExp <em>Rel Exp</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.poli.compilador.c.RelExp
-   * @generated
-   */
-  public Adapter createRelExpAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.ArithExp <em>Arith Exp</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.poli.compilador.c.ArithExp
-   * @generated
-   */
-  public Adapter createArithExpAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.Term <em>Term</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.poli.compilador.c.Term
-   * @generated
-   */
-  public Adapter createTermAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.Factor <em>Factor</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.poli.compilador.c.Factor
-   * @generated
-   */
-  public Adapter createFactorAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.Atom <em>Atom</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.poli.compilador.c.Atom
-   * @generated
-   */
-  public Adapter createAtomAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.lValue <em>lValue</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.poli.compilador.c.lValue
-   * @generated
-   */
-  public Adapter createlValueAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link com.poli.compilador.c.PointerExp <em>Pointer Exp</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -573,21 +478,6 @@ public class CAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPointerExpAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.AccessExp <em>Access Exp</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.poli.compilador.c.AccessExp
-   * @generated
-   */
-  public Adapter createAccessExpAdapter()
   {
     return null;
   }
@@ -633,6 +523,36 @@ public class CAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createLiteralAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.VarDecl <em>Var Decl</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.poli.compilador.c.VarDecl
+   * @generated
+   */
+  public Adapter createVarDeclAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.StrDecl <em>Str Decl</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.poli.compilador.c.StrDecl
+   * @generated
+   */
+  public Adapter createStrDeclAdapter()
   {
     return null;
   }
@@ -773,6 +693,21 @@ public class CAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.DeclCmd <em>Decl Cmd</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.poli.compilador.c.DeclCmd
+   * @generated
+   */
+  public Adapter createDeclCmdAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link com.poli.compilador.c.LogicExp <em>Logic Exp</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -788,46 +723,151 @@ public class CAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.AritmExp <em>Aritm Exp</em>}'.
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.RelExp <em>Rel Exp</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.poli.compilador.c.AritmExp
+   * @see com.poli.compilador.c.RelExp
    * @generated
    */
-  public Adapter createAritmExpAdapter()
+  public Adapter createRelExpAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.arrayAccess <em>array Access</em>}'.
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.ArithExp <em>Arith Exp</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.poli.compilador.c.arrayAccess
+   * @see com.poli.compilador.c.ArithExp
    * @generated
    */
-  public Adapter createarrayAccessAdapter()
+  public Adapter createArithExpAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.fieldAccess <em>field Access</em>}'.
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.Term <em>Term</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.poli.compilador.c.fieldAccess
+   * @see com.poli.compilador.c.Term
    * @generated
    */
-  public Adapter createfieldAccessAdapter()
+  public Adapter createTermAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.PostfixOp <em>Postfix Op</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.poli.compilador.c.PostfixOp
+   * @generated
+   */
+  public Adapter createPostfixOpAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.PrefixOp <em>Prefix Op</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.poli.compilador.c.PrefixOp
+   * @generated
+   */
+  public Adapter createPrefixOpAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.Parenteses <em>Parenteses</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.poli.compilador.c.Parenteses
+   * @generated
+   */
+  public Adapter createParentesesAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.Var <em>Var</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.poli.compilador.c.Var
+   * @generated
+   */
+  public Adapter createVarAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.FuncCall <em>Func Call</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.poli.compilador.c.FuncCall
+   * @generated
+   */
+  public Adapter createFuncCallAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.FieldAccess <em>Field Access</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.poli.compilador.c.FieldAccess
+   * @generated
+   */
+  public Adapter createFieldAccessAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.ArrayAccess <em>Array Access</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.poli.compilador.c.ArrayAccess
+   * @generated
+   */
+  public Adapter createArrayAccessAdapter()
   {
     return null;
   }

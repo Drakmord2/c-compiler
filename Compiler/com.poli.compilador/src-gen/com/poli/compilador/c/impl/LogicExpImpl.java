@@ -4,13 +4,23 @@
 package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
+import com.poli.compilador.c.Expression;
 import com.poli.compilador.c.LogicExp;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,6 +30,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link com.poli.compilador.c.impl.LogicExpImpl#getArgs <em>Args</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.LogicExpImpl#getOp <em>Op</em>}</li>
  * </ul>
  *
@@ -27,6 +38,16 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class LogicExpImpl extends ExpressionImpl implements LogicExp
 {
+  /**
+   * The cached value of the '{@link #getArgs() <em>Args</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getArgs()
+   * @generated
+   * @ordered
+   */
+  protected EList<Expression> args;
+
   /**
    * The default value of the '{@link #getOp() <em>Op</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -73,6 +94,20 @@ public class LogicExpImpl extends ExpressionImpl implements LogicExp
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Expression> getArgs()
+  {
+    if (args == null)
+    {
+      args = new EObjectContainmentEList<Expression>(Expression.class, this, CPackage.LOGIC_EXP__ARGS);
+    }
+    return args;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getOp()
   {
     return op;
@@ -97,10 +132,28 @@ public class LogicExpImpl extends ExpressionImpl implements LogicExp
    * @generated
    */
   @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case CPackage.LOGIC_EXP__ARGS:
+        return ((InternalEList<?>)getArgs()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
     {
+      case CPackage.LOGIC_EXP__ARGS:
+        return getArgs();
       case CPackage.LOGIC_EXP__OP:
         return getOp();
     }
@@ -112,11 +165,16 @@ public class LogicExpImpl extends ExpressionImpl implements LogicExp
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
+      case CPackage.LOGIC_EXP__ARGS:
+        getArgs().clear();
+        getArgs().addAll((Collection<? extends Expression>)newValue);
+        return;
       case CPackage.LOGIC_EXP__OP:
         setOp((String)newValue);
         return;
@@ -134,6 +192,9 @@ public class LogicExpImpl extends ExpressionImpl implements LogicExp
   {
     switch (featureID)
     {
+      case CPackage.LOGIC_EXP__ARGS:
+        getArgs().clear();
+        return;
       case CPackage.LOGIC_EXP__OP:
         setOp(OP_EDEFAULT);
         return;
@@ -151,6 +212,8 @@ public class LogicExpImpl extends ExpressionImpl implements LogicExp
   {
     switch (featureID)
     {
+      case CPackage.LOGIC_EXP__ARGS:
+        return args != null && !args.isEmpty();
       case CPackage.LOGIC_EXP__OP:
         return OP_EDEFAULT == null ? op != null : !OP_EDEFAULT.equals(op);
     }

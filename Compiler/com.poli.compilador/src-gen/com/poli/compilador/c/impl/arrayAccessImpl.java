@@ -3,9 +3,9 @@
  */
 package com.poli.compilador.c.impl;
 
+import com.poli.compilador.c.ArrayAccess;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Expression;
-import com.poli.compilador.c.arrayAccess;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -17,35 +17,46 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>array Access</b></em>'.
+ * An implementation of the model object '<em><b>Array Access</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.arrayAccessImpl#getExp <em>Exp</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.ArrayAccessImpl#getArr <em>Arr</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.ArrayAccessImpl#getIndex <em>Index</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class arrayAccessImpl extends AccessExpImpl implements arrayAccess
+public class ArrayAccessImpl extends ExpressionImpl implements ArrayAccess
 {
   /**
-   * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.
+   * The cached value of the '{@link #getArr() <em>Arr</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getExp()
+   * @see #getArr()
    * @generated
    * @ordered
    */
-  protected Expression exp;
+  protected Expression arr;
+
+  /**
+   * The cached value of the '{@link #getIndex() <em>Index</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIndex()
+   * @generated
+   * @ordered
+   */
+  protected Expression index;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected arrayAccessImpl()
+  protected ArrayAccessImpl()
   {
     super();
   }
@@ -66,9 +77,9 @@ public class arrayAccessImpl extends AccessExpImpl implements arrayAccess
    * <!-- end-user-doc -->
    * @generated
    */
-  public Expression getExp()
+  public Expression getArr()
   {
-    return exp;
+    return arr;
   }
 
   /**
@@ -76,13 +87,13 @@ public class arrayAccessImpl extends AccessExpImpl implements arrayAccess
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetExp(Expression newExp, NotificationChain msgs)
+  public NotificationChain basicSetArr(Expression newArr, NotificationChain msgs)
   {
-    Expression oldExp = exp;
-    exp = newExp;
+    Expression oldArr = arr;
+    arr = newArr;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.ARRAY_ACCESS__EXP, oldExp, newExp);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.ARRAY_ACCESS__ARR, oldArr, newArr);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -93,20 +104,68 @@ public class arrayAccessImpl extends AccessExpImpl implements arrayAccess
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setExp(Expression newExp)
+  public void setArr(Expression newArr)
   {
-    if (newExp != exp)
+    if (newArr != arr)
     {
       NotificationChain msgs = null;
-      if (exp != null)
-        msgs = ((InternalEObject)exp).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.ARRAY_ACCESS__EXP, null, msgs);
-      if (newExp != null)
-        msgs = ((InternalEObject)newExp).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.ARRAY_ACCESS__EXP, null, msgs);
-      msgs = basicSetExp(newExp, msgs);
+      if (arr != null)
+        msgs = ((InternalEObject)arr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.ARRAY_ACCESS__ARR, null, msgs);
+      if (newArr != null)
+        msgs = ((InternalEObject)newArr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.ARRAY_ACCESS__ARR, null, msgs);
+      msgs = basicSetArr(newArr, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.ARRAY_ACCESS__EXP, newExp, newExp));
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.ARRAY_ACCESS__ARR, newArr, newArr));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Expression getIndex()
+  {
+    return index;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetIndex(Expression newIndex, NotificationChain msgs)
+  {
+    Expression oldIndex = index;
+    index = newIndex;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.ARRAY_ACCESS__INDEX, oldIndex, newIndex);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setIndex(Expression newIndex)
+  {
+    if (newIndex != index)
+    {
+      NotificationChain msgs = null;
+      if (index != null)
+        msgs = ((InternalEObject)index).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.ARRAY_ACCESS__INDEX, null, msgs);
+      if (newIndex != null)
+        msgs = ((InternalEObject)newIndex).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.ARRAY_ACCESS__INDEX, null, msgs);
+      msgs = basicSetIndex(newIndex, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.ARRAY_ACCESS__INDEX, newIndex, newIndex));
   }
 
   /**
@@ -119,8 +178,10 @@ public class arrayAccessImpl extends AccessExpImpl implements arrayAccess
   {
     switch (featureID)
     {
-      case CPackage.ARRAY_ACCESS__EXP:
-        return basicSetExp(null, msgs);
+      case CPackage.ARRAY_ACCESS__ARR:
+        return basicSetArr(null, msgs);
+      case CPackage.ARRAY_ACCESS__INDEX:
+        return basicSetIndex(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -135,8 +196,10 @@ public class arrayAccessImpl extends AccessExpImpl implements arrayAccess
   {
     switch (featureID)
     {
-      case CPackage.ARRAY_ACCESS__EXP:
-        return getExp();
+      case CPackage.ARRAY_ACCESS__ARR:
+        return getArr();
+      case CPackage.ARRAY_ACCESS__INDEX:
+        return getIndex();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -151,8 +214,11 @@ public class arrayAccessImpl extends AccessExpImpl implements arrayAccess
   {
     switch (featureID)
     {
-      case CPackage.ARRAY_ACCESS__EXP:
-        setExp((Expression)newValue);
+      case CPackage.ARRAY_ACCESS__ARR:
+        setArr((Expression)newValue);
+        return;
+      case CPackage.ARRAY_ACCESS__INDEX:
+        setIndex((Expression)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -168,8 +234,11 @@ public class arrayAccessImpl extends AccessExpImpl implements arrayAccess
   {
     switch (featureID)
     {
-      case CPackage.ARRAY_ACCESS__EXP:
-        setExp((Expression)null);
+      case CPackage.ARRAY_ACCESS__ARR:
+        setArr((Expression)null);
+        return;
+      case CPackage.ARRAY_ACCESS__INDEX:
+        setIndex((Expression)null);
         return;
     }
     super.eUnset(featureID);
@@ -185,10 +254,12 @@ public class arrayAccessImpl extends AccessExpImpl implements arrayAccess
   {
     switch (featureID)
     {
-      case CPackage.ARRAY_ACCESS__EXP:
-        return exp != null;
+      case CPackage.ARRAY_ACCESS__ARR:
+        return arr != null;
+      case CPackage.ARRAY_ACCESS__INDEX:
+        return index != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //arrayAccessImpl
+} //ArrayAccessImpl

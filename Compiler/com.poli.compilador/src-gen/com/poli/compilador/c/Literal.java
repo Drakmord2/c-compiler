@@ -14,6 +14,6 @@ package com.poli.compilador.c;
  * @model
  * @generated
  */
-public interface Literal extends Atom
+public interface Literal extends Expression
 {
 } // Literal

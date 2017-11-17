@@ -6,11 +6,29 @@ package com.poli.compilador.ui.labeling
 import com.google.inject.Inject
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
-//import com.poli.compilador.c.Expression
-//import com.poli.compilador.c.RelExp
-//import com.poli.compilador.c.ArithExp
-//import com.poli.compilador.c.Term
-//import com.poli.compilador.c.Factor
+import com.poli.compilador.c.Expression
+import com.poli.compilador.c.Command
+import com.poli.compilador.c.ifCmd
+import com.poli.compilador.c.whileCmd
+import com.poli.compilador.c.forCmd
+import com.poli.compilador.c.doWhileCmd
+import com.poli.compilador.c.Declaration
+import com.poli.compilador.c.breakCmd
+import com.poli.compilador.c.returnCmd
+import com.poli.compilador.c.switchCmd
+import com.poli.compilador.c.LogicExp
+import com.poli.compilador.c.RelExp
+import com.poli.compilador.c.ArithExp
+import com.poli.compilador.c.Term
+import com.poli.compilador.c.PostfixOp
+import com.poli.compilador.c.PrefixOp
+import com.poli.compilador.c.Parenteses
+import com.poli.compilador.c.IntLit
+import com.poli.compilador.c.TrueLit
+import com.poli.compilador.c.FalseLit
+import com.poli.compilador.c.Var
+import com.poli.compilador.c.Struct
+import com.poli.compilador.c.Function
 
 /**
  * Provides labels for EObjects.
@@ -24,34 +42,96 @@ class CLabelProvider extends DefaultEObjectLabelProvider {
 		super(delegate);
 	}
 	
-//	def text(Expression e) {
-//		'Expression'
-//	}
-//	
-//	def text(RelExp re) {
-//		'Relational'
-//	}
-//	
-//	def text(ArithExp ae) {
-//		'Arithmetic'
-//	}
-//	
-//	def text(Term t) {
-//		'Term'
-//	}
-//	
-//	def text(Factor f) {
-//		'Factor'
-//	}
+	def text(Function f) {
+		return 'Function - ' + f.name
+	}
+		
+	def text(Struct s) {
+		return 'Struct - ' + s.name
+	}
 	
-
-	// Labels and icons can be computed like this:
+	def text(Command c) {
+		if (c instanceof ifCmd) {
+			return 'If'
+		}
+		
+		if (c instanceof whileCmd) {
+			return 'While'
+		}
+		
+		if (c instanceof forCmd) {
+			return 'For'
+		}
+		
+		if (c instanceof doWhileCmd) {
+			return 'Do-While'
+		}
+		
+		if (c instanceof Declaration) {
+			return 'Declaration - ' + c.name
+		}
+		
+		if (c instanceof breakCmd) {
+			return 'Break'
+		}
+		
+		if (c instanceof returnCmd) {
+			return 'Return'
+		}
+		
+		if (c instanceof switchCmd) {
+			return 'Switch'
+		}
+		
+		return 'Command'
+	}
 	
-//	def text(Greeting ele) {
-//		'A greeting to ' + ele.name
-//	}
-//
-//	def image(Greeting ele) {
-//		'Greeting.gif'
-//	}
+	def text(Expression e) {
+		if (e instanceof LogicExp) {
+			return 'Logic'
+		}
+		
+		if (e instanceof RelExp) {
+			return 'Relational'
+		}
+		
+		if (e instanceof ArithExp) {
+			return 'Arithmetic'
+		}
+		
+		if (e instanceof Term) {
+			return 'Term'
+		}
+		
+		if (e instanceof PostfixOp) {
+			return 'Postfix'
+		}
+		
+		if (e instanceof PrefixOp) {
+			return 'Prefix'
+		}
+		
+		if (e instanceof Parenteses) {
+			return 'Parenteses'
+		}
+		
+		if (e instanceof IntLit) {
+			return e.^val
+		}
+		
+		if (e instanceof TrueLit) {
+			return 'True'
+		}
+		
+		if (e instanceof FalseLit) {
+			return 'False'
+		}
+		
+		if (e instanceof Var) {
+			return e.valor.name
+		}
+		
+		return 'Expression'
+	}
+	
 }

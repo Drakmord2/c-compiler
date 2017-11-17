@@ -100,7 +100,6 @@ public class CSwitch<T> extends Switch<T>
         Declaration declaration = (Declaration)theEObject;
         T result = caseDeclaration(declaration);
         if (result == null) result = caseDefinition(declaration);
-        if (result == null) result = caseCommand(declaration);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -133,13 +132,6 @@ public class CSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CPackage.COMMAND_BLOCK:
-      {
-        CommandBlock commandBlock = (CommandBlock)theEObject;
-        T result = caseCommandBlock(commandBlock);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case CPackage.ARGUMENT:
       {
         Argument argument = (Argument)theEObject;
@@ -158,56 +150,6 @@ public class CSwitch<T> extends Switch<T>
       {
         Expression expression = (Expression)theEObject;
         T result = caseExpression(expression);
-        if (result == null) result = caseAtom(expression);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CPackage.REL_EXP:
-      {
-        RelExp relExp = (RelExp)theEObject;
-        T result = caseRelExp(relExp);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CPackage.ARITH_EXP:
-      {
-        ArithExp arithExp = (ArithExp)theEObject;
-        T result = caseArithExp(arithExp);
-        if (result == null) result = caseRelExp(arithExp);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CPackage.TERM:
-      {
-        Term term = (Term)theEObject;
-        T result = caseTerm(term);
-        if (result == null) result = caseArithExp(term);
-        if (result == null) result = caseRelExp(term);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CPackage.FACTOR:
-      {
-        Factor factor = (Factor)theEObject;
-        T result = caseFactor(factor);
-        if (result == null) result = caseTerm(factor);
-        if (result == null) result = caseArithExp(factor);
-        if (result == null) result = caseRelExp(factor);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CPackage.ATOM:
-      {
-        Atom atom = (Atom)theEObject;
-        T result = caseAtom(atom);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CPackage.LVALUE:
-      {
-        lValue lValue = (lValue)theEObject;
-        T result = caselValue(lValue);
-        if (result == null) result = caseAtom(lValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -216,15 +158,7 @@ public class CSwitch<T> extends Switch<T>
         PointerExp pointerExp = (PointerExp)theEObject;
         T result = casePointerExp(pointerExp);
         if (result == null) result = caseVariable(pointerExp);
-        if (result == null) result = caselValue(pointerExp);
-        if (result == null) result = caseAtom(pointerExp);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CPackage.ACCESS_EXP:
-      {
-        AccessExp accessExp = (AccessExp)theEObject;
-        T result = caseAccessExp(accessExp);
+        if (result == null) result = caseExpression(pointerExp);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -246,7 +180,25 @@ public class CSwitch<T> extends Switch<T>
       {
         Literal literal = (Literal)theEObject;
         T result = caseLiteral(literal);
-        if (result == null) result = caseAtom(literal);
+        if (result == null) result = caseExpression(literal);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.VAR_DECL:
+      {
+        VarDecl varDecl = (VarDecl)theEObject;
+        T result = caseVarDecl(varDecl);
+        if (result == null) result = caseDeclaration(varDecl);
+        if (result == null) result = caseDefinition(varDecl);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.STR_DECL:
+      {
+        StrDecl strDecl = (StrDecl)theEObject;
+        T result = caseStrDecl(strDecl);
+        if (result == null) result = caseDeclaration(strDecl);
+        if (result == null) result = caseDefinition(strDecl);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -322,37 +274,99 @@ public class CSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CPackage.DECL_CMD:
+      {
+        DeclCmd declCmd = (DeclCmd)theEObject;
+        T result = caseDeclCmd(declCmd);
+        if (result == null) result = caseCommand(declCmd);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CPackage.LOGIC_EXP:
       {
         LogicExp logicExp = (LogicExp)theEObject;
         T result = caseLogicExp(logicExp);
         if (result == null) result = caseExpression(logicExp);
-        if (result == null) result = caseAtom(logicExp);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CPackage.ARITM_EXP:
+      case CPackage.REL_EXP:
       {
-        AritmExp aritmExp = (AritmExp)theEObject;
-        T result = caseAritmExp(aritmExp);
-        if (result == null) result = caseArithExp(aritmExp);
-        if (result == null) result = caseRelExp(aritmExp);
+        RelExp relExp = (RelExp)theEObject;
+        T result = caseRelExp(relExp);
+        if (result == null) result = caseExpression(relExp);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CPackage.ARRAY_ACCESS:
+      case CPackage.ARITH_EXP:
       {
-        arrayAccess arrayAccess = (arrayAccess)theEObject;
-        T result = casearrayAccess(arrayAccess);
-        if (result == null) result = caseAccessExp(arrayAccess);
+        ArithExp arithExp = (ArithExp)theEObject;
+        T result = caseArithExp(arithExp);
+        if (result == null) result = caseExpression(arithExp);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.TERM:
+      {
+        Term term = (Term)theEObject;
+        T result = caseTerm(term);
+        if (result == null) result = caseExpression(term);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.POSTFIX_OP:
+      {
+        PostfixOp postfixOp = (PostfixOp)theEObject;
+        T result = casePostfixOp(postfixOp);
+        if (result == null) result = caseExpression(postfixOp);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.PREFIX_OP:
+      {
+        PrefixOp prefixOp = (PrefixOp)theEObject;
+        T result = casePrefixOp(prefixOp);
+        if (result == null) result = caseExpression(prefixOp);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.PARENTESES:
+      {
+        Parenteses parenteses = (Parenteses)theEObject;
+        T result = caseParenteses(parenteses);
+        if (result == null) result = caseExpression(parenteses);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.VAR:
+      {
+        Var var = (Var)theEObject;
+        T result = caseVar(var);
+        if (result == null) result = caseExpression(var);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.FUNC_CALL:
+      {
+        FuncCall funcCall = (FuncCall)theEObject;
+        T result = caseFuncCall(funcCall);
+        if (result == null) result = caseExpression(funcCall);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
       case CPackage.FIELD_ACCESS:
       {
-        fieldAccess fieldAccess = (fieldAccess)theEObject;
-        T result = casefieldAccess(fieldAccess);
-        if (result == null) result = caseAccessExp(fieldAccess);
+        FieldAccess fieldAccess = (FieldAccess)theEObject;
+        T result = caseFieldAccess(fieldAccess);
+        if (result == null) result = caseExpression(fieldAccess);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CPackage.ARRAY_ACCESS:
+      {
+        ArrayAccess arrayAccess = (ArrayAccess)theEObject;
+        T result = caseArrayAccess(arrayAccess);
+        if (result == null) result = caseExpression(arrayAccess);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -361,7 +375,7 @@ public class CSwitch<T> extends Switch<T>
         IntLit intLit = (IntLit)theEObject;
         T result = caseIntLit(intLit);
         if (result == null) result = caseLiteral(intLit);
-        if (result == null) result = caseAtom(intLit);
+        if (result == null) result = caseExpression(intLit);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -370,7 +384,7 @@ public class CSwitch<T> extends Switch<T>
         TrueLit trueLit = (TrueLit)theEObject;
         T result = caseTrueLit(trueLit);
         if (result == null) result = caseLiteral(trueLit);
-        if (result == null) result = caseAtom(trueLit);
+        if (result == null) result = caseExpression(trueLit);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -379,7 +393,7 @@ public class CSwitch<T> extends Switch<T>
         FalseLit falseLit = (FalseLit)theEObject;
         T result = caseFalseLit(falseLit);
         if (result == null) result = caseLiteral(falseLit);
-        if (result == null) result = caseAtom(falseLit);
+        if (result == null) result = caseExpression(falseLit);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -516,22 +530,6 @@ public class CSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Command Block</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Command Block</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseCommandBlock(CommandBlock object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Argument</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -580,102 +578,6 @@ public class CSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Rel Exp</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Rel Exp</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseRelExp(RelExp object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Arith Exp</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Arith Exp</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseArithExp(ArithExp object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Term</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Term</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseTerm(Term object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Factor</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Factor</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseFactor(Factor object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Atom</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Atom</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAtom(Atom object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>lValue</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>lValue</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caselValue(lValue object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Pointer Exp</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -687,22 +589,6 @@ public class CSwitch<T> extends Switch<T>
    * @generated
    */
   public T casePointerExp(PointerExp object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Access Exp</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Access Exp</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAccessExp(AccessExp object)
   {
     return null;
   }
@@ -751,6 +637,38 @@ public class CSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseLiteral(Literal object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Var Decl</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Var Decl</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVarDecl(VarDecl object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Str Decl</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Str Decl</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseStrDecl(StrDecl object)
   {
     return null;
   }
@@ -900,6 +818,22 @@ public class CSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Decl Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Decl Cmd</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDeclCmd(DeclCmd object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Logic Exp</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -916,49 +850,161 @@ public class CSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Aritm Exp</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Rel Exp</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Aritm Exp</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Rel Exp</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAritmExp(AritmExp object)
+  public T caseRelExp(RelExp object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>array Access</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Arith Exp</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>array Access</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Arith Exp</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casearrayAccess(arrayAccess object)
+  public T caseArithExp(ArithExp object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>field Access</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Term</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>field Access</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Term</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casefieldAccess(fieldAccess object)
+  public T caseTerm(Term object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Postfix Op</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Postfix Op</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePostfixOp(PostfixOp object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Prefix Op</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Prefix Op</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePrefixOp(PrefixOp object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Parenteses</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Parenteses</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseParenteses(Parenteses object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Var</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Var</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVar(Var object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Func Call</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Func Call</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFuncCall(FuncCall object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Field Access</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Field Access</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFieldAccess(FieldAccess object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Array Access</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Array Access</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseArrayAccess(ArrayAccess object)
   {
     return null;
   }

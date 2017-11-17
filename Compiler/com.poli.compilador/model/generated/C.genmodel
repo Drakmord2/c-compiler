@@ -18,9 +18,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//Function/commands"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//Declaration">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//Declaration/tipo"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//Declaration/val"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference C.ecore#//Declaration/str"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//Declaration/obj"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//Struct">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//Struct/decl"/>
@@ -31,38 +29,16 @@
     </genClasses>
     <genClasses ecoreClass="C.ecore#//Variable"/>
     <genClasses ecoreClass="C.ecore#//Command"/>
-    <genClasses ecoreClass="C.ecore#//CommandBlock">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CommandBlock/commands"/>
-    </genClasses>
     <genClasses ecoreClass="C.ecore#//Argument">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//Argument/exp"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//Assignment">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//Assignment/exp"/>
     </genClasses>
-    <genClasses ecoreClass="C.ecore#//Expression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//Expression/args"/>
-    </genClasses>
-    <genClasses ecoreClass="C.ecore#//RelExp">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//RelExp/args"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//RelExp/op"/>
-    </genClasses>
-    <genClasses ecoreClass="C.ecore#//ArithExp"/>
-    <genClasses ecoreClass="C.ecore#//Term"/>
-    <genClasses ecoreClass="C.ecore#//Factor">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//Factor/uo"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//Factor/arg"/>
-    </genClasses>
-    <genClasses ecoreClass="C.ecore#//Atom"/>
-    <genClasses ecoreClass="C.ecore#//lValue">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference C.ecore#//lValue/valor"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//lValue/arg"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//lValue/acc"/>
-    </genClasses>
+    <genClasses ecoreClass="C.ecore#//Expression"/>
     <genClasses ecoreClass="C.ecore#//PointerExp">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//PointerExp/exp"/>
     </genClasses>
-    <genClasses ecoreClass="C.ecore#//AccessExp"/>
     <genClasses ecoreClass="C.ecore#//Case">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//Case/val"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//Case/commands"/>
@@ -72,6 +48,13 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//Type/exp"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//Literal"/>
+    <genClasses ecoreClass="C.ecore#//VarDecl">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//VarDecl/tipo"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//VarDecl/val"/>
+    </genClasses>
+    <genClasses ecoreClass="C.ecore#//StrDecl">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference C.ecore#//StrDecl/str"/>
+    </genClasses>
     <genClasses ecoreClass="C.ecore#//ifCmd">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ifCmd/exp"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ifCmd/trueCommands"/>
@@ -104,24 +87,55 @@
     <genClasses ecoreClass="C.ecore#//returnCmd">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//returnCmd/exp"/>
     </genClasses>
+    <genClasses ecoreClass="C.ecore#//DeclCmd">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//DeclCmd/val"/>
+    </genClasses>
     <genClasses ecoreClass="C.ecore#//LogicExp">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//LogicExp/args"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//LogicExp/op"/>
     </genClasses>
-    <genClasses ecoreClass="C.ecore#//AritmExp"/>
-    <genClasses ecoreClass="C.ecore#//arrayAccess">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//arrayAccess/exp"/>
+    <genClasses ecoreClass="C.ecore#//RelExp">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//RelExp/args"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//RelExp/op"/>
     </genClasses>
-    <genClasses ecoreClass="C.ecore#//fieldAccess">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//fieldAccess/field"/>
+    <genClasses ecoreClass="C.ecore#//ArithExp">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ArithExp/args"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//ArithExp/op"/>
+    </genClasses>
+    <genClasses ecoreClass="C.ecore#//Term">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//Term/args"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//Term/op"/>
+    </genClasses>
+    <genClasses ecoreClass="C.ecore#//PostfixOp">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//PostfixOp/arg"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//PostfixOp/uo"/>
+    </genClasses>
+    <genClasses ecoreClass="C.ecore#//PrefixOp">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//PrefixOp/uo"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//PrefixOp/arg"/>
+    </genClasses>
+    <genClasses ecoreClass="C.ecore#//Parenteses">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//Parenteses/exp"/>
+    </genClasses>
+    <genClasses ecoreClass="C.ecore#//Var">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference C.ecore#//Var/valor"/>
+    </genClasses>
+    <genClasses ecoreClass="C.ecore#//FuncCall">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//FuncCall/def"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//FuncCall/arg"/>
+    </genClasses>
+    <genClasses ecoreClass="C.ecore#//FieldAccess">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//FieldAccess/obj"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//FieldAccess/field"/>
+    </genClasses>
+    <genClasses ecoreClass="C.ecore#//ArrayAccess">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ArrayAccess/arr"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ArrayAccess/index"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//IntLit">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//IntLit/val"/>
     </genClasses>
-    <genClasses ecoreClass="C.ecore#//TrueLit">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//TrueLit/val"/>
-    </genClasses>
-    <genClasses ecoreClass="C.ecore#//FalseLit">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//FalseLit/val"/>
-    </genClasses>
+    <genClasses ecoreClass="C.ecore#//TrueLit"/>
+    <genClasses ecoreClass="C.ecore#//FalseLit"/>
   </genPackages>
 </genmodel:GenModel>

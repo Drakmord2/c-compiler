@@ -13,93 +13,39 @@ package com.poli.compilador.c;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.Declaration#getTipo <em>Tipo</em>}</li>
- *   <li>{@link com.poli.compilador.c.Declaration#getVal <em>Val</em>}</li>
- *   <li>{@link com.poli.compilador.c.Declaration#getStr <em>Str</em>}</li>
+ *   <li>{@link com.poli.compilador.c.Declaration#getObj <em>Obj</em>}</li>
  * </ul>
  *
  * @see com.poli.compilador.c.CPackage#getDeclaration()
  * @model
  * @generated
  */
-public interface Declaration extends Definition, Command
+public interface Declaration extends Definition
 {
   /**
-   * Returns the value of the '<em><b>Tipo</b></em>' containment reference.
+   * Returns the value of the '<em><b>Obj</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Tipo</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Obj</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Tipo</em>' containment reference.
-   * @see #setTipo(Type)
-   * @see com.poli.compilador.c.CPackage#getDeclaration_Tipo()
+   * @return the value of the '<em>Obj</em>' containment reference.
+   * @see #setObj(Declaration)
+   * @see com.poli.compilador.c.CPackage#getDeclaration_Obj()
    * @model containment="true"
    * @generated
    */
-  Type getTipo();
+  Declaration getObj();
 
   /**
-   * Sets the value of the '{@link com.poli.compilador.c.Declaration#getTipo <em>Tipo</em>}' containment reference.
+   * Sets the value of the '{@link com.poli.compilador.c.Declaration#getObj <em>Obj</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Tipo</em>' containment reference.
-   * @see #getTipo()
+   * @param value the new value of the '<em>Obj</em>' containment reference.
+   * @see #getObj()
    * @generated
    */
-  void setTipo(Type value);
-
-  /**
-   * Returns the value of the '<em><b>Val</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Val</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Val</em>' containment reference.
-   * @see #setVal(Assignment)
-   * @see com.poli.compilador.c.CPackage#getDeclaration_Val()
-   * @model containment="true"
-   * @generated
-   */
-  Assignment getVal();
-
-  /**
-   * Sets the value of the '{@link com.poli.compilador.c.Declaration#getVal <em>Val</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Val</em>' containment reference.
-   * @see #getVal()
-   * @generated
-   */
-  void setVal(Assignment value);
-
-  /**
-   * Returns the value of the '<em><b>Str</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Str</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Str</em>' reference.
-   * @see #setStr(Struct)
-   * @see com.poli.compilador.c.CPackage#getDeclaration_Str()
-   * @model
-   * @generated
-   */
-  Struct getStr();
-
-  /**
-   * Sets the value of the '{@link com.poli.compilador.c.Declaration#getStr <em>Str</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Str</em>' reference.
-   * @see #getStr()
-   * @generated
-   */
-  void setStr(Struct value);
+  void setObj(Declaration value);
 
 } // Declaration

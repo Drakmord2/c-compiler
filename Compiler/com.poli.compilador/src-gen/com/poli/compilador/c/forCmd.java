@@ -87,29 +87,19 @@ public interface forCmd extends Command
   EList<EObject> getInc();
 
   /**
-   * Returns the value of the '<em><b>Commands</b></em>' containment reference.
+   * Returns the value of the '<em><b>Commands</b></em>' containment reference list.
+   * The list contents are of type {@link com.poli.compilador.c.Command}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Commands</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Commands</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Commands</em>' containment reference.
-   * @see #setCommands(CommandBlock)
+   * @return the value of the '<em>Commands</em>' containment reference list.
    * @see com.poli.compilador.c.CPackage#getforCmd_Commands()
    * @model containment="true"
    * @generated
    */
-  CommandBlock getCommands();
-
-  /**
-   * Sets the value of the '{@link com.poli.compilador.c.forCmd#getCommands <em>Commands</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Commands</em>' containment reference.
-   * @see #getCommands()
-   * @generated
-   */
-  void setCommands(CommandBlock value);
+  EList<Command> getCommands();
 
 } // forCmd

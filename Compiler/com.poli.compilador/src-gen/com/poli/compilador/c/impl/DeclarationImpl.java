@@ -3,11 +3,8 @@
  */
 package com.poli.compilador.c.impl;
 
-import com.poli.compilador.c.Assignment;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Declaration;
-import com.poli.compilador.c.Struct;
-import com.poli.compilador.c.Type;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -25,9 +22,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.DeclarationImpl#getTipo <em>Tipo</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.DeclarationImpl#getVal <em>Val</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.DeclarationImpl#getStr <em>Str</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.DeclarationImpl#getObj <em>Obj</em>}</li>
  * </ul>
  *
  * @generated
@@ -35,34 +30,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public class DeclarationImpl extends DefinitionImpl implements Declaration
 {
   /**
-   * The cached value of the '{@link #getTipo() <em>Tipo</em>}' containment reference.
+   * The cached value of the '{@link #getObj() <em>Obj</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTipo()
+   * @see #getObj()
    * @generated
    * @ordered
    */
-  protected Type tipo;
-
-  /**
-   * The cached value of the '{@link #getVal() <em>Val</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getVal()
-   * @generated
-   * @ordered
-   */
-  protected Assignment val;
-
-  /**
-   * The cached value of the '{@link #getStr() <em>Str</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getStr()
-   * @generated
-   * @ordered
-   */
-  protected Struct str;
+  protected Declaration obj;
 
   /**
    * <!-- begin-user-doc -->
@@ -90,9 +65,9 @@ public class DeclarationImpl extends DefinitionImpl implements Declaration
    * <!-- end-user-doc -->
    * @generated
    */
-  public Type getTipo()
+  public Declaration getObj()
   {
-    return tipo;
+    return obj;
   }
 
   /**
@@ -100,13 +75,13 @@ public class DeclarationImpl extends DefinitionImpl implements Declaration
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetTipo(Type newTipo, NotificationChain msgs)
+  public NotificationChain basicSetObj(Declaration newObj, NotificationChain msgs)
   {
-    Type oldTipo = tipo;
-    tipo = newTipo;
+    Declaration oldObj = obj;
+    obj = newObj;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.DECLARATION__TIPO, oldTipo, newTipo);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.DECLARATION__OBJ, oldObj, newObj);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -117,111 +92,20 @@ public class DeclarationImpl extends DefinitionImpl implements Declaration
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTipo(Type newTipo)
+  public void setObj(Declaration newObj)
   {
-    if (newTipo != tipo)
+    if (newObj != obj)
     {
       NotificationChain msgs = null;
-      if (tipo != null)
-        msgs = ((InternalEObject)tipo).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.DECLARATION__TIPO, null, msgs);
-      if (newTipo != null)
-        msgs = ((InternalEObject)newTipo).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.DECLARATION__TIPO, null, msgs);
-      msgs = basicSetTipo(newTipo, msgs);
+      if (obj != null)
+        msgs = ((InternalEObject)obj).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.DECLARATION__OBJ, null, msgs);
+      if (newObj != null)
+        msgs = ((InternalEObject)newObj).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.DECLARATION__OBJ, null, msgs);
+      msgs = basicSetObj(newObj, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.DECLARATION__TIPO, newTipo, newTipo));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Assignment getVal()
-  {
-    return val;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetVal(Assignment newVal, NotificationChain msgs)
-  {
-    Assignment oldVal = val;
-    val = newVal;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.DECLARATION__VAL, oldVal, newVal);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setVal(Assignment newVal)
-  {
-    if (newVal != val)
-    {
-      NotificationChain msgs = null;
-      if (val != null)
-        msgs = ((InternalEObject)val).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.DECLARATION__VAL, null, msgs);
-      if (newVal != null)
-        msgs = ((InternalEObject)newVal).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.DECLARATION__VAL, null, msgs);
-      msgs = basicSetVal(newVal, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.DECLARATION__VAL, newVal, newVal));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Struct getStr()
-  {
-    if (str != null && str.eIsProxy())
-    {
-      InternalEObject oldStr = (InternalEObject)str;
-      str = (Struct)eResolveProxy(oldStr);
-      if (str != oldStr)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CPackage.DECLARATION__STR, oldStr, str));
-      }
-    }
-    return str;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Struct basicGetStr()
-  {
-    return str;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setStr(Struct newStr)
-  {
-    Struct oldStr = str;
-    str = newStr;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.DECLARATION__STR, oldStr, str));
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.DECLARATION__OBJ, newObj, newObj));
   }
 
   /**
@@ -234,10 +118,8 @@ public class DeclarationImpl extends DefinitionImpl implements Declaration
   {
     switch (featureID)
     {
-      case CPackage.DECLARATION__TIPO:
-        return basicSetTipo(null, msgs);
-      case CPackage.DECLARATION__VAL:
-        return basicSetVal(null, msgs);
+      case CPackage.DECLARATION__OBJ:
+        return basicSetObj(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -252,13 +134,8 @@ public class DeclarationImpl extends DefinitionImpl implements Declaration
   {
     switch (featureID)
     {
-      case CPackage.DECLARATION__TIPO:
-        return getTipo();
-      case CPackage.DECLARATION__VAL:
-        return getVal();
-      case CPackage.DECLARATION__STR:
-        if (resolve) return getStr();
-        return basicGetStr();
+      case CPackage.DECLARATION__OBJ:
+        return getObj();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -273,14 +150,8 @@ public class DeclarationImpl extends DefinitionImpl implements Declaration
   {
     switch (featureID)
     {
-      case CPackage.DECLARATION__TIPO:
-        setTipo((Type)newValue);
-        return;
-      case CPackage.DECLARATION__VAL:
-        setVal((Assignment)newValue);
-        return;
-      case CPackage.DECLARATION__STR:
-        setStr((Struct)newValue);
+      case CPackage.DECLARATION__OBJ:
+        setObj((Declaration)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -296,14 +167,8 @@ public class DeclarationImpl extends DefinitionImpl implements Declaration
   {
     switch (featureID)
     {
-      case CPackage.DECLARATION__TIPO:
-        setTipo((Type)null);
-        return;
-      case CPackage.DECLARATION__VAL:
-        setVal((Assignment)null);
-        return;
-      case CPackage.DECLARATION__STR:
-        setStr((Struct)null);
+      case CPackage.DECLARATION__OBJ:
+        setObj((Declaration)null);
         return;
     }
     super.eUnset(featureID);
@@ -319,12 +184,8 @@ public class DeclarationImpl extends DefinitionImpl implements Declaration
   {
     switch (featureID)
     {
-      case CPackage.DECLARATION__TIPO:
-        return tipo != null;
-      case CPackage.DECLARATION__VAL:
-        return val != null;
-      case CPackage.DECLARATION__STR:
-        return str != null;
+      case CPackage.DECLARATION__OBJ:
+        return obj != null;
     }
     return super.eIsSet(featureID);
   }

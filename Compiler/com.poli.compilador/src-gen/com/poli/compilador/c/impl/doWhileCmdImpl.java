@@ -4,17 +4,24 @@
 package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
-import com.poli.compilador.c.CommandBlock;
+import com.poli.compilador.c.Command;
 import com.poli.compilador.c.Expression;
 import com.poli.compilador.c.doWhileCmd;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,14 +40,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public class doWhileCmdImpl extends CommandImpl implements doWhileCmd
 {
   /**
-   * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference.
+   * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getCommands()
    * @generated
    * @ordered
    */
-  protected CommandBlock commands;
+  protected EList<Command> commands;
 
   /**
    * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.
@@ -78,47 +85,13 @@ public class doWhileCmdImpl extends CommandImpl implements doWhileCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  public CommandBlock getCommands()
+  public EList<Command> getCommands()
   {
+    if (commands == null)
+    {
+      commands = new EObjectContainmentEList<Command>(Command.class, this, CPackage.DO_WHILE_CMD__COMMANDS);
+    }
     return commands;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetCommands(CommandBlock newCommands, NotificationChain msgs)
-  {
-    CommandBlock oldCommands = commands;
-    commands = newCommands;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.DO_WHILE_CMD__COMMANDS, oldCommands, newCommands);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCommands(CommandBlock newCommands)
-  {
-    if (newCommands != commands)
-    {
-      NotificationChain msgs = null;
-      if (commands != null)
-        msgs = ((InternalEObject)commands).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.DO_WHILE_CMD__COMMANDS, null, msgs);
-      if (newCommands != null)
-        msgs = ((InternalEObject)newCommands).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.DO_WHILE_CMD__COMMANDS, null, msgs);
-      msgs = basicSetCommands(newCommands, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.DO_WHILE_CMD__COMMANDS, newCommands, newCommands));
   }
 
   /**
@@ -180,7 +153,7 @@ public class doWhileCmdImpl extends CommandImpl implements doWhileCmd
     switch (featureID)
     {
       case CPackage.DO_WHILE_CMD__COMMANDS:
-        return basicSetCommands(null, msgs);
+        return ((InternalEList<?>)getCommands()).basicRemove(otherEnd, msgs);
       case CPackage.DO_WHILE_CMD__EXP:
         return basicSetExp(null, msgs);
     }
@@ -210,13 +183,15 @@ public class doWhileCmdImpl extends CommandImpl implements doWhileCmd
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
       case CPackage.DO_WHILE_CMD__COMMANDS:
-        setCommands((CommandBlock)newValue);
+        getCommands().clear();
+        getCommands().addAll((Collection<? extends Command>)newValue);
         return;
       case CPackage.DO_WHILE_CMD__EXP:
         setExp((Expression)newValue);
@@ -236,7 +211,7 @@ public class doWhileCmdImpl extends CommandImpl implements doWhileCmd
     switch (featureID)
     {
       case CPackage.DO_WHILE_CMD__COMMANDS:
-        setCommands((CommandBlock)null);
+        getCommands().clear();
         return;
       case CPackage.DO_WHILE_CMD__EXP:
         setExp((Expression)null);
@@ -256,7 +231,7 @@ public class doWhileCmdImpl extends CommandImpl implements doWhileCmd
     switch (featureID)
     {
       case CPackage.DO_WHILE_CMD__COMMANDS:
-        return commands != null;
+        return commands != null && !commands.isEmpty();
       case CPackage.DO_WHILE_CMD__EXP:
         return exp != null;
     }

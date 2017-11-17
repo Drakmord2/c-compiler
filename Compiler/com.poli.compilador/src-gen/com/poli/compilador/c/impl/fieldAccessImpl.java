@@ -4,29 +4,43 @@
 package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
-import com.poli.compilador.c.fieldAccess;
+import com.poli.compilador.c.Expression;
+import com.poli.compilador.c.FieldAccess;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>field Access</b></em>'.
+ * An implementation of the model object '<em><b>Field Access</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.fieldAccessImpl#getField <em>Field</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.FieldAccessImpl#getObj <em>Obj</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.FieldAccessImpl#getField <em>Field</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class fieldAccessImpl extends AccessExpImpl implements fieldAccess
+public class FieldAccessImpl extends ExpressionImpl implements FieldAccess
 {
+  /**
+   * The cached value of the '{@link #getObj() <em>Obj</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getObj()
+   * @generated
+   * @ordered
+   */
+  protected Expression obj;
+
   /**
    * The default value of the '{@link #getField() <em>Field</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -52,7 +66,7 @@ public class fieldAccessImpl extends AccessExpImpl implements fieldAccess
    * <!-- end-user-doc -->
    * @generated
    */
-  protected fieldAccessImpl()
+  protected FieldAccessImpl()
   {
     super();
   }
@@ -66,6 +80,54 @@ public class fieldAccessImpl extends AccessExpImpl implements fieldAccess
   protected EClass eStaticClass()
   {
     return CPackage.Literals.FIELD_ACCESS;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Expression getObj()
+  {
+    return obj;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetObj(Expression newObj, NotificationChain msgs)
+  {
+    Expression oldObj = obj;
+    obj = newObj;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.FIELD_ACCESS__OBJ, oldObj, newObj);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setObj(Expression newObj)
+  {
+    if (newObj != obj)
+    {
+      NotificationChain msgs = null;
+      if (obj != null)
+        msgs = ((InternalEObject)obj).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.FIELD_ACCESS__OBJ, null, msgs);
+      if (newObj != null)
+        msgs = ((InternalEObject)newObj).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.FIELD_ACCESS__OBJ, null, msgs);
+      msgs = basicSetObj(newObj, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.FIELD_ACCESS__OBJ, newObj, newObj));
   }
 
   /**
@@ -97,10 +159,28 @@ public class fieldAccessImpl extends AccessExpImpl implements fieldAccess
    * @generated
    */
   @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case CPackage.FIELD_ACCESS__OBJ:
+        return basicSetObj(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
     {
+      case CPackage.FIELD_ACCESS__OBJ:
+        return getObj();
       case CPackage.FIELD_ACCESS__FIELD:
         return getField();
     }
@@ -117,6 +197,9 @@ public class fieldAccessImpl extends AccessExpImpl implements fieldAccess
   {
     switch (featureID)
     {
+      case CPackage.FIELD_ACCESS__OBJ:
+        setObj((Expression)newValue);
+        return;
       case CPackage.FIELD_ACCESS__FIELD:
         setField((String)newValue);
         return;
@@ -134,6 +217,9 @@ public class fieldAccessImpl extends AccessExpImpl implements fieldAccess
   {
     switch (featureID)
     {
+      case CPackage.FIELD_ACCESS__OBJ:
+        setObj((Expression)null);
+        return;
       case CPackage.FIELD_ACCESS__FIELD:
         setField(FIELD_EDEFAULT);
         return;
@@ -151,6 +237,8 @@ public class fieldAccessImpl extends AccessExpImpl implements fieldAccess
   {
     switch (featureID)
     {
+      case CPackage.FIELD_ACCESS__OBJ:
+        return obj != null;
       case CPackage.FIELD_ACCESS__FIELD:
         return FIELD_EDEFAULT == null ? field != null : !FIELD_EDEFAULT.equals(field);
     }
@@ -174,4 +262,4 @@ public class fieldAccessImpl extends AccessExpImpl implements fieldAccess
     return result.toString();
   }
 
-} //fieldAccessImpl
+} //FieldAccessImpl
