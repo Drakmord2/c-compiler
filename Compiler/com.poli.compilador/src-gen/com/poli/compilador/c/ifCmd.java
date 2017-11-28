@@ -7,23 +7,23 @@ import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>if Cmd</b></em>'.
+ * A representation of the model object '<em><b>If Cmd</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.ifCmd#getExp <em>Exp</em>}</li>
- *   <li>{@link com.poli.compilador.c.ifCmd#getTrueCommands <em>True Commands</em>}</li>
- *   <li>{@link com.poli.compilador.c.ifCmd#getFalseCommands <em>False Commands</em>}</li>
+ *   <li>{@link com.poli.compilador.c.IfCmd#getExp <em>Exp</em>}</li>
+ *   <li>{@link com.poli.compilador.c.IfCmd#getTrueCommands <em>True Commands</em>}</li>
+ *   <li>{@link com.poli.compilador.c.IfCmd#getFalseCommands <em>False Commands</em>}</li>
  * </ul>
  *
- * @see com.poli.compilador.c.CPackage#getifCmd()
+ * @see com.poli.compilador.c.CPackage#getIfCmd()
  * @model
  * @generated
  */
-public interface ifCmd extends Command
+public interface IfCmd extends Command
 {
   /**
    * Returns the value of the '<em><b>Exp</b></em>' containment reference.
@@ -35,14 +35,14 @@ public interface ifCmd extends Command
    * <!-- end-user-doc -->
    * @return the value of the '<em>Exp</em>' containment reference.
    * @see #setExp(Expression)
-   * @see com.poli.compilador.c.CPackage#getifCmd_Exp()
+   * @see com.poli.compilador.c.CPackage#getIfCmd_Exp()
    * @model containment="true"
    * @generated
    */
   Expression getExp();
 
   /**
-   * Sets the value of the '{@link com.poli.compilador.c.ifCmd#getExp <em>Exp</em>}' containment reference.
+   * Sets the value of the '{@link com.poli.compilador.c.IfCmd#getExp <em>Exp</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Exp</em>' containment reference.
@@ -61,7 +61,7 @@ public interface ifCmd extends Command
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>True Commands</em>' containment reference list.
-   * @see com.poli.compilador.c.CPackage#getifCmd_TrueCommands()
+   * @see com.poli.compilador.c.CPackage#getIfCmd_TrueCommands()
    * @model containment="true"
    * @generated
    */
@@ -77,10 +77,10 @@ public interface ifCmd extends Command
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>False Commands</em>' containment reference list.
-   * @see com.poli.compilador.c.CPackage#getifCmd_FalseCommands()
+   * @see com.poli.compilador.c.CPackage#getIfCmd_FalseCommands()
    * @model containment="true"
    * @generated
    */
   EList<Command> getFalseCommands();
 
-} // ifCmd
+} // IfCmd

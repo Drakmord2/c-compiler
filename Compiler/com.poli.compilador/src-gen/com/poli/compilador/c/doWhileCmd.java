@@ -7,22 +7,22 @@ import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>do While Cmd</b></em>'.
+ * A representation of the model object '<em><b>Do While Cmd</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.doWhileCmd#getCommands <em>Commands</em>}</li>
- *   <li>{@link com.poli.compilador.c.doWhileCmd#getExp <em>Exp</em>}</li>
+ *   <li>{@link com.poli.compilador.c.DoWhileCmd#getCommands <em>Commands</em>}</li>
+ *   <li>{@link com.poli.compilador.c.DoWhileCmd#getExp <em>Exp</em>}</li>
  * </ul>
  *
- * @see com.poli.compilador.c.CPackage#getdoWhileCmd()
+ * @see com.poli.compilador.c.CPackage#getDoWhileCmd()
  * @model
  * @generated
  */
-public interface doWhileCmd extends Command
+public interface DoWhileCmd extends Command
 {
   /**
    * Returns the value of the '<em><b>Commands</b></em>' containment reference list.
@@ -34,7 +34,7 @@ public interface doWhileCmd extends Command
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Commands</em>' containment reference list.
-   * @see com.poli.compilador.c.CPackage#getdoWhileCmd_Commands()
+   * @see com.poli.compilador.c.CPackage#getDoWhileCmd_Commands()
    * @model containment="true"
    * @generated
    */
@@ -50,14 +50,14 @@ public interface doWhileCmd extends Command
    * <!-- end-user-doc -->
    * @return the value of the '<em>Exp</em>' containment reference.
    * @see #setExp(Expression)
-   * @see com.poli.compilador.c.CPackage#getdoWhileCmd_Exp()
+   * @see com.poli.compilador.c.CPackage#getDoWhileCmd_Exp()
    * @model containment="true"
    * @generated
    */
   Expression getExp();
 
   /**
-   * Sets the value of the '{@link com.poli.compilador.c.doWhileCmd#getExp <em>Exp</em>}' containment reference.
+   * Sets the value of the '{@link com.poli.compilador.c.DoWhileCmd#getExp <em>Exp</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Exp</em>' containment reference.
@@ -66,4 +66,4 @@ public interface doWhileCmd extends Command
    */
   void setExp(Expression value);
 
-} // doWhileCmd
+} // DoWhileCmd

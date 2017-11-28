@@ -6,7 +6,7 @@ package com.poli.compilador.c.impl;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Command;
 import com.poli.compilador.c.Expression;
-import com.poli.compilador.c.forCmd;
+import com.poli.compilador.c.ForCmd;
 
 import java.util.Collection;
 
@@ -26,21 +26,21 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>for Cmd</b></em>'.
+ * An implementation of the model object '<em><b>For Cmd</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.forCmdImpl#getInit <em>Init</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.forCmdImpl#getExp <em>Exp</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.forCmdImpl#getInc <em>Inc</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.forCmdImpl#getCommands <em>Commands</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.ForCmdImpl#getInit <em>Init</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.ForCmdImpl#getExp <em>Exp</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.ForCmdImpl#getInc <em>Inc</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.ForCmdImpl#getCommands <em>Commands</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class forCmdImpl extends CommandImpl implements forCmd
+public class ForCmdImpl extends CommandImpl implements ForCmd
 {
   /**
    * The cached value of the '{@link #getInit() <em>Init</em>}' containment reference list.
@@ -87,7 +87,7 @@ public class forCmdImpl extends CommandImpl implements forCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  protected forCmdImpl()
+  protected ForCmdImpl()
   {
     super();
   }
@@ -315,4 +315,4 @@ public class forCmdImpl extends CommandImpl implements forCmd
     return super.eIsSet(featureID);
   }
 
-} //forCmdImpl
+} //ForCmdImpl

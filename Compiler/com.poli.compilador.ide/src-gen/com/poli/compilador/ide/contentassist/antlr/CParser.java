@@ -63,6 +63,7 @@ public class CParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCommandAccess().getGroup_7(), "rule__Command__Group_7__0");
 					put(grammarAccess.getCommandAccess().getGroup_8(), "rule__Command__Group_8__0");
 					put(grammarAccess.getCommandAccess().getGroup_9(), "rule__Command__Group_9__0");
+					put(grammarAccess.getCommandAccess().getGroup_10(), "rule__Command__Group_10__0");
 					put(grammarAccess.getArgumentAccess().getGroup(), "rule__Argument__Group__0");
 					put(grammarAccess.getArgumentAccess().getGroup_1(), "rule__Argument__Group_1__0");
 					put(grammarAccess.getAssignmentAccess().getGroup(), "rule__Assignment__Group__0");
@@ -89,6 +90,7 @@ public class CParser extends AbstractContentAssistParser {
 					put(grammarAccess.getLiteralAccess().getGroup_0(), "rule__Literal__Group_0__0");
 					put(grammarAccess.getLiteralAccess().getGroup_1(), "rule__Literal__Group_1__0");
 					put(grammarAccess.getLiteralAccess().getGroup_2(), "rule__Literal__Group_2__0");
+					put(grammarAccess.getLiteralAccess().getGroup_3(), "rule__Literal__Group_3__0");
 					put(grammarAccess.getProgramAccess().getDefinitionAssignment(), "rule__Program__DefinitionAssignment");
 					put(grammarAccess.getFunctionAccess().getTipoAssignment_2(), "rule__Function__TipoAssignment_2");
 					put(grammarAccess.getFunctionAccess().getNameAssignment_3(), "rule__Function__NameAssignment_3");
@@ -124,6 +126,7 @@ public class CParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCommandAccess().getValAssignment_5_2(), "rule__Command__ValAssignment_5_2");
 					put(grammarAccess.getCommandAccess().getExpAssignment_8_2(), "rule__Command__ExpAssignment_8_2");
 					put(grammarAccess.getCommandAccess().getValAssignment_9_1(), "rule__Command__ValAssignment_9_1");
+					put(grammarAccess.getCommandAccess().getExpAssignment_10_3(), "rule__Command__ExpAssignment_10_3");
 					put(grammarAccess.getArgumentAccess().getExpAssignment_0(), "rule__Argument__ExpAssignment_0");
 					put(grammarAccess.getArgumentAccess().getExpAssignment_1_1(), "rule__Argument__ExpAssignment_1_1");
 					put(grammarAccess.getAssignmentAccess().getExpAssignment_1(), "rule__Assignment__ExpAssignment_1");
@@ -149,6 +152,7 @@ public class CParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTypeAccess().getTipoAssignment_0(), "rule__Type__TipoAssignment_0");
 					put(grammarAccess.getTypeAccess().getExpAssignment_1_1(), "rule__Type__ExpAssignment_1_1");
 					put(grammarAccess.getLiteralAccess().getValAssignment_0_1(), "rule__Literal__ValAssignment_0_1");
+					put(grammarAccess.getLiteralAccess().getValAssignment_3_1(), "rule__Literal__ValAssignment_3_1");
 				}
 			};
 		}

@@ -4,40 +4,31 @@
 package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
-import com.poli.compilador.c.Command;
 import com.poli.compilador.c.Expression;
-import com.poli.compilador.c.WhileCmd;
-
-import java.util.Collection;
+import com.poli.compilador.c.PrintCmd;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>While Cmd</b></em>'.
+ * An implementation of the model object '<em><b>Print Cmd</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.WhileCmdImpl#getExp <em>Exp</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.WhileCmdImpl#getCommands <em>Commands</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.PrintCmdImpl#getExp <em>Exp</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class WhileCmdImpl extends CommandImpl implements WhileCmd
+public class PrintCmdImpl extends CommandImpl implements PrintCmd
 {
   /**
    * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.
@@ -50,21 +41,11 @@ public class WhileCmdImpl extends CommandImpl implements WhileCmd
   protected Expression exp;
 
   /**
-   * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getCommands()
-   * @generated
-   * @ordered
-   */
-  protected EList<Command> commands;
-
-  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected WhileCmdImpl()
+  protected PrintCmdImpl()
   {
     super();
   }
@@ -77,7 +58,7 @@ public class WhileCmdImpl extends CommandImpl implements WhileCmd
   @Override
   protected EClass eStaticClass()
   {
-    return CPackage.Literals.WHILE_CMD;
+    return CPackage.Literals.PRINT_CMD;
   }
 
   /**
@@ -101,7 +82,7 @@ public class WhileCmdImpl extends CommandImpl implements WhileCmd
     exp = newExp;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.WHILE_CMD__EXP, oldExp, newExp);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.PRINT_CMD__EXP, oldExp, newExp);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -118,28 +99,14 @@ public class WhileCmdImpl extends CommandImpl implements WhileCmd
     {
       NotificationChain msgs = null;
       if (exp != null)
-        msgs = ((InternalEObject)exp).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.WHILE_CMD__EXP, null, msgs);
+        msgs = ((InternalEObject)exp).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.PRINT_CMD__EXP, null, msgs);
       if (newExp != null)
-        msgs = ((InternalEObject)newExp).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.WHILE_CMD__EXP, null, msgs);
+        msgs = ((InternalEObject)newExp).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.PRINT_CMD__EXP, null, msgs);
       msgs = basicSetExp(newExp, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.WHILE_CMD__EXP, newExp, newExp));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<Command> getCommands()
-  {
-    if (commands == null)
-    {
-      commands = new EObjectContainmentEList<Command>(Command.class, this, CPackage.WHILE_CMD__COMMANDS);
-    }
-    return commands;
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.PRINT_CMD__EXP, newExp, newExp));
   }
 
   /**
@@ -152,10 +119,8 @@ public class WhileCmdImpl extends CommandImpl implements WhileCmd
   {
     switch (featureID)
     {
-      case CPackage.WHILE_CMD__EXP:
+      case CPackage.PRINT_CMD__EXP:
         return basicSetExp(null, msgs);
-      case CPackage.WHILE_CMD__COMMANDS:
-        return ((InternalEList<?>)getCommands()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -170,10 +135,8 @@ public class WhileCmdImpl extends CommandImpl implements WhileCmd
   {
     switch (featureID)
     {
-      case CPackage.WHILE_CMD__EXP:
+      case CPackage.PRINT_CMD__EXP:
         return getExp();
-      case CPackage.WHILE_CMD__COMMANDS:
-        return getCommands();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -183,18 +146,13 @@ public class WhileCmdImpl extends CommandImpl implements WhileCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case CPackage.WHILE_CMD__EXP:
+      case CPackage.PRINT_CMD__EXP:
         setExp((Expression)newValue);
-        return;
-      case CPackage.WHILE_CMD__COMMANDS:
-        getCommands().clear();
-        getCommands().addAll((Collection<? extends Command>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -210,11 +168,8 @@ public class WhileCmdImpl extends CommandImpl implements WhileCmd
   {
     switch (featureID)
     {
-      case CPackage.WHILE_CMD__EXP:
+      case CPackage.PRINT_CMD__EXP:
         setExp((Expression)null);
-        return;
-      case CPackage.WHILE_CMD__COMMANDS:
-        getCommands().clear();
         return;
     }
     super.eUnset(featureID);
@@ -230,12 +185,10 @@ public class WhileCmdImpl extends CommandImpl implements WhileCmd
   {
     switch (featureID)
     {
-      case CPackage.WHILE_CMD__EXP:
+      case CPackage.PRINT_CMD__EXP:
         return exp != null;
-      case CPackage.WHILE_CMD__COMMANDS:
-        return commands != null && !commands.isEmpty();
     }
     return super.eIsSet(featureID);
   }
 
-} //WhileCmdImpl
+} //PrintCmdImpl

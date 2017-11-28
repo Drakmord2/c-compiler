@@ -177,85 +177,85 @@ public interface CFactory extends EFactory
   StrDecl createStrDecl();
 
   /**
-   * Returns a new object of class '<em>if Cmd</em>'.
+   * Returns a new object of class '<em>If Cmd</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>if Cmd</em>'.
+   * @return a new object of class '<em>If Cmd</em>'.
    * @generated
    */
-  ifCmd createifCmd();
+  IfCmd createIfCmd();
 
   /**
-   * Returns a new object of class '<em>while Cmd</em>'.
+   * Returns a new object of class '<em>While Cmd</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>while Cmd</em>'.
+   * @return a new object of class '<em>While Cmd</em>'.
    * @generated
    */
-  whileCmd createwhileCmd();
+  WhileCmd createWhileCmd();
 
   /**
-   * Returns a new object of class '<em>for Cmd</em>'.
+   * Returns a new object of class '<em>For Cmd</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>for Cmd</em>'.
+   * @return a new object of class '<em>For Cmd</em>'.
    * @generated
    */
-  forCmd createforCmd();
+  ForCmd createForCmd();
 
   /**
-   * Returns a new object of class '<em>switch Cmd</em>'.
+   * Returns a new object of class '<em>Switch Cmd</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>switch Cmd</em>'.
+   * @return a new object of class '<em>Switch Cmd</em>'.
    * @generated
    */
-  switchCmd createswitchCmd();
+  SwitchCmd createSwitchCmd();
 
   /**
-   * Returns a new object of class '<em>do While Cmd</em>'.
+   * Returns a new object of class '<em>Do While Cmd</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>do While Cmd</em>'.
+   * @return a new object of class '<em>Do While Cmd</em>'.
    * @generated
    */
-  doWhileCmd createdoWhileCmd();
+  DoWhileCmd createDoWhileCmd();
 
   /**
-   * Returns a new object of class '<em>var Cmd</em>'.
+   * Returns a new object of class '<em>Var Cmd</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>var Cmd</em>'.
+   * @return a new object of class '<em>Var Cmd</em>'.
    * @generated
    */
-  varCmd createvarCmd();
+  VarCmd createVarCmd();
 
   /**
-   * Returns a new object of class '<em>break Cmd</em>'.
+   * Returns a new object of class '<em>Break Cmd</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>break Cmd</em>'.
+   * @return a new object of class '<em>Break Cmd</em>'.
    * @generated
    */
-  breakCmd createbreakCmd();
+  BreakCmd createBreakCmd();
 
   /**
-   * Returns a new object of class '<em>continue Cmd</em>'.
+   * Returns a new object of class '<em>Continue Cmd</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>continue Cmd</em>'.
+   * @return a new object of class '<em>Continue Cmd</em>'.
    * @generated
    */
-  continueCmd createcontinueCmd();
+  ContinueCmd createContinueCmd();
 
   /**
-   * Returns a new object of class '<em>return Cmd</em>'.
+   * Returns a new object of class '<em>Return Cmd</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>return Cmd</em>'.
+   * @return a new object of class '<em>Return Cmd</em>'.
    * @generated
    */
-  returnCmd createreturnCmd();
+  ReturnCmd createReturnCmd();
 
   /**
    * Returns a new object of class '<em>Decl Cmd</em>'.
@@ -265,6 +265,15 @@ public interface CFactory extends EFactory
    * @generated
    */
   DeclCmd createDeclCmd();
+
+  /**
+   * Returns a new object of class '<em>Print Cmd</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Print Cmd</em>'.
+   * @generated
+   */
+  PrintCmd createPrintCmd();
 
   /**
    * Returns a new object of class '<em>Logic Exp</em>'.
@@ -391,6 +400,15 @@ public interface CFactory extends EFactory
    * @generated
    */
   FalseLit createFalseLit();
+
+  /**
+   * Returns a new object of class '<em>Str Lit</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Str Lit</em>'.
+   * @generated
+   */
+  StrLit createStrLit();
 
   /**
    * Returns the package supported by this factory.

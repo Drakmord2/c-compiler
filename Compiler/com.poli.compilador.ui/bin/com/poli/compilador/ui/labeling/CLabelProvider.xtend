@@ -4,31 +4,31 @@
 package com.poli.compilador.ui.labeling
 
 import com.google.inject.Inject
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
-import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
-import com.poli.compilador.c.Expression
-import com.poli.compilador.c.Command
-import com.poli.compilador.c.ifCmd
-import com.poli.compilador.c.whileCmd
-import com.poli.compilador.c.forCmd
-import com.poli.compilador.c.doWhileCmd
-import com.poli.compilador.c.Declaration
-import com.poli.compilador.c.breakCmd
-import com.poli.compilador.c.returnCmd
-import com.poli.compilador.c.switchCmd
-import com.poli.compilador.c.LogicExp
-import com.poli.compilador.c.RelExp
 import com.poli.compilador.c.ArithExp
-import com.poli.compilador.c.Term
+import com.poli.compilador.c.BreakCmd
+import com.poli.compilador.c.Command
+import com.poli.compilador.c.Declaration
+import com.poli.compilador.c.DoWhileCmd
+import com.poli.compilador.c.Expression
+import com.poli.compilador.c.FalseLit
+import com.poli.compilador.c.ForCmd
+import com.poli.compilador.c.Function
+import com.poli.compilador.c.IfCmd
+import com.poli.compilador.c.IntLit
+import com.poli.compilador.c.LogicExp
+import com.poli.compilador.c.Parenteses
 import com.poli.compilador.c.PostfixOp
 import com.poli.compilador.c.PrefixOp
-import com.poli.compilador.c.Parenteses
-import com.poli.compilador.c.IntLit
-import com.poli.compilador.c.TrueLit
-import com.poli.compilador.c.FalseLit
-import com.poli.compilador.c.Var
+import com.poli.compilador.c.RelExp
+import com.poli.compilador.c.ReturnCmd
 import com.poli.compilador.c.Struct
-import com.poli.compilador.c.Function
+import com.poli.compilador.c.SwitchCmd
+import com.poli.compilador.c.Term
+import com.poli.compilador.c.TrueLit
+import com.poli.compilador.c.Var
+import com.poli.compilador.c.WhileCmd
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
+import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
 
 /**
  * Provides labels for EObjects.
@@ -51,19 +51,19 @@ class CLabelProvider extends DefaultEObjectLabelProvider {
 	}
 	
 	def text(Command c) {
-		if (c instanceof ifCmd) {
+		if (c instanceof IfCmd) {
 			return 'If'
 		}
 		
-		if (c instanceof whileCmd) {
+		if (c instanceof WhileCmd) {
 			return 'While'
 		}
 		
-		if (c instanceof forCmd) {
+		if (c instanceof ForCmd) {
 			return 'For'
 		}
 		
-		if (c instanceof doWhileCmd) {
+		if (c instanceof DoWhileCmd) {
 			return 'Do-While'
 		}
 		
@@ -71,15 +71,15 @@ class CLabelProvider extends DefaultEObjectLabelProvider {
 			return 'Declaration - ' + c.name
 		}
 		
-		if (c instanceof breakCmd) {
+		if (c instanceof BreakCmd) {
 			return 'Break'
 		}
 		
-		if (c instanceof returnCmd) {
+		if (c instanceof ReturnCmd) {
 			return 'Return'
 		}
 		
-		if (c instanceof switchCmd) {
+		if (c instanceof SwitchCmd) {
 			return 'Switch'
 		}
 		

@@ -9,24 +9,24 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>for Cmd</b></em>'.
+ * A representation of the model object '<em><b>For Cmd</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.forCmd#getInit <em>Init</em>}</li>
- *   <li>{@link com.poli.compilador.c.forCmd#getExp <em>Exp</em>}</li>
- *   <li>{@link com.poli.compilador.c.forCmd#getInc <em>Inc</em>}</li>
- *   <li>{@link com.poli.compilador.c.forCmd#getCommands <em>Commands</em>}</li>
+ *   <li>{@link com.poli.compilador.c.ForCmd#getInit <em>Init</em>}</li>
+ *   <li>{@link com.poli.compilador.c.ForCmd#getExp <em>Exp</em>}</li>
+ *   <li>{@link com.poli.compilador.c.ForCmd#getInc <em>Inc</em>}</li>
+ *   <li>{@link com.poli.compilador.c.ForCmd#getCommands <em>Commands</em>}</li>
  * </ul>
  *
- * @see com.poli.compilador.c.CPackage#getforCmd()
+ * @see com.poli.compilador.c.CPackage#getForCmd()
  * @model
  * @generated
  */
-public interface forCmd extends Command
+public interface ForCmd extends Command
 {
   /**
    * Returns the value of the '<em><b>Init</b></em>' containment reference list.
@@ -38,7 +38,7 @@ public interface forCmd extends Command
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Init</em>' containment reference list.
-   * @see com.poli.compilador.c.CPackage#getforCmd_Init()
+   * @see com.poli.compilador.c.CPackage#getForCmd_Init()
    * @model containment="true"
    * @generated
    */
@@ -54,14 +54,14 @@ public interface forCmd extends Command
    * <!-- end-user-doc -->
    * @return the value of the '<em>Exp</em>' containment reference.
    * @see #setExp(Expression)
-   * @see com.poli.compilador.c.CPackage#getforCmd_Exp()
+   * @see com.poli.compilador.c.CPackage#getForCmd_Exp()
    * @model containment="true"
    * @generated
    */
   Expression getExp();
 
   /**
-   * Sets the value of the '{@link com.poli.compilador.c.forCmd#getExp <em>Exp</em>}' containment reference.
+   * Sets the value of the '{@link com.poli.compilador.c.ForCmd#getExp <em>Exp</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Exp</em>' containment reference.
@@ -80,7 +80,7 @@ public interface forCmd extends Command
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Inc</em>' containment reference list.
-   * @see com.poli.compilador.c.CPackage#getforCmd_Inc()
+   * @see com.poli.compilador.c.CPackage#getForCmd_Inc()
    * @model containment="true"
    * @generated
    */
@@ -96,10 +96,10 @@ public interface forCmd extends Command
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Commands</em>' containment reference list.
-   * @see com.poli.compilador.c.CPackage#getforCmd_Commands()
+   * @see com.poli.compilador.c.CPackage#getForCmd_Commands()
    * @model containment="true"
    * @generated
    */
   EList<Command> getCommands();
 
-} // forCmd
+} // ForCmd

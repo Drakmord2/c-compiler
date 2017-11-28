@@ -7,7 +7,7 @@ import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Case;
 import com.poli.compilador.c.Command;
 import com.poli.compilador.c.Expression;
-import com.poli.compilador.c.switchCmd;
+import com.poli.compilador.c.SwitchCmd;
 
 import java.util.Collection;
 
@@ -26,20 +26,20 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>switch Cmd</b></em>'.
+ * An implementation of the model object '<em><b>Switch Cmd</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.switchCmdImpl#getExp <em>Exp</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.switchCmdImpl#getCases <em>Cases</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.switchCmdImpl#getCommands <em>Commands</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.SwitchCmdImpl#getExp <em>Exp</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.SwitchCmdImpl#getCases <em>Cases</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.SwitchCmdImpl#getCommands <em>Commands</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class switchCmdImpl extends CommandImpl implements switchCmd
+public class SwitchCmdImpl extends CommandImpl implements SwitchCmd
 {
   /**
    * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.
@@ -76,7 +76,7 @@ public class switchCmdImpl extends CommandImpl implements switchCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  protected switchCmdImpl()
+  protected SwitchCmdImpl()
   {
     super();
   }
@@ -277,4 +277,4 @@ public class switchCmdImpl extends CommandImpl implements switchCmd
     return super.eIsSet(featureID);
   }
 
-} //switchCmdImpl
+} //SwitchCmdImpl

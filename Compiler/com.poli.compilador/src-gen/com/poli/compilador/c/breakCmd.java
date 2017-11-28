@@ -6,14 +6,14 @@ package com.poli.compilador.c;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>break Cmd</b></em>'.
+ * A representation of the model object '<em><b>Break Cmd</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see com.poli.compilador.c.CPackage#getbreakCmd()
+ * @see com.poli.compilador.c.CPackage#getBreakCmd()
  * @model
  * @generated
  */
-public interface breakCmd extends Command
+public interface BreakCmd extends Command
 {
-} // breakCmd
+} // BreakCmd

@@ -7,23 +7,23 @@ import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>switch Cmd</b></em>'.
+ * A representation of the model object '<em><b>Switch Cmd</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.switchCmd#getExp <em>Exp</em>}</li>
- *   <li>{@link com.poli.compilador.c.switchCmd#getCases <em>Cases</em>}</li>
- *   <li>{@link com.poli.compilador.c.switchCmd#getCommands <em>Commands</em>}</li>
+ *   <li>{@link com.poli.compilador.c.SwitchCmd#getExp <em>Exp</em>}</li>
+ *   <li>{@link com.poli.compilador.c.SwitchCmd#getCases <em>Cases</em>}</li>
+ *   <li>{@link com.poli.compilador.c.SwitchCmd#getCommands <em>Commands</em>}</li>
  * </ul>
  *
- * @see com.poli.compilador.c.CPackage#getswitchCmd()
+ * @see com.poli.compilador.c.CPackage#getSwitchCmd()
  * @model
  * @generated
  */
-public interface switchCmd extends Command
+public interface SwitchCmd extends Command
 {
   /**
    * Returns the value of the '<em><b>Exp</b></em>' containment reference.
@@ -35,14 +35,14 @@ public interface switchCmd extends Command
    * <!-- end-user-doc -->
    * @return the value of the '<em>Exp</em>' containment reference.
    * @see #setExp(Expression)
-   * @see com.poli.compilador.c.CPackage#getswitchCmd_Exp()
+   * @see com.poli.compilador.c.CPackage#getSwitchCmd_Exp()
    * @model containment="true"
    * @generated
    */
   Expression getExp();
 
   /**
-   * Sets the value of the '{@link com.poli.compilador.c.switchCmd#getExp <em>Exp</em>}' containment reference.
+   * Sets the value of the '{@link com.poli.compilador.c.SwitchCmd#getExp <em>Exp</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Exp</em>' containment reference.
@@ -61,7 +61,7 @@ public interface switchCmd extends Command
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Cases</em>' containment reference list.
-   * @see com.poli.compilador.c.CPackage#getswitchCmd_Cases()
+   * @see com.poli.compilador.c.CPackage#getSwitchCmd_Cases()
    * @model containment="true"
    * @generated
    */
@@ -77,10 +77,10 @@ public interface switchCmd extends Command
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Commands</em>' containment reference list.
-   * @see com.poli.compilador.c.CPackage#getswitchCmd_Commands()
+   * @see com.poli.compilador.c.CPackage#getSwitchCmd_Commands()
    * @model containment="true"
    * @generated
    */
   EList<Command> getCommands();
 
-} // switchCmd
+} // SwitchCmd

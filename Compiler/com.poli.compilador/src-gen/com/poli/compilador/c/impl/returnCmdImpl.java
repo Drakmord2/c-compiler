@@ -5,7 +5,7 @@ package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Expression;
-import com.poli.compilador.c.returnCmd;
+import com.poli.compilador.c.ReturnCmd;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -17,18 +17,18 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>return Cmd</b></em>'.
+ * An implementation of the model object '<em><b>Return Cmd</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.returnCmdImpl#getExp <em>Exp</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.ReturnCmdImpl#getExp <em>Exp</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class returnCmdImpl extends CommandImpl implements returnCmd
+public class ReturnCmdImpl extends CommandImpl implements ReturnCmd
 {
   /**
    * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.
@@ -45,7 +45,7 @@ public class returnCmdImpl extends CommandImpl implements returnCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  protected returnCmdImpl()
+  protected ReturnCmdImpl()
   {
     super();
   }
@@ -191,4 +191,4 @@ public class returnCmdImpl extends CommandImpl implements returnCmd
     return super.eIsSet(featureID);
   }
 
-} //returnCmdImpl
+} //ReturnCmdImpl

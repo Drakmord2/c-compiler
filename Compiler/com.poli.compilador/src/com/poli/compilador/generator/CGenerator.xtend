@@ -3,10 +3,47 @@
  */
 package com.poli.compilador.generator
 
+import com.poli.compilador.c.ArithExp
+import com.poli.compilador.c.ArrayAccess
+import com.poli.compilador.c.Assignment
+import com.poli.compilador.c.BreakCmd
+import com.poli.compilador.c.Command
+import com.poli.compilador.c.ContinueCmd
+import com.poli.compilador.c.DeclCmd
+import com.poli.compilador.c.Declaration
+import com.poli.compilador.c.Definition
+import com.poli.compilador.c.DoWhileCmd
+import com.poli.compilador.c.Expression
+import com.poli.compilador.c.FalseLit
+import com.poli.compilador.c.FieldAccess
+import com.poli.compilador.c.ForCmd
+import com.poli.compilador.c.FuncCall
+import com.poli.compilador.c.Function
+import com.poli.compilador.c.IfCmd
+import com.poli.compilador.c.IntLit
+import com.poli.compilador.c.LogicExp
+import com.poli.compilador.c.Parenteses
+import com.poli.compilador.c.PointerExp
+import com.poli.compilador.c.PostfixOp
+import com.poli.compilador.c.PrefixOp
+import com.poli.compilador.c.Program
+import com.poli.compilador.c.RelExp
+import com.poli.compilador.c.ReturnCmd
+import com.poli.compilador.c.Struct
+import com.poli.compilador.c.SwitchCmd
+import com.poli.compilador.c.Term
+import com.poli.compilador.c.TrueLit
+import com.poli.compilador.c.Var
+import com.poli.compilador.c.VarCmd
+import com.poli.compilador.c.WhileCmd
+import com.poli.compilador.c.Argument
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+import com.poli.compilador.c.PrintCmd
+import com.poli.compilador.validation.Validator
+import com.poli.compilador.c.StrLit
 
 /**
  * Generates code from your model files on save.
@@ -14,12 +51,257 @@ import org.eclipse.xtext.generator.IGeneratorContext
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 class CGenerator extends AbstractGenerator {
+	
+	public int label = 0;
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-//		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-//			resource.allContents
-//				.filter(Greeting)
-//				.map[name]
-//				.join(', '))
+		var Program p	= resource.allContents.filter(Program).head
+		var filename 	= resource.URI.lastSegment.split("\\.").get(0)
+		
+	    fsa.generateFile(filename+".asm", p.compile)
 	}
+
+	def compile(Program P) 
+	'''
+		.data
+		«FOR D : P.definition»
+		    «definition(D)»
+		«ENDFOR»
+		
+		exit:
+			li $v0, 10
+			syscall
+	'''
+	
+	def definition(Definition D) {
+		
+		switch D {
+			case (D instanceof Function): 	function(D as Function)
+			case (D instanceof Declaration):	'''# Declaration'''
+			case (D instanceof Struct): 		'''# Struct'''
+			default: 						'''# Definition'''
+		}
+		
+	}
+	
+	def function(Function F)
+	'''
+		.text
+		«IF F.name.equals('main')»
+		.globl main
+		«F.name»:
+		«ELSE»
+		_«F.name»:
+		«ENDIF»
+			«functionEntry(0, 8)»
+			«FOR C : F.commands»
+				«command(C)»
+		    «ENDFOR»
+		    «functionExit(F.name, 0)»
+		    
+	'''
+	
+	def functionEntry(int paramSize, int localSize)
+	'''
+
+		sw	 	$ra, 0($sp)
+		addiu 	$sp, $sp, -4
+		sw   	$fp, 0($sp)
+		addiu	$sp, $sp, -4
+		addu 	$fp, $sp, «paramSize + 8»
+		subu 	$sp, $sp, «localSize»
+		
+	'''
+	
+	def functionExit(String funcName, int paramSize)
+	'''
+	«funcName»_return:
+	  lw   $ra, «paramSize»($fp)
+	  move $t0, $fp
+	  lw   $fp, «paramSize + 4»($fp)
+	  move $sp, $t0
+	  jr   $ra
+	'''
+	
+	def command(Command C) {
+		
+		switch C {
+			case C instanceof PrintCmd: 		printCommand(C as PrintCmd)
+			case C instanceof IfCmd: 		ifCommand(C as IfCmd)
+//			case C instanceof WhileCmd: 		'whileCommand(C as WhileCmd)'
+//			case C instanceof ForCmd: 		'forCommand(C as ForCmd)'
+//			case C instanceof SwitchCmd: 	'switchCommand(C as SwitchCmd)'
+//			case C instanceof DoWhileCmd: 	'doWhileCommand(C as DoWhileCmd)'
+//			case C instanceof VarCmd:		varCommand(C as VarCmd)
+//			case C instanceof BreakCmd: 		'breakCommand(C as BreakCmd)'
+//			case C instanceof ContinueCmd:	'continueCommand(C as ContinueCmd)'
+//			case C instanceof ReturnCmd: 	'returnCommand(C as ReturnCmd)'
+//			case C instanceof DeclCmd: 		'declCommand(C as DeclCmd)'
+		}
+	}
+	
+	def CharSequence printCommand(PrintCmd C) {
+	    var str		= ''''''
+	    val tipo 	= Validator.tipode(C.exp, null)
+	    
+	    str += expression(C.exp)
+	    
+		str += pop('a0')
+	    
+	    if ( tipo == Validator.Tipo.INT || tipo == Validator.Tipo.BOOL ) {
+	        str += '''li $v0, 1'''
+	    }
+	    else if (tipo == Validator.Tipo.STR) {
+	        str += '''li $v0, 4'''
+	    }
+	    
+	    str += '''
+	    
+	    syscall
+	    
+	    '''
+	    
+	    return str
+	}
+	
+	def CharSequence ifCommand(IfCmd C) {
+		var temp = '''# If'''
+		
+	   	temp += '''
+	   	 
+	   	«expression(C.exp)»
+	   	'''
+	   
+	   	for (tc : C.trueCommands) {
+	   	 	temp += '''
+	   	 	«command(tc)»
+	   	 	'''
+	   	}
+		temp += '''
+		
+		«nextLabel»:
+		'''
+
+		if (C.falseCommands !== null) {
+			for (fc : C.falseCommands) {
+	   	 	temp += '''
+	   	 	«command(fc)»
+	   	 	'''
+   	  		}
+   	  		
+   	  		temp += '''
+   	  		«nextLabel»:
+   	  		'''
+		}
+   	  	
+   	  
+	   return temp
+	}
+	
+	def varCommand(VarCmd V)
+	'''
+		«FOR v : V.^val BEFORE '' SEPARATOR ' ' AFTER ''»
+			«IF v instanceof Expression»
+				«expression(v)»
+			«ELSEIF v instanceof Assignment»
+				«var Assignment atr = v as Assignment»
+				«assign(atr)»
+			«ENDIF»
+		«ENDFOR»
+	'''
+	
+	def CharSequence expression(Expression E) {
+		
+		if (E instanceof ArithExp) {
+			if (E.op.equalsIgnoreCase('+'))
+				return '''# add(u)'''
+			if (E.op.equalsIgnoreCase('-'))
+				return '''# sub(u)'''
+			if (E.op.equalsIgnoreCase('*'))
+				return '''# mul(u)'''
+			if (E.op.equalsIgnoreCase('/'))
+				return '''# div(u)'''
+		}
+		
+		if (E instanceof LogicExp) {
+			
+		}
+		
+		if (E instanceof RelExp) {
+			
+		}
+		
+		if (E instanceof Term) {
+			
+		}
+		
+		if (E instanceof PostfixOp) {
+			
+		}
+		
+		if (E instanceof PrefixOp) {
+			
+		}
+		
+		if (E instanceof Parenteses) {
+			return expression(E.exp)
+		}
+		
+		if (E instanceof FuncCall) {
+			
+		}
+		
+		if (E instanceof FieldAccess) {
+			
+		}
+		
+		if (E instanceof ArrayAccess) {
+			
+		}
+		
+		if (E instanceof PointerExp) {
+			
+		}
+		
+		switch E {
+			case E instanceof Var: 		'''# Var «(E as Var).valor.name»'''
+			case E instanceof IntLit: 	'''«(E as IntLit).^val»'''
+			case E instanceof TrueLit: 	'''«(E as TrueLit).toString»'''
+			case E instanceof FalseLit:	'''«(E as FalseLit).toString»'''
+			case E instanceof StrLit:	'''«(E as StrLit).^val»'''
+			default: 					'''# Expression'''
+		}
+	}
+		
+	def assign(Assignment A)
+	'''
+		# load, move
+		«expression(A.exp)»
+	'''
+	
+	def argument(Argument A)
+	'''
+	# arg
+	'''
+	
+	def nextLabel() {
+		this.label++
+		
+		return 'L'+this.label
+	}
+	
+	def CharSequence push(String reg)
+	'''
+	addiu	$sp, $sp, -4
+	sw		$«reg», ($sp)
+	
+	'''
+	
+	def CharSequence pop(String reg)
+	'''
+	lw 		$«reg», ($sp)
+	addiu	$sp, $sp, 4
+	
+	'''
+
 }

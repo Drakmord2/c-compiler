@@ -82,16 +82,17 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
       case CPackage.LITERAL: return createLiteral();
       case CPackage.VAR_DECL: return createVarDecl();
       case CPackage.STR_DECL: return createStrDecl();
-      case CPackage.IF_CMD: return createifCmd();
-      case CPackage.WHILE_CMD: return createwhileCmd();
-      case CPackage.FOR_CMD: return createforCmd();
-      case CPackage.SWITCH_CMD: return createswitchCmd();
-      case CPackage.DO_WHILE_CMD: return createdoWhileCmd();
-      case CPackage.VAR_CMD: return createvarCmd();
-      case CPackage.BREAK_CMD: return createbreakCmd();
-      case CPackage.CONTINUE_CMD: return createcontinueCmd();
-      case CPackage.RETURN_CMD: return createreturnCmd();
+      case CPackage.IF_CMD: return createIfCmd();
+      case CPackage.WHILE_CMD: return createWhileCmd();
+      case CPackage.FOR_CMD: return createForCmd();
+      case CPackage.SWITCH_CMD: return createSwitchCmd();
+      case CPackage.DO_WHILE_CMD: return createDoWhileCmd();
+      case CPackage.VAR_CMD: return createVarCmd();
+      case CPackage.BREAK_CMD: return createBreakCmd();
+      case CPackage.CONTINUE_CMD: return createContinueCmd();
+      case CPackage.RETURN_CMD: return createReturnCmd();
       case CPackage.DECL_CMD: return createDeclCmd();
+      case CPackage.PRINT_CMD: return createPrintCmd();
       case CPackage.LOGIC_EXP: return createLogicExp();
       case CPackage.REL_EXP: return createRelExp();
       case CPackage.ARITH_EXP: return createArithExp();
@@ -106,6 +107,7 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
       case CPackage.INT_LIT: return createIntLit();
       case CPackage.TRUE_LIT: return createTrueLit();
       case CPackage.FALSE_LIT: return createFalseLit();
+      case CPackage.STR_LIT: return createStrLit();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -303,9 +305,9 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ifCmd createifCmd()
+  public IfCmd createIfCmd()
   {
-    ifCmdImpl ifCmd = new ifCmdImpl();
+    IfCmdImpl ifCmd = new IfCmdImpl();
     return ifCmd;
   }
 
@@ -314,9 +316,9 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public whileCmd createwhileCmd()
+  public WhileCmd createWhileCmd()
   {
-    whileCmdImpl whileCmd = new whileCmdImpl();
+    WhileCmdImpl whileCmd = new WhileCmdImpl();
     return whileCmd;
   }
 
@@ -325,9 +327,9 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public forCmd createforCmd()
+  public ForCmd createForCmd()
   {
-    forCmdImpl forCmd = new forCmdImpl();
+    ForCmdImpl forCmd = new ForCmdImpl();
     return forCmd;
   }
 
@@ -336,9 +338,9 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public switchCmd createswitchCmd()
+  public SwitchCmd createSwitchCmd()
   {
-    switchCmdImpl switchCmd = new switchCmdImpl();
+    SwitchCmdImpl switchCmd = new SwitchCmdImpl();
     return switchCmd;
   }
 
@@ -347,9 +349,9 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public doWhileCmd createdoWhileCmd()
+  public DoWhileCmd createDoWhileCmd()
   {
-    doWhileCmdImpl doWhileCmd = new doWhileCmdImpl();
+    DoWhileCmdImpl doWhileCmd = new DoWhileCmdImpl();
     return doWhileCmd;
   }
 
@@ -358,9 +360,9 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public varCmd createvarCmd()
+  public VarCmd createVarCmd()
   {
-    varCmdImpl varCmd = new varCmdImpl();
+    VarCmdImpl varCmd = new VarCmdImpl();
     return varCmd;
   }
 
@@ -369,9 +371,9 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public breakCmd createbreakCmd()
+  public BreakCmd createBreakCmd()
   {
-    breakCmdImpl breakCmd = new breakCmdImpl();
+    BreakCmdImpl breakCmd = new BreakCmdImpl();
     return breakCmd;
   }
 
@@ -380,9 +382,9 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public continueCmd createcontinueCmd()
+  public ContinueCmd createContinueCmd()
   {
-    continueCmdImpl continueCmd = new continueCmdImpl();
+    ContinueCmdImpl continueCmd = new ContinueCmdImpl();
     return continueCmd;
   }
 
@@ -391,9 +393,9 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public returnCmd createreturnCmd()
+  public ReturnCmd createReturnCmd()
   {
-    returnCmdImpl returnCmd = new returnCmdImpl();
+    ReturnCmdImpl returnCmd = new ReturnCmdImpl();
     return returnCmd;
   }
 
@@ -406,6 +408,17 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
   {
     DeclCmdImpl declCmd = new DeclCmdImpl();
     return declCmd;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PrintCmd createPrintCmd()
+  {
+    PrintCmdImpl printCmd = new PrintCmdImpl();
+    return printCmd;
   }
 
   /**
@@ -560,6 +573,17 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
   {
     FalseLitImpl falseLit = new FalseLitImpl();
     return falseLit;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public StrLit createStrLit()
+  {
+    StrLitImpl strLit = new StrLitImpl();
+    return strLit;
   }
 
   /**

@@ -8,40 +8,42 @@ import com.poli.compilador.c.Argument;
 import com.poli.compilador.c.ArithExp;
 import com.poli.compilador.c.ArrayAccess;
 import com.poli.compilador.c.Assignment;
+import com.poli.compilador.c.BreakCmd;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Case;
+import com.poli.compilador.c.ContinueCmd;
 import com.poli.compilador.c.DeclCmd;
 import com.poli.compilador.c.Declaration;
+import com.poli.compilador.c.DoWhileCmd;
 import com.poli.compilador.c.FalseLit;
 import com.poli.compilador.c.FieldAccess;
+import com.poli.compilador.c.ForCmd;
 import com.poli.compilador.c.FuncCall;
 import com.poli.compilador.c.Function;
 import com.poli.compilador.c.IdDef;
+import com.poli.compilador.c.IfCmd;
 import com.poli.compilador.c.IntLit;
 import com.poli.compilador.c.LogicExp;
 import com.poli.compilador.c.Parenteses;
 import com.poli.compilador.c.PointerExp;
 import com.poli.compilador.c.PostfixOp;
 import com.poli.compilador.c.PrefixOp;
+import com.poli.compilador.c.PrintCmd;
 import com.poli.compilador.c.Program;
 import com.poli.compilador.c.RelExp;
+import com.poli.compilador.c.ReturnCmd;
 import com.poli.compilador.c.StrDecl;
+import com.poli.compilador.c.StrLit;
 import com.poli.compilador.c.Struct;
+import com.poli.compilador.c.SwitchCmd;
 import com.poli.compilador.c.Term;
 import com.poli.compilador.c.TrueLit;
 import com.poli.compilador.c.Type;
 import com.poli.compilador.c.Var;
+import com.poli.compilador.c.VarCmd;
 import com.poli.compilador.c.VarDecl;
 import com.poli.compilador.c.Variable;
-import com.poli.compilador.c.breakCmd;
-import com.poli.compilador.c.continueCmd;
-import com.poli.compilador.c.doWhileCmd;
-import com.poli.compilador.c.forCmd;
-import com.poli.compilador.c.ifCmd;
-import com.poli.compilador.c.returnCmd;
-import com.poli.compilador.c.switchCmd;
-import com.poli.compilador.c.varCmd;
-import com.poli.compilador.c.whileCmd;
+import com.poli.compilador.c.WhileCmd;
 import com.poli.compilador.services.CGrammarAccess;
 import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
@@ -80,8 +82,14 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case CPackage.ASSIGNMENT:
 				sequence_Assignment(context, (Assignment) semanticObject); 
 				return; 
+			case CPackage.BREAK_CMD:
+				sequence_Command(context, (BreakCmd) semanticObject); 
+				return; 
 			case CPackage.CASE:
 				sequence_Case(context, (Case) semanticObject); 
+				return; 
+			case CPackage.CONTINUE_CMD:
+				sequence_Command(context, (ContinueCmd) semanticObject); 
 				return; 
 			case CPackage.DECL_CMD:
 				sequence_Command(context, (DeclCmd) semanticObject); 
@@ -89,11 +97,17 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case CPackage.DECLARATION:
 				sequence_Declaration_StrDecl_1_1_0_VarDecl_1_0_0(context, (Declaration) semanticObject); 
 				return; 
+			case CPackage.DO_WHILE_CMD:
+				sequence_Command(context, (DoWhileCmd) semanticObject); 
+				return; 
 			case CPackage.FALSE_LIT:
 				sequence_Literal(context, (FalseLit) semanticObject); 
 				return; 
 			case CPackage.FIELD_ACCESS:
 				sequence_lValue(context, (FieldAccess) semanticObject); 
+				return; 
+			case CPackage.FOR_CMD:
+				sequence_Command(context, (ForCmd) semanticObject); 
 				return; 
 			case CPackage.FUNC_CALL:
 				sequence_lValue(context, (FuncCall) semanticObject); 
@@ -103,6 +117,9 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case CPackage.ID_DEF:
 				sequence_IdDef(context, (IdDef) semanticObject); 
+				return; 
+			case CPackage.IF_CMD:
+				sequence_Command(context, (IfCmd) semanticObject); 
 				return; 
 			case CPackage.INT_LIT:
 				sequence_Literal(context, (IntLit) semanticObject); 
@@ -122,17 +139,29 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case CPackage.PREFIX_OP:
 				sequence_Factor(context, (PrefixOp) semanticObject); 
 				return; 
+			case CPackage.PRINT_CMD:
+				sequence_Command(context, (PrintCmd) semanticObject); 
+				return; 
 			case CPackage.PROGRAM:
 				sequence_Program(context, (Program) semanticObject); 
 				return; 
 			case CPackage.REL_EXP:
 				sequence_RelExp(context, (RelExp) semanticObject); 
 				return; 
+			case CPackage.RETURN_CMD:
+				sequence_Command(context, (ReturnCmd) semanticObject); 
+				return; 
 			case CPackage.STR_DECL:
 				sequence_Declaration(context, (StrDecl) semanticObject); 
 				return; 
+			case CPackage.STR_LIT:
+				sequence_Literal(context, (StrLit) semanticObject); 
+				return; 
 			case CPackage.STRUCT:
 				sequence_Struct(context, (Struct) semanticObject); 
+				return; 
+			case CPackage.SWITCH_CMD:
+				sequence_Command(context, (SwitchCmd) semanticObject); 
 				return; 
 			case CPackage.TERM:
 				sequence_Term(context, (Term) semanticObject); 
@@ -146,38 +175,17 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case CPackage.VAR:
 				sequence_lValue(context, (Var) semanticObject); 
 				return; 
+			case CPackage.VAR_CMD:
+				sequence_Command(context, (VarCmd) semanticObject); 
+				return; 
 			case CPackage.VAR_DECL:
 				sequence_Declaration(context, (VarDecl) semanticObject); 
 				return; 
 			case CPackage.VARIABLE:
 				sequence_Variable(context, (Variable) semanticObject); 
 				return; 
-			case CPackage.BREAK_CMD:
-				sequence_Command(context, (breakCmd) semanticObject); 
-				return; 
-			case CPackage.CONTINUE_CMD:
-				sequence_Command(context, (continueCmd) semanticObject); 
-				return; 
-			case CPackage.DO_WHILE_CMD:
-				sequence_Command(context, (doWhileCmd) semanticObject); 
-				return; 
-			case CPackage.FOR_CMD:
-				sequence_Command(context, (forCmd) semanticObject); 
-				return; 
-			case CPackage.IF_CMD:
-				sequence_Command(context, (ifCmd) semanticObject); 
-				return; 
-			case CPackage.RETURN_CMD:
-				sequence_Command(context, (returnCmd) semanticObject); 
-				return; 
-			case CPackage.SWITCH_CMD:
-				sequence_Command(context, (switchCmd) semanticObject); 
-				return; 
-			case CPackage.VAR_CMD:
-				sequence_Command(context, (varCmd) semanticObject); 
-				return; 
 			case CPackage.WHILE_CMD:
-				sequence_Command(context, (whileCmd) semanticObject); 
+				sequence_Command(context, (WhileCmd) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null)
@@ -273,6 +281,30 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     Command returns BreakCmd
+	 *
+	 * Constraint:
+	 *     {BreakCmd}
+	 */
+	protected void sequence_Command(ISerializationContext context, BreakCmd semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Command returns ContinueCmd
+	 *
+	 * Constraint:
+	 *     {ContinueCmd}
+	 */
+	protected void sequence_Command(ISerializationContext context, ContinueCmd semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Command returns DeclCmd
 	 *
 	 * Constraint:
@@ -291,43 +323,19 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     Command returns breakCmd
-	 *
-	 * Constraint:
-	 *     {breakCmd}
-	 */
-	protected void sequence_Command(ISerializationContext context, breakCmd semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Command returns continueCmd
-	 *
-	 * Constraint:
-	 *     {continueCmd}
-	 */
-	protected void sequence_Command(ISerializationContext context, continueCmd semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Command returns doWhileCmd
+	 *     Command returns DoWhileCmd
 	 *
 	 * Constraint:
 	 *     (commands+=Command* exp=Expression)
 	 */
-	protected void sequence_Command(ISerializationContext context, doWhileCmd semanticObject) {
+	protected void sequence_Command(ISerializationContext context, DoWhileCmd semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     Command returns forCmd
+	 *     Command returns ForCmd
 	 *
 	 * Constraint:
 	 *     (
@@ -339,67 +347,79 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         commands+=Command*
 	 *     )
 	 */
-	protected void sequence_Command(ISerializationContext context, forCmd semanticObject) {
+	protected void sequence_Command(ISerializationContext context, ForCmd semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     Command returns ifCmd
+	 *     Command returns IfCmd
 	 *
 	 * Constraint:
 	 *     (exp=Expression trueCommands+=Command* falseCommands+=Command*)
 	 */
-	protected void sequence_Command(ISerializationContext context, ifCmd semanticObject) {
+	protected void sequence_Command(ISerializationContext context, IfCmd semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     Command returns returnCmd
+	 *     Command returns PrintCmd
 	 *
 	 * Constraint:
 	 *     exp=Expression?
 	 */
-	protected void sequence_Command(ISerializationContext context, returnCmd semanticObject) {
+	protected void sequence_Command(ISerializationContext context, PrintCmd semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     Command returns switchCmd
+	 *     Command returns ReturnCmd
+	 *
+	 * Constraint:
+	 *     exp=Expression?
+	 */
+	protected void sequence_Command(ISerializationContext context, ReturnCmd semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Command returns SwitchCmd
 	 *
 	 * Constraint:
 	 *     (exp=Expression cases+=Case* commands+=Command*)
 	 */
-	protected void sequence_Command(ISerializationContext context, switchCmd semanticObject) {
+	protected void sequence_Command(ISerializationContext context, SwitchCmd semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     Command returns varCmd
+	 *     Command returns VarCmd
 	 *
 	 * Constraint:
 	 *     (val+=Factor val+=Assignment?)
 	 */
-	protected void sequence_Command(ISerializationContext context, varCmd semanticObject) {
+	protected void sequence_Command(ISerializationContext context, VarCmd semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     Command returns whileCmd
+	 *     Command returns WhileCmd
 	 *
 	 * Constraint:
 	 *     (exp=Expression commands+=Command*)
 	 */
-	protected void sequence_Command(ISerializationContext context, whileCmd semanticObject) {
+	protected void sequence_Command(ISerializationContext context, WhileCmd semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -608,6 +628,35 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getLiteralAccess().getValINTTerminalRuleCall_0_1_0(), semanticObject.getVal());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Expression returns StrLit
+	 *     Expression.LogicExp_1_0 returns StrLit
+	 *     RelExp returns StrLit
+	 *     RelExp.RelExp_1_0 returns StrLit
+	 *     ArithExp returns StrLit
+	 *     ArithExp.ArithExp_1_0 returns StrLit
+	 *     Term returns StrLit
+	 *     Term.Term_1_0 returns StrLit
+	 *     Factor returns StrLit
+	 *     Factor.PostfixOp_0_1_0 returns StrLit
+	 *     Atom returns StrLit
+	 *     Literal returns StrLit
+	 *
+	 * Constraint:
+	 *     val=STRING
+	 */
+	protected void sequence_Literal(ISerializationContext context, StrLit semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, CPackage.Literals.STR_LIT__VAL) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CPackage.Literals.STR_LIT__VAL));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getLiteralAccess().getValSTRINGTerminalRuleCall_3_1_0(), semanticObject.getVal());
 		feeder.finish();
 	}
 	

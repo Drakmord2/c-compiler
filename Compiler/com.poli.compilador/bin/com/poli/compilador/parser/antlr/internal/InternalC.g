@@ -1281,6 +1281,51 @@ ruleCommand returns [EObject current=null]
 				)
 			)
 		)
+		    |
+		(
+			(
+				{
+					$current = forceCreateModelElement(
+						grammarAccess.getCommandAccess().getPrintCmdAction_10_0(),
+						$current);
+				}
+			)
+			otherlv_72='printf'
+			{
+				newLeafNode(otherlv_72, grammarAccess.getCommandAccess().getPrintfKeyword_10_1());
+			}
+			otherlv_73='('
+			{
+				newLeafNode(otherlv_73, grammarAccess.getCommandAccess().getLeftParenthesisKeyword_10_2());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getCommandAccess().getExpExpressionParserRuleCall_10_3_0());
+					}
+					lv_exp_74_0=ruleExpression
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getCommandRule());
+						}
+						set(
+							$current,
+							"exp",
+							lv_exp_74_0,
+							"com.poli.compilador.C.Expression");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)?
+			otherlv_75=')'
+			{
+				newLeafNode(otherlv_75, grammarAccess.getCommandAccess().getRightParenthesisKeyword_10_4());
+			}
+			otherlv_76=';'
+			{
+				newLeafNode(otherlv_76, grammarAccess.getCommandAccess().getSemicolonKeyword_10_5());
+			}
+		)
 	)
 ;
 
@@ -2273,10 +2318,38 @@ ruleLiteral returns [EObject current=null]
 				newLeafNode(otherlv_5, grammarAccess.getLiteralAccess().getFalseKeyword_2_1());
 			}
 		)
+		    |
+		(
+			(
+				{
+					$current = forceCreateModelElement(
+						grammarAccess.getLiteralAccess().getStrLitAction_3_0(),
+						$current);
+				}
+			)
+			(
+				(
+					lv_val_7_0=RULE_STRING
+					{
+						newLeafNode(lv_val_7_0, grammarAccess.getLiteralAccess().getValSTRINGTerminalRuleCall_3_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getLiteralRule());
+						}
+						setWithLastConsumed(
+							$current,
+							"val",
+							lv_val_7_0,
+							"org.eclipse.xtext.common.Terminals.STRING");
+					}
+				)
+			)
+		)
 	)
 ;
 
-RULE_TYPELIT : ('int'|'bool'|'char'|'void');
+RULE_TYPELIT : ('int'|'bool'|'string'|'void');
 
 RULE_AO1 : ('+'|'-');
 

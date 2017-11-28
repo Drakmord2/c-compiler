@@ -6,14 +6,14 @@ package com.poli.compilador.c;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>continue Cmd</b></em>'.
+ * A representation of the model object '<em><b>Continue Cmd</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see com.poli.compilador.c.CPackage#getcontinueCmd()
+ * @see com.poli.compilador.c.CPackage#getContinueCmd()
  * @model
  * @generated
  */
-public interface continueCmd extends Command
+public interface ContinueCmd extends Command
 {
-} // continueCmd
+} // ContinueCmd

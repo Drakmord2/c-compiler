@@ -6,7 +6,7 @@ package com.poli.compilador.c.impl;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Command;
 import com.poli.compilador.c.Expression;
-import com.poli.compilador.c.ifCmd;
+import com.poli.compilador.c.IfCmd;
 
 import java.util.Collection;
 
@@ -25,20 +25,20 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>if Cmd</b></em>'.
+ * An implementation of the model object '<em><b>If Cmd</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.ifCmdImpl#getExp <em>Exp</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.ifCmdImpl#getTrueCommands <em>True Commands</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.ifCmdImpl#getFalseCommands <em>False Commands</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.IfCmdImpl#getExp <em>Exp</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.IfCmdImpl#getTrueCommands <em>True Commands</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.IfCmdImpl#getFalseCommands <em>False Commands</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ifCmdImpl extends CommandImpl implements ifCmd
+public class IfCmdImpl extends CommandImpl implements IfCmd
 {
   /**
    * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.
@@ -75,7 +75,7 @@ public class ifCmdImpl extends CommandImpl implements ifCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ifCmdImpl()
+  protected IfCmdImpl()
   {
     super();
   }
@@ -276,4 +276,4 @@ public class ifCmdImpl extends CommandImpl implements ifCmd
     return super.eIsSet(featureID);
   }
 
-} //ifCmdImpl
+} //IfCmdImpl

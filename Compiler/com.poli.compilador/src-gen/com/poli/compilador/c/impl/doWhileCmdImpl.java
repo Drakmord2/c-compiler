@@ -5,8 +5,8 @@ package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Command;
+import com.poli.compilador.c.DoWhileCmd;
 import com.poli.compilador.c.Expression;
-import com.poli.compilador.c.doWhileCmd;
 
 import java.util.Collection;
 
@@ -25,19 +25,19 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>do While Cmd</b></em>'.
+ * An implementation of the model object '<em><b>Do While Cmd</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.doWhileCmdImpl#getCommands <em>Commands</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.doWhileCmdImpl#getExp <em>Exp</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.DoWhileCmdImpl#getCommands <em>Commands</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.DoWhileCmdImpl#getExp <em>Exp</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class doWhileCmdImpl extends CommandImpl implements doWhileCmd
+public class DoWhileCmdImpl extends CommandImpl implements DoWhileCmd
 {
   /**
    * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference list.
@@ -64,7 +64,7 @@ public class doWhileCmdImpl extends CommandImpl implements doWhileCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  protected doWhileCmdImpl()
+  protected DoWhileCmdImpl()
   {
     super();
   }
@@ -238,4 +238,4 @@ public class doWhileCmdImpl extends CommandImpl implements doWhileCmd
     return super.eIsSet(featureID);
   }
 
-} //doWhileCmdImpl
+} //DoWhileCmdImpl

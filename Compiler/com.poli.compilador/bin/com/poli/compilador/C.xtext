@@ -15,16 +15,17 @@ Struct		: {Struct} 		'struct' name=ID '{' decl+=Declaration* '}' ';' ;
 IdDef		: tipo=Type name=Variable;
 Variable		: {Variable} ID | PointerExp;
 
-Command		: {ifCmd} 		'if''(' exp=Expression ')' '{' (trueCommands+=Command)* '}' ('else' '{' (falseCommands+=Command)* '}')?  
-			| {whileCmd} 	'while''(' exp=Expression ')' '{' (commands+=Command)* '}'
-			| {forCmd} 		'for''(' init+=lValue init+=Assignment ';' exp=Expression ';' inc+=Factor inc+=Assignment? ')' '{' (commands+=Command)* '}'	
-			| {switchCmd} 	'switch''(' exp=Expression ')''{' cases+=Case* ('default'':' (commands+=Command)* )? '}'
-			| {doWhileCmd}	'do''{' (commands+=Command)* '}' 'while''(' exp=Expression ')'';'
-			| {varCmd}		val+=Factor val+=Assignment?';'
-			| {breakCmd} 	'break'';'
-			| {continueCmd} 'continue'';' 
-			| {returnCmd} 	'return' exp=Expression? ';'
-			| {DeclCmd} 		val=Declaration ;
+Command		: {IfCmd} 		'if''(' exp=Expression ')' '{' (trueCommands+=Command)* '}' ('else' '{' (falseCommands+=Command)* '}')?  
+			| {WhileCmd} 	'while''(' exp=Expression ')' '{' (commands+=Command)* '}'
+			| {ForCmd} 		'for''(' init+=lValue init+=Assignment ';' exp=Expression ';' inc+=Factor inc+=Assignment? ')' '{' (commands+=Command)* '}'	
+			| {SwitchCmd} 	'switch''(' exp=Expression ')''{' cases+=Case* ('default'':' (commands+=Command)* )? '}'
+			| {DoWhileCmd}	'do''{' (commands+=Command)* '}' 'while''(' exp=Expression ')'';'
+			| {VarCmd}		val+=Factor val+=Assignment?';'
+			| {BreakCmd} 	'break'';'
+			| {ContinueCmd} 'continue'';' 
+			| {ReturnCmd} 	'return' exp=Expression? ';'
+			| {DeclCmd} 		val=Declaration 
+			| {PrintCmd}    'printf''(' exp=Expression? ')'';';
 			
 Argument		: exp+=Expression (',' exp+=Expression)* ;
 Assignment	: '=' exp=Expression;
@@ -52,11 +53,11 @@ PointerExp	: {PointerExp} '**' '(' exp=Expression ')' ;
 Case			: 'case' val=Atom ':' (commands+=Command)* ;
 
 Type			: tipo=TYPELIT ('[' exp=Expression? ']')?;
-Literal		: {IntLit} val=INT | {TrueLit} 'true' | {FalseLit} 'false' ;
+Literal		: {IntLit} val=INT | {TrueLit} 'true' | {FalseLit} 'false' | {StrLit} val=STRING;
 
 //--------------------------------------------------------------------
 
-terminal TYPELIT	: 'int' | 'bool' | 'char' | 'void' ;
+terminal TYPELIT	: 'int' | 'bool' | 'string' | 'void' ;
 terminal AO1		: '+' | '-' ;
 terminal AO2		: '*' | '/' ;
 terminal RO		: '>' | '>=' | '<' | '<=' | '==' | '!=' ;

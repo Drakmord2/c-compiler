@@ -9,21 +9,21 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>var Cmd</b></em>'.
+ * A representation of the model object '<em><b>Var Cmd</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.varCmd#getVal <em>Val</em>}</li>
+ *   <li>{@link com.poli.compilador.c.VarCmd#getVal <em>Val</em>}</li>
  * </ul>
  *
- * @see com.poli.compilador.c.CPackage#getvarCmd()
+ * @see com.poli.compilador.c.CPackage#getVarCmd()
  * @model
  * @generated
  */
-public interface varCmd extends Command
+public interface VarCmd extends Command
 {
   /**
    * Returns the value of the '<em><b>Val</b></em>' containment reference list.
@@ -35,10 +35,10 @@ public interface varCmd extends Command
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Val</em>' containment reference list.
-   * @see com.poli.compilador.c.CPackage#getvarCmd_Val()
+   * @see com.poli.compilador.c.CPackage#getVarCmd_Val()
    * @model containment="true"
    * @generated
    */
   EList<EObject> getVal();
 
-} // varCmd
+} // VarCmd

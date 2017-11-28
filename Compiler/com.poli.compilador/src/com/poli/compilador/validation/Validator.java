@@ -5,12 +5,12 @@ import java.util.*;
 
 public class Validator {
 
-	static enum Tipo { INT, CHAR, BOOL }
+	public static enum Tipo { INT, BOOL, STR}
 	
-	static boolean correct(Command c, Map<String,Tipo> binds) {
+	public static boolean correct(Command c, Map<String,Tipo> binds) {
 		
-		if (c instanceof ifCmd) {
-			Expression exp = ((ifCmd) c).getExp();
+		if (c instanceof IfCmd) {
+			Expression exp = ((IfCmd) c).getExp();
 			
 			if ( tipode(exp, binds) == Tipo.BOOL) {
 				return true;
@@ -22,7 +22,7 @@ public class Validator {
 		return false;
 	}
 	
-	static Tipo tipode(Expression e, Map<String,Tipo> binds) {
+	public static Tipo tipode(Expression e, Map<String,Tipo> binds) {
 
 		if (e instanceof IntLit) {
 			return Tipo.INT;
@@ -125,8 +125,8 @@ public class Validator {
 					return Tipo.INT;
 				case "bool":
 					return Tipo.BOOL;
-				case "char":
-					return Tipo.CHAR;
+				case "string":
+					return Tipo.STR;
 				default:
 					return null;
 			}

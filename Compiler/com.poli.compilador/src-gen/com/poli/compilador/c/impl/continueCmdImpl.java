@@ -4,25 +4,25 @@
 package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
-import com.poli.compilador.c.continueCmd;
+import com.poli.compilador.c.ContinueCmd;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>continue Cmd</b></em>'.
+ * An implementation of the model object '<em><b>Continue Cmd</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class continueCmdImpl extends CommandImpl implements continueCmd
+public class ContinueCmdImpl extends CommandImpl implements ContinueCmd
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected continueCmdImpl()
+  protected ContinueCmdImpl()
   {
     super();
   }
@@ -38,4 +38,4 @@ public class continueCmdImpl extends CommandImpl implements continueCmd
     return CPackage.Literals.CONTINUE_CMD;
   }
 
-} //continueCmdImpl
+} //ContinueCmdImpl

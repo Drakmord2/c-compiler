@@ -63,7 +63,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="StrDecl" eSuperTypes="#//Declaration">
     <eStructuralFeatures xsi:type="ecore:EReference" name="str" eType="#//Struct"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ifCmd" eSuperTypes="#//Command">
+  <eClassifiers xsi:type="ecore:EClass" name="IfCmd" eSuperTypes="#//Command">
     <eStructuralFeatures xsi:type="ecore:EReference" name="exp" eType="#//Expression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="trueCommands" upperBound="-1"
@@ -71,13 +71,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="falseCommands" upperBound="-1"
         eType="#//Command" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="whileCmd" eSuperTypes="#//Command">
+  <eClassifiers xsi:type="ecore:EClass" name="WhileCmd" eSuperTypes="#//Command">
     <eStructuralFeatures xsi:type="ecore:EReference" name="exp" eType="#//Expression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="commands" upperBound="-1"
         eType="#//Command" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="forCmd" eSuperTypes="#//Command">
+  <eClassifiers xsi:type="ecore:EClass" name="ForCmd" eSuperTypes="#//Command">
     <eStructuralFeatures xsi:type="ecore:EReference" name="init" upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="exp" eType="#//Expression"
@@ -87,7 +87,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="commands" upperBound="-1"
         eType="#//Command" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="switchCmd" eSuperTypes="#//Command">
+  <eClassifiers xsi:type="ecore:EClass" name="SwitchCmd" eSuperTypes="#//Command">
     <eStructuralFeatures xsi:type="ecore:EReference" name="exp" eType="#//Expression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cases" upperBound="-1"
@@ -95,24 +95,28 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="commands" upperBound="-1"
         eType="#//Command" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="doWhileCmd" eSuperTypes="#//Command">
+  <eClassifiers xsi:type="ecore:EClass" name="DoWhileCmd" eSuperTypes="#//Command">
     <eStructuralFeatures xsi:type="ecore:EReference" name="commands" upperBound="-1"
         eType="#//Command" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="exp" eType="#//Expression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="varCmd" eSuperTypes="#//Command">
+  <eClassifiers xsi:type="ecore:EClass" name="VarCmd" eSuperTypes="#//Command">
     <eStructuralFeatures xsi:type="ecore:EReference" name="val" upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="breakCmd" eSuperTypes="#//Command"/>
-  <eClassifiers xsi:type="ecore:EClass" name="continueCmd" eSuperTypes="#//Command"/>
-  <eClassifiers xsi:type="ecore:EClass" name="returnCmd" eSuperTypes="#//Command">
+  <eClassifiers xsi:type="ecore:EClass" name="BreakCmd" eSuperTypes="#//Command"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ContinueCmd" eSuperTypes="#//Command"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ReturnCmd" eSuperTypes="#//Command">
     <eStructuralFeatures xsi:type="ecore:EReference" name="exp" eType="#//Expression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DeclCmd" eSuperTypes="#//Command">
     <eStructuralFeatures xsi:type="ecore:EReference" name="val" eType="#//Declaration"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PrintCmd" eSuperTypes="#//Command">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="exp" eType="#//Expression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LogicExp" eSuperTypes="#//Expression">
@@ -174,4 +178,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TrueLit" eSuperTypes="#//Literal"/>
   <eClassifiers xsi:type="ecore:EClass" name="FalseLit" eSuperTypes="#//Literal"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StrLit" eSuperTypes="#//Literal">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="val" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>

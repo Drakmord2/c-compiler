@@ -7,22 +7,22 @@ import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>while Cmd</b></em>'.
+ * A representation of the model object '<em><b>While Cmd</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.whileCmd#getExp <em>Exp</em>}</li>
- *   <li>{@link com.poli.compilador.c.whileCmd#getCommands <em>Commands</em>}</li>
+ *   <li>{@link com.poli.compilador.c.WhileCmd#getExp <em>Exp</em>}</li>
+ *   <li>{@link com.poli.compilador.c.WhileCmd#getCommands <em>Commands</em>}</li>
  * </ul>
  *
- * @see com.poli.compilador.c.CPackage#getwhileCmd()
+ * @see com.poli.compilador.c.CPackage#getWhileCmd()
  * @model
  * @generated
  */
-public interface whileCmd extends Command
+public interface WhileCmd extends Command
 {
   /**
    * Returns the value of the '<em><b>Exp</b></em>' containment reference.
@@ -34,14 +34,14 @@ public interface whileCmd extends Command
    * <!-- end-user-doc -->
    * @return the value of the '<em>Exp</em>' containment reference.
    * @see #setExp(Expression)
-   * @see com.poli.compilador.c.CPackage#getwhileCmd_Exp()
+   * @see com.poli.compilador.c.CPackage#getWhileCmd_Exp()
    * @model containment="true"
    * @generated
    */
   Expression getExp();
 
   /**
-   * Sets the value of the '{@link com.poli.compilador.c.whileCmd#getExp <em>Exp</em>}' containment reference.
+   * Sets the value of the '{@link com.poli.compilador.c.WhileCmd#getExp <em>Exp</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Exp</em>' containment reference.
@@ -60,10 +60,10 @@ public interface whileCmd extends Command
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Commands</em>' containment reference list.
-   * @see com.poli.compilador.c.CPackage#getwhileCmd_Commands()
+   * @see com.poli.compilador.c.CPackage#getWhileCmd_Commands()
    * @model containment="true"
    * @generated
    */
   EList<Command> getCommands();
 
-} // whileCmd
+} // WhileCmd

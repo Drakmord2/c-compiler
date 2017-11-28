@@ -4,19 +4,20 @@
 package com.poli.compilador.validation;
 
 import com.google.common.base.Objects;
+import com.poli.compilador.c.ArrayAccess;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Declaration;
 import com.poli.compilador.c.Definition;
+import com.poli.compilador.c.DoWhileCmd;
 import com.poli.compilador.c.Expression;
 import com.poli.compilador.c.FieldAccess;
+import com.poli.compilador.c.ForCmd;
+import com.poli.compilador.c.IfCmd;
 import com.poli.compilador.c.StrDecl;
 import com.poli.compilador.c.Struct;
+import com.poli.compilador.c.SwitchCmd;
 import com.poli.compilador.c.Var;
-import com.poli.compilador.c.doWhileCmd;
-import com.poli.compilador.c.forCmd;
-import com.poli.compilador.c.ifCmd;
-import com.poli.compilador.c.switchCmd;
-import com.poli.compilador.c.whileCmd;
+import com.poli.compilador.c.WhileCmd;
 import com.poli.compilador.validation.AbstractCValidator;
 import com.poli.compilador.validation.Validator;
 import org.eclipse.emf.common.util.EList;
@@ -30,7 +31,7 @@ import org.eclipse.xtext.validation.Check;
 @SuppressWarnings("all")
 public class CValidator extends AbstractCValidator {
   @Check
-  public void checkIf(final ifCmd c) {
+  public void checkIf(final IfCmd c) {
     final Validator.Tipo tipo = Validator.tipode(c.getExp(), null);
     boolean _notEquals = (!Objects.equal(tipo, Validator.Tipo.BOOL));
     if (_notEquals) {
@@ -39,7 +40,7 @@ public class CValidator extends AbstractCValidator {
   }
   
   @Check
-  public void checkWhile(final whileCmd c) {
+  public void checkWhile(final WhileCmd c) {
     final Validator.Tipo tipo = Validator.tipode(c.getExp(), null);
     boolean _notEquals = (!Objects.equal(tipo, Validator.Tipo.BOOL));
     if (_notEquals) {
@@ -48,7 +49,7 @@ public class CValidator extends AbstractCValidator {
   }
   
   @Check
-  public void checkDoWhile(final doWhileCmd c) {
+  public void checkDoWhile(final DoWhileCmd c) {
     final Validator.Tipo tipo = Validator.tipode(c.getExp(), null);
     boolean _notEquals = (!Objects.equal(tipo, Validator.Tipo.BOOL));
     if (_notEquals) {
@@ -57,7 +58,7 @@ public class CValidator extends AbstractCValidator {
   }
   
   @Check
-  public void checkSwitch(final switchCmd c) {
+  public void checkSwitch(final SwitchCmd c) {
     final Validator.Tipo tipo = Validator.tipode(c.getExp(), null);
     boolean _notEquals = (!Objects.equal(tipo, Validator.Tipo.BOOL));
     if (_notEquals) {
@@ -66,7 +67,7 @@ public class CValidator extends AbstractCValidator {
   }
   
   @Check
-  public void checkFor(final forCmd c) {
+  public void checkFor(final ForCmd c) {
     final Validator.Tipo tipo = Validator.tipode(c.getExp(), null);
     boolean _notEquals = (!Objects.equal(tipo, Validator.Tipo.BOOL));
     if (_notEquals) {
@@ -82,7 +83,7 @@ public class CValidator extends AbstractCValidator {
       Definition _valor = lvalue.getValor();
       boolean _notEquals = ((_valor instanceof StrDecl) != true);
       if (_notEquals) {
-        this.error("Illegal access. Not a struct.", v, CPackage.Literals.FIELD_ACCESS__OBJ);
+        this.error("Illegal access. Not a Struct.", v, CPackage.Literals.FIELD_ACCESS__OBJ);
         return;
       }
       Definition _valor_1 = lvalue.getValor();
@@ -98,6 +99,8 @@ public class CValidator extends AbstractCValidator {
         }
       }
       this.error("Struct field not defined.", v, CPackage.Literals.FIELD_ACCESS__FIELD);
+    }
+    if ((v instanceof ArrayAccess)) {
     }
   }
 }

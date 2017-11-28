@@ -161,54 +161,59 @@ public class CAdapterFactory extends AdapterFactoryImpl
         return createStrDeclAdapter();
       }
       @Override
-      public Adapter caseifCmd(ifCmd object)
+      public Adapter caseIfCmd(IfCmd object)
       {
-        return createifCmdAdapter();
+        return createIfCmdAdapter();
       }
       @Override
-      public Adapter casewhileCmd(whileCmd object)
+      public Adapter caseWhileCmd(WhileCmd object)
       {
-        return createwhileCmdAdapter();
+        return createWhileCmdAdapter();
       }
       @Override
-      public Adapter caseforCmd(forCmd object)
+      public Adapter caseForCmd(ForCmd object)
       {
-        return createforCmdAdapter();
+        return createForCmdAdapter();
       }
       @Override
-      public Adapter caseswitchCmd(switchCmd object)
+      public Adapter caseSwitchCmd(SwitchCmd object)
       {
-        return createswitchCmdAdapter();
+        return createSwitchCmdAdapter();
       }
       @Override
-      public Adapter casedoWhileCmd(doWhileCmd object)
+      public Adapter caseDoWhileCmd(DoWhileCmd object)
       {
-        return createdoWhileCmdAdapter();
+        return createDoWhileCmdAdapter();
       }
       @Override
-      public Adapter casevarCmd(varCmd object)
+      public Adapter caseVarCmd(VarCmd object)
       {
-        return createvarCmdAdapter();
+        return createVarCmdAdapter();
       }
       @Override
-      public Adapter casebreakCmd(breakCmd object)
+      public Adapter caseBreakCmd(BreakCmd object)
       {
-        return createbreakCmdAdapter();
+        return createBreakCmdAdapter();
       }
       @Override
-      public Adapter casecontinueCmd(continueCmd object)
+      public Adapter caseContinueCmd(ContinueCmd object)
       {
-        return createcontinueCmdAdapter();
+        return createContinueCmdAdapter();
       }
       @Override
-      public Adapter casereturnCmd(returnCmd object)
+      public Adapter caseReturnCmd(ReturnCmd object)
       {
-        return createreturnCmdAdapter();
+        return createReturnCmdAdapter();
       }
       @Override
       public Adapter caseDeclCmd(DeclCmd object)
       {
         return createDeclCmdAdapter();
+      }
+      @Override
+      public Adapter casePrintCmd(PrintCmd object)
+      {
+        return createPrintCmdAdapter();
       }
       @Override
       public Adapter caseLogicExp(LogicExp object)
@@ -279,6 +284,11 @@ public class CAdapterFactory extends AdapterFactoryImpl
       public Adapter caseFalseLit(FalseLit object)
       {
         return createFalseLitAdapter();
+      }
+      @Override
+      public Adapter caseStrLit(StrLit object)
+      {
+        return createStrLitAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -558,136 +568,136 @@ public class CAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.ifCmd <em>if Cmd</em>}'.
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.IfCmd <em>If Cmd</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.poli.compilador.c.ifCmd
+   * @see com.poli.compilador.c.IfCmd
    * @generated
    */
-  public Adapter createifCmdAdapter()
+  public Adapter createIfCmdAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.whileCmd <em>while Cmd</em>}'.
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.WhileCmd <em>While Cmd</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.poli.compilador.c.whileCmd
+   * @see com.poli.compilador.c.WhileCmd
    * @generated
    */
-  public Adapter createwhileCmdAdapter()
+  public Adapter createWhileCmdAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.forCmd <em>for Cmd</em>}'.
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.ForCmd <em>For Cmd</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.poli.compilador.c.forCmd
+   * @see com.poli.compilador.c.ForCmd
    * @generated
    */
-  public Adapter createforCmdAdapter()
+  public Adapter createForCmdAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.switchCmd <em>switch Cmd</em>}'.
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.SwitchCmd <em>Switch Cmd</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.poli.compilador.c.switchCmd
+   * @see com.poli.compilador.c.SwitchCmd
    * @generated
    */
-  public Adapter createswitchCmdAdapter()
+  public Adapter createSwitchCmdAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.doWhileCmd <em>do While Cmd</em>}'.
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.DoWhileCmd <em>Do While Cmd</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.poli.compilador.c.doWhileCmd
+   * @see com.poli.compilador.c.DoWhileCmd
    * @generated
    */
-  public Adapter createdoWhileCmdAdapter()
+  public Adapter createDoWhileCmdAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.varCmd <em>var Cmd</em>}'.
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.VarCmd <em>Var Cmd</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.poli.compilador.c.varCmd
+   * @see com.poli.compilador.c.VarCmd
    * @generated
    */
-  public Adapter createvarCmdAdapter()
+  public Adapter createVarCmdAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.breakCmd <em>break Cmd</em>}'.
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.BreakCmd <em>Break Cmd</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.poli.compilador.c.breakCmd
+   * @see com.poli.compilador.c.BreakCmd
    * @generated
    */
-  public Adapter createbreakCmdAdapter()
+  public Adapter createBreakCmdAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.continueCmd <em>continue Cmd</em>}'.
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.ContinueCmd <em>Continue Cmd</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.poli.compilador.c.continueCmd
+   * @see com.poli.compilador.c.ContinueCmd
    * @generated
    */
-  public Adapter createcontinueCmdAdapter()
+  public Adapter createContinueCmdAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.returnCmd <em>return Cmd</em>}'.
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.ReturnCmd <em>Return Cmd</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.poli.compilador.c.returnCmd
+   * @see com.poli.compilador.c.ReturnCmd
    * @generated
    */
-  public Adapter createreturnCmdAdapter()
+  public Adapter createReturnCmdAdapter()
   {
     return null;
   }
@@ -703,6 +713,21 @@ public class CAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDeclCmdAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.PrintCmd <em>Print Cmd</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.poli.compilador.c.PrintCmd
+   * @generated
+   */
+  public Adapter createPrintCmdAdapter()
   {
     return null;
   }
@@ -913,6 +938,21 @@ public class CAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createFalseLitAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.StrLit <em>Str Lit</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.poli.compilador.c.StrLit
+   * @generated
+   */
+  public Adapter createStrLitAdapter()
   {
     return null;
   }

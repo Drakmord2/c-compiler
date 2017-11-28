@@ -3,26 +3,26 @@
  */
 package com.poli.compilador.c.impl;
 
+import com.poli.compilador.c.BreakCmd;
 import com.poli.compilador.c.CPackage;
-import com.poli.compilador.c.breakCmd;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>break Cmd</b></em>'.
+ * An implementation of the model object '<em><b>Break Cmd</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class breakCmdImpl extends CommandImpl implements breakCmd
+public class BreakCmdImpl extends CommandImpl implements BreakCmd
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected breakCmdImpl()
+  protected BreakCmdImpl()
   {
     super();
   }
@@ -38,4 +38,4 @@ public class breakCmdImpl extends CommandImpl implements breakCmd
     return CPackage.Literals.BREAK_CMD;
   }
 
-} //breakCmdImpl
+} //BreakCmdImpl

@@ -4,52 +4,55 @@
 package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
-import com.poli.compilador.c.VarCmd;
+import com.poli.compilador.c.StrLit;
 
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Var Cmd</b></em>'.
+ * An implementation of the model object '<em><b>Str Lit</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.VarCmdImpl#getVal <em>Val</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.StrLitImpl#getVal <em>Val</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class VarCmdImpl extends CommandImpl implements VarCmd
+public class StrLitImpl extends LiteralImpl implements StrLit
 {
   /**
-   * The cached value of the '{@link #getVal() <em>Val</em>}' containment reference list.
+   * The default value of the '{@link #getVal() <em>Val</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getVal()
    * @generated
    * @ordered
    */
-  protected EList<EObject> val;
+  protected static final String VAL_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getVal() <em>Val</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVal()
+   * @generated
+   * @ordered
+   */
+  protected String val = VAL_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected VarCmdImpl()
+  protected StrLitImpl()
   {
     super();
   }
@@ -62,7 +65,7 @@ public class VarCmdImpl extends CommandImpl implements VarCmd
   @Override
   protected EClass eStaticClass()
   {
-    return CPackage.Literals.VAR_CMD;
+    return CPackage.Literals.STR_LIT;
   }
 
   /**
@@ -70,12 +73,8 @@ public class VarCmdImpl extends CommandImpl implements VarCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<EObject> getVal()
+  public String getVal()
   {
-    if (val == null)
-    {
-      val = new EObjectContainmentEList<EObject>(EObject.class, this, CPackage.VAR_CMD__VAL);
-    }
     return val;
   }
 
@@ -84,15 +83,12 @@ public class VarCmdImpl extends CommandImpl implements VarCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  public void setVal(String newVal)
   {
-    switch (featureID)
-    {
-      case CPackage.VAR_CMD__VAL:
-        return ((InternalEList<?>)getVal()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
+    String oldVal = val;
+    val = newVal;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.STR_LIT__VAL, oldVal, val));
   }
 
   /**
@@ -105,7 +101,7 @@ public class VarCmdImpl extends CommandImpl implements VarCmd
   {
     switch (featureID)
     {
-      case CPackage.VAR_CMD__VAL:
+      case CPackage.STR_LIT__VAL:
         return getVal();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -116,15 +112,13 @@ public class VarCmdImpl extends CommandImpl implements VarCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case CPackage.VAR_CMD__VAL:
-        getVal().clear();
-        getVal().addAll((Collection<? extends EObject>)newValue);
+      case CPackage.STR_LIT__VAL:
+        setVal((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -140,8 +134,8 @@ public class VarCmdImpl extends CommandImpl implements VarCmd
   {
     switch (featureID)
     {
-      case CPackage.VAR_CMD__VAL:
-        getVal().clear();
+      case CPackage.STR_LIT__VAL:
+        setVal(VAL_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -157,10 +151,27 @@ public class VarCmdImpl extends CommandImpl implements VarCmd
   {
     switch (featureID)
     {
-      case CPackage.VAR_CMD__VAL:
-        return val != null && !val.isEmpty();
+      case CPackage.STR_LIT__VAL:
+        return VAL_EDEFAULT == null ? val != null : !VAL_EDEFAULT.equals(val);
     }
     return super.eIsSet(featureID);
   }
 
-} //VarCmdImpl
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (val: ");
+    result.append(val);
+    result.append(')');
+    return result.toString();
+  }
+
+} //StrLitImpl

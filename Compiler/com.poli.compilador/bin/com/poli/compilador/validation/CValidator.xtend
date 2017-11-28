@@ -3,17 +3,18 @@
  */
 package com.poli.compilador.validation
 
-import org.eclipse.xtext.validation.Check
+import com.poli.compilador.c.ArrayAccess
 import com.poli.compilador.c.CPackage
-import com.poli.compilador.c.ifCmd
-import com.poli.compilador.c.whileCmd
-import com.poli.compilador.c.doWhileCmd
-import com.poli.compilador.c.forCmd
-import com.poli.compilador.c.switchCmd
+import com.poli.compilador.c.DoWhileCmd
 import com.poli.compilador.c.Expression
 import com.poli.compilador.c.FieldAccess
-import com.poli.compilador.c.Var
+import com.poli.compilador.c.ForCmd
+import com.poli.compilador.c.IfCmd
 import com.poli.compilador.c.StrDecl
+import com.poli.compilador.c.SwitchCmd
+import com.poli.compilador.c.Var
+import com.poli.compilador.c.WhileCmd
+import org.eclipse.xtext.validation.Check
 
 /**
  * This class contains custom validation rules. 
@@ -23,7 +24,7 @@ import com.poli.compilador.c.StrDecl
 class CValidator extends AbstractCValidator {
 	
 	@Check
-	def checkIf (ifCmd c) {
+	def checkIf (IfCmd c) {
 		val tipo = Validator.tipode(c.exp, null)
 		
 		if ( tipo != Validator.Tipo.BOOL) {
@@ -32,7 +33,7 @@ class CValidator extends AbstractCValidator {
 	} 
 	
 	@Check
-	def checkWhile (whileCmd c) {
+	def checkWhile (WhileCmd c) {
 		val tipo = Validator.tipode(c.exp, null)
 		
 		if ( tipo != Validator.Tipo.BOOL) {
@@ -41,7 +42,7 @@ class CValidator extends AbstractCValidator {
 	}
 	
 	@Check
-	def checkDoWhile (doWhileCmd c) {
+	def checkDoWhile (DoWhileCmd c) {
 		val tipo = Validator.tipode(c.exp, null)
 		
 		if ( tipo != Validator.Tipo.BOOL) {
@@ -50,7 +51,7 @@ class CValidator extends AbstractCValidator {
 	}
 	
 	@Check
-	def checkSwitch (switchCmd c) {
+	def checkSwitch (SwitchCmd c) {
 		val tipo = Validator.tipode(c.exp, null)
 		
 		if ( tipo != Validator.Tipo.BOOL) {
@@ -59,7 +60,7 @@ class CValidator extends AbstractCValidator {
 	}
 	
 	@Check
-	def checkFor (forCmd c) {
+	def checkFor (ForCmd c) {
 		val tipo = Validator.tipode(c.exp, null)
 		
 		if ( tipo != Validator.Tipo.BOOL) {
@@ -73,7 +74,7 @@ class CValidator extends AbstractCValidator {
 			val lvalue 	= v.obj as Var
 			
 			if (lvalue.valor instanceof StrDecl != true) {
-				error('Illegal access. Not a struct.', v, CPackage.Literals.FIELD_ACCESS__OBJ)
+				error('Illegal access. Not a Struct.', v, CPackage.Literals.FIELD_ACCESS__OBJ)
 				return
 			}
 			
@@ -91,6 +92,9 @@ class CValidator extends AbstractCValidator {
 			error('Struct field not defined.', v, CPackage.Literals.FIELD_ACCESS__FIELD)
 		}
 		
+		if (v instanceof ArrayAccess) {
+			
+		}
 	}
 	
 }

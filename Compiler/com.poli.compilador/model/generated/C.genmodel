@@ -55,40 +55,43 @@
     <genClasses ecoreClass="C.ecore#//StrDecl">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference C.ecore#//StrDecl/str"/>
     </genClasses>
-    <genClasses ecoreClass="C.ecore#//ifCmd">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ifCmd/exp"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ifCmd/trueCommands"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ifCmd/falseCommands"/>
+    <genClasses ecoreClass="C.ecore#//IfCmd">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//IfCmd/exp"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//IfCmd/trueCommands"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//IfCmd/falseCommands"/>
     </genClasses>
-    <genClasses ecoreClass="C.ecore#//whileCmd">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//whileCmd/exp"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//whileCmd/commands"/>
+    <genClasses ecoreClass="C.ecore#//WhileCmd">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//WhileCmd/exp"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//WhileCmd/commands"/>
     </genClasses>
-    <genClasses ecoreClass="C.ecore#//forCmd">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//forCmd/init"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//forCmd/exp"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//forCmd/inc"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//forCmd/commands"/>
+    <genClasses ecoreClass="C.ecore#//ForCmd">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ForCmd/init"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ForCmd/exp"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ForCmd/inc"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ForCmd/commands"/>
     </genClasses>
-    <genClasses ecoreClass="C.ecore#//switchCmd">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//switchCmd/exp"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//switchCmd/cases"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//switchCmd/commands"/>
+    <genClasses ecoreClass="C.ecore#//SwitchCmd">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//SwitchCmd/exp"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//SwitchCmd/cases"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//SwitchCmd/commands"/>
     </genClasses>
-    <genClasses ecoreClass="C.ecore#//doWhileCmd">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//doWhileCmd/commands"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//doWhileCmd/exp"/>
+    <genClasses ecoreClass="C.ecore#//DoWhileCmd">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//DoWhileCmd/commands"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//DoWhileCmd/exp"/>
     </genClasses>
-    <genClasses ecoreClass="C.ecore#//varCmd">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//varCmd/val"/>
+    <genClasses ecoreClass="C.ecore#//VarCmd">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//VarCmd/val"/>
     </genClasses>
-    <genClasses ecoreClass="C.ecore#//breakCmd"/>
-    <genClasses ecoreClass="C.ecore#//continueCmd"/>
-    <genClasses ecoreClass="C.ecore#//returnCmd">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//returnCmd/exp"/>
+    <genClasses ecoreClass="C.ecore#//BreakCmd"/>
+    <genClasses ecoreClass="C.ecore#//ContinueCmd"/>
+    <genClasses ecoreClass="C.ecore#//ReturnCmd">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ReturnCmd/exp"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//DeclCmd">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//DeclCmd/val"/>
+    </genClasses>
+    <genClasses ecoreClass="C.ecore#//PrintCmd">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//PrintCmd/exp"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//LogicExp">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//LogicExp/args"/>
@@ -137,5 +140,8 @@
     </genClasses>
     <genClasses ecoreClass="C.ecore#//TrueLit"/>
     <genClasses ecoreClass="C.ecore#//FalseLit"/>
+    <genClasses ecoreClass="C.ecore#//StrLit">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//StrLit/val"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>
