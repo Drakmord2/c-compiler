@@ -6,34 +6,20 @@ package com.poli.compilador.generator;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterators;
 import com.poli.compilador.c.Argument;
-import com.poli.compilador.c.ArithExp;
-import com.poli.compilador.c.ArrayAccess;
 import com.poli.compilador.c.Assignment;
 import com.poli.compilador.c.Command;
 import com.poli.compilador.c.Declaration;
 import com.poli.compilador.c.Definition;
 import com.poli.compilador.c.Expression;
-import com.poli.compilador.c.FalseLit;
-import com.poli.compilador.c.FieldAccess;
-import com.poli.compilador.c.FuncCall;
 import com.poli.compilador.c.Function;
 import com.poli.compilador.c.IfCmd;
-import com.poli.compilador.c.IntLit;
-import com.poli.compilador.c.LogicExp;
-import com.poli.compilador.c.Parenteses;
-import com.poli.compilador.c.PointerExp;
-import com.poli.compilador.c.PostfixOp;
-import com.poli.compilador.c.PrefixOp;
 import com.poli.compilador.c.PrintCmd;
 import com.poli.compilador.c.Program;
-import com.poli.compilador.c.RelExp;
-import com.poli.compilador.c.StrLit;
+import com.poli.compilador.c.ReturnCmd;
 import com.poli.compilador.c.Struct;
-import com.poli.compilador.c.Term;
-import com.poli.compilador.c.TrueLit;
-import com.poli.compilador.c.Var;
 import com.poli.compilador.c.VarCmd;
 import com.poli.compilador.validation.Validator;
+import java.util.Stack;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -51,6 +37,8 @@ import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 @SuppressWarnings("all")
 public class CGenerator extends AbstractGenerator {
   public int label = 0;
+  
+  public Stack<String> fName = new Stack<String>();
   
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
@@ -106,15 +94,11 @@ public class CGenerator extends AbstractGenerator {
         _switchResult = _builder_1;
       }
     }
-    if (!_matched) {
-      StringConcatenation _builder_2 = new StringConcatenation();
-      _builder_2.append("# Definition");
-      _switchResult = _builder_2;
-    }
     return _switchResult;
   }
   
-  public CharSequence function(final Function F) {
+  public String function(final Function F) {
+    this.fName.push(F.getName());
     StringConcatenation _builder = new StringConcatenation();
     _builder.append(".text");
     _builder.newLine();
@@ -149,12 +133,13 @@ public class CGenerator extends AbstractGenerator {
       }
     }
     _builder.append("    ");
-    CharSequence _functionExit = this.functionExit(F.getName(), 0);
+    CharSequence _functionExit = this.functionExit(0);
     _builder.append(_functionExit, "    ");
     _builder.newLineIfNotEmpty();
     _builder.append("    ");
     _builder.newLine();
-    return _builder;
+    String str = _builder.toString();
+    return str;
   }
   
   public CharSequence functionEntry(final int paramSize, final int localSize) {
@@ -178,9 +163,10 @@ public class CGenerator extends AbstractGenerator {
     return _builder;
   }
   
-  public CharSequence functionExit(final String funcName, final int paramSize) {
+  public CharSequence functionExit(final int paramSize) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append(funcName);
+    String _pop = this.fName.pop();
+    _builder.append(_pop);
     _builder.append("_return:");
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
@@ -216,6 +202,12 @@ public class CGenerator extends AbstractGenerator {
       if ((C instanceof IfCmd)) {
         _matched=true;
         _switchResult = this.ifCommand(((IfCmd) C));
+      }
+    }
+    if (!_matched) {
+      if ((C instanceof ReturnCmd)) {
+        _matched=true;
+        _switchResult = this.returnCommand(((ReturnCmd) C));
       }
     }
     return _switchResult;
@@ -257,54 +249,98 @@ public class CGenerator extends AbstractGenerator {
   
   public CharSequence ifCommand(final IfCmd C) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("# If");
-    String temp = _builder.toString();
-    String _temp = temp;
+    String str = _builder.toString();
+    final String falsel = this.nextLabel();
+    final String truel = this.nextLabel();
+    String _str = str;
     StringConcatenation _builder_1 = new StringConcatenation();
-    _builder_1.append(" ");
     _builder_1.newLine();
     CharSequence _expression = this.expression(C.getExp());
     _builder_1.append(_expression);
     _builder_1.newLineIfNotEmpty();
-    temp = (_temp + _builder_1);
+    _builder_1.newLine();
+    str = (_str + _builder_1);
+    String _str_1 = str;
+    CharSequence _pop = this.pop("t0");
+    str = (_str_1 + _pop);
+    String _str_2 = str;
+    StringConcatenation _builder_2 = new StringConcatenation();
+    _builder_2.append("bne $t0, 1, ");
+    _builder_2.append(falsel);
+    _builder_2.newLineIfNotEmpty();
+    _builder_2.newLine();
+    str = (_str_2 + _builder_2);
     EList<Command> _trueCommands = C.getTrueCommands();
     for (final Command tc : _trueCommands) {
-      String _temp_1 = temp;
-      StringConcatenation _builder_2 = new StringConcatenation();
+      String _str_3 = str;
+      StringConcatenation _builder_3 = new StringConcatenation();
       CharSequence _command = this.command(tc);
-      _builder_2.append(_command);
-      _builder_2.newLineIfNotEmpty();
-      temp = (_temp_1 + _builder_2);
+      _builder_3.append(_command);
+      _builder_3.newLineIfNotEmpty();
+      str = (_str_3 + _builder_3);
     }
-    String _temp_2 = temp;
-    StringConcatenation _builder_3 = new StringConcatenation();
-    _builder_3.newLine();
-    String _nextLabel = this.nextLabel();
-    _builder_3.append(_nextLabel);
-    _builder_3.append(":");
-    _builder_3.newLineIfNotEmpty();
-    temp = (_temp_2 + _builder_3);
+    String _str_4 = str;
+    StringConcatenation _builder_4 = new StringConcatenation();
+    _builder_4.append("j ");
+    _builder_4.append(truel);
+    _builder_4.newLineIfNotEmpty();
+    _builder_4.newLine();
+    str = (_str_4 + _builder_4);
+    String _str_5 = str;
+    StringConcatenation _builder_5 = new StringConcatenation();
+    _builder_5.append(falsel);
+    _builder_5.append(":");
+    _builder_5.newLineIfNotEmpty();
+    str = (_str_5 + _builder_5);
     EList<Command> _falseCommands = C.getFalseCommands();
     boolean _tripleNotEquals = (_falseCommands != null);
     if (_tripleNotEquals) {
       EList<Command> _falseCommands_1 = C.getFalseCommands();
       for (final Command fc : _falseCommands_1) {
-        String _temp_3 = temp;
-        StringConcatenation _builder_4 = new StringConcatenation();
+        String _str_6 = str;
+        StringConcatenation _builder_6 = new StringConcatenation();
         CharSequence _command_1 = this.command(fc);
-        _builder_4.append(_command_1);
-        _builder_4.newLineIfNotEmpty();
-        temp = (_temp_3 + _builder_4);
+        _builder_6.append(_command_1);
+        _builder_6.newLineIfNotEmpty();
+        str = (_str_6 + _builder_6);
       }
-      String _temp_4 = temp;
-      StringConcatenation _builder_5 = new StringConcatenation();
-      String _nextLabel_1 = this.nextLabel();
-      _builder_5.append(_nextLabel_1);
-      _builder_5.append(":");
-      _builder_5.newLineIfNotEmpty();
-      temp = (_temp_4 + _builder_5);
     }
-    return temp;
+    String _str_7 = str;
+    StringConcatenation _builder_7 = new StringConcatenation();
+    _builder_7.newLine();
+    _builder_7.append(truel);
+    _builder_7.append(":");
+    _builder_7.newLineIfNotEmpty();
+    str = (_str_7 + _builder_7);
+    return str;
+  }
+  
+  public String returnCommand(final ReturnCmd C) {
+    String _xblockexpression = null;
+    {
+      StringConcatenation _builder = new StringConcatenation();
+      String str = _builder.toString();
+      Expression _exp = C.getExp();
+      boolean _tripleNotEquals = (_exp != null);
+      if (_tripleNotEquals) {
+        String _str = str;
+        CharSequence _expression = this.expression(C.getExp());
+        str = (_str + _expression);
+        String _str_1 = str;
+        CharSequence _pop = this.pop("v0");
+        str = (_str_1 + _pop);
+      }
+      String _str_2 = str;
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("j ");
+      String _peek = this.fName.peek();
+      _builder_1.append(_peek);
+      _builder_1.append("_return");
+      _builder_1.newLineIfNotEmpty();
+      _builder_1.newLine();
+      _xblockexpression = str = (_str_2 + _builder_1);
+    }
+    return _xblockexpression;
   }
   
   public CharSequence varCommand(final VarCmd V) {
@@ -343,109 +379,8 @@ public class CGenerator extends AbstractGenerator {
   }
   
   public CharSequence expression(final Expression E) {
-    CharSequence _xblockexpression = null;
-    {
-      if ((E instanceof ArithExp)) {
-        boolean _equalsIgnoreCase = ((ArithExp)E).getOp().equalsIgnoreCase("+");
-        if (_equalsIgnoreCase) {
-          StringConcatenation _builder = new StringConcatenation();
-          _builder.append("# add(u)");
-          return _builder;
-        }
-        boolean _equalsIgnoreCase_1 = ((ArithExp)E).getOp().equalsIgnoreCase("-");
-        if (_equalsIgnoreCase_1) {
-          StringConcatenation _builder_1 = new StringConcatenation();
-          _builder_1.append("# sub(u)");
-          return _builder_1;
-        }
-        boolean _equalsIgnoreCase_2 = ((ArithExp)E).getOp().equalsIgnoreCase("*");
-        if (_equalsIgnoreCase_2) {
-          StringConcatenation _builder_2 = new StringConcatenation();
-          _builder_2.append("# mul(u)");
-          return _builder_2;
-        }
-        boolean _equalsIgnoreCase_3 = ((ArithExp)E).getOp().equalsIgnoreCase("/");
-        if (_equalsIgnoreCase_3) {
-          StringConcatenation _builder_3 = new StringConcatenation();
-          _builder_3.append("# div(u)");
-          return _builder_3;
-        }
-      }
-      if ((E instanceof LogicExp)) {
-      }
-      if ((E instanceof RelExp)) {
-      }
-      if ((E instanceof Term)) {
-      }
-      if ((E instanceof PostfixOp)) {
-      }
-      if ((E instanceof PrefixOp)) {
-      }
-      if ((E instanceof Parenteses)) {
-        return this.expression(((Parenteses)E).getExp());
-      }
-      if ((E instanceof FuncCall)) {
-      }
-      if ((E instanceof FieldAccess)) {
-      }
-      if ((E instanceof ArrayAccess)) {
-      }
-      if ((E instanceof PointerExp)) {
-      }
-      CharSequence _switchResult = null;
-      boolean _matched = false;
-      if ((E instanceof Var)) {
-        _matched=true;
-        StringConcatenation _builder_4 = new StringConcatenation();
-        _builder_4.append("# Var ");
-        String _name = ((Var) E).getValor().getName();
-        _builder_4.append(_name);
-        _switchResult = _builder_4;
-      }
-      if (!_matched) {
-        if ((E instanceof IntLit)) {
-          _matched=true;
-          StringConcatenation _builder_5 = new StringConcatenation();
-          int _val = ((IntLit) E).getVal();
-          _builder_5.append(_val);
-          _switchResult = _builder_5;
-        }
-      }
-      if (!_matched) {
-        if ((E instanceof TrueLit)) {
-          _matched=true;
-          StringConcatenation _builder_6 = new StringConcatenation();
-          String _string = ((TrueLit) E).toString();
-          _builder_6.append(_string);
-          _switchResult = _builder_6;
-        }
-      }
-      if (!_matched) {
-        if ((E instanceof FalseLit)) {
-          _matched=true;
-          StringConcatenation _builder_7 = new StringConcatenation();
-          String _string_1 = ((FalseLit) E).toString();
-          _builder_7.append(_string_1);
-          _switchResult = _builder_7;
-        }
-      }
-      if (!_matched) {
-        if ((E instanceof StrLit)) {
-          _matched=true;
-          StringConcatenation _builder_8 = new StringConcatenation();
-          String _val_1 = ((StrLit) E).getVal();
-          _builder_8.append(_val_1);
-          _switchResult = _builder_8;
-        }
-      }
-      if (!_matched) {
-        StringConcatenation _builder_9 = new StringConcatenation();
-        _builder_9.append("# Expression");
-        _switchResult = _builder_9;
-      }
-      _xblockexpression = _switchResult;
-    }
-    return _xblockexpression;
+    StringConcatenation _builder = new StringConcatenation();
+    return _builder;
   }
   
   public CharSequence assign(final Assignment A) {

@@ -44,6 +44,7 @@ import org.eclipse.xtext.generator.IGeneratorContext
 import com.poli.compilador.c.PrintCmd
 import com.poli.compilador.validation.Validator
 import com.poli.compilador.c.StrLit
+import java.util.Stack
 
 /**
  * Generates code from your model files on save.
@@ -52,7 +53,8 @@ import com.poli.compilador.c.StrLit
  */
 class CGenerator extends AbstractGenerator {
 	
-	public int label = 0;
+	public int label 			= 0;
+	public Stack<String> fName	= new Stack();
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		var Program p	= resource.allContents.filter(Program).head
@@ -79,13 +81,15 @@ class CGenerator extends AbstractGenerator {
 			case (D instanceof Function): 	function(D as Function)
 			case (D instanceof Declaration):	'''# Declaration'''
 			case (D instanceof Struct): 		'''# Struct'''
-			default: 						'''# Definition'''
 		}
 		
 	}
 	
-	def function(Function F)
-	'''
+	def function(Function F) {
+		fName.push(F.name)
+		
+		var str = 
+		'''
 		.text
 		«IF F.name.equals('main')»
 		.globl main
@@ -97,9 +101,11 @@ class CGenerator extends AbstractGenerator {
 			«FOR C : F.commands»
 				«command(C)»
 		    «ENDFOR»
-		    «functionExit(F.name, 0)»
+		    «functionExit(0)»
 		    
-	'''
+		'''
+		return str
+	}
 	
 	def functionEntry(int paramSize, int localSize)
 	'''
@@ -113,9 +119,9 @@ class CGenerator extends AbstractGenerator {
 		
 	'''
 	
-	def functionExit(String funcName, int paramSize)
+	def functionExit(int paramSize)
 	'''
-	«funcName»_return:
+	«fName.pop»_return:
 	  lw   $ra, «paramSize»($fp)
 	  move $t0, $fp
 	  lw   $fp, «paramSize + 4»($fp)
@@ -135,7 +141,7 @@ class CGenerator extends AbstractGenerator {
 //			case C instanceof VarCmd:		varCommand(C as VarCmd)
 //			case C instanceof BreakCmd: 		'breakCommand(C as BreakCmd)'
 //			case C instanceof ContinueCmd:	'continueCommand(C as ContinueCmd)'
-//			case C instanceof ReturnCmd: 	'returnCommand(C as ReturnCmd)'
+			case C instanceof ReturnCmd: 	returnCommand(C as ReturnCmd)
 //			case C instanceof DeclCmd: 		'declCommand(C as DeclCmd)'
 		}
 	}
@@ -165,37 +171,66 @@ class CGenerator extends AbstractGenerator {
 	}
 	
 	def CharSequence ifCommand(IfCmd C) {
-		var temp = '''# If'''
-		
-	   	temp += '''
-	   	 
+		var str 		= ''''''
+		val falsel 	= nextLabel
+		val truel 	= nextLabel
+	   	
+	   	str += '''
+	   	
 	   	«expression(C.exp)»
+	   	
 	   	'''
+	    str += pop('t0')
+	    
+	    str += '''
+	    bne $t0, 1, «falsel»
+	    
+	    '''
 	   
 	   	for (tc : C.trueCommands) {
-	   	 	temp += '''
+	   	 	str += '''
 	   	 	«command(tc)»
 	   	 	'''
 	   	}
-		temp += '''
-		
-		«nextLabel»:
-		'''
+	   	
+	   	str += '''
+	   	j «truel»
+	   	
+	   	'''
 
+		str += '''
+   	  		«falsel»:
+   	  	'''
+   	  		
 		if (C.falseCommands !== null) {
 			for (fc : C.falseCommands) {
-	   	 	temp += '''
+	   	 	str += '''
 	   	 	«command(fc)»
 	   	 	'''
    	  		}
-   	  		
-   	  		temp += '''
-   	  		«nextLabel»:
-   	  		'''
 		}
-   	  	
-   	  
-	   return temp
+		
+		str += '''
+		
+		«truel»:
+		'''	  
+	   return str
+	}
+	
+	def returnCommand(ReturnCmd C) {
+		var str = ''''''
+		
+		if (C.exp !== null) {
+			str += expression(C.exp)
+			
+			str += pop('v0')
+		}
+		
+		str += 
+			'''
+			j «fName.peek»_return
+			
+			'''
 	}
 	
 	def varCommand(VarCmd V)
@@ -210,67 +245,67 @@ class CGenerator extends AbstractGenerator {
 		«ENDFOR»
 	'''
 	
-	def CharSequence expression(Expression E) {
-		
-		if (E instanceof ArithExp) {
-			if (E.op.equalsIgnoreCase('+'))
-				return '''# add(u)'''
-			if (E.op.equalsIgnoreCase('-'))
-				return '''# sub(u)'''
-			if (E.op.equalsIgnoreCase('*'))
-				return '''# mul(u)'''
-			if (E.op.equalsIgnoreCase('/'))
-				return '''# div(u)'''
-		}
-		
-		if (E instanceof LogicExp) {
-			
-		}
-		
-		if (E instanceof RelExp) {
-			
-		}
-		
-		if (E instanceof Term) {
-			
-		}
-		
-		if (E instanceof PostfixOp) {
-			
-		}
-		
-		if (E instanceof PrefixOp) {
-			
-		}
-		
-		if (E instanceof Parenteses) {
-			return expression(E.exp)
-		}
-		
-		if (E instanceof FuncCall) {
-			
-		}
-		
-		if (E instanceof FieldAccess) {
-			
-		}
-		
-		if (E instanceof ArrayAccess) {
-			
-		}
-		
-		if (E instanceof PointerExp) {
-			
-		}
-		
-		switch E {
-			case E instanceof Var: 		'''# Var «(E as Var).valor.name»'''
-			case E instanceof IntLit: 	'''«(E as IntLit).^val»'''
-			case E instanceof TrueLit: 	'''«(E as TrueLit).toString»'''
-			case E instanceof FalseLit:	'''«(E as FalseLit).toString»'''
-			case E instanceof StrLit:	'''«(E as StrLit).^val»'''
-			default: 					'''# Expression'''
-		}
+	def CharSequence expression(Expression E) {	
+		''''''	
+//		if (E instanceof ArithExp) {
+//			if (E.op.equalsIgnoreCase('+'))
+//				return '''# add(u)'''
+//			if (E.op.equalsIgnoreCase('-'))
+//				return '''# sub(u)'''
+//			if (E.op.equalsIgnoreCase('*'))
+//				return '''# mul(u)'''
+//			if (E.op.equalsIgnoreCase('/'))
+//				return '''# div(u)'''
+//		}
+//		
+//		if (E instanceof LogicExp) {
+//			
+//		}
+//		
+//		if (E instanceof RelExp) {
+//			
+//		}
+//		
+//		if (E instanceof Term) {
+//			
+//		}
+//		
+//		if (E instanceof PostfixOp) {
+//			
+//		}
+//		
+//		if (E instanceof PrefixOp) {
+//			
+//		}
+//		
+//		if (E instanceof Parenteses) {
+//			return expression(E.exp)
+//		}
+//		
+//		if (E instanceof FuncCall) {
+//			
+//		}
+//		
+//		if (E instanceof FieldAccess) {
+//			
+//		}
+//		
+//		if (E instanceof ArrayAccess) {
+//			
+//		}
+//		
+//		if (E instanceof PointerExp) {
+//			
+//		}
+//		
+//		switch E {
+//			case E instanceof Var: 		'''# Var «(E as Var).valor.name»'''
+//			case E instanceof IntLit: 	'''«(E as IntLit).^val»'''
+//			case E instanceof TrueLit: 	'''# true'''
+//			case E instanceof FalseLit:	'''# false'''
+//			case E instanceof StrLit:	'''«(E as StrLit).^val»'''
+//			default: 					'''# Expression'''
+//		}
 	}
 		
 	def assign(Assignment A)
