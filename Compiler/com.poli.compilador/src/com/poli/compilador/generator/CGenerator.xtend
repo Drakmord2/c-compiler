@@ -5,7 +5,6 @@ package com.poli.compilador.generator
 
 import com.poli.compilador.c.ArithExp
 import com.poli.compilador.c.ArrayAccess
-import com.poli.compilador.c.Assignment
 import com.poli.compilador.c.BreakCmd
 import com.poli.compilador.c.Command
 import com.poli.compilador.c.ContinueCmd
@@ -13,7 +12,6 @@ import com.poli.compilador.c.DeclCmd
 import com.poli.compilador.c.Declaration
 import com.poli.compilador.c.Definition
 import com.poli.compilador.c.DoWhileCmd
-import com.poli.compilador.c.Expression
 import com.poli.compilador.c.FalseLit
 import com.poli.compilador.c.FieldAccess
 import com.poli.compilador.c.ForCmd
@@ -45,6 +43,9 @@ import com.poli.compilador.c.PrintCmd
 import com.poli.compilador.validation.Validator
 import com.poli.compilador.c.StrLit
 import java.util.Stack
+import com.poli.compilador.c.Expression
+import com.poli.compilador.c.Assignment
+import com.poli.compilador.c.VarDecl
 
 /**
  * Generates code from your model files on save.
@@ -54,6 +55,9 @@ import java.util.Stack
 class CGenerator extends AbstractGenerator {
 	
 	public int label 			= 0;
+	public int stackIdx			= 0;
+	public Stack<String> globais	= new Stack();
+	public Stack<String> locais 	= new Stack();
 	public Stack<String> fName	= new Stack();
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
@@ -65,11 +69,9 @@ class CGenerator extends AbstractGenerator {
 
 	def compile(Program P) 
 	'''
-		.data
 		«FOR D : P.definition»
 		    «definition(D)»
 		«ENDFOR»
-		
 		exit:
 			li $v0, 10
 			syscall
@@ -79,16 +81,39 @@ class CGenerator extends AbstractGenerator {
 		
 		switch D {
 			case (D instanceof Function): 	function(D as Function)
-			case (D instanceof Declaration):	'''# Declaration'''
-			case (D instanceof Struct): 		'''# Struct'''
+			case (D instanceof Declaration):	declaration(D as Declaration)
+			case (D instanceof Struct): 		struct(D as Struct)
 		}
 		
+	}
+	
+	def struct(Struct S) {
+		
+	}
+	
+	def declaration(Declaration D) {
+		if (D instanceof VarDecl) {
+		val vName	= D.name
+		val size 	= 4
+		globais.add(vName);
+		
+		val mips =
+		'''
+			.data
+			.align 2
+			_«vName»: .space «size»
+			
+		'''
+		
+		return mips
+		}
+
 	}
 	
 	def function(Function F) {
 		fName.push(F.name)
 		
-		var str = 
+		var mips = 
 		'''
 		.text
 		«IF F.name.equals('main')»
@@ -102,32 +127,10 @@ class CGenerator extends AbstractGenerator {
 				«command(C)»
 		    «ENDFOR»
 		    «functionExit(0)»
-		    
-		'''
-		return str
-	}
-	
-	def functionEntry(int paramSize, int localSize)
-	'''
-
-		sw	 	$ra, 0($sp)
-		addiu 	$sp, $sp, -4
-		sw   	$fp, 0($sp)
-		addiu	$sp, $sp, -4
-		addu 	$fp, $sp, «paramSize + 8»
-		subu 	$sp, $sp, «localSize»
 		
-	'''
-	
-	def functionExit(int paramSize)
-	'''
-	«fName.pop»_return:
-	  lw   $ra, «paramSize»($fp)
-	  move $t0, $fp
-	  lw   $fp, «paramSize + 4»($fp)
-	  move $sp, $t0
-	  jr   $ra
-	'''
+		'''
+		return mips
+	}
 	
 	def command(Command C) {
 		
@@ -147,102 +150,108 @@ class CGenerator extends AbstractGenerator {
 	}
 	
 	def CharSequence printCommand(PrintCmd C) {
-	    var str		= ''''''
+	    var mips		= ''''''
 	    val tipo 	= Validator.tipode(C.exp, null)
 	    
-	    str += expression(C.exp)
+	    mips += expression(C.exp)
 	    
-		str += pop('a0')
+		mips += pop('a0')
 	    
 	    if ( tipo == Validator.Tipo.INT || tipo == Validator.Tipo.BOOL ) {
-	        str += '''li $v0, 1'''
+	        mips +=
+	        '''
+	        li $v0, 1
+	        '''
 	    }
 	    else if (tipo == Validator.Tipo.STR) {
-	        str += '''li $v0, 4'''
+	        mips +=
+	        '''
+	        li $v0, 4
+	        '''
 	    }
 	    
-	    str += '''
-	    
+	    mips +=
+	    '''
 	    syscall
 	    
 	    '''
 	    
-	    return str
+	    return mips
 	}
 	
 	def CharSequence ifCommand(IfCmd C) {
-		var str 		= ''''''
-		val falsel 	= nextLabel
-		val truel 	= nextLabel
+		var mips 	= ''''''
+		val label	= nextLabel
+		val falsel 	= label+'_FALSE'
+		val truel 	= label+'_TRUE'
 	   	
-	   	str += '''
-	   	
+	   	mips +=
+	   	'''
 	   	«expression(C.exp)»
 	   	
 	   	'''
-	    str += pop('t0')
+	    mips += pop('t0')
 	    
-	    str += '''
+	    mips +=
+	    '''
 	    bne $t0, 1, «falsel»
 	    
 	    '''
 	   
 	   	for (tc : C.trueCommands) {
-	   	 	str += '''
+	   	 	mips +=
+	   	 	'''
 	   	 	«command(tc)»
 	   	 	'''
 	   	}
 	   	
-	   	str += '''
+	   	mips +=
+	   	'''
 	   	j «truel»
 	   	
 	   	'''
 
-		str += '''
+		mips +=
+		'''
    	  		«falsel»:
    	  	'''
    	  		
 		if (C.falseCommands !== null) {
 			for (fc : C.falseCommands) {
-	   	 	str += '''
+	   	 	mips += '''
 	   	 	«command(fc)»
 	   	 	'''
    	  		}
 		}
 		
-		str += '''
-		
+		mips +=
+		'''
 		«truel»:
 		'''	  
-	   return str
+	   return mips
 	}
 	
 	def returnCommand(ReturnCmd C) {
-		var str = ''''''
+		var mips = ''''''
 		
 		if (C.exp !== null) {
-			str += expression(C.exp)
+			mips += expression(C.exp)
 			
-			str += pop('v0')
+			mips += pop('v0')
 		}
 		
-		str += 
+		mips += 
 			'''
 			j «fName.peek»_return
 			
 			'''
+		return mips
 	}
 	
 	def varCommand(VarCmd V)
 	'''
-		«FOR v : V.^val BEFORE '' SEPARATOR ' ' AFTER ''»
-			«IF v instanceof Expression»
-				«expression(v)»
-			«ELSEIF v instanceof Assignment»
-				«var Assignment atr = v as Assignment»
-				«assign(atr)»
-			«ENDIF»
-		«ENDFOR»
+		«assign(V.asg)»
+		«store(V.lval)»
 	'''
 	
 	def CharSequence expression(Expression E) {	
@@ -310,7 +319,6 @@ class CGenerator extends AbstractGenerator {
 		
 	def assign(Assignment A)
 	'''
-		# load, move
 		«expression(A.exp)»
 	'''
 	
@@ -318,25 +326,62 @@ class CGenerator extends AbstractGenerator {
 	'''
 	# arg
 	'''
+		
+//------------------------------------------------------------------------------------------
+		
+	def functionEntry(int paramSize, int localSize)
+	'''
+		sw	 	$ra, 0($sp)
+		addiu 	$sp, $sp, -4
+		sw   	$fp, 0($sp)
+		addiu	$sp, $sp, -4
+		addu 	$fp, $sp, «paramSize + 8»
+		subu 	$sp, $sp, «localSize»
+		
+	'''
 	
+	def functionExit(int paramSize)
+	'''
+	«fName.pop»_return:
+	  lw   $ra, «paramSize»($fp)
+	  move $t0, $fp
+	  lw   $fp, «paramSize + 4»($fp)
+	  move $sp, $t0
+	  jr   $ra
+	'''
+	
+	def CharSequence jumpLink(String func)
+	'''
+		jal «func»
+	'''
+	
+	def CharSequence store(Expression E)
+	'''
+		«pop('t7')»
+		
+	'''
+	
+	def CharSequence push(String reg)
+	'''
+		addiu	$sp, $sp, -4
+		sw		$«reg», ($sp)
+	'''
+	
+	def CharSequence pop(String reg)
+	'''
+		lw 		$«reg», ($sp)
+		addiu	$sp, $sp, 4
+	'''
+
+	def CharSequence indexed(String opCode, String reg1, String reg2, int offset)
+	'''
+		op $«reg1», «offset»($«reg2»)
+	'''
+
 	def nextLabel() {
 		this.label++
 		
 		return 'L'+this.label
 	}
 	
-	def CharSequence push(String reg)
-	'''
-	addiu	$sp, $sp, -4
-	sw		$«reg», ($sp)
-	
-	'''
-	
-	def CharSequence pop(String reg)
-	'''
-	lw 		$«reg», ($sp)
-	addiu	$sp, $sp, 4
-	
-	'''
-
 }

@@ -405,7 +405,7 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Command returns VarCmd
 	 *
 	 * Constraint:
-	 *     (val+=Factor val+=Assignment?)
+	 *     (lval=Factor asg=Assignment?)
 	 */
 	protected void sequence_Command(ISerializationContext context, VarCmd semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

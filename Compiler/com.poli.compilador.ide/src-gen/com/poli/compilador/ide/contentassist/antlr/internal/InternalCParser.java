@@ -10835,31 +10835,31 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Command__Group_5__1__Impl"
-    // InternalC.g:3481:1: rule__Command__Group_5__1__Impl : ( ( rule__Command__ValAssignment_5_1 ) ) ;
+    // InternalC.g:3481:1: rule__Command__Group_5__1__Impl : ( ( rule__Command__LvalAssignment_5_1 ) ) ;
     public final void rule__Command__Group_5__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalC.g:3485:1: ( ( ( rule__Command__ValAssignment_5_1 ) ) )
-            // InternalC.g:3486:1: ( ( rule__Command__ValAssignment_5_1 ) )
+            // InternalC.g:3485:1: ( ( ( rule__Command__LvalAssignment_5_1 ) ) )
+            // InternalC.g:3486:1: ( ( rule__Command__LvalAssignment_5_1 ) )
             {
-            // InternalC.g:3486:1: ( ( rule__Command__ValAssignment_5_1 ) )
-            // InternalC.g:3487:2: ( rule__Command__ValAssignment_5_1 )
+            // InternalC.g:3486:1: ( ( rule__Command__LvalAssignment_5_1 ) )
+            // InternalC.g:3487:2: ( rule__Command__LvalAssignment_5_1 )
             {
-             before(grammarAccess.getCommandAccess().getValAssignment_5_1()); 
-            // InternalC.g:3488:2: ( rule__Command__ValAssignment_5_1 )
-            // InternalC.g:3488:3: rule__Command__ValAssignment_5_1
+             before(grammarAccess.getCommandAccess().getLvalAssignment_5_1()); 
+            // InternalC.g:3488:2: ( rule__Command__LvalAssignment_5_1 )
+            // InternalC.g:3488:3: rule__Command__LvalAssignment_5_1
             {
             pushFollow(FOLLOW_2);
-            rule__Command__ValAssignment_5_1();
+            rule__Command__LvalAssignment_5_1();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getCommandAccess().getValAssignment_5_1()); 
+             after(grammarAccess.getCommandAccess().getLvalAssignment_5_1()); 
 
             }
 
@@ -10920,20 +10920,20 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Command__Group_5__2__Impl"
-    // InternalC.g:3508:1: rule__Command__Group_5__2__Impl : ( ( rule__Command__ValAssignment_5_2 )? ) ;
+    // InternalC.g:3508:1: rule__Command__Group_5__2__Impl : ( ( rule__Command__AsgAssignment_5_2 )? ) ;
     public final void rule__Command__Group_5__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalC.g:3512:1: ( ( ( rule__Command__ValAssignment_5_2 )? ) )
-            // InternalC.g:3513:1: ( ( rule__Command__ValAssignment_5_2 )? )
+            // InternalC.g:3512:1: ( ( ( rule__Command__AsgAssignment_5_2 )? ) )
+            // InternalC.g:3513:1: ( ( rule__Command__AsgAssignment_5_2 )? )
             {
-            // InternalC.g:3513:1: ( ( rule__Command__ValAssignment_5_2 )? )
-            // InternalC.g:3514:2: ( rule__Command__ValAssignment_5_2 )?
+            // InternalC.g:3513:1: ( ( rule__Command__AsgAssignment_5_2 )? )
+            // InternalC.g:3514:2: ( rule__Command__AsgAssignment_5_2 )?
             {
-             before(grammarAccess.getCommandAccess().getValAssignment_5_2()); 
-            // InternalC.g:3515:2: ( rule__Command__ValAssignment_5_2 )?
+             before(grammarAccess.getCommandAccess().getAsgAssignment_5_2()); 
+            // InternalC.g:3515:2: ( rule__Command__AsgAssignment_5_2 )?
             int alt27=2;
             int LA27_0 = input.LA(1);
 
@@ -10942,10 +10942,10 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
             }
             switch (alt27) {
                 case 1 :
-                    // InternalC.g:3515:3: rule__Command__ValAssignment_5_2
+                    // InternalC.g:3515:3: rule__Command__AsgAssignment_5_2
                     {
                     pushFollow(FOLLOW_2);
-                    rule__Command__ValAssignment_5_2();
+                    rule__Command__AsgAssignment_5_2();
 
                     state._fsp--;
 
@@ -10955,7 +10955,7 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
 
             }
 
-             after(grammarAccess.getCommandAccess().getValAssignment_5_2()); 
+             after(grammarAccess.getCommandAccess().getAsgAssignment_5_2()); 
 
             }
 
@@ -19553,9 +19553,9 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Command__ExpAssignment_4_7"
 
 
-    // $ANTLR start "rule__Command__ValAssignment_5_1"
-    // InternalC.g:6476:1: rule__Command__ValAssignment_5_1 : ( ruleFactor ) ;
-    public final void rule__Command__ValAssignment_5_1() throws RecognitionException {
+    // $ANTLR start "rule__Command__LvalAssignment_5_1"
+    // InternalC.g:6476:1: rule__Command__LvalAssignment_5_1 : ( ruleFactor ) ;
+    public final void rule__Command__LvalAssignment_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -19566,13 +19566,13 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
             // InternalC.g:6481:2: ( ruleFactor )
             // InternalC.g:6482:3: ruleFactor
             {
-             before(grammarAccess.getCommandAccess().getValFactorParserRuleCall_5_1_0()); 
+             before(grammarAccess.getCommandAccess().getLvalFactorParserRuleCall_5_1_0()); 
             pushFollow(FOLLOW_2);
             ruleFactor();
 
             state._fsp--;
 
-             after(grammarAccess.getCommandAccess().getValFactorParserRuleCall_5_1_0()); 
+             after(grammarAccess.getCommandAccess().getLvalFactorParserRuleCall_5_1_0()); 
 
             }
 
@@ -19591,12 +19591,12 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Command__ValAssignment_5_1"
+    // $ANTLR end "rule__Command__LvalAssignment_5_1"
 
 
-    // $ANTLR start "rule__Command__ValAssignment_5_2"
-    // InternalC.g:6491:1: rule__Command__ValAssignment_5_2 : ( ruleAssignment ) ;
-    public final void rule__Command__ValAssignment_5_2() throws RecognitionException {
+    // $ANTLR start "rule__Command__AsgAssignment_5_2"
+    // InternalC.g:6491:1: rule__Command__AsgAssignment_5_2 : ( ruleAssignment ) ;
+    public final void rule__Command__AsgAssignment_5_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -19607,13 +19607,13 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
             // InternalC.g:6496:2: ( ruleAssignment )
             // InternalC.g:6497:3: ruleAssignment
             {
-             before(grammarAccess.getCommandAccess().getValAssignmentParserRuleCall_5_2_0()); 
+             before(grammarAccess.getCommandAccess().getAsgAssignmentParserRuleCall_5_2_0()); 
             pushFollow(FOLLOW_2);
             ruleAssignment();
 
             state._fsp--;
 
-             after(grammarAccess.getCommandAccess().getValAssignmentParserRuleCall_5_2_0()); 
+             after(grammarAccess.getCommandAccess().getAsgAssignmentParserRuleCall_5_2_0()); 
 
             }
 
@@ -19632,7 +19632,7 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Command__ValAssignment_5_2"
+    // $ANTLR end "rule__Command__AsgAssignment_5_2"
 
 
     // $ANTLR start "rule__Command__ExpAssignment_8_2"

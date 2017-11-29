@@ -3,21 +3,18 @@
  */
 package com.poli.compilador.c.impl;
 
+import com.poli.compilador.c.Assignment;
 import com.poli.compilador.c.CPackage;
+import com.poli.compilador.c.Expression;
 import com.poli.compilador.c.VarCmd;
 
-import java.util.Collection;
-
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,7 +24,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.impl.VarCmdImpl#getVal <em>Val</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.VarCmdImpl#getLval <em>Lval</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.VarCmdImpl#getAsg <em>Asg</em>}</li>
  * </ul>
  *
  * @generated
@@ -35,14 +33,24 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class VarCmdImpl extends CommandImpl implements VarCmd
 {
   /**
-   * The cached value of the '{@link #getVal() <em>Val</em>}' containment reference list.
+   * The cached value of the '{@link #getLval() <em>Lval</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVal()
+   * @see #getLval()
    * @generated
    * @ordered
    */
-  protected EList<EObject> val;
+  protected Expression lval;
+
+  /**
+   * The cached value of the '{@link #getAsg() <em>Asg</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getAsg()
+   * @generated
+   * @ordered
+   */
+  protected Assignment asg;
 
   /**
    * <!-- begin-user-doc -->
@@ -70,13 +78,95 @@ public class VarCmdImpl extends CommandImpl implements VarCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<EObject> getVal()
+  public Expression getLval()
   {
-    if (val == null)
+    return lval;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetLval(Expression newLval, NotificationChain msgs)
+  {
+    Expression oldLval = lval;
+    lval = newLval;
+    if (eNotificationRequired())
     {
-      val = new EObjectContainmentEList<EObject>(EObject.class, this, CPackage.VAR_CMD__VAL);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.VAR_CMD__LVAL, oldLval, newLval);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
     }
-    return val;
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setLval(Expression newLval)
+  {
+    if (newLval != lval)
+    {
+      NotificationChain msgs = null;
+      if (lval != null)
+        msgs = ((InternalEObject)lval).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.VAR_CMD__LVAL, null, msgs);
+      if (newLval != null)
+        msgs = ((InternalEObject)newLval).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.VAR_CMD__LVAL, null, msgs);
+      msgs = basicSetLval(newLval, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.VAR_CMD__LVAL, newLval, newLval));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Assignment getAsg()
+  {
+    return asg;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetAsg(Assignment newAsg, NotificationChain msgs)
+  {
+    Assignment oldAsg = asg;
+    asg = newAsg;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.VAR_CMD__ASG, oldAsg, newAsg);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setAsg(Assignment newAsg)
+  {
+    if (newAsg != asg)
+    {
+      NotificationChain msgs = null;
+      if (asg != null)
+        msgs = ((InternalEObject)asg).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.VAR_CMD__ASG, null, msgs);
+      if (newAsg != null)
+        msgs = ((InternalEObject)newAsg).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.VAR_CMD__ASG, null, msgs);
+      msgs = basicSetAsg(newAsg, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.VAR_CMD__ASG, newAsg, newAsg));
   }
 
   /**
@@ -89,8 +179,10 @@ public class VarCmdImpl extends CommandImpl implements VarCmd
   {
     switch (featureID)
     {
-      case CPackage.VAR_CMD__VAL:
-        return ((InternalEList<?>)getVal()).basicRemove(otherEnd, msgs);
+      case CPackage.VAR_CMD__LVAL:
+        return basicSetLval(null, msgs);
+      case CPackage.VAR_CMD__ASG:
+        return basicSetAsg(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -105,8 +197,10 @@ public class VarCmdImpl extends CommandImpl implements VarCmd
   {
     switch (featureID)
     {
-      case CPackage.VAR_CMD__VAL:
-        return getVal();
+      case CPackage.VAR_CMD__LVAL:
+        return getLval();
+      case CPackage.VAR_CMD__ASG:
+        return getAsg();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -116,15 +210,16 @@ public class VarCmdImpl extends CommandImpl implements VarCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case CPackage.VAR_CMD__VAL:
-        getVal().clear();
-        getVal().addAll((Collection<? extends EObject>)newValue);
+      case CPackage.VAR_CMD__LVAL:
+        setLval((Expression)newValue);
+        return;
+      case CPackage.VAR_CMD__ASG:
+        setAsg((Assignment)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -140,8 +235,11 @@ public class VarCmdImpl extends CommandImpl implements VarCmd
   {
     switch (featureID)
     {
-      case CPackage.VAR_CMD__VAL:
-        getVal().clear();
+      case CPackage.VAR_CMD__LVAL:
+        setLval((Expression)null);
+        return;
+      case CPackage.VAR_CMD__ASG:
+        setAsg((Assignment)null);
         return;
     }
     super.eUnset(featureID);
@@ -157,8 +255,10 @@ public class VarCmdImpl extends CommandImpl implements VarCmd
   {
     switch (featureID)
     {
-      case CPackage.VAR_CMD__VAL:
-        return val != null && !val.isEmpty();
+      case CPackage.VAR_CMD__LVAL:
+        return lval != null;
+      case CPackage.VAR_CMD__ASG:
+        return asg != null;
     }
     return super.eIsSet(featureID);
   }

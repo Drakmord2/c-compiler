@@ -80,7 +80,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//DoWhileCmd/exp"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//VarCmd">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//VarCmd/val"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//VarCmd/lval"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//VarCmd/asg"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//BreakCmd"/>
     <genClasses ecoreClass="C.ecore#//ContinueCmd"/>

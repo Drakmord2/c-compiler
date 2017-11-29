@@ -3,9 +3,6 @@
  */
 package com.poli.compilador.c;
 
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -16,7 +13,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.poli.compilador.c.VarCmd#getVal <em>Val</em>}</li>
+ *   <li>{@link com.poli.compilador.c.VarCmd#getLval <em>Lval</em>}</li>
+ *   <li>{@link com.poli.compilador.c.VarCmd#getAsg <em>Asg</em>}</li>
  * </ul>
  *
  * @see com.poli.compilador.c.CPackage#getVarCmd()
@@ -26,19 +24,55 @@ import org.eclipse.emf.ecore.EObject;
 public interface VarCmd extends Command
 {
   /**
-   * Returns the value of the '<em><b>Val</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
+   * Returns the value of the '<em><b>Lval</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Val</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Lval</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Val</em>' containment reference list.
-   * @see com.poli.compilador.c.CPackage#getVarCmd_Val()
+   * @return the value of the '<em>Lval</em>' containment reference.
+   * @see #setLval(Expression)
+   * @see com.poli.compilador.c.CPackage#getVarCmd_Lval()
    * @model containment="true"
    * @generated
    */
-  EList<EObject> getVal();
+  Expression getLval();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.VarCmd#getLval <em>Lval</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Lval</em>' containment reference.
+   * @see #getLval()
+   * @generated
+   */
+  void setLval(Expression value);
+
+  /**
+   * Returns the value of the '<em><b>Asg</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Asg</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Asg</em>' containment reference.
+   * @see #setAsg(Assignment)
+   * @see com.poli.compilador.c.CPackage#getVarCmd_Asg()
+   * @model containment="true"
+   * @generated
+   */
+  Assignment getAsg();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.VarCmd#getAsg <em>Asg</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Asg</em>' containment reference.
+   * @see #getAsg()
+   * @generated
+   */
+  void setAsg(Assignment value);
 
 } // VarCmd

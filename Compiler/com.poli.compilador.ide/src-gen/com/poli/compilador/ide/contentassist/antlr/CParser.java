@@ -122,8 +122,8 @@ public class CParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCommandAccess().getCommandsAssignment_3_7_2(), "rule__Command__CommandsAssignment_3_7_2");
 					put(grammarAccess.getCommandAccess().getCommandsAssignment_4_3(), "rule__Command__CommandsAssignment_4_3");
 					put(grammarAccess.getCommandAccess().getExpAssignment_4_7(), "rule__Command__ExpAssignment_4_7");
-					put(grammarAccess.getCommandAccess().getValAssignment_5_1(), "rule__Command__ValAssignment_5_1");
-					put(grammarAccess.getCommandAccess().getValAssignment_5_2(), "rule__Command__ValAssignment_5_2");
+					put(grammarAccess.getCommandAccess().getLvalAssignment_5_1(), "rule__Command__LvalAssignment_5_1");
+					put(grammarAccess.getCommandAccess().getAsgAssignment_5_2(), "rule__Command__AsgAssignment_5_2");
 					put(grammarAccess.getCommandAccess().getExpAssignment_8_2(), "rule__Command__ExpAssignment_8_2");
 					put(grammarAccess.getCommandAccess().getValAssignment_9_1(), "rule__Command__ValAssignment_9_1");
 					put(grammarAccess.getCommandAccess().getExpAssignment_10_3(), "rule__Command__ExpAssignment_10_3");

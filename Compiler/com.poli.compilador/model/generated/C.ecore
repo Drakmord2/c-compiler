@@ -102,7 +102,9 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VarCmd" eSuperTypes="#//Command">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="val" upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lval" eType="#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="asg" eType="#//Assignment"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BreakCmd" eSuperTypes="#//Command"/>

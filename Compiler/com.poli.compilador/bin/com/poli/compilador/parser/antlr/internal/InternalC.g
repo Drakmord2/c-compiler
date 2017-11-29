@@ -1139,17 +1139,17 @@ ruleCommand returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getCommandAccess().getValFactorParserRuleCall_5_1_0());
+						newCompositeNode(grammarAccess.getCommandAccess().getLvalFactorParserRuleCall_5_1_0());
 					}
-					lv_val_56_0=ruleFactor
+					lv_lval_56_0=ruleFactor
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getCommandRule());
 						}
-						add(
+						set(
 							$current,
-							"val",
-							lv_val_56_0,
+							"lval",
+							lv_lval_56_0,
 							"com.poli.compilador.C.Factor");
 						afterParserOrEnumRuleCall();
 					}
@@ -1158,17 +1158,17 @@ ruleCommand returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getCommandAccess().getValAssignmentParserRuleCall_5_2_0());
+						newCompositeNode(grammarAccess.getCommandAccess().getAsgAssignmentParserRuleCall_5_2_0());
 					}
-					lv_val_57_0=ruleAssignment
+					lv_asg_57_0=ruleAssignment
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getCommandRule());
 						}
-						add(
+						set(
 							$current,
-							"val",
-							lv_val_57_0,
+							"asg",
+							lv_asg_57_0,
 							"com.poli.compilador.C.Assignment");
 						afterParserOrEnumRuleCall();
 					}

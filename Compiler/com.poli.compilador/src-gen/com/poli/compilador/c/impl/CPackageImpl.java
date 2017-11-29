@@ -993,9 +993,19 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVarCmd_Val()
+  public EReference getVarCmd_Lval()
   {
     return (EReference)varCmdEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVarCmd_Asg()
+  {
+    return (EReference)varCmdEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1556,7 +1566,8 @@ public class CPackageImpl extends EPackageImpl implements CPackage
     createEReference(doWhileCmdEClass, DO_WHILE_CMD__EXP);
 
     varCmdEClass = createEClass(VAR_CMD);
-    createEReference(varCmdEClass, VAR_CMD__VAL);
+    createEReference(varCmdEClass, VAR_CMD__LVAL);
+    createEReference(varCmdEClass, VAR_CMD__ASG);
 
     breakCmdEClass = createEClass(BREAK_CMD);
 
@@ -1767,7 +1778,8 @@ public class CPackageImpl extends EPackageImpl implements CPackage
     initEReference(getDoWhileCmd_Exp(), this.getExpression(), null, "exp", null, 0, 1, DoWhileCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(varCmdEClass, VarCmd.class, "VarCmd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getVarCmd_Val(), ecorePackage.getEObject(), null, "val", null, 0, -1, VarCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVarCmd_Lval(), this.getExpression(), null, "lval", null, 0, 1, VarCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVarCmd_Asg(), this.getAssignment(), null, "asg", null, 0, 1, VarCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(breakCmdEClass, BreakCmd.class, "BreakCmd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

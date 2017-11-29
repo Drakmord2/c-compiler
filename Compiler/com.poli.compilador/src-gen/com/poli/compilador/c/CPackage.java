@@ -846,13 +846,22 @@ public interface CPackage extends EPackage
   int VAR_CMD = 22;
 
   /**
-   * The feature id for the '<em><b>Val</b></em>' containment reference list.
+   * The feature id for the '<em><b>Lval</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VAR_CMD__VAL = COMMAND_FEATURE_COUNT + 0;
+  int VAR_CMD__LVAL = COMMAND_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Asg</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VAR_CMD__ASG = COMMAND_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Var Cmd</em>' class.
@@ -861,7 +870,7 @@ public interface CPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VAR_CMD_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 1;
+  int VAR_CMD_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link com.poli.compilador.c.impl.BreakCmdImpl <em>Break Cmd</em>}' class.
@@ -2063,15 +2072,26 @@ public interface CPackage extends EPackage
   EClass getVarCmd();
 
   /**
-   * Returns the meta object for the containment reference list '{@link com.poli.compilador.c.VarCmd#getVal <em>Val</em>}'.
+   * Returns the meta object for the containment reference '{@link com.poli.compilador.c.VarCmd#getLval <em>Lval</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Val</em>'.
-   * @see com.poli.compilador.c.VarCmd#getVal()
+   * @return the meta object for the containment reference '<em>Lval</em>'.
+   * @see com.poli.compilador.c.VarCmd#getLval()
    * @see #getVarCmd()
    * @generated
    */
-  EReference getVarCmd_Val();
+  EReference getVarCmd_Lval();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.poli.compilador.c.VarCmd#getAsg <em>Asg</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Asg</em>'.
+   * @see com.poli.compilador.c.VarCmd#getAsg()
+   * @see #getVarCmd()
+   * @generated
+   */
+  EReference getVarCmd_Asg();
 
   /**
    * Returns the meta object for class '{@link com.poli.compilador.c.BreakCmd <em>Break Cmd</em>}'.
@@ -3066,12 +3086,20 @@ public interface CPackage extends EPackage
     EClass VAR_CMD = eINSTANCE.getVarCmd();
 
     /**
-     * The meta object literal for the '<em><b>Val</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Lval</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VAR_CMD__VAL = eINSTANCE.getVarCmd_Val();
+    EReference VAR_CMD__LVAL = eINSTANCE.getVarCmd_Lval();
+
+    /**
+     * The meta object literal for the '<em><b>Asg</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VAR_CMD__ASG = eINSTANCE.getVarCmd_Asg();
 
     /**
      * The meta object literal for the '{@link com.poli.compilador.c.impl.BreakCmdImpl <em>Break Cmd</em>}' class.

@@ -435,10 +435,10 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_4_9 = (Keyword)cGroup_4.eContents().get(9);
 		private final Group cGroup_5 = (Group)cAlternatives.eContents().get(5);
 		private final Action cVarCmdAction_5_0 = (Action)cGroup_5.eContents().get(0);
-		private final Assignment cValAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cValFactorParserRuleCall_5_1_0 = (RuleCall)cValAssignment_5_1.eContents().get(0);
-		private final Assignment cValAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
-		private final RuleCall cValAssignmentParserRuleCall_5_2_0 = (RuleCall)cValAssignment_5_2.eContents().get(0);
+		private final Assignment cLvalAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cLvalFactorParserRuleCall_5_1_0 = (RuleCall)cLvalAssignment_5_1.eContents().get(0);
+		private final Assignment cAsgAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
+		private final RuleCall cAsgAssignmentParserRuleCall_5_2_0 = (RuleCall)cAsgAssignment_5_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_5_3 = (Keyword)cGroup_5.eContents().get(3);
 		private final Group cGroup_6 = (Group)cAlternatives.eContents().get(6);
 		private final Action cBreakCmdAction_6_0 = (Action)cGroup_6.eContents().get(0);
@@ -474,7 +474,7 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		//	commands+=Command* '}'
 		//	| {SwitchCmd} 'switch' '(' exp=Expression ')' '{' cases+=Case* ('default' ':' commands+=Command*)? '}'
 		//	| {DoWhileCmd} 'do' '{' commands+=Command* '}' 'while' '(' exp=Expression ')' ';'
-		//	| {VarCmd} val+=Factor val+=Assignment? ';'
+		//	| {VarCmd} lval=Factor asg=Assignment? ';'
 		//	| {BreakCmd} 'break' ';'
 		//	| {ContinueCmd} 'continue' ';'
 		//	| {ReturnCmd} 'return' exp=Expression? ';'
@@ -486,7 +486,7 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		//{WhileCmd} 'while' '(' exp=Expression ')' '{' commands+=Command* '}' | {ForCmd} 'for' '(' init+=lValue init+=Assignment
 		//';' exp=Expression ';' inc+=Factor inc+=Assignment? ')' '{' commands+=Command* '}' | {SwitchCmd} 'switch' '('
 		//exp=Expression ')' '{' cases+=Case* ('default' ':' commands+=Command*)? '}' | {DoWhileCmd} 'do' '{' commands+=Command*
-		//'}' 'while' '(' exp=Expression ')' ';' | {VarCmd} val+=Factor val+=Assignment? ';' | {BreakCmd} 'break' ';' |
+		//'}' 'while' '(' exp=Expression ')' ';' | {VarCmd} lval=Factor asg=Assignment? ';' | {BreakCmd} 'break' ';' |
 		//{ContinueCmd} 'continue' ';' | {ReturnCmd} 'return' exp=Expression? ';' | {DeclCmd} val=Declaration | {PrintCmd}
 		//'printf' '(' exp=Expression? ')' ';'
 		public Alternatives getAlternatives() { return cAlternatives; }
@@ -726,23 +726,23 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		//';'
 		public Keyword getSemicolonKeyword_4_9() { return cSemicolonKeyword_4_9; }
 		
-		//{VarCmd} val+=Factor val+=Assignment? ';'
+		//{VarCmd} lval=Factor asg=Assignment? ';'
 		public Group getGroup_5() { return cGroup_5; }
 		
 		//{VarCmd}
 		public Action getVarCmdAction_5_0() { return cVarCmdAction_5_0; }
 		
-		//val+=Factor
-		public Assignment getValAssignment_5_1() { return cValAssignment_5_1; }
+		//lval=Factor
+		public Assignment getLvalAssignment_5_1() { return cLvalAssignment_5_1; }
 		
 		//Factor
-		public RuleCall getValFactorParserRuleCall_5_1_0() { return cValFactorParserRuleCall_5_1_0; }
+		public RuleCall getLvalFactorParserRuleCall_5_1_0() { return cLvalFactorParserRuleCall_5_1_0; }
 		
-		//val+=Assignment?
-		public Assignment getValAssignment_5_2() { return cValAssignment_5_2; }
+		//asg=Assignment?
+		public Assignment getAsgAssignment_5_2() { return cAsgAssignment_5_2; }
 		
 		//Assignment
-		public RuleCall getValAssignmentParserRuleCall_5_2_0() { return cValAssignmentParserRuleCall_5_2_0; }
+		public RuleCall getAsgAssignmentParserRuleCall_5_2_0() { return cAsgAssignmentParserRuleCall_5_2_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_5_3() { return cSemicolonKeyword_5_3; }
@@ -1606,7 +1606,7 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 	//	commands+=Command* '}'
 	//	| {SwitchCmd} 'switch' '(' exp=Expression ')' '{' cases+=Case* ('default' ':' commands+=Command*)? '}'
 	//	| {DoWhileCmd} 'do' '{' commands+=Command* '}' 'while' '(' exp=Expression ')' ';'
-	//	| {VarCmd} val+=Factor val+=Assignment? ';'
+	//	| {VarCmd} lval=Factor asg=Assignment? ';'
 	//	| {BreakCmd} 'break' ';'
 	//	| {ContinueCmd} 'continue' ';'
 	//	| {ReturnCmd} 'return' exp=Expression? ';'
