@@ -6,17 +6,30 @@ package com.poli.compilador.generator;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterators;
 import com.poli.compilador.c.Argument;
+import com.poli.compilador.c.ArithExp;
+import com.poli.compilador.c.ArrayAccess;
 import com.poli.compilador.c.Assignment;
 import com.poli.compilador.c.Command;
 import com.poli.compilador.c.Declaration;
 import com.poli.compilador.c.Definition;
 import com.poli.compilador.c.Expression;
+import com.poli.compilador.c.FieldAccess;
+import com.poli.compilador.c.FuncCall;
 import com.poli.compilador.c.Function;
 import com.poli.compilador.c.IfCmd;
+import com.poli.compilador.c.IntLit;
+import com.poli.compilador.c.LogicExp;
+import com.poli.compilador.c.Parenteses;
+import com.poli.compilador.c.PointerExp;
+import com.poli.compilador.c.PostfixOp;
+import com.poli.compilador.c.PrefixOp;
 import com.poli.compilador.c.PrintCmd;
 import com.poli.compilador.c.Program;
+import com.poli.compilador.c.RelExp;
 import com.poli.compilador.c.ReturnCmd;
 import com.poli.compilador.c.Struct;
+import com.poli.compilador.c.Term;
+import com.poli.compilador.c.Var;
 import com.poli.compilador.c.VarCmd;
 import com.poli.compilador.c.VarDecl;
 import com.poli.compilador.validation.Validator;
@@ -40,9 +53,9 @@ public class CGenerator extends AbstractGenerator {
   
   public int stackIdx = 0;
   
-  public Stack<String> globais = new Stack<String>();
+  public Stack<String> globals = new Stack<String>();
   
-  public Stack<String> locais = new Stack<String>();
+  public Stack<String> locals = new Stack<String>();
   
   public Stack<String> fName = new Stack<String>();
   
@@ -104,7 +117,7 @@ public class CGenerator extends AbstractGenerator {
     if ((D instanceof VarDecl)) {
       final String vName = ((VarDecl)D).getName();
       final int size = 4;
-      this.globais.add(vName);
+      this.globals.add(vName);
       StringConcatenation _builder = new StringConcatenation();
       _builder.append(".data");
       _builder.newLine();
@@ -124,6 +137,7 @@ public class CGenerator extends AbstractGenerator {
   
   public String function(final Function F) {
     this.fName.push(F.getName());
+    this.globals.add(F.getName());
     StringConcatenation _builder = new StringConcatenation();
     _builder.append(".text");
     _builder.newLine();
@@ -180,6 +194,12 @@ public class CGenerator extends AbstractGenerator {
       }
     }
     if (!_matched) {
+      if ((C instanceof VarCmd)) {
+        _matched=true;
+        _switchResult = this.varCommand(((VarCmd) C));
+      }
+    }
+    if (!_matched) {
       if ((C instanceof ReturnCmd)) {
         _matched=true;
         _switchResult = this.returnCommand(((ReturnCmd) C));
@@ -201,7 +221,7 @@ public class CGenerator extends AbstractGenerator {
     if ((Objects.equal(tipo, Validator.Tipo.INT) || Objects.equal(tipo, Validator.Tipo.BOOL))) {
       String _mips_2 = mips;
       StringConcatenation _builder_1 = new StringConcatenation();
-      _builder_1.append("li $v0, 1");
+      _builder_1.append("li\t\t$v0, 1");
       _builder_1.newLine();
       mips = (_mips_2 + _builder_1);
     } else {
@@ -209,7 +229,7 @@ public class CGenerator extends AbstractGenerator {
       if (_equals) {
         String _mips_3 = mips;
         StringConcatenation _builder_2 = new StringConcatenation();
-        _builder_2.append("li $v0, 4");
+        _builder_2.append("li\t\t$v0, 4");
         _builder_2.newLine();
         mips = (_mips_3 + _builder_2);
       }
@@ -241,7 +261,7 @@ public class CGenerator extends AbstractGenerator {
     mips = (_mips_1 + _pop);
     String _mips_2 = mips;
     StringConcatenation _builder_2 = new StringConcatenation();
-    _builder_2.append("bne $t0, 1, ");
+    _builder_2.append("beq\t\t$t0, $0, ");
     _builder_2.append(falsel);
     _builder_2.newLineIfNotEmpty();
     _builder_2.newLine();
@@ -326,17 +346,96 @@ public class CGenerator extends AbstractGenerator {
     return _builder;
   }
   
-  public CharSequence expression(final Expression E) {
-    StringConcatenation _builder = new StringConcatenation();
-    return _builder;
-  }
-  
   public CharSequence assign(final Assignment A) {
     StringConcatenation _builder = new StringConcatenation();
     CharSequence _expression = this.expression(A.getExp());
     _builder.append(_expression);
     _builder.newLineIfNotEmpty();
     return _builder;
+  }
+  
+  public CharSequence expression(final Expression E) {
+    StringConcatenation _builder = new StringConcatenation();
+    String mips = _builder.toString();
+    if ((E instanceof ArithExp)) {
+      boolean _equalsIgnoreCase = ((ArithExp)E).getOp().equalsIgnoreCase("+");
+      if (_equalsIgnoreCase) {
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _builder_1.append("# add(u)");
+        return _builder_1;
+      }
+      boolean _equalsIgnoreCase_1 = ((ArithExp)E).getOp().equalsIgnoreCase("-");
+      if (_equalsIgnoreCase_1) {
+        StringConcatenation _builder_2 = new StringConcatenation();
+        _builder_2.append("# sub(u)");
+        return _builder_2;
+      }
+      boolean _equalsIgnoreCase_2 = ((ArithExp)E).getOp().equalsIgnoreCase("*");
+      if (_equalsIgnoreCase_2) {
+        StringConcatenation _builder_3 = new StringConcatenation();
+        _builder_3.append("# mul(u)");
+        return _builder_3;
+      }
+      boolean _equalsIgnoreCase_3 = ((ArithExp)E).getOp().equalsIgnoreCase("/");
+      if (_equalsIgnoreCase_3) {
+        StringConcatenation _builder_4 = new StringConcatenation();
+        _builder_4.append("# div(u)");
+        return _builder_4;
+      }
+    }
+    if ((E instanceof LogicExp)) {
+    }
+    if ((E instanceof RelExp)) {
+    }
+    if ((E instanceof Term)) {
+    }
+    if ((E instanceof PostfixOp)) {
+    }
+    if ((E instanceof PrefixOp)) {
+    }
+    if ((E instanceof Parenteses)) {
+      return this.expression(((Parenteses)E).getExp());
+    }
+    if ((E instanceof FuncCall)) {
+    }
+    if ((E instanceof FieldAccess)) {
+    }
+    if ((E instanceof ArrayAccess)) {
+    }
+    if ((E instanceof PointerExp)) {
+    }
+    if ((E instanceof Var)) {
+      final String varname = ((Var)E).getValor().getName();
+      String _mips = mips;
+      StringConcatenation _builder_5 = new StringConcatenation();
+      _builder_5.append("lw\t\t$t8, _");
+      _builder_5.append(varname);
+      _builder_5.newLineIfNotEmpty();
+      mips = (_mips + _builder_5);
+      String _mips_1 = mips;
+      CharSequence _push = this.push("t8");
+      mips = (_mips_1 + _push);
+      return mips;
+    }
+    if ((E instanceof IntLit)) {
+      final int valor = ((IntLit)E).getVal();
+      String _mips_2 = mips;
+      StringConcatenation _builder_6 = new StringConcatenation();
+      _builder_6.append("li\t\t$t8, ");
+      _builder_6.append(valor);
+      _builder_6.newLineIfNotEmpty();
+      mips = (_mips_2 + _builder_6);
+      String _mips_3 = mips;
+      CharSequence _push_1 = this.push("t8");
+      mips = (_mips_3 + _push_1);
+      String _mips_4 = mips;
+      StringConcatenation _builder_7 = new StringConcatenation();
+      _builder_7.append("\t\t\t");
+      _builder_7.newLine();
+      mips = (_mips_4 + _builder_7);
+      return mips;
+    }
+    return mips;
   }
   
   public CharSequence argument(final Argument A) {
@@ -356,10 +455,10 @@ public class CGenerator extends AbstractGenerator {
     _builder.newLine();
     _builder.append("addiu\t$sp, $sp, -4");
     _builder.newLine();
-    _builder.append("addu \t$fp, $sp, ");
+    _builder.append("addiu \t$fp, $sp, ");
     _builder.append((paramSize + 8));
     _builder.newLineIfNotEmpty();
-    _builder.append("subu \t$sp, $sp, ");
+    _builder.append("addiu \t$sp, $sp, -");
     _builder.append(localSize);
     _builder.newLineIfNotEmpty();
     _builder.newLine();
@@ -403,12 +502,39 @@ public class CGenerator extends AbstractGenerator {
   }
   
   public CharSequence store(final Expression E) {
+    final Var varexp = ((Var) E);
+    final String varname = varexp.getValor().getName();
     StringConcatenation _builder = new StringConcatenation();
-    CharSequence _pop = this.pop("t7");
-    _builder.append(_pop);
-    _builder.newLineIfNotEmpty();
-    _builder.newLine();
-    return _builder;
+    String mips = _builder.toString();
+    boolean _contains = this.globals.contains(varname);
+    if (_contains) {
+      String _mips = mips;
+      CharSequence _pop = this.pop("t9");
+      mips = (_mips + _pop);
+      String _mips_1 = mips;
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("sw\t\t$t9, _");
+      _builder_1.append(varname);
+      _builder_1.newLineIfNotEmpty();
+      _builder_1.newLine();
+      mips = (_mips_1 + _builder_1);
+      return mips;
+    }
+    boolean _contains_1 = this.locals.contains(varname);
+    if (_contains_1) {
+      String _mips_2 = mips;
+      CharSequence _pop_1 = this.pop("t9");
+      mips = (_mips_2 + _pop_1);
+      String _mips_3 = mips;
+      CharSequence _indexed = this.indexed("sw", "t9", "sp", 0);
+      mips = (_mips_3 + _indexed);
+      String _mips_4 = mips;
+      StringConcatenation _builder_2 = new StringConcatenation();
+      _builder_2.newLine();
+      mips = (_mips_4 + _builder_2);
+      return mips;
+    }
+    return mips;
   }
   
   public CharSequence push(final String reg) {
@@ -435,7 +561,8 @@ public class CGenerator extends AbstractGenerator {
   
   public CharSequence indexed(final String opCode, final String reg1, final String reg2, final int offset) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("op $");
+    _builder.append(opCode);
+    _builder.append("\t\t$");
     _builder.append(reg1);
     _builder.append(", ");
     _builder.append(offset);

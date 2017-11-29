@@ -56,8 +56,8 @@ class CGenerator extends AbstractGenerator {
 	
 	public int label 			= 0;
 	public int stackIdx			= 0;
-	public Stack<String> globais	= new Stack();
-	public Stack<String> locais 	= new Stack();
+	public Stack<String> globals	= new Stack();
+	public Stack<String> locals 	= new Stack();
 	public Stack<String> fName	= new Stack();
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
@@ -95,7 +95,7 @@ class CGenerator extends AbstractGenerator {
 		if (D instanceof VarDecl) {
 		val vName	= D.name
 		val size 	= 4
-		globais.add(vName);
+		globals.add(vName)
 		
 		val mips =
 		'''
@@ -112,6 +112,7 @@ class CGenerator extends AbstractGenerator {
 	
 	def function(Function F) {
 		fName.push(F.name)
+		globals.add(F.name)
 		
 		var mips = 
 		'''
@@ -141,7 +142,7 @@ class CGenerator extends AbstractGenerator {
 //			case C instanceof ForCmd: 		'forCommand(C as ForCmd)'
 //			case C instanceof SwitchCmd: 	'switchCommand(C as SwitchCmd)'
 //			case C instanceof DoWhileCmd: 	'doWhileCommand(C as DoWhileCmd)'
-//			case C instanceof VarCmd:		varCommand(C as VarCmd)
+			case C instanceof VarCmd:		varCommand(C as VarCmd)
 //			case C instanceof BreakCmd: 		'breakCommand(C as BreakCmd)'
 //			case C instanceof ContinueCmd:	'continueCommand(C as ContinueCmd)'
 			case C instanceof ReturnCmd: 	returnCommand(C as ReturnCmd)
@@ -160,13 +161,13 @@ class CGenerator extends AbstractGenerator {
 	    if ( tipo == Validator.Tipo.INT || tipo == Validator.Tipo.BOOL ) {
 	        mips +=
 	        '''
-	        li $v0, 1
+	        li		$v0, 1
 	        '''
 	    }
 	    else if (tipo == Validator.Tipo.STR) {
 	        mips +=
 	        '''
-	        li $v0, 4
+	        li		$v0, 4
 	        '''
 	    }
 	    
@@ -194,7 +195,7 @@ class CGenerator extends AbstractGenerator {
 	    
 	    mips +=
 	    '''
-	    bne $t0, 1, «falsel»
+	    beq		$t0, $0, «falsel»
 	    
 	    '''
 	   
@@ -254,79 +255,109 @@ class CGenerator extends AbstractGenerator {
 		«store(V.lval)»
 	'''
 	
-	def CharSequence expression(Expression E) {	
-		''''''	
-//		if (E instanceof ArithExp) {
-//			if (E.op.equalsIgnoreCase('+'))
-//				return '''# add(u)'''
-//			if (E.op.equalsIgnoreCase('-'))
-//				return '''# sub(u)'''
-//			if (E.op.equalsIgnoreCase('*'))
-//				return '''# mul(u)'''
-//			if (E.op.equalsIgnoreCase('/'))
-//				return '''# div(u)'''
-//		}
-//		
-//		if (E instanceof LogicExp) {
-//			
-//		}
-//		
-//		if (E instanceof RelExp) {
-//			
-//		}
-//		
-//		if (E instanceof Term) {
-//			
-//		}
-//		
-//		if (E instanceof PostfixOp) {
-//			
-//		}
-//		
-//		if (E instanceof PrefixOp) {
-//			
-//		}
-//		
-//		if (E instanceof Parenteses) {
-//			return expression(E.exp)
-//		}
-//		
-//		if (E instanceof FuncCall) {
-//			
-//		}
-//		
-//		if (E instanceof FieldAccess) {
-//			
-//		}
-//		
-//		if (E instanceof ArrayAccess) {
-//			
-//		}
-//		
-//		if (E instanceof PointerExp) {
-//			
-//		}
-//		
+	def assign(Assignment A)
+	'''
+		«expression(A.exp)»
+	'''
+	
+	def CharSequence expression(Expression E) {
+		var mips = ''''''
+		
+		if (E instanceof ArithExp) {
+			if (E.op.equalsIgnoreCase('+'))
+				return '''# add(u)'''
+			if (E.op.equalsIgnoreCase('-'))
+				return '''# sub(u)'''
+			if (E.op.equalsIgnoreCase('*'))
+				return '''# mul(u)'''
+			if (E.op.equalsIgnoreCase('/'))
+				return '''# div(u)'''
+		}
+		
+		if (E instanceof LogicExp) {
+			
+		}
+		
+		if (E instanceof RelExp) {
+			
+		}
+		
+		if (E instanceof Term) {
+			
+		}
+		
+		if (E instanceof PostfixOp) {
+			
+		}
+		
+		if (E instanceof PrefixOp) {
+			
+		}
+		
+		if (E instanceof Parenteses) {
+			return expression(E.exp)
+		}
+		
+		if (E instanceof FuncCall) {
+			
+		}
+		
+		if (E instanceof FieldAccess) {
+			
+		}
+		
+		if (E instanceof ArrayAccess) {
+			
+		}
+		
+		if (E instanceof PointerExp) {
+			
+		}
+		
+		if (E instanceof Var) {
+			val varname = E.valor.name
+			mips += 
+			'''
+			lw		$t8, _«varname»
+			'''
+			mips += push('t8')
+			
+			return mips
+		}
+		
+		if (E instanceof IntLit) {
+			val valor = E.^val
+			
+			mips +=
+			'''
+			li		$t8, «valor»
+			'''
+			mips += push('t8')
+			mips +=
+			'''
+			
+			'''
+			
+			return mips
+		}
+		
 //		switch E {
-//			case E instanceof Var: 		'''# Var «(E as Var).valor.name»'''
-//			case E instanceof IntLit: 	'''«(E as IntLit).^val»'''
 //			case E instanceof TrueLit: 	'''# true'''
 //			case E instanceof FalseLit:	'''# false'''
 //			case E instanceof StrLit:	'''«(E as StrLit).^val»'''
 //			default: 					'''# Expression'''
 //		}
-	}
 		
-	def assign(Assignment A)
-	'''
-		«expression(A.exp)»
-	'''
+		return mips
+	}
 	
 	def argument(Argument A)
 	'''
 	# arg
 	'''
 		
+//------------------------------------------------------------------------------------------
+// AUX
 //------------------------------------------------------------------------------------------
 		
 	def functionEntry(int paramSize, int localSize)
@@ -335,8 +366,8 @@ class CGenerator extends AbstractGenerator {
 		addiu 	$sp, $sp, -4
 		sw   	$fp, 0($sp)
 		addiu	$sp, $sp, -4
-		addu 	$fp, $sp, «paramSize + 8»
-		subu 	$sp, $sp, «localSize»
+		addiu 	$fp, $sp, «paramSize + 8»
+		addiu 	$sp, $sp, -«localSize»
 		
 	'''
 	
@@ -355,11 +386,34 @@ class CGenerator extends AbstractGenerator {
 		jal «func»
 	'''
 	
-	def CharSequence store(Expression E)
-	'''
-		«pop('t7')»
+	def CharSequence store(Expression E) {
+		val varexp 	= E as Var
+		val varname	= varexp.valor.name
+		var mips 	= ''''''
 		
-	'''
+		if (globals.contains(varname)) {
+			mips += pop('t9')
+			mips +=
+			'''
+			sw		$t9, _«varname»
+			
+			'''
+			return mips
+		}
+		
+		if (locals.contains(varname)) {
+			mips += pop('t9')
+			mips += indexed('sw', 't9', 'sp', 0)
+			mips += 
+			'''
+
+			'''
+			
+			return mips
+		}
+		
+		return mips
+	}
 	
 	def CharSequence push(String reg)
 	'''
@@ -375,7 +429,7 @@ class CGenerator extends AbstractGenerator {
 
 	def CharSequence indexed(String opCode, String reg1, String reg2, int offset)
 	'''
-		op $«reg1», «offset»($«reg2»)
+		«opCode»		$«reg1», «offset»($«reg2»)
 	'''
 
 	def nextLabel() {
