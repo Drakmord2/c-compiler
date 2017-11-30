@@ -64,6 +64,10 @@ class CGenerator extends AbstractGenerator {
 		var Program p	= resource.allContents.filter(Program).head
 		var filename 	= resource.URI.lastSegment.split("\\.").get(0)
 		
+		if (p === null) {
+			return
+		}
+		
 	    fsa.generateFile(filename+".asm", p.compile)
 	}
 
@@ -196,16 +200,11 @@ class CGenerator extends AbstractGenerator {
 	    mips +=
 	    '''
 	    beq		$t0, $0, «falsel»
-	    
-	    '''
-	   
-	   	for (tc : C.trueCommands) {
-	   	 	mips +=
-	   	 	'''
-	   	 	«command(tc)»
-	   	 	'''
-	   	}
-	   	
+        «FOR tc : C.trueCommands»
+            «command(tc)»
+        «ENDFOR»	   
+        '''
+        	   	
 	   	mips +=
 	   	'''
 	   	j «truel»
@@ -260,6 +259,7 @@ class CGenerator extends AbstractGenerator {
 		«expression(A.exp)»
 	'''
 	
+	// TODO Refatorar
 	def CharSequence expression(Expression E) {
 		var mips = ''''''
 		
@@ -316,11 +316,7 @@ class CGenerator extends AbstractGenerator {
 		
 		if (E instanceof Var) {
 			val varname = E.valor.name
-			mips += 
-			'''
-			lw		$t8, _«varname»
-			'''
-			mips += push('t8')
+			mips += evalExp('lw', '_'+varname)
 			
 			return mips
 		}
@@ -328,27 +324,42 @@ class CGenerator extends AbstractGenerator {
 		if (E instanceof IntLit) {
 			val valor = E.^val
 			
-			mips +=
-			'''
-			li		$t8, «valor»
-			'''
-			mips += push('t8')
-			mips +=
-			'''
-			
-			'''
+			mips += evalExp('li', valor.toString)
 			
 			return mips
 		}
 		
-//		switch E {
-//			case E instanceof TrueLit: 	'''# true'''
-//			case E instanceof FalseLit:	'''# false'''
-//			case E instanceof StrLit:	'''«(E as StrLit).^val»'''
-//			default: 					'''# Expression'''
-//		}
+		if (E instanceof TrueLit) {
+			mips += evalExp('li', '1')
+			
+			return mips
+		}
+		
+		if (E instanceof FalseLit) {
+			mips += evalExp('li', '0')
+			
+			return mips
+		}
+		
+		if (E instanceof StrLit) {
+			
+		}
 		
 		return mips
+	}
+	
+	def CharSequence evalExp(String opCode, String value) {
+			var mips =
+			'''
+			«opCode»		$t8, «value»
+			'''
+			mips += push('t8')
+			mips +=
+			'''
+
+			'''
+			
+			return mips
 	}
 	
 	def argument(Argument A)
@@ -402,8 +413,8 @@ class CGenerator extends AbstractGenerator {
 		}
 		
 		if (locals.contains(varname)) {
-			mips += pop('t9')
-			mips += indexed('sw', 't9', 'sp', 0)
+//			mips += pop('t9')
+//			mips += indexed('sw', 't9', 'sp', 0)
 			mips += 
 			'''
 
