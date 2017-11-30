@@ -124,19 +124,33 @@ public class CGenerator extends AbstractGenerator {
       final String vName = ((VarDecl)D).getName();
       final int size = 4;
       this.globals.add(vName);
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append(".data");
-      _builder.newLine();
-      _builder.append(".align 2");
-      _builder.newLine();
-      _builder.append("_");
-      _builder.append(vName);
-      _builder.append(": .space ");
-      _builder.append(size);
-      _builder.newLineIfNotEmpty();
-      _builder.newLine();
-      final String mips = _builder.toString();
-      return mips;
+      String _tipo = ((VarDecl)D).getTipo().getTipo();
+      boolean _equals = Objects.equal(_tipo, "string");
+      if (_equals) {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append(".data");
+        _builder.newLine();
+        _builder.append("_");
+        _builder.append(vName);
+        _builder.append(": .asciiz \"\"");
+        _builder.newLineIfNotEmpty();
+        _builder.newLine();
+        final String mips = _builder.toString();
+        return mips;
+      }
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append(".data");
+      _builder_1.newLine();
+      _builder_1.append(".align 2");
+      _builder_1.newLine();
+      _builder_1.append("_");
+      _builder_1.append(vName);
+      _builder_1.append(": .space ");
+      _builder_1.append(size);
+      _builder_1.newLineIfNotEmpty();
+      _builder_1.newLine();
+      final String mips_1 = _builder_1.toString();
+      return mips_1;
     }
     return null;
   }
@@ -273,9 +287,8 @@ public class CGenerator extends AbstractGenerator {
     {
       EList<Command> _trueCommands = C.getTrueCommands();
       for(final Command tc : _trueCommands) {
-        _builder_2.append("        ");
         CharSequence _command = this.command(tc);
-        _builder_2.append(_command, "        ");
+        _builder_2.append(_command);
         _builder_2.newLineIfNotEmpty();
       }
     }
@@ -411,8 +424,19 @@ public class CGenerator extends AbstractGenerator {
     }
     if ((E instanceof Var)) {
       final String varname = ((Var)E).getValor().getName();
+      Definition _valor = ((Var)E).getValor();
+      final VarDecl decl = ((VarDecl) _valor);
+      final String tipo = decl.getTipo().getTipo();
+      String _xifexpression = null;
+      boolean _equals = Objects.equal(tipo, "string");
+      if (_equals) {
+        _xifexpression = "la";
+      } else {
+        _xifexpression = "lw";
+      }
+      final String opCode = _xifexpression;
       String _mips = mips;
-      CharSequence _evalExp = this.evalExp("lw", ("_" + varname));
+      CharSequence _evalExp = this.evalExp(opCode, ("_" + varname));
       mips = (_mips + _evalExp);
       return mips;
     }

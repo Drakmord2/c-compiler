@@ -101,6 +101,17 @@ class CGenerator extends AbstractGenerator {
 		val size 	= 4
 		globals.add(vName)
 		
+		if (D.tipo.tipo == 'string') {
+			val mips =
+			'''
+				.data
+				_«vName»: .asciiz ""
+				
+			'''
+			
+			return mips
+		}
+		
 		val mips =
 		'''
 			.data
@@ -201,7 +212,7 @@ class CGenerator extends AbstractGenerator {
 	    '''
 	    beq		$t0, $0, «falsel»
         «FOR tc : C.trueCommands»
-            «command(tc)»
+    			«command(tc)»
         «ENDFOR»	   
         '''
         	   	
@@ -315,8 +326,13 @@ class CGenerator extends AbstractGenerator {
 		}
 		
 		if (E instanceof Var) {
-			val varname = E.valor.name
-			mips += evalExp('lw', '_'+varname)
+			val varname	= E.valor.name
+			val decl 	= E.valor as VarDecl
+			val tipo 	= decl.tipo.tipo
+			
+			val opCode = if (tipo == 'string') 'la' else 'lw'
+			
+			mips += evalExp(opCode, '_'+varname)
 			
 			return mips
 		}
