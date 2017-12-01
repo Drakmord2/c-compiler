@@ -46,6 +46,7 @@ import java.util.Stack
 import com.poli.compilador.c.Expression
 import com.poli.compilador.c.Assignment
 import com.poli.compilador.c.VarDecl
+import java.util.Hashtable
 
 /**
  * Generates code from your model files on save.
@@ -54,11 +55,12 @@ import com.poli.compilador.c.VarDecl
  */
 class CGenerator extends AbstractGenerator {
 	
-	public int label 			= 0;
-	public int stackIdx			= 0;
-	public Stack<String> globals	= new Stack();
-	public Stack<String> locals 	= new Stack();
-	public Stack<String> fName	= new Stack();
+	public int label 						= 0;
+	public int stackIdx						= 0;
+	public Stack<String> globals				= new Stack();
+	public Stack<String> locals 				= new Stack();
+	public Stack<String> fName				= new Stack();
+	public Hashtable<String, String> strings	= new Hashtable();
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		var Program p	= resource.allContents.filter(Program).head
@@ -96,31 +98,44 @@ class CGenerator extends AbstractGenerator {
 	}
 	
 	def declaration(Declaration D) {
-		if (D instanceof VarDecl) {
-		val vName	= D.name
-		val size 	= 4
-		globals.add(vName)
 		
-		if (D.tipo.tipo == 'string') {
-			val mips =
+		if (D instanceof VarDecl) {
+			var mips 	= ''''''
+			val vName	= D.name
+			val size 	= 4
+			globals.add(vName)
+			
+			if (D.tipo.tipo == 'string') {
+				var content = if (D.^val === null) "" else (D.^val.exp as StrLit).^val
+				strings.put(vName, vName)
+				
+				mips = 
+				'''
+				.data
+				_«vName»: .asciiz "«content»"
+				
+				''' 
+				
+				return mips
+			}
+			
+			mips =
 			'''
 				.data
-				_«vName»: .asciiz ""
+				.align 2
+				_«vName»: .space «size»
 				
 			'''
 			
-			return mips
-		}
-		
-		val mips =
-		'''
-			.data
-			.align 2
-			_«vName»: .space «size»
+			if (D.^val !== null) {
+				mips +=
+					'''
+					.text
+					'''
+				mips += assign(D.^val)
+			}
 			
-		'''
-		
-		return mips
+			return mips
 		}
 
 	}
@@ -265,24 +280,64 @@ class CGenerator extends AbstractGenerator {
 		«store(V.lval)»
 	'''
 	
-	def assign(Assignment A)
+	def CharSequence assign(Assignment A)
 	'''
 		«expression(A.exp)»
 	'''
+	def arithExp(ArithExp E, String opCode){
+		var mips = 
+		'''
+		«expression(E.args.get(0))»
+		«expression(E.args.get(1))»
+		«pop('t1')»
+		«pop('t0')»
+		«opCode»		$t0, $t0, $t1
+		«push('t0')»
+		
+	 	'''
+	 	return mips
+	}
+	
+	def termExp(Term E, String opCode){
+		var mips = 
+		'''
+		«expression(E.args.get(0))»
+		«expression(E.args.get(1))»
+		«pop('t1')»
+		«pop('t0')»
+		«opCode»		$t0, $t0, $t1
+		«push('t0')»
+		
+	 	'''
+	 	return mips
+	}
 	
 	// TODO Refatorar
 	def CharSequence expression(Expression E) {
 		var mips = ''''''
 		
 		if (E instanceof ArithExp) {
-			if (E.op.equalsIgnoreCase('+'))
-				return '''# add(u)'''
-			if (E.op.equalsIgnoreCase('-'))
-				return '''# sub(u)'''
-			if (E.op.equalsIgnoreCase('*'))
-				return '''# mul(u)'''
-			if (E.op.equalsIgnoreCase('/'))
-				return '''# div(u)'''
+			if (E.op.equalsIgnoreCase('+')) {
+				mips += arithExp(E, 'add')
+			}
+				
+			if (E.op.equalsIgnoreCase('-')){
+				mips += arithExp(E, 'sub')
+			}
+			
+			return mips
+		}
+		
+		if (E instanceof Term) {
+			if (E.op.equalsIgnoreCase('*')){
+				mips += termExp(E, 'mul')
+			}
+			
+			if (E.op.equalsIgnoreCase('/')){
+				mips += termExp(E, 'div')
+			}
+			
+			return mips
 		}
 		
 		if (E instanceof LogicExp) {
@@ -290,10 +345,6 @@ class CGenerator extends AbstractGenerator {
 		}
 		
 		if (E instanceof RelExp) {
-			
-		}
-		
-		if (E instanceof Term) {
 			
 		}
 		
@@ -358,10 +409,27 @@ class CGenerator extends AbstractGenerator {
 		}
 		
 		if (E instanceof StrLit) {
+			val strLabel = 'S'+nextLabel
 			
+			mips += storeString(E, strLabel)
+			
+			return mips
 		}
 		
 		return mips
+	}
+	
+	def storeString(StrLit E, String strLabel) {
+			var mips = 
+			'''
+			.data
+			_«strLabel»: .asciiz "«E.^val»"
+			.text
+			«evalExp('la', strLabel)»
+			
+			''' 
+			
+			return mips
 	}
 	
 	def CharSequence evalExp(String opCode, String value) {

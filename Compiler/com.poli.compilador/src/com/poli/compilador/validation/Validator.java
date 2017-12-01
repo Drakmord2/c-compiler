@@ -118,7 +118,8 @@ public class Validator {
 		
 		if (e instanceof Var) {
 			Definition def	= ((Var) e).getValor();
-			Type tipoDecl	= ((VarDecl) def).getTipo();
+			Declaration decl	= (Declaration) def;
+			Type tipoDecl	= ((VarDecl) decl).getTipo();
 			
 			switch (tipoDecl.getTipo()) {
 				case "int": 

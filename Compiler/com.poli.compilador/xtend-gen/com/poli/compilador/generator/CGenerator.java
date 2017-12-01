@@ -36,6 +36,7 @@ import com.poli.compilador.c.Var;
 import com.poli.compilador.c.VarCmd;
 import com.poli.compilador.c.VarDecl;
 import com.poli.compilador.validation.Validator;
+import java.util.Hashtable;
 import java.util.Stack;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -61,6 +62,8 @@ public class CGenerator extends AbstractGenerator {
   public Stack<String> locals = new Stack<String>();
   
   public Stack<String> fName = new Stack<String>();
+  
+  public Hashtable<String, String> strings = new Hashtable<String, String>();
   
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
@@ -121,36 +124,63 @@ public class CGenerator extends AbstractGenerator {
   
   public String declaration(final Declaration D) {
     if ((D instanceof VarDecl)) {
+      StringConcatenation _builder = new StringConcatenation();
+      String mips = _builder.toString();
       final String vName = ((VarDecl)D).getName();
       final int size = 4;
       this.globals.add(vName);
       String _tipo = ((VarDecl)D).getTipo().getTipo();
       boolean _equals = Objects.equal(_tipo, "string");
       if (_equals) {
-        StringConcatenation _builder = new StringConcatenation();
-        _builder.append(".data");
-        _builder.newLine();
-        _builder.append("_");
-        _builder.append(vName);
-        _builder.append(": .asciiz \"\"");
-        _builder.newLineIfNotEmpty();
-        _builder.newLine();
-        final String mips = _builder.toString();
+        String _xifexpression = null;
+        Assignment _val = ((VarDecl)D).getVal();
+        boolean _tripleEquals = (_val == null);
+        if (_tripleEquals) {
+          _xifexpression = "";
+        } else {
+          Expression _exp = ((VarDecl)D).getVal().getExp();
+          _xifexpression = ((StrLit) _exp).getVal();
+        }
+        String content = _xifexpression;
+        this.strings.put(vName, vName);
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _builder_1.append(".data");
+        _builder_1.newLine();
+        _builder_1.append("_");
+        _builder_1.append(vName);
+        _builder_1.append(": .asciiz \"");
+        _builder_1.append(content);
+        _builder_1.append("\"");
+        _builder_1.newLineIfNotEmpty();
+        _builder_1.newLine();
+        mips = _builder_1.toString();
         return mips;
       }
-      StringConcatenation _builder_1 = new StringConcatenation();
-      _builder_1.append(".data");
-      _builder_1.newLine();
-      _builder_1.append(".align 2");
-      _builder_1.newLine();
-      _builder_1.append("_");
-      _builder_1.append(vName);
-      _builder_1.append(": .space ");
-      _builder_1.append(size);
-      _builder_1.newLineIfNotEmpty();
-      _builder_1.newLine();
-      final String mips_1 = _builder_1.toString();
-      return mips_1;
+      StringConcatenation _builder_2 = new StringConcatenation();
+      _builder_2.append(".data");
+      _builder_2.newLine();
+      _builder_2.append(".align 2");
+      _builder_2.newLine();
+      _builder_2.append("_");
+      _builder_2.append(vName);
+      _builder_2.append(": .space ");
+      _builder_2.append(size);
+      _builder_2.newLineIfNotEmpty();
+      _builder_2.newLine();
+      mips = _builder_2.toString();
+      Assignment _val_1 = ((VarDecl)D).getVal();
+      boolean _tripleNotEquals = (_val_1 != null);
+      if (_tripleNotEquals) {
+        String _mips = mips;
+        StringConcatenation _builder_3 = new StringConcatenation();
+        _builder_3.append(".text");
+        _builder_3.newLine();
+        mips = (_mips + _builder_3);
+        String _mips_1 = mips;
+        CharSequence _assign = this.assign(((VarDecl)D).getVal());
+        mips = (_mips_1 + _assign);
+      }
+      return mips;
     }
     return null;
   }
@@ -372,40 +402,92 @@ public class CGenerator extends AbstractGenerator {
     return _builder;
   }
   
+  public String arithExp(final ArithExp E, final String opCode) {
+    StringConcatenation _builder = new StringConcatenation();
+    CharSequence _expression = this.expression(E.getArgs().get(0));
+    _builder.append(_expression);
+    _builder.newLineIfNotEmpty();
+    CharSequence _expression_1 = this.expression(E.getArgs().get(1));
+    _builder.append(_expression_1);
+    _builder.newLineIfNotEmpty();
+    CharSequence _pop = this.pop("t1");
+    _builder.append(_pop);
+    _builder.newLineIfNotEmpty();
+    CharSequence _pop_1 = this.pop("t0");
+    _builder.append(_pop_1);
+    _builder.newLineIfNotEmpty();
+    _builder.append(opCode);
+    _builder.append("\t\t$t0, $t0, $t1");
+    _builder.newLineIfNotEmpty();
+    CharSequence _push = this.push("t0");
+    _builder.append(_push);
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    String mips = _builder.toString();
+    return mips;
+  }
+  
+  public String termExp(final Term E, final String opCode) {
+    StringConcatenation _builder = new StringConcatenation();
+    CharSequence _expression = this.expression(E.getArgs().get(0));
+    _builder.append(_expression);
+    _builder.newLineIfNotEmpty();
+    CharSequence _expression_1 = this.expression(E.getArgs().get(1));
+    _builder.append(_expression_1);
+    _builder.newLineIfNotEmpty();
+    CharSequence _pop = this.pop("t1");
+    _builder.append(_pop);
+    _builder.newLineIfNotEmpty();
+    CharSequence _pop_1 = this.pop("t0");
+    _builder.append(_pop_1);
+    _builder.newLineIfNotEmpty();
+    _builder.append(opCode);
+    _builder.append("\t\t$t0, $t0, $t1");
+    _builder.newLineIfNotEmpty();
+    CharSequence _push = this.push("t0");
+    _builder.append(_push);
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    String mips = _builder.toString();
+    return mips;
+  }
+  
   public CharSequence expression(final Expression E) {
     StringConcatenation _builder = new StringConcatenation();
     String mips = _builder.toString();
     if ((E instanceof ArithExp)) {
       boolean _equalsIgnoreCase = ((ArithExp)E).getOp().equalsIgnoreCase("+");
       if (_equalsIgnoreCase) {
-        StringConcatenation _builder_1 = new StringConcatenation();
-        _builder_1.append("# add(u)");
-        return _builder_1;
+        String _mips = mips;
+        String _arithExp = this.arithExp(((ArithExp)E), "add");
+        mips = (_mips + _arithExp);
       }
       boolean _equalsIgnoreCase_1 = ((ArithExp)E).getOp().equalsIgnoreCase("-");
       if (_equalsIgnoreCase_1) {
-        StringConcatenation _builder_2 = new StringConcatenation();
-        _builder_2.append("# sub(u)");
-        return _builder_2;
+        String _mips_1 = mips;
+        String _arithExp_1 = this.arithExp(((ArithExp)E), "sub");
+        mips = (_mips_1 + _arithExp_1);
       }
-      boolean _equalsIgnoreCase_2 = ((ArithExp)E).getOp().equalsIgnoreCase("*");
+      return mips;
+    }
+    if ((E instanceof Term)) {
+      boolean _equalsIgnoreCase_2 = ((Term)E).getOp().equalsIgnoreCase("*");
       if (_equalsIgnoreCase_2) {
-        StringConcatenation _builder_3 = new StringConcatenation();
-        _builder_3.append("# mul(u)");
-        return _builder_3;
+        String _mips_2 = mips;
+        String _termExp = this.termExp(((Term)E), "mul");
+        mips = (_mips_2 + _termExp);
       }
-      boolean _equalsIgnoreCase_3 = ((ArithExp)E).getOp().equalsIgnoreCase("/");
+      boolean _equalsIgnoreCase_3 = ((Term)E).getOp().equalsIgnoreCase("/");
       if (_equalsIgnoreCase_3) {
-        StringConcatenation _builder_4 = new StringConcatenation();
-        _builder_4.append("# div(u)");
-        return _builder_4;
+        String _mips_3 = mips;
+        String _termExp_1 = this.termExp(((Term)E), "div");
+        mips = (_mips_3 + _termExp_1);
       }
+      return mips;
     }
     if ((E instanceof LogicExp)) {
     }
     if ((E instanceof RelExp)) {
-    }
-    if ((E instanceof Term)) {
     }
     if ((E instanceof PostfixOp)) {
     }
@@ -435,32 +517,59 @@ public class CGenerator extends AbstractGenerator {
         _xifexpression = "lw";
       }
       final String opCode = _xifexpression;
-      String _mips = mips;
+      String _mips_4 = mips;
       CharSequence _evalExp = this.evalExp(opCode, ("_" + varname));
-      mips = (_mips + _evalExp);
+      mips = (_mips_4 + _evalExp);
       return mips;
     }
     if ((E instanceof IntLit)) {
       final int valor = ((IntLit)E).getVal();
-      String _mips_1 = mips;
+      String _mips_5 = mips;
       CharSequence _evalExp_1 = this.evalExp("li", Integer.valueOf(valor).toString());
-      mips = (_mips_1 + _evalExp_1);
+      mips = (_mips_5 + _evalExp_1);
       return mips;
     }
     if ((E instanceof TrueLit)) {
-      String _mips_2 = mips;
+      String _mips_6 = mips;
       CharSequence _evalExp_2 = this.evalExp("li", "1");
-      mips = (_mips_2 + _evalExp_2);
+      mips = (_mips_6 + _evalExp_2);
       return mips;
     }
     if ((E instanceof FalseLit)) {
-      String _mips_3 = mips;
+      String _mips_7 = mips;
       CharSequence _evalExp_3 = this.evalExp("li", "0");
-      mips = (_mips_3 + _evalExp_3);
+      mips = (_mips_7 + _evalExp_3);
       return mips;
     }
     if ((E instanceof StrLit)) {
+      String _nextLabel = this.nextLabel();
+      final String strLabel = ("S" + _nextLabel);
+      String _mips_8 = mips;
+      String _storeString = this.storeString(((StrLit)E), strLabel);
+      mips = (_mips_8 + _storeString);
+      return mips;
     }
+    return mips;
+  }
+  
+  public String storeString(final StrLit E, final String strLabel) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append(".data");
+    _builder.newLine();
+    _builder.append("_");
+    _builder.append(strLabel);
+    _builder.append(": .asciiz \"");
+    String _val = E.getVal();
+    _builder.append(_val);
+    _builder.append("\"");
+    _builder.newLineIfNotEmpty();
+    _builder.append(".text");
+    _builder.newLine();
+    CharSequence _evalExp = this.evalExp("la", strLabel);
+    _builder.append(_evalExp);
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    String mips = _builder.toString();
     return mips;
   }
   
