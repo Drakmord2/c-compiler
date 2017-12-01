@@ -147,13 +147,14 @@ class CGenerator extends AbstractGenerator {
 		var mips = 
 		'''
 		.text
+		.align 2
 		«IF F.name.equals('main')»
 		.globl main
 		«F.name»:
 		«ELSE»
 		_«F.name»:
 		«ENDIF»
-			«functionEntry(0, 8)»
+			«functionEntry(0, 0)»
 			«FOR C : F.commands»
 				«command(C)»
 		    «ENDFOR»
@@ -274,11 +275,28 @@ class CGenerator extends AbstractGenerator {
 		return mips
 	}
 	
-	def varCommand(VarCmd V)
-	'''
-		«assign(V.asg)»
-		«store(V.lval)»
-	'''
+	def varCommand(VarCmd V) {
+		var mips = ''''''
+		
+		if (V.asg !== null) {
+			mips +=
+				'''
+				«assign(V.asg)»
+				«store(V.lval)»
+				'''
+			return mips
+		}
+
+		mips +=
+		'''
+		«expression(V.lval)»
+		«pop('v0')»
+		
+		'''
+		
+		return mips
+	}
+
 	
 	def CharSequence assign(Assignment A)
 	'''
@@ -362,6 +380,23 @@ class CGenerator extends AbstractGenerator {
 		
 		if (E instanceof FuncCall) {
 			
+			if (E.arg !== null) {
+				for(arg : E.arg.exp) {
+					mips += expression(arg)
+				}
+			}
+
+			val func 		= E.def as Var
+			val funcName 	= if (func.valor.name == "main") func.valor.name else "_"+func.valor.name
+			
+			mips += 
+			'''
+			«jumpLink(funcName)»
+			'''
+			
+			mips += push('v0')
+			
+			return mips
 		}
 		
 		if (E instanceof FieldAccess) {
@@ -479,6 +514,7 @@ class CGenerator extends AbstractGenerator {
 	def CharSequence jumpLink(String func)
 	'''
 		jal «func»
+		
 	'''
 	
 	def CharSequence store(Expression E) {
