@@ -392,9 +392,9 @@ class CGenerator extends AbstractGenerator {
 			mips += 
 			'''
 			«jumpLink(funcName)»
-			'''
+			«push('v0')»
 			
-			mips += push('v0')
+			'''
 			
 			return mips
 		}
@@ -504,9 +504,9 @@ class CGenerator extends AbstractGenerator {
 	def functionExit(int paramSize)
 	'''
 	«fName.pop»_return:
-	  lw   $ra, «paramSize»($fp)
+	  lw   $ra, -«paramSize»($fp)
 	  move $t0, $fp
-	  lw   $fp, «paramSize + 4»($fp)
+	  lw   $fp, -«paramSize + 4»($fp)
 	  move $sp, $t0
 	  jr   $ra
 	'''
@@ -514,7 +514,6 @@ class CGenerator extends AbstractGenerator {
 	def CharSequence jumpLink(String func)
 	'''
 		jal «func»
-		
 	'''
 	
 	def CharSequence store(Expression E) {

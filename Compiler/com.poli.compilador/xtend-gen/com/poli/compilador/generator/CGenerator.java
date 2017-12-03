@@ -545,10 +545,11 @@ public class CGenerator extends AbstractGenerator {
       CharSequence _jumpLink = this.jumpLink(funcName);
       _builder_1.append(_jumpLink);
       _builder_1.newLineIfNotEmpty();
-      mips = (_mips_5 + _builder_1);
-      String _mips_6 = mips;
       CharSequence _push = this.push("v0");
-      mips = (_mips_6 + _push);
+      _builder_1.append(_push);
+      _builder_1.newLineIfNotEmpty();
+      _builder_1.newLine();
+      mips = (_mips_5 + _builder_1);
       return mips;
     }
     if ((E instanceof FieldAccess)) {
@@ -570,36 +571,36 @@ public class CGenerator extends AbstractGenerator {
         _xifexpression_1 = "lw";
       }
       final String opCode = _xifexpression_1;
-      String _mips_7 = mips;
+      String _mips_6 = mips;
       CharSequence _evalExp = this.evalExp(opCode, ("_" + varname));
-      mips = (_mips_7 + _evalExp);
+      mips = (_mips_6 + _evalExp);
       return mips;
     }
     if ((E instanceof IntLit)) {
       final int valor = ((IntLit)E).getVal();
-      String _mips_8 = mips;
+      String _mips_7 = mips;
       CharSequence _evalExp_1 = this.evalExp("li", Integer.valueOf(valor).toString());
-      mips = (_mips_8 + _evalExp_1);
+      mips = (_mips_7 + _evalExp_1);
       return mips;
     }
     if ((E instanceof TrueLit)) {
-      String _mips_9 = mips;
+      String _mips_8 = mips;
       CharSequence _evalExp_2 = this.evalExp("li", "1");
-      mips = (_mips_9 + _evalExp_2);
+      mips = (_mips_8 + _evalExp_2);
       return mips;
     }
     if ((E instanceof FalseLit)) {
-      String _mips_10 = mips;
+      String _mips_9 = mips;
       CharSequence _evalExp_3 = this.evalExp("li", "0");
-      mips = (_mips_10 + _evalExp_3);
+      mips = (_mips_9 + _evalExp_3);
       return mips;
     }
     if ((E instanceof StrLit)) {
       String _nextLabel = this.nextLabel();
       final String strLabel = ("S" + _nextLabel);
-      String _mips_11 = mips;
+      String _mips_10 = mips;
       String _storeString = this.storeString(((StrLit)E), strLabel);
-      mips = (_mips_11 + _storeString);
+      mips = (_mips_10 + _storeString);
       return mips;
     }
     return mips;
@@ -677,7 +678,7 @@ public class CGenerator extends AbstractGenerator {
     _builder.append("_return:");
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
-    _builder.append("lw   $ra, ");
+    _builder.append("lw   $ra, -");
     _builder.append(paramSize, "  ");
     _builder.append("($fp)");
     _builder.newLineIfNotEmpty();
@@ -685,7 +686,7 @@ public class CGenerator extends AbstractGenerator {
     _builder.append("move $t0, $fp");
     _builder.newLine();
     _builder.append("  ");
-    _builder.append("lw   $fp, ");
+    _builder.append("lw   $fp, -");
     _builder.append((paramSize + 4), "  ");
     _builder.append("($fp)");
     _builder.newLineIfNotEmpty();
@@ -703,7 +704,6 @@ public class CGenerator extends AbstractGenerator {
     _builder.append("jal ");
     _builder.append(func);
     _builder.newLineIfNotEmpty();
-    _builder.newLine();
     return _builder;
   }
   
