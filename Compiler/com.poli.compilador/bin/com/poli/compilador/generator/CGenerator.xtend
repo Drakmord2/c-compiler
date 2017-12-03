@@ -359,16 +359,80 @@ class CGenerator extends AbstractGenerator {
 			return mips
 		}
 		
-		if (E instanceof PostfixOp) {
+		if (E instanceof LogicExp) {
+			if (E.op.equalsIgnoreCase('&&')){
+				mips += logicExp(E, 'and')
+			}
 			
+			if (E.op.equalsIgnoreCase('||')){
+				mips += logicExp(E, 'or')
+			}
+		}
+		
+		if (E instanceof PostfixOp) {
+			val op = E.uo
+			
+			if (E.arg instanceof Var) {
+			    val vName = (E.arg as Var).valor.name
+
+				if (op == "++") {
+					mips +=
+					'''
+					lw $t9, _«vName»
+					«push('t9')»
+					addiu $t9, $t9, 1
+					sw $t9, _«vName»
+					
+					'''
+					
+				}
+				
+				if (op == "--") {
+					mips +=
+					'''
+					lw $t9, _«vName»
+					«push('t9')»
+					addiu $t9, $t9, -1
+					sw $t9, _«vName»
+					
+					'''
+				}
+			}
+			
+			return mips
 		}
 		
 		if (E instanceof PrefixOp) {
+			val op = E.uo
 			
-		}
-		
-		if (E instanceof LogicExp) {
+			if (E.arg instanceof Var) {
+			    val vName = (E.arg as Var).valor.name
+
+				if (op == "++") {
+					mips +=
+					'''
+					lw $t9, _«vName»
+					addiu $t9, $t9, 1
+					sw $t9, _«vName»
+					«push('t9')»
+					
+					'''
+					
+				}
+				
+				if (op == "--") {
+					mips +=
+					'''
+					lw $t9, _«vName»
+					addiu $t9, $t9, -1
+					sw $t9, _«vName»
+					«push('t9')»
+					
+					'''
+				}
+			}
 			
+			return mips
 		}
 		
 		if (E instanceof Parenteses) {
@@ -452,6 +516,20 @@ class CGenerator extends AbstractGenerator {
 	}
 	
 	def arithExp(ArithExp E, String opCode){
+		var mips = 
+		'''
+		«expression(E.args.get(0))»
+		«expression(E.args.get(1))»
+		«pop('t1')»
+		«pop('t0')»
+		«opCode»		$t0, $t0, $t1
+		«push('t0')»
+		
+	 	'''
+	 	return mips
+	}
+	
+	def logicExp(LogicExp E, String opCode){
 		var mips = 
 		'''
 		«expression(E.args.get(0))»
