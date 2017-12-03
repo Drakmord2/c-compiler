@@ -302,33 +302,6 @@ class CGenerator extends AbstractGenerator {
 	'''
 		«expression(A.exp)»
 	'''
-	def arithExp(ArithExp E, String opCode){
-		var mips = 
-		'''
-		«expression(E.args.get(0))»
-		«expression(E.args.get(1))»
-		«pop('t1')»
-		«pop('t0')»
-		«opCode»		$t0, $t0, $t1
-		«push('t0')»
-		
-	 	'''
-	 	return mips
-	}
-	
-	def termExp(Term E, String opCode){
-		var mips = 
-		'''
-		«expression(E.args.get(0))»
-		«expression(E.args.get(1))»
-		«pop('t1')»
-		«pop('t0')»
-		«opCode»		$t0, $t0, $t1
-		«push('t0')»
-		
-	 	'''
-	 	return mips
-	}
 	
 	// TODO Refatorar
 	def CharSequence expression(Expression E) {
@@ -358,12 +331,32 @@ class CGenerator extends AbstractGenerator {
 			return mips
 		}
 		
-		if (E instanceof LogicExp) {
-			
-		}
-		
 		if (E instanceof RelExp) {
+			if (E.op.equalsIgnoreCase('>')){
+				mips += relExp(E, 'sgt')
+			}
 			
+			if (E.op.equalsIgnoreCase('>=')){
+				mips += relExp(E, 'sge')
+			}
+			
+			if (E.op.equalsIgnoreCase('<')){
+				mips += relExp(E, 'slt')
+			}
+			
+			if (E.op.equalsIgnoreCase('<=')){
+				mips += relExp(E, 'sle')
+			}
+			
+			if (E.op.equalsIgnoreCase('==')){
+				mips += relExp(E, 'seq')
+			}
+			
+			if (E.op.equalsIgnoreCase('!=')){
+				mips += relExp(E, 'sne')
+			}
+			
+			return mips
 		}
 		
 		if (E instanceof PostfixOp) {
@@ -371,6 +364,10 @@ class CGenerator extends AbstractGenerator {
 		}
 		
 		if (E instanceof PrefixOp) {
+			
+		}
+		
+		if (E instanceof LogicExp) {
 			
 		}
 		
@@ -452,6 +449,48 @@ class CGenerator extends AbstractGenerator {
 		}
 		
 		return mips
+	}
+	
+	def arithExp(ArithExp E, String opCode){
+		var mips = 
+		'''
+		«expression(E.args.get(0))»
+		«expression(E.args.get(1))»
+		«pop('t1')»
+		«pop('t0')»
+		«opCode»		$t0, $t0, $t1
+		«push('t0')»
+		
+	 	'''
+	 	return mips
+	}
+	
+	def termExp(Term E, String opCode){
+		var mips = 
+		'''
+		«expression(E.args.get(0))»
+		«expression(E.args.get(1))»
+		«pop('t1')»
+		«pop('t0')»
+		«opCode»		$t0, $t0, $t1
+		«push('t0')»
+		
+	 	'''
+	 	return mips
+	}
+	
+	def relExp(RelExp E, String opCode) {
+		var mips = 
+		'''
+		«expression(E.args.get(0))»
+		«expression(E.args.get(1))»
+		«pop('t1')»
+		«pop('t0')»
+		«opCode»		$t0, $t0, $t1
+		«push('t0')»
+		
+	 	'''
+	 	return mips
 	}
 	
 	def storeString(StrLit E, String strLabel) {

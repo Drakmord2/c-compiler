@@ -423,6 +423,176 @@ public class CGenerator extends AbstractGenerator {
     return _builder;
   }
   
+  public CharSequence expression(final Expression E) {
+    StringConcatenation _builder = new StringConcatenation();
+    String mips = _builder.toString();
+    if ((E instanceof ArithExp)) {
+      boolean _equalsIgnoreCase = ((ArithExp)E).getOp().equalsIgnoreCase("+");
+      if (_equalsIgnoreCase) {
+        String _mips = mips;
+        String _arithExp = this.arithExp(((ArithExp)E), "add");
+        mips = (_mips + _arithExp);
+      }
+      boolean _equalsIgnoreCase_1 = ((ArithExp)E).getOp().equalsIgnoreCase("-");
+      if (_equalsIgnoreCase_1) {
+        String _mips_1 = mips;
+        String _arithExp_1 = this.arithExp(((ArithExp)E), "sub");
+        mips = (_mips_1 + _arithExp_1);
+      }
+      return mips;
+    }
+    if ((E instanceof Term)) {
+      boolean _equalsIgnoreCase_2 = ((Term)E).getOp().equalsIgnoreCase("*");
+      if (_equalsIgnoreCase_2) {
+        String _mips_2 = mips;
+        String _termExp = this.termExp(((Term)E), "mul");
+        mips = (_mips_2 + _termExp);
+      }
+      boolean _equalsIgnoreCase_3 = ((Term)E).getOp().equalsIgnoreCase("/");
+      if (_equalsIgnoreCase_3) {
+        String _mips_3 = mips;
+        String _termExp_1 = this.termExp(((Term)E), "div");
+        mips = (_mips_3 + _termExp_1);
+      }
+      return mips;
+    }
+    if ((E instanceof RelExp)) {
+      boolean _equalsIgnoreCase_4 = ((RelExp)E).getOp().equalsIgnoreCase(">");
+      if (_equalsIgnoreCase_4) {
+        String _mips_4 = mips;
+        String _relExp = this.relExp(((RelExp)E), "sgt");
+        mips = (_mips_4 + _relExp);
+      }
+      boolean _equalsIgnoreCase_5 = ((RelExp)E).getOp().equalsIgnoreCase(">=");
+      if (_equalsIgnoreCase_5) {
+        String _mips_5 = mips;
+        String _relExp_1 = this.relExp(((RelExp)E), "sge");
+        mips = (_mips_5 + _relExp_1);
+      }
+      boolean _equalsIgnoreCase_6 = ((RelExp)E).getOp().equalsIgnoreCase("<");
+      if (_equalsIgnoreCase_6) {
+        String _mips_6 = mips;
+        String _relExp_2 = this.relExp(((RelExp)E), "slt");
+        mips = (_mips_6 + _relExp_2);
+      }
+      boolean _equalsIgnoreCase_7 = ((RelExp)E).getOp().equalsIgnoreCase("<=");
+      if (_equalsIgnoreCase_7) {
+        String _mips_7 = mips;
+        String _relExp_3 = this.relExp(((RelExp)E), "sle");
+        mips = (_mips_7 + _relExp_3);
+      }
+      boolean _equalsIgnoreCase_8 = ((RelExp)E).getOp().equalsIgnoreCase("==");
+      if (_equalsIgnoreCase_8) {
+        String _mips_8 = mips;
+        String _relExp_4 = this.relExp(((RelExp)E), "seq");
+        mips = (_mips_8 + _relExp_4);
+      }
+      boolean _equalsIgnoreCase_9 = ((RelExp)E).getOp().equalsIgnoreCase("!=");
+      if (_equalsIgnoreCase_9) {
+        String _mips_9 = mips;
+        String _relExp_5 = this.relExp(((RelExp)E), "sne");
+        mips = (_mips_9 + _relExp_5);
+      }
+      return mips;
+    }
+    if ((E instanceof PostfixOp)) {
+    }
+    if ((E instanceof PrefixOp)) {
+    }
+    if ((E instanceof LogicExp)) {
+    }
+    if ((E instanceof Parenteses)) {
+      return this.expression(((Parenteses)E).getExp());
+    }
+    if ((E instanceof FuncCall)) {
+      Argument _arg = ((FuncCall)E).getArg();
+      boolean _tripleNotEquals = (_arg != null);
+      if (_tripleNotEquals) {
+        EList<Expression> _exp = ((FuncCall)E).getArg().getExp();
+        for (final Expression arg : _exp) {
+          String _mips_10 = mips;
+          CharSequence _expression = this.expression(arg);
+          mips = (_mips_10 + _expression);
+        }
+      }
+      Expression _def = ((FuncCall)E).getDef();
+      final Var func = ((Var) _def);
+      String _xifexpression = null;
+      String _name = func.getValor().getName();
+      boolean _equals = Objects.equal(_name, "main");
+      if (_equals) {
+        _xifexpression = func.getValor().getName();
+      } else {
+        String _name_1 = func.getValor().getName();
+        _xifexpression = ("_" + _name_1);
+      }
+      final String funcName = _xifexpression;
+      String _mips_11 = mips;
+      StringConcatenation _builder_1 = new StringConcatenation();
+      CharSequence _jumpLink = this.jumpLink(funcName);
+      _builder_1.append(_jumpLink);
+      _builder_1.newLineIfNotEmpty();
+      CharSequence _push = this.push("v0");
+      _builder_1.append(_push);
+      _builder_1.newLineIfNotEmpty();
+      _builder_1.newLine();
+      mips = (_mips_11 + _builder_1);
+      return mips;
+    }
+    if ((E instanceof FieldAccess)) {
+    }
+    if ((E instanceof ArrayAccess)) {
+    }
+    if ((E instanceof PointerExp)) {
+    }
+    if ((E instanceof Var)) {
+      final String varname = ((Var)E).getValor().getName();
+      Definition _valor = ((Var)E).getValor();
+      final VarDecl decl = ((VarDecl) _valor);
+      final String tipo = decl.getTipo().getTipo();
+      String _xifexpression_1 = null;
+      boolean _equals_1 = Objects.equal(tipo, "string");
+      if (_equals_1) {
+        _xifexpression_1 = "la";
+      } else {
+        _xifexpression_1 = "lw";
+      }
+      final String opCode = _xifexpression_1;
+      String _mips_12 = mips;
+      CharSequence _evalExp = this.evalExp(opCode, ("_" + varname));
+      mips = (_mips_12 + _evalExp);
+      return mips;
+    }
+    if ((E instanceof IntLit)) {
+      final int valor = ((IntLit)E).getVal();
+      String _mips_13 = mips;
+      CharSequence _evalExp_1 = this.evalExp("li", Integer.valueOf(valor).toString());
+      mips = (_mips_13 + _evalExp_1);
+      return mips;
+    }
+    if ((E instanceof TrueLit)) {
+      String _mips_14 = mips;
+      CharSequence _evalExp_2 = this.evalExp("li", "1");
+      mips = (_mips_14 + _evalExp_2);
+      return mips;
+    }
+    if ((E instanceof FalseLit)) {
+      String _mips_15 = mips;
+      CharSequence _evalExp_3 = this.evalExp("li", "0");
+      mips = (_mips_15 + _evalExp_3);
+      return mips;
+    }
+    if ((E instanceof StrLit)) {
+      String _nextLabel = this.nextLabel();
+      final String strLabel = ("S" + _nextLabel);
+      String _mips_16 = mips;
+      String _storeString = this.storeString(((StrLit)E), strLabel);
+      mips = (_mips_16 + _storeString);
+      return mips;
+    }
+    return mips;
+  }
+  
   public String arithExp(final ArithExp E, final String opCode) {
     StringConcatenation _builder = new StringConcatenation();
     CharSequence _expression = this.expression(E.getArgs().get(0));
@@ -473,136 +643,28 @@ public class CGenerator extends AbstractGenerator {
     return mips;
   }
   
-  public CharSequence expression(final Expression E) {
+  public String relExp(final RelExp E, final String opCode) {
     StringConcatenation _builder = new StringConcatenation();
+    CharSequence _expression = this.expression(E.getArgs().get(0));
+    _builder.append(_expression);
+    _builder.newLineIfNotEmpty();
+    CharSequence _expression_1 = this.expression(E.getArgs().get(1));
+    _builder.append(_expression_1);
+    _builder.newLineIfNotEmpty();
+    CharSequence _pop = this.pop("t1");
+    _builder.append(_pop);
+    _builder.newLineIfNotEmpty();
+    CharSequence _pop_1 = this.pop("t0");
+    _builder.append(_pop_1);
+    _builder.newLineIfNotEmpty();
+    _builder.append(opCode);
+    _builder.append("\t\t$t0, $t0, $t1");
+    _builder.newLineIfNotEmpty();
+    CharSequence _push = this.push("t0");
+    _builder.append(_push);
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
     String mips = _builder.toString();
-    if ((E instanceof ArithExp)) {
-      boolean _equalsIgnoreCase = ((ArithExp)E).getOp().equalsIgnoreCase("+");
-      if (_equalsIgnoreCase) {
-        String _mips = mips;
-        String _arithExp = this.arithExp(((ArithExp)E), "add");
-        mips = (_mips + _arithExp);
-      }
-      boolean _equalsIgnoreCase_1 = ((ArithExp)E).getOp().equalsIgnoreCase("-");
-      if (_equalsIgnoreCase_1) {
-        String _mips_1 = mips;
-        String _arithExp_1 = this.arithExp(((ArithExp)E), "sub");
-        mips = (_mips_1 + _arithExp_1);
-      }
-      return mips;
-    }
-    if ((E instanceof Term)) {
-      boolean _equalsIgnoreCase_2 = ((Term)E).getOp().equalsIgnoreCase("*");
-      if (_equalsIgnoreCase_2) {
-        String _mips_2 = mips;
-        String _termExp = this.termExp(((Term)E), "mul");
-        mips = (_mips_2 + _termExp);
-      }
-      boolean _equalsIgnoreCase_3 = ((Term)E).getOp().equalsIgnoreCase("/");
-      if (_equalsIgnoreCase_3) {
-        String _mips_3 = mips;
-        String _termExp_1 = this.termExp(((Term)E), "div");
-        mips = (_mips_3 + _termExp_1);
-      }
-      return mips;
-    }
-    if ((E instanceof LogicExp)) {
-    }
-    if ((E instanceof RelExp)) {
-    }
-    if ((E instanceof PostfixOp)) {
-    }
-    if ((E instanceof PrefixOp)) {
-    }
-    if ((E instanceof Parenteses)) {
-      return this.expression(((Parenteses)E).getExp());
-    }
-    if ((E instanceof FuncCall)) {
-      Argument _arg = ((FuncCall)E).getArg();
-      boolean _tripleNotEquals = (_arg != null);
-      if (_tripleNotEquals) {
-        EList<Expression> _exp = ((FuncCall)E).getArg().getExp();
-        for (final Expression arg : _exp) {
-          String _mips_4 = mips;
-          CharSequence _expression = this.expression(arg);
-          mips = (_mips_4 + _expression);
-        }
-      }
-      Expression _def = ((FuncCall)E).getDef();
-      final Var func = ((Var) _def);
-      String _xifexpression = null;
-      String _name = func.getValor().getName();
-      boolean _equals = Objects.equal(_name, "main");
-      if (_equals) {
-        _xifexpression = func.getValor().getName();
-      } else {
-        String _name_1 = func.getValor().getName();
-        _xifexpression = ("_" + _name_1);
-      }
-      final String funcName = _xifexpression;
-      String _mips_5 = mips;
-      StringConcatenation _builder_1 = new StringConcatenation();
-      CharSequence _jumpLink = this.jumpLink(funcName);
-      _builder_1.append(_jumpLink);
-      _builder_1.newLineIfNotEmpty();
-      CharSequence _push = this.push("v0");
-      _builder_1.append(_push);
-      _builder_1.newLineIfNotEmpty();
-      _builder_1.newLine();
-      mips = (_mips_5 + _builder_1);
-      return mips;
-    }
-    if ((E instanceof FieldAccess)) {
-    }
-    if ((E instanceof ArrayAccess)) {
-    }
-    if ((E instanceof PointerExp)) {
-    }
-    if ((E instanceof Var)) {
-      final String varname = ((Var)E).getValor().getName();
-      Definition _valor = ((Var)E).getValor();
-      final VarDecl decl = ((VarDecl) _valor);
-      final String tipo = decl.getTipo().getTipo();
-      String _xifexpression_1 = null;
-      boolean _equals_1 = Objects.equal(tipo, "string");
-      if (_equals_1) {
-        _xifexpression_1 = "la";
-      } else {
-        _xifexpression_1 = "lw";
-      }
-      final String opCode = _xifexpression_1;
-      String _mips_6 = mips;
-      CharSequence _evalExp = this.evalExp(opCode, ("_" + varname));
-      mips = (_mips_6 + _evalExp);
-      return mips;
-    }
-    if ((E instanceof IntLit)) {
-      final int valor = ((IntLit)E).getVal();
-      String _mips_7 = mips;
-      CharSequence _evalExp_1 = this.evalExp("li", Integer.valueOf(valor).toString());
-      mips = (_mips_7 + _evalExp_1);
-      return mips;
-    }
-    if ((E instanceof TrueLit)) {
-      String _mips_8 = mips;
-      CharSequence _evalExp_2 = this.evalExp("li", "1");
-      mips = (_mips_8 + _evalExp_2);
-      return mips;
-    }
-    if ((E instanceof FalseLit)) {
-      String _mips_9 = mips;
-      CharSequence _evalExp_3 = this.evalExp("li", "0");
-      mips = (_mips_9 + _evalExp_3);
-      return mips;
-    }
-    if ((E instanceof StrLit)) {
-      String _nextLabel = this.nextLabel();
-      final String strLabel = ("S" + _nextLabel);
-      String _mips_10 = mips;
-      String _storeString = this.storeString(((StrLit)E), strLabel);
-      mips = (_mips_10 + _storeString);
-      return mips;
-    }
     return mips;
   }
   
