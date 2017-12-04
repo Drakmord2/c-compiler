@@ -9,7 +9,10 @@ import com.poli.compilador.c.Argument;
 import com.poli.compilador.c.ArithExp;
 import com.poli.compilador.c.ArrayAccess;
 import com.poli.compilador.c.Assignment;
+import com.poli.compilador.c.BreakCmd;
 import com.poli.compilador.c.Command;
+import com.poli.compilador.c.ContinueCmd;
+import com.poli.compilador.c.DeclCmd;
 import com.poli.compilador.c.Declaration;
 import com.poli.compilador.c.Definition;
 import com.poli.compilador.c.DoWhileCmd;
@@ -39,6 +42,7 @@ import com.poli.compilador.c.VarCmd;
 import com.poli.compilador.c.VarDecl;
 import com.poli.compilador.c.WhileCmd;
 import com.poli.compilador.validation.Validator;
+import java.util.HashMap;
 import java.util.Stack;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -55,18 +59,37 @@ import org.eclipse.xtext.xbase.lib.IteratorExtensions;
  */
 @SuppressWarnings("all")
 public class CGenerator extends AbstractGenerator {
-  public int label = 0;
+  public int label;
   
-  public int stackIdx = 0;
+  public int loopCount;
   
-  public Stack<String> globals = new Stack<String>();
+  public int index;
   
-  public Stack<String> locals = new Stack<String>();
+  public Stack<String> globals;
   
-  public Stack<String> fName = new Stack<String>();
+  public Stack<String> fName;
+  
+  public HashMap<String, Integer> locals;
+  
+  public HashMap<String, Integer> init() {
+    HashMap<String, Integer> _xblockexpression = null;
+    {
+      this.label = 0;
+      this.loopCount = 0;
+      this.index = 0;
+      Stack<String> _stack = new Stack<String>();
+      this.globals = _stack;
+      Stack<String> _stack_1 = new Stack<String>();
+      this.fName = _stack_1;
+      HashMap<String, Integer> _hashMap = new HashMap<String, Integer>();
+      _xblockexpression = this.locals = _hashMap;
+    }
+    return _xblockexpression;
+  }
   
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
+    this.init();
     Program p = IteratorExtensions.<Program>head(Iterators.<Program>filter(resource.getAllContents(), Program.class));
     String filename = resource.getURI().lastSegment().split("\\.")[0];
     if ((p == null)) {
@@ -274,15 +297,90 @@ public class CGenerator extends AbstractGenerator {
       }
     }
     if (!_matched) {
+      if ((C instanceof BreakCmd)) {
+        _matched=true;
+        _switchResult = this.breakCommand(((BreakCmd) C));
+      }
+    }
+    if (!_matched) {
+      if ((C instanceof ContinueCmd)) {
+        _matched=true;
+        _switchResult = this.continueCommand(((ContinueCmd) C));
+      }
+    }
+    if (!_matched) {
       if ((C instanceof ReturnCmd)) {
         _matched=true;
         _switchResult = this.returnCommand(((ReturnCmd) C));
       }
     }
+    if (!_matched) {
+      if ((C instanceof DeclCmd)) {
+        _matched=true;
+        _switchResult = this.declCommand(((DeclCmd) C));
+      }
+    }
     return _switchResult;
   }
   
+  public String declCommand(final DeclCmd C) {
+    StringConcatenation _builder = new StringConcatenation();
+    String mips = _builder.toString();
+    final String vName = C.getVal().getName();
+    final Declaration decl = C.getVal();
+    this.locals.put(vName, Integer.valueOf(this.index));
+    if ((decl instanceof VarDecl)) {
+      StringConcatenation _builder_1 = new StringConcatenation();
+      {
+        Assignment _val = ((VarDecl)decl).getVal();
+        boolean _tripleNotEquals = (_val != null);
+        if (_tripleNotEquals) {
+          CharSequence _expression = this.expression(((VarDecl)decl).getVal().getExp());
+          _builder_1.append(_expression);
+          _builder_1.newLineIfNotEmpty();
+          CharSequence _pop = this.pop("t9");
+          _builder_1.append(_pop);
+          _builder_1.newLineIfNotEmpty();
+          _builder_1.append("sw\t\t$t9, ");
+          _builder_1.append(this.index);
+          _builder_1.append("($sp)");
+          _builder_1.newLineIfNotEmpty();
+        }
+      }
+      _builder_1.newLine();
+      mips = _builder_1.toString();
+    }
+    int _index = this.index;
+    this.index = (_index + 4);
+    return mips;
+  }
+  
+  public String breakCommand(final BreakCmd C) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      if ((this.loopCount != 0)) {
+        _builder.append("j endLabel");
+        _builder.newLine();
+      }
+    }
+    final String mips = _builder.toString();
+    return mips;
+  }
+  
+  public String continueCommand(final ContinueCmd C) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      if ((this.loopCount != 0)) {
+        _builder.append("j startLabel");
+        _builder.newLine();
+      }
+    }
+    final String mips = _builder.toString();
+    return mips;
+  }
+  
   public String forCommand(final ForCmd C) {
+    this.loopCount++;
     StringConcatenation _builder = new StringConcatenation();
     String mips = _builder.toString();
     String _nextLabel = this.nextLabel();
@@ -341,10 +439,12 @@ public class CGenerator extends AbstractGenerator {
     _builder_1.newLineIfNotEmpty();
     _builder_1.newLine();
     mips = (_mips + _builder_1);
+    this.loopCount--;
     return mips;
   }
   
   public String whileCommand(final WhileCmd C) {
+    this.loopCount++;
     StringConcatenation _builder = new StringConcatenation();
     String mips = _builder.toString();
     String _nextLabel = this.nextLabel();
@@ -381,10 +481,12 @@ public class CGenerator extends AbstractGenerator {
     _builder_1.newLineIfNotEmpty();
     _builder_1.newLine();
     mips = (_mips + _builder_1);
+    this.loopCount--;
     return mips;
   }
   
   public String doWhileCommand(final DoWhileCmd C) {
+    this.loopCount++;
     StringConcatenation _builder = new StringConcatenation();
     String mips = _builder.toString();
     String _nextLabel = this.nextLabel();
@@ -413,6 +515,7 @@ public class CGenerator extends AbstractGenerator {
     _builder_1.newLineIfNotEmpty();
     _builder_1.newLine();
     mips = (_mips + _builder_1);
+    this.loopCount--;
     return mips;
   }
   
@@ -796,8 +899,17 @@ public class CGenerator extends AbstractGenerator {
         _xifexpression_1 = "lw";
       }
       final String opCode = _xifexpression_1;
+      String _xifexpression_2 = null;
+      boolean _containsKey = this.locals.containsKey(varname);
+      if (_containsKey) {
+        Integer _get = this.locals.get(varname);
+        _xifexpression_2 = (_get + "($sp)");
+      } else {
+        _xifexpression_2 = ("_" + varname);
+      }
+      final String id = _xifexpression_2;
       String _mips_18 = mips;
-      CharSequence _evalExp = this.evalExp(opCode, ("_" + varname));
+      CharSequence _evalExp = this.evalExp(opCode, id);
       mips = (_mips_18 + _evalExp);
       return mips;
     }
@@ -1047,12 +1159,14 @@ public class CGenerator extends AbstractGenerator {
       mips = (_mips + _builder_1);
       return mips;
     }
-    boolean _contains_1 = this.locals.contains(varname);
-    if (_contains_1) {
+    boolean _containsKey = this.locals.containsKey(varname);
+    if (_containsKey) {
       String _mips_1 = mips;
-      StringConcatenation _builder_2 = new StringConcatenation();
-      _builder_2.newLine();
-      mips = (_mips_1 + _builder_2);
+      CharSequence _pop_1 = this.pop("t9");
+      mips = (_mips_1 + _pop_1);
+      String _mips_2 = mips;
+      CharSequence _indexed = this.indexed("sw", "t9", (this.locals.get(varname)).intValue(), "sp");
+      mips = (_mips_2 + _indexed);
       return mips;
     }
     return mips;
@@ -1080,7 +1194,7 @@ public class CGenerator extends AbstractGenerator {
     return _builder;
   }
   
-  public CharSequence indexed(final String opCode, final String reg1, final String reg2, final int offset) {
+  public CharSequence indexed(final String opCode, final String reg1, final int offset, final String reg2) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append(opCode);
     _builder.append("\t\t$");

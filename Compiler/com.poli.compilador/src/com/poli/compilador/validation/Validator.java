@@ -7,21 +7,6 @@ public class Validator {
 
 	public static enum Tipo { INT, BOOL, STR}
 	
-	public static boolean correct(Command c, Map<String,Tipo> binds) {
-		
-		if (c instanceof IfCmd) {
-			Expression exp = ((IfCmd) c).getExp();
-			
-			if ( tipode(exp, binds) == Tipo.BOOL) {
-				return true;
-			}else {
-				return false;	
-			}
-		}
-		
-		return false;
-	}
-	
 	public static Tipo tipode(Expression e, Map<String,Tipo> binds) {
 
 		if (e instanceof IntLit) {

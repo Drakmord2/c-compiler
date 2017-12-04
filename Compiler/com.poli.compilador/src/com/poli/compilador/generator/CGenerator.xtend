@@ -46,7 +46,7 @@ import java.util.Stack
 import com.poli.compilador.c.Expression
 import com.poli.compilador.c.Assignment
 import com.poli.compilador.c.VarDecl
-import java.util.Hashtable
+import java.util.HashMap
 
 /**
  * Generates code from your model files on save.
@@ -55,13 +55,24 @@ import java.util.Hashtable
  */
 class CGenerator extends AbstractGenerator {
 	
-	public int label 						= 0;
-	public int stackIdx						= 0;
-	public Stack<String> globals				= new Stack();
-	public Stack<String> locals 				= new Stack();
-	public Stack<String> fName				= new Stack();
+	public int label
+	public int loopCount
+	public int index
+	public Stack<String> globals
+	public Stack<String> fName
+	public HashMap<String, Integer> locals
+	
+	def init() {
+		this.label 		= 0
+		this.loopCount	= 0
+		this.index		= 0
+		this.globals		= new Stack
+		this.fName		= new Stack
+		this.locals		= new HashMap
+	}
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+		this.init()
 		var Program p	= resource.allContents.filter(Program).head
 		var filename 	= resource.URI.lastSegment.split("\\.").get(0)
 		
@@ -117,16 +128,16 @@ class CGenerator extends AbstractGenerator {
 			
 			mips =
 			'''
-				.data
-				.align 2
-				_«vName»: .space «size»
-				«IF D.^val !== null»
-					.text
-					«assign(D.^val)»
-					«pop('t9')»
-					sw		$t9, _«vName»
-				«ENDIF»
-				
+			.data
+			.align 2
+			_«vName»: .space «size»
+			«IF D.^val !== null»
+				.text
+				«assign(D.^val)»
+				«pop('t9')»
+				sw		$t9, _«vName»
+			«ENDIF»
+			
 			'''
 			
 			return mips
@@ -168,14 +179,61 @@ class CGenerator extends AbstractGenerator {
 //			case C instanceof SwitchCmd: 	'switchCommand(C as SwitchCmd)'
 			case C instanceof DoWhileCmd: 	doWhileCommand(C as DoWhileCmd)
 			case C instanceof VarCmd:		varCommand(C as VarCmd)
-//			case C instanceof BreakCmd: 		'breakCommand(C as BreakCmd)'
-//			case C instanceof ContinueCmd:	'continueCommand(C as ContinueCmd)'
+			case C instanceof BreakCmd: 		breakCommand(C as BreakCmd)
+			case C instanceof ContinueCmd:	continueCommand(C as ContinueCmd)
 			case C instanceof ReturnCmd: 	returnCommand(C as ReturnCmd)
-//			case C instanceof DeclCmd: 		'declCommand(C as DeclCmd)'
+			case C instanceof DeclCmd: 		declCommand(C as DeclCmd)
 		}
 	}
 	
+	def declCommand(DeclCmd C) {
+		var mips 	= ''''''
+		val vName	= C.^val.name
+		val decl 	= C.^val
+		locals.put(vName, index)
+		
+		if (decl instanceof VarDecl) {
+			mips =
+			'''
+			«IF decl.^val !== null»
+			«expression(decl.^val.exp)»
+			«pop('t9')»
+			sw		$t9, «index»($sp)
+			«ENDIF»
+			
+			'''
+		}
+
+		index += 4;
+		return mips
+	}
+	
+	//TODO
+	def breakCommand(BreakCmd C) {
+		val mips = 
+		'''
+		«IF loopCount != 0»
+			j endLabel
+		«ENDIF»
+		'''
+		
+		return mips
+	}
+	
+	//TODO
+	def continueCommand(ContinueCmd C) {
+		val mips = 
+		'''
+		«IF loopCount != 0»
+			j startLabel
+		«ENDIF»
+		'''
+		
+		return mips
+	}
+	
 	def forCommand(ForCmd C) {
+		loopCount++
 		var mips 	= ''''''
 		val start	= nextLabel+"_for"
 		val end		= nextLabel+"_endfor"
@@ -202,10 +260,12 @@ class CGenerator extends AbstractGenerator {
 		
 		'''
 		
+		loopCount--
 		return mips
 	}
 	
 	def whileCommand(WhileCmd C) {
+		loopCount++
 		var mips 	= ''''''
 		val start	= nextLabel+"_while"
 		val end		= nextLabel+"_endwhile"
@@ -223,11 +283,12 @@ class CGenerator extends AbstractGenerator {
 		«end»:
 		
 		'''
-		
+		loopCount--
 		return mips
 	}
 	
 	def doWhileCommand(DoWhileCmd C) {
+		loopCount++
 		var mips 	= ''''''
 		val start	= nextLabel+"_dowhile"
 	    
@@ -243,6 +304,7 @@ class CGenerator extends AbstractGenerator {
 		
 		'''
 		
+		loopCount--
 		return mips
 	}
 	
@@ -512,8 +574,9 @@ class CGenerator extends AbstractGenerator {
 			val tipo 	= decl.tipo.tipo
 			
 			val opCode = if (tipo == 'string') 'la' else 'lw'
+			val id = if (locals.containsKey(varname)) locals.get(varname)+"($sp)" else '_'+varname
 			
-			mips += evalExp(opCode, '_'+varname)
+			mips += evalExp(opCode, id)
 			
 			return mips
 		}
@@ -678,13 +741,9 @@ class CGenerator extends AbstractGenerator {
 			return mips
 		}
 		
-		if (locals.contains(varname)) {
-//			mips += pop('t9')
-//			mips += indexed('sw', 't9', 'sp', 0)
-			mips += 
-			'''
-
-			'''
+		if (locals.containsKey(varname)) {
+			mips += pop('t9')
+			mips += indexed('sw', 't9', locals.get(varname), 'sp')
 			
 			return mips
 		}
@@ -704,7 +763,7 @@ class CGenerator extends AbstractGenerator {
 		addiu	$sp, $sp, 4
 	'''
 
-	def CharSequence indexed(String opCode, String reg1, String reg2, int offset)
+	def CharSequence indexed(String opCode, String reg1, int offset, String reg2)
 	'''
 		«opCode»		$«reg1», «offset»($«reg2»)
 	'''
