@@ -60,15 +60,12 @@ class CGenerator extends AbstractGenerator {
 	public Stack<String> globals				= new Stack();
 	public Stack<String> locals 				= new Stack();
 	public Stack<String> fName				= new Stack();
-	public Hashtable<String, String> strings	= new Hashtable();
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		var Program p	= resource.allContents.filter(Program).head
 		var filename 	= resource.URI.lastSegment.split("\\.").get(0)
 		
-		if (p === null) {
-			return
-		}
+		if (p === null) {return}
 		
 	    fsa.generateFile(filename+".asm", p.compile)
 	}
@@ -107,7 +104,6 @@ class CGenerator extends AbstractGenerator {
 			
 			if (D.tipo.tipo == 'string') {
 				var content = if (D.^val === null) "" else (D.^val.exp as StrLit).^val
-				strings.put(vName, vName)
 				
 				mips = 
 				'''
@@ -124,16 +120,14 @@ class CGenerator extends AbstractGenerator {
 				.data
 				.align 2
 				_«vName»: .space «size»
+				«IF D.^val !== null»
+					.text
+					«assign(D.^val)»
+					«pop('t9')»
+					sw		$t9, _«vName»
+				«ENDIF»
 				
 			'''
-			
-			if (D.^val !== null) {
-				mips +=
-					'''
-					.text
-					'''
-				mips += assign(D.^val)
-			}
 			
 			return mips
 		}
@@ -256,25 +250,15 @@ class CGenerator extends AbstractGenerator {
 	    var mips		= ''''''
 	    val tipo 	= Validator.tipode(C.exp, null)
 	    
-	    mips += expression(C.exp)
-	    
-		mips += pop('a0')
-	    
-	    if ( tipo == Validator.Tipo.INT || tipo == Validator.Tipo.BOOL ) {
-	        mips +=
-	        '''
-	        li		$v0, 1
-	        '''
-	    }
-	    else if (tipo == Validator.Tipo.STR) {
-	        mips +=
-	        '''
-	        li		$v0, 4
-	        '''
-	    }
-	    
 	    mips +=
 	    '''
+	    «expression(C.exp)»
+	    «pop('a0')»
+	    «IF tipo == Validator.Tipo.INT || tipo == Validator.Tipo.BOOL»
+	    li		$v0, 1
+	    «ELSE»
+	    li		$v0, 4
+	    «ENDIF»
 	    syscall
 	    
 	    '''
@@ -314,17 +298,15 @@ class CGenerator extends AbstractGenerator {
 	def returnCommand(ReturnCmd C) {
 		var mips = ''''''
 		
-		if (C.exp !== null) {
-			mips += expression(C.exp)
-			
-			mips += pop('v0')
-		}
-		
 		mips += 
-			'''
-			j «fName.peek»_return
-			
-			'''
+		'''
+		«IF C.exp !== null»
+			«expression(C.exp)»
+			«pop('v0')»
+		«ENDIF»
+		j «fName.peek»_return
+		
+		'''
 		return mips
 	}
 	
@@ -639,11 +621,8 @@ class CGenerator extends AbstractGenerator {
 			var mips =
 			'''
 			«opCode»		$t8, «value»
-			'''
-			mips += push('t8')
-			mips +=
-			'''
-
+			«push('t8')»
+			
 			'''
 			
 			return mips
@@ -690,9 +669,9 @@ class CGenerator extends AbstractGenerator {
 		var mips 	= ''''''
 		
 		if (globals.contains(varname)) {
-			mips += pop('t9')
 			mips +=
 			'''
+			«pop('t9')»
 			sw		$t9, _«varname»
 			
 			'''

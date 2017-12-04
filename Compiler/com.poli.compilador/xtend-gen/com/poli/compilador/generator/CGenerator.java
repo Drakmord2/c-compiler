@@ -39,7 +39,6 @@ import com.poli.compilador.c.VarCmd;
 import com.poli.compilador.c.VarDecl;
 import com.poli.compilador.c.WhileCmd;
 import com.poli.compilador.validation.Validator;
-import java.util.Hashtable;
 import java.util.Stack;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -65,8 +64,6 @@ public class CGenerator extends AbstractGenerator {
   public Stack<String> locals = new Stack<String>();
   
   public Stack<String> fName = new Stack<String>();
-  
-  public Hashtable<String, String> strings = new Hashtable<String, String>();
   
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
@@ -145,7 +142,6 @@ public class CGenerator extends AbstractGenerator {
           _xifexpression = ((StrLit) _exp).getVal();
         }
         String content = _xifexpression;
-        this.strings.put(vName, vName);
         StringConcatenation _builder_1 = new StringConcatenation();
         _builder_1.append(".data");
         _builder_1.newLine();
@@ -169,20 +165,25 @@ public class CGenerator extends AbstractGenerator {
       _builder_2.append(": .space ");
       _builder_2.append(size);
       _builder_2.newLineIfNotEmpty();
+      {
+        Assignment _val_1 = ((VarDecl)D).getVal();
+        boolean _tripleNotEquals = (_val_1 != null);
+        if (_tripleNotEquals) {
+          _builder_2.append(".text");
+          _builder_2.newLine();
+          CharSequence _assign = this.assign(((VarDecl)D).getVal());
+          _builder_2.append(_assign);
+          _builder_2.newLineIfNotEmpty();
+          CharSequence _pop = this.pop("t9");
+          _builder_2.append(_pop);
+          _builder_2.newLineIfNotEmpty();
+          _builder_2.append("sw\t\t$t9, _");
+          _builder_2.append(vName);
+          _builder_2.newLineIfNotEmpty();
+        }
+      }
       _builder_2.newLine();
       mips = _builder_2.toString();
-      Assignment _val_1 = ((VarDecl)D).getVal();
-      boolean _tripleNotEquals = (_val_1 != null);
-      if (_tripleNotEquals) {
-        String _mips = mips;
-        StringConcatenation _builder_3 = new StringConcatenation();
-        _builder_3.append(".text");
-        _builder_3.newLine();
-        mips = (_mips + _builder_3);
-        String _mips_1 = mips;
-        CharSequence _assign = this.assign(((VarDecl)D).getVal());
-        mips = (_mips_1 + _assign);
-      }
       return mips;
     }
     return null;
@@ -420,33 +421,26 @@ public class CGenerator extends AbstractGenerator {
     String mips = _builder.toString();
     final Validator.Tipo tipo = Validator.tipode(C.getExp(), null);
     String _mips = mips;
+    StringConcatenation _builder_1 = new StringConcatenation();
     CharSequence _expression = this.expression(C.getExp());
-    mips = (_mips + _expression);
-    String _mips_1 = mips;
+    _builder_1.append(_expression);
+    _builder_1.newLineIfNotEmpty();
     CharSequence _pop = this.pop("a0");
-    mips = (_mips_1 + _pop);
-    if ((Objects.equal(tipo, Validator.Tipo.INT) || Objects.equal(tipo, Validator.Tipo.BOOL))) {
-      String _mips_2 = mips;
-      StringConcatenation _builder_1 = new StringConcatenation();
-      _builder_1.append("li\t\t$v0, 1");
-      _builder_1.newLine();
-      mips = (_mips_2 + _builder_1);
-    } else {
-      boolean _equals = Objects.equal(tipo, Validator.Tipo.STR);
-      if (_equals) {
-        String _mips_3 = mips;
-        StringConcatenation _builder_2 = new StringConcatenation();
-        _builder_2.append("li\t\t$v0, 4");
-        _builder_2.newLine();
-        mips = (_mips_3 + _builder_2);
+    _builder_1.append(_pop);
+    _builder_1.newLineIfNotEmpty();
+    {
+      if ((Objects.equal(tipo, Validator.Tipo.INT) || Objects.equal(tipo, Validator.Tipo.BOOL))) {
+        _builder_1.append("li\t\t$v0, 1");
+        _builder_1.newLine();
+      } else {
+        _builder_1.append("li\t\t$v0, 4");
+        _builder_1.newLine();
       }
     }
-    String _mips_4 = mips;
-    StringConcatenation _builder_3 = new StringConcatenation();
-    _builder_3.append("syscall");
-    _builder_3.newLine();
-    _builder_3.newLine();
-    mips = (_mips_4 + _builder_3);
+    _builder_1.append("syscall");
+    _builder_1.newLine();
+    _builder_1.newLine();
+    mips = (_mips + _builder_1);
     return mips;
   }
   
@@ -507,25 +501,27 @@ public class CGenerator extends AbstractGenerator {
   public String returnCommand(final ReturnCmd C) {
     StringConcatenation _builder = new StringConcatenation();
     String mips = _builder.toString();
-    Expression _exp = C.getExp();
-    boolean _tripleNotEquals = (_exp != null);
-    if (_tripleNotEquals) {
-      String _mips = mips;
-      CharSequence _expression = this.expression(C.getExp());
-      mips = (_mips + _expression);
-      String _mips_1 = mips;
-      CharSequence _pop = this.pop("v0");
-      mips = (_mips_1 + _pop);
-    }
-    String _mips_2 = mips;
+    String _mips = mips;
     StringConcatenation _builder_1 = new StringConcatenation();
+    {
+      Expression _exp = C.getExp();
+      boolean _tripleNotEquals = (_exp != null);
+      if (_tripleNotEquals) {
+        CharSequence _expression = this.expression(C.getExp());
+        _builder_1.append(_expression);
+        _builder_1.newLineIfNotEmpty();
+        CharSequence _pop = this.pop("v0");
+        _builder_1.append(_pop);
+        _builder_1.newLineIfNotEmpty();
+      }
+    }
     _builder_1.append("j ");
     String _peek = this.fName.peek();
     _builder_1.append(_peek);
     _builder_1.append("_return");
     _builder_1.newLineIfNotEmpty();
     _builder_1.newLine();
-    mips = (_mips_2 + _builder_1);
+    mips = (_mips + _builder_1);
     return mips;
   }
   
@@ -961,14 +957,11 @@ public class CGenerator extends AbstractGenerator {
     _builder.append("\t\t$t8, ");
     _builder.append(value);
     _builder.newLineIfNotEmpty();
-    String mips = _builder.toString();
-    String _mips = mips;
     CharSequence _push = this.push("t8");
-    mips = (_mips + _push);
-    String _mips_1 = mips;
-    StringConcatenation _builder_1 = new StringConcatenation();
-    _builder_1.newLine();
-    mips = (_mips_1 + _builder_1);
+    _builder.append(_push);
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    String mips = _builder.toString();
     return mips;
   }
   
@@ -1043,23 +1036,23 @@ public class CGenerator extends AbstractGenerator {
     boolean _contains = this.globals.contains(varname);
     if (_contains) {
       String _mips = mips;
-      CharSequence _pop = this.pop("t9");
-      mips = (_mips + _pop);
-      String _mips_1 = mips;
       StringConcatenation _builder_1 = new StringConcatenation();
+      CharSequence _pop = this.pop("t9");
+      _builder_1.append(_pop);
+      _builder_1.newLineIfNotEmpty();
       _builder_1.append("sw\t\t$t9, _");
       _builder_1.append(varname);
       _builder_1.newLineIfNotEmpty();
       _builder_1.newLine();
-      mips = (_mips_1 + _builder_1);
+      mips = (_mips + _builder_1);
       return mips;
     }
     boolean _contains_1 = this.locals.contains(varname);
     if (_contains_1) {
-      String _mips_2 = mips;
+      String _mips_1 = mips;
       StringConcatenation _builder_2 = new StringConcatenation();
       _builder_2.newLine();
-      mips = (_mips_2 + _builder_2);
+      mips = (_mips_1 + _builder_2);
       return mips;
     }
     return mips;
