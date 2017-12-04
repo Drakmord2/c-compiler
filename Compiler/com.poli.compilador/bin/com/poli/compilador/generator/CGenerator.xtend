@@ -169,16 +169,57 @@ class CGenerator extends AbstractGenerator {
 		switch C {
 			case C instanceof PrintCmd: 		printCommand(C as PrintCmd)
 			case C instanceof IfCmd: 		ifCommand(C as IfCmd)
-//			case C instanceof WhileCmd: 		'whileCommand(C as WhileCmd)'
+			case C instanceof WhileCmd: 		whileCommand(C as WhileCmd)
 //			case C instanceof ForCmd: 		'forCommand(C as ForCmd)'
 //			case C instanceof SwitchCmd: 	'switchCommand(C as SwitchCmd)'
-//			case C instanceof DoWhileCmd: 	'doWhileCommand(C as DoWhileCmd)'
+			case C instanceof DoWhileCmd: 	doWhileCommand(C as DoWhileCmd)
 			case C instanceof VarCmd:		varCommand(C as VarCmd)
 //			case C instanceof BreakCmd: 		'breakCommand(C as BreakCmd)'
 //			case C instanceof ContinueCmd:	'continueCommand(C as ContinueCmd)'
 			case C instanceof ReturnCmd: 	returnCommand(C as ReturnCmd)
 //			case C instanceof DeclCmd: 		'declCommand(C as DeclCmd)'
 		}
+	}
+	
+	def whileCommand(WhileCmd C) {
+		var mips 	= ''''''
+		val start	= nextLabel+"_while"
+		val end		= nextLabel+"_endwhile"
+	    
+	    mips +=
+	    '''
+		«start»:
+		«expression(C.exp)»
+		«pop('t0')»
+		beq		$t0, $0, «end»
+		«FOR c : C.commands»
+			«command(c)»
+		«ENDFOR»
+		j «start»
+		«end»:
+		
+		'''
+		
+		return mips
+	}
+	
+	def doWhileCommand(DoWhileCmd C) {
+		var mips 	= ''''''
+		val start	= nextLabel+"_dowhile"
+	    
+	    mips +=
+	    '''
+		«start»:
+		«FOR c : C.commands»
+			«command(c)»
+		«ENDFOR»
+		«expression(C.exp)»
+		«pop('t0')»
+		bne		$t0, $0, «start»
+		
+		'''
+		
+		return mips
 	}
 	
 	def CharSequence printCommand(PrintCmd C) {
@@ -216,45 +257,27 @@ class CGenerator extends AbstractGenerator {
 		val label	= nextLabel
 		val falsel 	= label+'_FALSE'
 		val truel 	= label+'_TRUE'
-	   	
-	   	mips +=
-	   	'''
-	   	«expression(C.exp)»
-	   	
-	   	'''
-	    mips += pop('t0')
 	    
 	    mips +=
 	    '''
-	    beq		$t0, $0, «falsel»
+		«expression(C.exp)»
+		«pop('t0')»
+		beq		$t0, $0, «falsel»
         «FOR tc : C.trueCommands»
     			«command(tc)»
-        «ENDFOR»	   
-        '''
-        	   	
-	   	mips +=
-	   	'''
-	   	j «truel»
-	   	
-	   	'''
-
-		mips +=
-		'''
-   	  		«falsel»:
-   	  	'''
-   	  		
-		if (C.falseCommands !== null) {
-			for (fc : C.falseCommands) {
-	   	 	mips += '''
-	   	 	«command(fc)»
-	   	 	'''
-   	  		}
-		}
+        «ENDFOR»
+		j «truel»
 		
-		mips +=
-		'''
+		«falsel»:
+		«IF C.falseCommands !== null»
+			«FOR fc : C.falseCommands»
+				«command(fc)»
+			«ENDFOR»
+		«ENDIF»
 		«truel»:
-		'''	  
+		
+        '''
+ 
 	   return mips
 	}
 	
@@ -303,7 +326,6 @@ class CGenerator extends AbstractGenerator {
 		«expression(A.exp)»
 	'''
 	
-	// TODO Refatorar
 	def CharSequence expression(Expression E) {
 		var mips = ''''''
 		
@@ -378,10 +400,10 @@ class CGenerator extends AbstractGenerator {
 				if (op == "++") {
 					mips +=
 					'''
-					lw $t9, _«vName»
+					lw		$t9, _«vName»
 					«push('t9')»
-					addiu $t9, $t9, 1
-					sw $t9, _«vName»
+					addiu	$t9, $t9, 1
+					sw		$t9, _«vName»
 					
 					'''
 					
@@ -390,10 +412,10 @@ class CGenerator extends AbstractGenerator {
 				if (op == "--") {
 					mips +=
 					'''
-					lw $t9, _«vName»
+					lw		$t9, _«vName»
 					«push('t9')»
-					addiu $t9, $t9, -1
-					sw $t9, _«vName»
+					addiu	$t9, $t9, -1
+					sw		$t9, _«vName»
 					
 					'''
 				}
@@ -411,9 +433,9 @@ class CGenerator extends AbstractGenerator {
 				if (op == "++") {
 					mips +=
 					'''
-					lw $t9, _«vName»
-					addiu $t9, $t9, 1
-					sw $t9, _«vName»
+					lw		$t9, _«vName»
+					addiu	$t9, $t9, 1
+					sw		$t9, _«vName»
 					«push('t9')»
 					
 					'''
@@ -423,9 +445,9 @@ class CGenerator extends AbstractGenerator {
 				if (op == "--") {
 					mips +=
 					'''
-					lw $t9, _«vName»
-					addiu $t9, $t9, -1
-					sw $t9, _«vName»
+					lw		$t9, _«vName»
+					addiu	$t9, $t9, -1
+					sw		$t9, _«vName»
 					«push('t9')»
 					
 					'''
