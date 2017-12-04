@@ -78,11 +78,15 @@
         eType="#//Command" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ForCmd" eSuperTypes="#//Command">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="init" upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="init" eType="#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initAsg" eType="#//Assignment"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="exp" eType="#//Expression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inc" upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inc" eType="#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incAsg" eType="#//Assignment"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="commands" upperBound="-1"
         eType="#//Command" containment="true"/>

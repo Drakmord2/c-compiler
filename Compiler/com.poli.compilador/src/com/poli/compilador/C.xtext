@@ -17,7 +17,7 @@ Variable		: {Variable} ID | PointerExp;
 
 Command		: {IfCmd} 		'if''(' exp=Expression ')' '{' (trueCommands+=Command)* '}' ('else' '{' (falseCommands+=Command)* '}')?  
 			| {WhileCmd} 	'while''(' exp=Expression ')' '{' (commands+=Command)* '}'
-			| {ForCmd} 		'for''(' init+=lValue init+=Assignment ';' exp=Expression ';' inc+=Factor inc+=Assignment? ')' '{' (commands+=Command)* '}'	
+			| {ForCmd} 		'for''(' init=lValue initAsg=Assignment ';' exp=Expression ';' inc=Factor incAsg=Assignment? ')' '{' (commands+=Command)* '}'	
 			| {SwitchCmd} 	'switch''(' exp=Expression ')''{' cases+=Case* ('default'':' (commands+=Command)* )? '}'
 			| {DoWhileCmd}	'do''{' (commands+=Command)* '}' 'while''(' exp=Expression ')'';'
 			| {VarCmd}		lval=Factor asg=Assignment?';'

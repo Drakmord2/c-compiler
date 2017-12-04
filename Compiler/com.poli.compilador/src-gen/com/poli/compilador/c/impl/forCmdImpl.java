@@ -3,6 +3,7 @@
  */
 package com.poli.compilador.c.impl;
 
+import com.poli.compilador.c.Assignment;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Command;
 import com.poli.compilador.c.Expression;
@@ -16,7 +17,6 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -33,8 +33,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link com.poli.compilador.c.impl.ForCmdImpl#getInit <em>Init</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.ForCmdImpl#getInitAsg <em>Init Asg</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.ForCmdImpl#getExp <em>Exp</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.ForCmdImpl#getInc <em>Inc</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.ForCmdImpl#getIncAsg <em>Inc Asg</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.ForCmdImpl#getCommands <em>Commands</em>}</li>
  * </ul>
  *
@@ -43,14 +45,24 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class ForCmdImpl extends CommandImpl implements ForCmd
 {
   /**
-   * The cached value of the '{@link #getInit() <em>Init</em>}' containment reference list.
+   * The cached value of the '{@link #getInit() <em>Init</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getInit()
    * @generated
    * @ordered
    */
-  protected EList<EObject> init;
+  protected Expression init;
+
+  /**
+   * The cached value of the '{@link #getInitAsg() <em>Init Asg</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInitAsg()
+   * @generated
+   * @ordered
+   */
+  protected Assignment initAsg;
 
   /**
    * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.
@@ -63,14 +75,24 @@ public class ForCmdImpl extends CommandImpl implements ForCmd
   protected Expression exp;
 
   /**
-   * The cached value of the '{@link #getInc() <em>Inc</em>}' containment reference list.
+   * The cached value of the '{@link #getInc() <em>Inc</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getInc()
    * @generated
    * @ordered
    */
-  protected EList<EObject> inc;
+  protected Expression inc;
+
+  /**
+   * The cached value of the '{@link #getIncAsg() <em>Inc Asg</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIncAsg()
+   * @generated
+   * @ordered
+   */
+  protected Assignment incAsg;
 
   /**
    * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference list.
@@ -108,13 +130,95 @@ public class ForCmdImpl extends CommandImpl implements ForCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<EObject> getInit()
+  public Expression getInit()
   {
-    if (init == null)
-    {
-      init = new EObjectContainmentEList<EObject>(EObject.class, this, CPackage.FOR_CMD__INIT);
-    }
     return init;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetInit(Expression newInit, NotificationChain msgs)
+  {
+    Expression oldInit = init;
+    init = newInit;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.FOR_CMD__INIT, oldInit, newInit);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setInit(Expression newInit)
+  {
+    if (newInit != init)
+    {
+      NotificationChain msgs = null;
+      if (init != null)
+        msgs = ((InternalEObject)init).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.FOR_CMD__INIT, null, msgs);
+      if (newInit != null)
+        msgs = ((InternalEObject)newInit).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.FOR_CMD__INIT, null, msgs);
+      msgs = basicSetInit(newInit, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.FOR_CMD__INIT, newInit, newInit));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Assignment getInitAsg()
+  {
+    return initAsg;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetInitAsg(Assignment newInitAsg, NotificationChain msgs)
+  {
+    Assignment oldInitAsg = initAsg;
+    initAsg = newInitAsg;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.FOR_CMD__INIT_ASG, oldInitAsg, newInitAsg);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setInitAsg(Assignment newInitAsg)
+  {
+    if (newInitAsg != initAsg)
+    {
+      NotificationChain msgs = null;
+      if (initAsg != null)
+        msgs = ((InternalEObject)initAsg).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.FOR_CMD__INIT_ASG, null, msgs);
+      if (newInitAsg != null)
+        msgs = ((InternalEObject)newInitAsg).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.FOR_CMD__INIT_ASG, null, msgs);
+      msgs = basicSetInitAsg(newInitAsg, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.FOR_CMD__INIT_ASG, newInitAsg, newInitAsg));
   }
 
   /**
@@ -170,13 +274,95 @@ public class ForCmdImpl extends CommandImpl implements ForCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<EObject> getInc()
+  public Expression getInc()
   {
-    if (inc == null)
-    {
-      inc = new EObjectContainmentEList<EObject>(EObject.class, this, CPackage.FOR_CMD__INC);
-    }
     return inc;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetInc(Expression newInc, NotificationChain msgs)
+  {
+    Expression oldInc = inc;
+    inc = newInc;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.FOR_CMD__INC, oldInc, newInc);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setInc(Expression newInc)
+  {
+    if (newInc != inc)
+    {
+      NotificationChain msgs = null;
+      if (inc != null)
+        msgs = ((InternalEObject)inc).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.FOR_CMD__INC, null, msgs);
+      if (newInc != null)
+        msgs = ((InternalEObject)newInc).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.FOR_CMD__INC, null, msgs);
+      msgs = basicSetInc(newInc, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.FOR_CMD__INC, newInc, newInc));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Assignment getIncAsg()
+  {
+    return incAsg;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetIncAsg(Assignment newIncAsg, NotificationChain msgs)
+  {
+    Assignment oldIncAsg = incAsg;
+    incAsg = newIncAsg;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CPackage.FOR_CMD__INC_ASG, oldIncAsg, newIncAsg);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setIncAsg(Assignment newIncAsg)
+  {
+    if (newIncAsg != incAsg)
+    {
+      NotificationChain msgs = null;
+      if (incAsg != null)
+        msgs = ((InternalEObject)incAsg).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CPackage.FOR_CMD__INC_ASG, null, msgs);
+      if (newIncAsg != null)
+        msgs = ((InternalEObject)newIncAsg).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CPackage.FOR_CMD__INC_ASG, null, msgs);
+      msgs = basicSetIncAsg(newIncAsg, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CPackage.FOR_CMD__INC_ASG, newIncAsg, newIncAsg));
   }
 
   /**
@@ -204,11 +390,15 @@ public class ForCmdImpl extends CommandImpl implements ForCmd
     switch (featureID)
     {
       case CPackage.FOR_CMD__INIT:
-        return ((InternalEList<?>)getInit()).basicRemove(otherEnd, msgs);
+        return basicSetInit(null, msgs);
+      case CPackage.FOR_CMD__INIT_ASG:
+        return basicSetInitAsg(null, msgs);
       case CPackage.FOR_CMD__EXP:
         return basicSetExp(null, msgs);
       case CPackage.FOR_CMD__INC:
-        return ((InternalEList<?>)getInc()).basicRemove(otherEnd, msgs);
+        return basicSetInc(null, msgs);
+      case CPackage.FOR_CMD__INC_ASG:
+        return basicSetIncAsg(null, msgs);
       case CPackage.FOR_CMD__COMMANDS:
         return ((InternalEList<?>)getCommands()).basicRemove(otherEnd, msgs);
     }
@@ -227,10 +417,14 @@ public class ForCmdImpl extends CommandImpl implements ForCmd
     {
       case CPackage.FOR_CMD__INIT:
         return getInit();
+      case CPackage.FOR_CMD__INIT_ASG:
+        return getInitAsg();
       case CPackage.FOR_CMD__EXP:
         return getExp();
       case CPackage.FOR_CMD__INC:
         return getInc();
+      case CPackage.FOR_CMD__INC_ASG:
+        return getIncAsg();
       case CPackage.FOR_CMD__COMMANDS:
         return getCommands();
     }
@@ -249,15 +443,19 @@ public class ForCmdImpl extends CommandImpl implements ForCmd
     switch (featureID)
     {
       case CPackage.FOR_CMD__INIT:
-        getInit().clear();
-        getInit().addAll((Collection<? extends EObject>)newValue);
+        setInit((Expression)newValue);
+        return;
+      case CPackage.FOR_CMD__INIT_ASG:
+        setInitAsg((Assignment)newValue);
         return;
       case CPackage.FOR_CMD__EXP:
         setExp((Expression)newValue);
         return;
       case CPackage.FOR_CMD__INC:
-        getInc().clear();
-        getInc().addAll((Collection<? extends EObject>)newValue);
+        setInc((Expression)newValue);
+        return;
+      case CPackage.FOR_CMD__INC_ASG:
+        setIncAsg((Assignment)newValue);
         return;
       case CPackage.FOR_CMD__COMMANDS:
         getCommands().clear();
@@ -278,13 +476,19 @@ public class ForCmdImpl extends CommandImpl implements ForCmd
     switch (featureID)
     {
       case CPackage.FOR_CMD__INIT:
-        getInit().clear();
+        setInit((Expression)null);
+        return;
+      case CPackage.FOR_CMD__INIT_ASG:
+        setInitAsg((Assignment)null);
         return;
       case CPackage.FOR_CMD__EXP:
         setExp((Expression)null);
         return;
       case CPackage.FOR_CMD__INC:
-        getInc().clear();
+        setInc((Expression)null);
+        return;
+      case CPackage.FOR_CMD__INC_ASG:
+        setIncAsg((Assignment)null);
         return;
       case CPackage.FOR_CMD__COMMANDS:
         getCommands().clear();
@@ -304,11 +508,15 @@ public class ForCmdImpl extends CommandImpl implements ForCmd
     switch (featureID)
     {
       case CPackage.FOR_CMD__INIT:
-        return init != null && !init.isEmpty();
+        return init != null;
+      case CPackage.FOR_CMD__INIT_ASG:
+        return initAsg != null;
       case CPackage.FOR_CMD__EXP:
         return exp != null;
       case CPackage.FOR_CMD__INC:
-        return inc != null && !inc.isEmpty();
+        return inc != null;
+      case CPackage.FOR_CMD__INC_ASG:
+        return incAsg != null;
       case CPackage.FOR_CMD__COMMANDS:
         return commands != null && !commands.isEmpty();
     }

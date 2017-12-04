@@ -2593,9 +2593,9 @@ rule__Command__Group_2__4__Impl
 	}
 :
 (
-	{ before(grammarAccess.getCommandAccess().getInitAssignment_2_4()); }
-	(rule__Command__InitAssignment_2_4)
-	{ after(grammarAccess.getCommandAccess().getInitAssignment_2_4()); }
+	{ before(grammarAccess.getCommandAccess().getInitAsgAssignment_2_4()); }
+	(rule__Command__InitAsgAssignment_2_4)
+	{ after(grammarAccess.getCommandAccess().getInitAsgAssignment_2_4()); }
 )
 ;
 finally {
@@ -2728,9 +2728,9 @@ rule__Command__Group_2__9__Impl
 	}
 :
 (
-	{ before(grammarAccess.getCommandAccess().getIncAssignment_2_9()); }
-	(rule__Command__IncAssignment_2_9)?
-	{ after(grammarAccess.getCommandAccess().getIncAssignment_2_9()); }
+	{ before(grammarAccess.getCommandAccess().getIncAsgAssignment_2_9()); }
+	(rule__Command__IncAsgAssignment_2_9)?
+	{ after(grammarAccess.getCommandAccess().getIncAsgAssignment_2_9()); }
 )
 ;
 finally {
@@ -6323,15 +6323,15 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Command__InitAssignment_2_4
+rule__Command__InitAsgAssignment_2_4
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getCommandAccess().getInitAssignmentParserRuleCall_2_4_0()); }
+		{ before(grammarAccess.getCommandAccess().getInitAsgAssignmentParserRuleCall_2_4_0()); }
 		ruleAssignment
-		{ after(grammarAccess.getCommandAccess().getInitAssignmentParserRuleCall_2_4_0()); }
+		{ after(grammarAccess.getCommandAccess().getInitAsgAssignmentParserRuleCall_2_4_0()); }
 	)
 ;
 finally {
@@ -6368,15 +6368,15 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Command__IncAssignment_2_9
+rule__Command__IncAsgAssignment_2_9
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getCommandAccess().getIncAssignmentParserRuleCall_2_9_0()); }
+		{ before(grammarAccess.getCommandAccess().getIncAsgAssignmentParserRuleCall_2_9_0()); }
 		ruleAssignment
-		{ after(grammarAccess.getCommandAccess().getIncAssignmentParserRuleCall_2_9_0()); }
+		{ after(grammarAccess.getCommandAccess().getIncAsgAssignmentParserRuleCall_2_9_0()); }
 	)
 ;
 finally {

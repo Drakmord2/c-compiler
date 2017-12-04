@@ -389,16 +389,16 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
 		private final Assignment cInitAssignment_2_3 = (Assignment)cGroup_2.eContents().get(3);
 		private final RuleCall cInitLValueParserRuleCall_2_3_0 = (RuleCall)cInitAssignment_2_3.eContents().get(0);
-		private final Assignment cInitAssignment_2_4 = (Assignment)cGroup_2.eContents().get(4);
-		private final RuleCall cInitAssignmentParserRuleCall_2_4_0 = (RuleCall)cInitAssignment_2_4.eContents().get(0);
+		private final Assignment cInitAsgAssignment_2_4 = (Assignment)cGroup_2.eContents().get(4);
+		private final RuleCall cInitAsgAssignmentParserRuleCall_2_4_0 = (RuleCall)cInitAsgAssignment_2_4.eContents().get(0);
 		private final Keyword cSemicolonKeyword_2_5 = (Keyword)cGroup_2.eContents().get(5);
 		private final Assignment cExpAssignment_2_6 = (Assignment)cGroup_2.eContents().get(6);
 		private final RuleCall cExpExpressionParserRuleCall_2_6_0 = (RuleCall)cExpAssignment_2_6.eContents().get(0);
 		private final Keyword cSemicolonKeyword_2_7 = (Keyword)cGroup_2.eContents().get(7);
 		private final Assignment cIncAssignment_2_8 = (Assignment)cGroup_2.eContents().get(8);
 		private final RuleCall cIncFactorParserRuleCall_2_8_0 = (RuleCall)cIncAssignment_2_8.eContents().get(0);
-		private final Assignment cIncAssignment_2_9 = (Assignment)cGroup_2.eContents().get(9);
-		private final RuleCall cIncAssignmentParserRuleCall_2_9_0 = (RuleCall)cIncAssignment_2_9.eContents().get(0);
+		private final Assignment cIncAsgAssignment_2_9 = (Assignment)cGroup_2.eContents().get(9);
+		private final RuleCall cIncAsgAssignmentParserRuleCall_2_9_0 = (RuleCall)cIncAsgAssignment_2_9.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_2_10 = (Keyword)cGroup_2.eContents().get(10);
 		private final Keyword cLeftCurlyBracketKeyword_2_11 = (Keyword)cGroup_2.eContents().get(11);
 		private final Assignment cCommandsAssignment_2_12 = (Assignment)cGroup_2.eContents().get(12);
@@ -470,7 +470,7 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		//Command:
 		//	{IfCmd} 'if' '(' exp=Expression ')' '{' trueCommands+=Command* '}' ('else' '{' falseCommands+=Command* '}')?
 		//	| {WhileCmd} 'while' '(' exp=Expression ')' '{' commands+=Command* '}'
-		//	| {ForCmd} 'for' '(' init+=lValue init+=Assignment ';' exp=Expression ';' inc+=Factor inc+=Assignment? ')' '{'
+		//	| {ForCmd} 'for' '(' init=lValue initAsg=Assignment ';' exp=Expression ';' inc=Factor incAsg=Assignment? ')' '{'
 		//	commands+=Command* '}'
 		//	| {SwitchCmd} 'switch' '(' exp=Expression ')' '{' cases+=Case* ('default' ':' commands+=Command*)? '}'
 		//	| {DoWhileCmd} 'do' '{' commands+=Command* '}' 'while' '(' exp=Expression ')' ';'
@@ -483,12 +483,12 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{IfCmd} 'if' '(' exp=Expression ')' '{' trueCommands+=Command* '}' ('else' '{' falseCommands+=Command* '}')? |
-		//{WhileCmd} 'while' '(' exp=Expression ')' '{' commands+=Command* '}' | {ForCmd} 'for' '(' init+=lValue init+=Assignment
-		//';' exp=Expression ';' inc+=Factor inc+=Assignment? ')' '{' commands+=Command* '}' | {SwitchCmd} 'switch' '('
-		//exp=Expression ')' '{' cases+=Case* ('default' ':' commands+=Command*)? '}' | {DoWhileCmd} 'do' '{' commands+=Command*
-		//'}' 'while' '(' exp=Expression ')' ';' | {VarCmd} lval=Factor asg=Assignment? ';' | {BreakCmd} 'break' ';' |
-		//{ContinueCmd} 'continue' ';' | {ReturnCmd} 'return' exp=Expression? ';' | {DeclCmd} val=Declaration | {PrintCmd}
-		//'printf' '(' exp=Expression? ')' ';'
+		//{WhileCmd} 'while' '(' exp=Expression ')' '{' commands+=Command* '}' | {ForCmd} 'for' '(' init=lValue
+		//initAsg=Assignment ';' exp=Expression ';' inc=Factor incAsg=Assignment? ')' '{' commands+=Command* '}' | {SwitchCmd}
+		//'switch' '(' exp=Expression ')' '{' cases+=Case* ('default' ':' commands+=Command*)? '}' | {DoWhileCmd} 'do' '{'
+		//commands+=Command* '}' 'while' '(' exp=Expression ')' ';' | {VarCmd} lval=Factor asg=Assignment? ';' | {BreakCmd}
+		//'break' ';' | {ContinueCmd} 'continue' ';' | {ReturnCmd} 'return' exp=Expression? ';' | {DeclCmd} val=Declaration |
+		//{PrintCmd} 'printf' '(' exp=Expression? ')' ';'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//{IfCmd} 'if' '(' exp=Expression ')' '{' trueCommands+=Command* '}' ('else' '{' falseCommands+=Command* '}')?
@@ -575,7 +575,7 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_1_7() { return cRightCurlyBracketKeyword_1_7; }
 		
-		//{ForCmd} 'for' '(' init+=lValue init+=Assignment ';' exp=Expression ';' inc+=Factor inc+=Assignment? ')' '{'
+		//{ForCmd} 'for' '(' init=lValue initAsg=Assignment ';' exp=Expression ';' inc=Factor incAsg=Assignment? ')' '{'
 		//commands+=Command* '}'
 		public Group getGroup_2() { return cGroup_2; }
 		
@@ -588,17 +588,17 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		//'('
 		public Keyword getLeftParenthesisKeyword_2_2() { return cLeftParenthesisKeyword_2_2; }
 		
-		//init+=lValue
+		//init=lValue
 		public Assignment getInitAssignment_2_3() { return cInitAssignment_2_3; }
 		
 		//lValue
 		public RuleCall getInitLValueParserRuleCall_2_3_0() { return cInitLValueParserRuleCall_2_3_0; }
 		
-		//init+=Assignment
-		public Assignment getInitAssignment_2_4() { return cInitAssignment_2_4; }
+		//initAsg=Assignment
+		public Assignment getInitAsgAssignment_2_4() { return cInitAsgAssignment_2_4; }
 		
 		//Assignment
-		public RuleCall getInitAssignmentParserRuleCall_2_4_0() { return cInitAssignmentParserRuleCall_2_4_0; }
+		public RuleCall getInitAsgAssignmentParserRuleCall_2_4_0() { return cInitAsgAssignmentParserRuleCall_2_4_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_2_5() { return cSemicolonKeyword_2_5; }
@@ -612,17 +612,17 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		//';'
 		public Keyword getSemicolonKeyword_2_7() { return cSemicolonKeyword_2_7; }
 		
-		//inc+=Factor
+		//inc=Factor
 		public Assignment getIncAssignment_2_8() { return cIncAssignment_2_8; }
 		
 		//Factor
 		public RuleCall getIncFactorParserRuleCall_2_8_0() { return cIncFactorParserRuleCall_2_8_0; }
 		
-		//inc+=Assignment?
-		public Assignment getIncAssignment_2_9() { return cIncAssignment_2_9; }
+		//incAsg=Assignment?
+		public Assignment getIncAsgAssignment_2_9() { return cIncAsgAssignment_2_9; }
 		
 		//Assignment
-		public RuleCall getIncAssignmentParserRuleCall_2_9_0() { return cIncAssignmentParserRuleCall_2_9_0; }
+		public RuleCall getIncAsgAssignmentParserRuleCall_2_9_0() { return cIncAsgAssignmentParserRuleCall_2_9_0; }
 		
 		//')'
 		public Keyword getRightParenthesisKeyword_2_10() { return cRightParenthesisKeyword_2_10; }
@@ -1602,7 +1602,7 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 	//Command:
 	//	{IfCmd} 'if' '(' exp=Expression ')' '{' trueCommands+=Command* '}' ('else' '{' falseCommands+=Command* '}')?
 	//	| {WhileCmd} 'while' '(' exp=Expression ')' '{' commands+=Command* '}'
-	//	| {ForCmd} 'for' '(' init+=lValue init+=Assignment ';' exp=Expression ';' inc+=Factor inc+=Assignment? ')' '{'
+	//	| {ForCmd} 'for' '(' init=lValue initAsg=Assignment ';' exp=Expression ';' inc=Factor incAsg=Assignment? ')' '{'
 	//	commands+=Command* '}'
 	//	| {SwitchCmd} 'switch' '(' exp=Expression ')' '{' cases+=Case* ('default' ':' commands+=Command*)? '}'
 	//	| {DoWhileCmd} 'do' '{' commands+=Command* '}' 'while' '(' exp=Expression ')' ';'

@@ -883,7 +883,7 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getForCmd_Exp()
+  public EReference getForCmd_InitAsg()
   {
     return (EReference)forCmdEClass.getEStructuralFeatures().get(1);
   }
@@ -893,7 +893,7 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getForCmd_Inc()
+  public EReference getForCmd_Exp()
   {
     return (EReference)forCmdEClass.getEStructuralFeatures().get(2);
   }
@@ -903,9 +903,29 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getForCmd_Commands()
+  public EReference getForCmd_Inc()
   {
     return (EReference)forCmdEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getForCmd_IncAsg()
+  {
+    return (EReference)forCmdEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getForCmd_Commands()
+  {
+    return (EReference)forCmdEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -1552,8 +1572,10 @@ public class CPackageImpl extends EPackageImpl implements CPackage
 
     forCmdEClass = createEClass(FOR_CMD);
     createEReference(forCmdEClass, FOR_CMD__INIT);
+    createEReference(forCmdEClass, FOR_CMD__INIT_ASG);
     createEReference(forCmdEClass, FOR_CMD__EXP);
     createEReference(forCmdEClass, FOR_CMD__INC);
+    createEReference(forCmdEClass, FOR_CMD__INC_ASG);
     createEReference(forCmdEClass, FOR_CMD__COMMANDS);
 
     switchCmdEClass = createEClass(SWITCH_CMD);
@@ -1763,9 +1785,11 @@ public class CPackageImpl extends EPackageImpl implements CPackage
     initEReference(getWhileCmd_Commands(), this.getCommand(), null, "commands", null, 0, -1, WhileCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(forCmdEClass, ForCmd.class, "ForCmd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getForCmd_Init(), ecorePackage.getEObject(), null, "init", null, 0, -1, ForCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getForCmd_Init(), this.getExpression(), null, "init", null, 0, 1, ForCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getForCmd_InitAsg(), this.getAssignment(), null, "initAsg", null, 0, 1, ForCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getForCmd_Exp(), this.getExpression(), null, "exp", null, 0, 1, ForCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getForCmd_Inc(), ecorePackage.getEObject(), null, "inc", null, 0, -1, ForCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getForCmd_Inc(), this.getExpression(), null, "inc", null, 0, 1, ForCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getForCmd_IncAsg(), this.getAssignment(), null, "incAsg", null, 0, 1, ForCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getForCmd_Commands(), this.getCommand(), null, "commands", null, 0, -1, ForCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(switchCmdEClass, SwitchCmd.class, "SwitchCmd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

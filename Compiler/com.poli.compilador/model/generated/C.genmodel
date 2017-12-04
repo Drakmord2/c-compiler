@@ -66,8 +66,10 @@
     </genClasses>
     <genClasses ecoreClass="C.ecore#//ForCmd">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ForCmd/init"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ForCmd/initAsg"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ForCmd/exp"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ForCmd/inc"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ForCmd/incAsg"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//ForCmd/commands"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//SwitchCmd">

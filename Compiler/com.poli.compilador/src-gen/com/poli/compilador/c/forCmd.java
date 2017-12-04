@@ -5,8 +5,6 @@ package com.poli.compilador.c;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>For Cmd</b></em>'.
@@ -17,8 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link com.poli.compilador.c.ForCmd#getInit <em>Init</em>}</li>
+ *   <li>{@link com.poli.compilador.c.ForCmd#getInitAsg <em>Init Asg</em>}</li>
  *   <li>{@link com.poli.compilador.c.ForCmd#getExp <em>Exp</em>}</li>
  *   <li>{@link com.poli.compilador.c.ForCmd#getInc <em>Inc</em>}</li>
+ *   <li>{@link com.poli.compilador.c.ForCmd#getIncAsg <em>Inc Asg</em>}</li>
  *   <li>{@link com.poli.compilador.c.ForCmd#getCommands <em>Commands</em>}</li>
  * </ul>
  *
@@ -29,20 +29,56 @@ import org.eclipse.emf.ecore.EObject;
 public interface ForCmd extends Command
 {
   /**
-   * Returns the value of the '<em><b>Init</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
+   * Returns the value of the '<em><b>Init</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Init</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Init</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Init</em>' containment reference list.
+   * @return the value of the '<em>Init</em>' containment reference.
+   * @see #setInit(Expression)
    * @see com.poli.compilador.c.CPackage#getForCmd_Init()
    * @model containment="true"
    * @generated
    */
-  EList<EObject> getInit();
+  Expression getInit();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.ForCmd#getInit <em>Init</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Init</em>' containment reference.
+   * @see #getInit()
+   * @generated
+   */
+  void setInit(Expression value);
+
+  /**
+   * Returns the value of the '<em><b>Init Asg</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Init Asg</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Init Asg</em>' containment reference.
+   * @see #setInitAsg(Assignment)
+   * @see com.poli.compilador.c.CPackage#getForCmd_InitAsg()
+   * @model containment="true"
+   * @generated
+   */
+  Assignment getInitAsg();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.ForCmd#getInitAsg <em>Init Asg</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Init Asg</em>' containment reference.
+   * @see #getInitAsg()
+   * @generated
+   */
+  void setInitAsg(Assignment value);
 
   /**
    * Returns the value of the '<em><b>Exp</b></em>' containment reference.
@@ -71,20 +107,56 @@ public interface ForCmd extends Command
   void setExp(Expression value);
 
   /**
-   * Returns the value of the '<em><b>Inc</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
+   * Returns the value of the '<em><b>Inc</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Inc</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Inc</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Inc</em>' containment reference list.
+   * @return the value of the '<em>Inc</em>' containment reference.
+   * @see #setInc(Expression)
    * @see com.poli.compilador.c.CPackage#getForCmd_Inc()
    * @model containment="true"
    * @generated
    */
-  EList<EObject> getInc();
+  Expression getInc();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.ForCmd#getInc <em>Inc</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Inc</em>' containment reference.
+   * @see #getInc()
+   * @generated
+   */
+  void setInc(Expression value);
+
+  /**
+   * Returns the value of the '<em><b>Inc Asg</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Inc Asg</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Inc Asg</em>' containment reference.
+   * @see #setIncAsg(Assignment)
+   * @see com.poli.compilador.c.CPackage#getForCmd_IncAsg()
+   * @model containment="true"
+   * @generated
+   */
+  Assignment getIncAsg();
+
+  /**
+   * Sets the value of the '{@link com.poli.compilador.c.ForCmd#getIncAsg <em>Inc Asg</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Inc Asg</em>' containment reference.
+   * @see #getIncAsg()
+   * @generated
+   */
+  void setIncAsg(Assignment value);
 
   /**
    * Returns the value of the '<em><b>Commands</b></em>' containment reference list.

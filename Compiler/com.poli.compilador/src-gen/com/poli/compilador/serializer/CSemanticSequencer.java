@@ -339,11 +339,11 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *
 	 * Constraint:
 	 *     (
-	 *         init+=lValue 
-	 *         init+=Assignment 
+	 *         init=lValue 
+	 *         initAsg=Assignment 
 	 *         exp=Expression 
-	 *         inc+=Factor 
-	 *         inc+=Assignment? 
+	 *         inc=Factor 
+	 *         incAsg=Assignment? 
 	 *         commands+=Command*
 	 *     )
 	 */

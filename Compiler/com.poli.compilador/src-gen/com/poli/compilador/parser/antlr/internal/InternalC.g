@@ -829,7 +829,7 @@ ruleCommand returns [EObject current=null]
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getCommandRule());
 						}
-						add(
+						set(
 							$current,
 							"init",
 							lv_init_23_0,
@@ -841,17 +841,17 @@ ruleCommand returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getCommandAccess().getInitAssignmentParserRuleCall_2_4_0());
+						newCompositeNode(grammarAccess.getCommandAccess().getInitAsgAssignmentParserRuleCall_2_4_0());
 					}
-					lv_init_24_0=ruleAssignment
+					lv_initAsg_24_0=ruleAssignment
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getCommandRule());
 						}
-						add(
+						set(
 							$current,
-							"init",
-							lv_init_24_0,
+							"initAsg",
+							lv_initAsg_24_0,
 							"com.poli.compilador.C.Assignment");
 						afterParserOrEnumRuleCall();
 					}
@@ -894,7 +894,7 @@ ruleCommand returns [EObject current=null]
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getCommandRule());
 						}
-						add(
+						set(
 							$current,
 							"inc",
 							lv_inc_28_0,
@@ -906,17 +906,17 @@ ruleCommand returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getCommandAccess().getIncAssignmentParserRuleCall_2_9_0());
+						newCompositeNode(grammarAccess.getCommandAccess().getIncAsgAssignmentParserRuleCall_2_9_0());
 					}
-					lv_inc_29_0=ruleAssignment
+					lv_incAsg_29_0=ruleAssignment
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getCommandRule());
 						}
-						add(
+						set(
 							$current,
-							"inc",
-							lv_inc_29_0,
+							"incAsg",
+							lv_incAsg_29_0,
 							"com.poli.compilador.C.Assignment");
 						afterParserOrEnumRuleCall();
 					}

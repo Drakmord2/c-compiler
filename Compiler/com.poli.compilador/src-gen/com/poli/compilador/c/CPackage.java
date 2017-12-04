@@ -708,7 +708,7 @@ public interface CPackage extends EPackage
   int FOR_CMD = 19;
 
   /**
-   * The feature id for the '<em><b>Init</b></em>' containment reference list.
+   * The feature id for the '<em><b>Init</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -717,22 +717,40 @@ public interface CPackage extends EPackage
   int FOR_CMD__INIT = COMMAND_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Init Asg</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FOR_CMD__INIT_ASG = COMMAND_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FOR_CMD__EXP = COMMAND_FEATURE_COUNT + 1;
+  int FOR_CMD__EXP = COMMAND_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Inc</b></em>' containment reference list.
+   * The feature id for the '<em><b>Inc</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FOR_CMD__INC = COMMAND_FEATURE_COUNT + 2;
+  int FOR_CMD__INC = COMMAND_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Inc Asg</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FOR_CMD__INC_ASG = COMMAND_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Commands</b></em>' containment reference list.
@@ -741,7 +759,7 @@ public interface CPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FOR_CMD__COMMANDS = COMMAND_FEATURE_COUNT + 3;
+  int FOR_CMD__COMMANDS = COMMAND_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>For Cmd</em>' class.
@@ -750,7 +768,7 @@ public interface CPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FOR_CMD_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 4;
+  int FOR_CMD_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link com.poli.compilador.c.impl.SwitchCmdImpl <em>Switch Cmd</em>}' class.
@@ -1943,15 +1961,26 @@ public interface CPackage extends EPackage
   EClass getForCmd();
 
   /**
-   * Returns the meta object for the containment reference list '{@link com.poli.compilador.c.ForCmd#getInit <em>Init</em>}'.
+   * Returns the meta object for the containment reference '{@link com.poli.compilador.c.ForCmd#getInit <em>Init</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Init</em>'.
+   * @return the meta object for the containment reference '<em>Init</em>'.
    * @see com.poli.compilador.c.ForCmd#getInit()
    * @see #getForCmd()
    * @generated
    */
   EReference getForCmd_Init();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.poli.compilador.c.ForCmd#getInitAsg <em>Init Asg</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Init Asg</em>'.
+   * @see com.poli.compilador.c.ForCmd#getInitAsg()
+   * @see #getForCmd()
+   * @generated
+   */
+  EReference getForCmd_InitAsg();
 
   /**
    * Returns the meta object for the containment reference '{@link com.poli.compilador.c.ForCmd#getExp <em>Exp</em>}'.
@@ -1965,15 +1994,26 @@ public interface CPackage extends EPackage
   EReference getForCmd_Exp();
 
   /**
-   * Returns the meta object for the containment reference list '{@link com.poli.compilador.c.ForCmd#getInc <em>Inc</em>}'.
+   * Returns the meta object for the containment reference '{@link com.poli.compilador.c.ForCmd#getInc <em>Inc</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Inc</em>'.
+   * @return the meta object for the containment reference '<em>Inc</em>'.
    * @see com.poli.compilador.c.ForCmd#getInc()
    * @see #getForCmd()
    * @generated
    */
   EReference getForCmd_Inc();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.poli.compilador.c.ForCmd#getIncAsg <em>Inc Asg</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Inc Asg</em>'.
+   * @see com.poli.compilador.c.ForCmd#getIncAsg()
+   * @see #getForCmd()
+   * @generated
+   */
+  EReference getForCmd_IncAsg();
 
   /**
    * Returns the meta object for the containment reference list '{@link com.poli.compilador.c.ForCmd#getCommands <em>Commands</em>}'.
@@ -2984,12 +3024,20 @@ public interface CPackage extends EPackage
     EClass FOR_CMD = eINSTANCE.getForCmd();
 
     /**
-     * The meta object literal for the '<em><b>Init</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Init</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference FOR_CMD__INIT = eINSTANCE.getForCmd_Init();
+
+    /**
+     * The meta object literal for the '<em><b>Init Asg</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FOR_CMD__INIT_ASG = eINSTANCE.getForCmd_InitAsg();
 
     /**
      * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
@@ -3000,12 +3048,20 @@ public interface CPackage extends EPackage
     EReference FOR_CMD__EXP = eINSTANCE.getForCmd_Exp();
 
     /**
-     * The meta object literal for the '<em><b>Inc</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Inc</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference FOR_CMD__INC = eINSTANCE.getForCmd_Inc();
+
+    /**
+     * The meta object literal for the '<em><b>Inc Asg</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FOR_CMD__INC_ASG = eINSTANCE.getForCmd_IncAsg();
 
     /**
      * The meta object literal for the '<em><b>Commands</b></em>' containment reference list feature.

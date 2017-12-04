@@ -16,6 +16,7 @@ import com.poli.compilador.c.DoWhileCmd;
 import com.poli.compilador.c.Expression;
 import com.poli.compilador.c.FalseLit;
 import com.poli.compilador.c.FieldAccess;
+import com.poli.compilador.c.ForCmd;
 import com.poli.compilador.c.FuncCall;
 import com.poli.compilador.c.Function;
 import com.poli.compilador.c.IfCmd;
@@ -254,6 +255,12 @@ public class CGenerator extends AbstractGenerator {
       }
     }
     if (!_matched) {
+      if ((C instanceof ForCmd)) {
+        _matched=true;
+        _switchResult = this.forCommand(((ForCmd) C));
+      }
+    }
+    if (!_matched) {
       if ((C instanceof DoWhileCmd)) {
         _matched=true;
         _switchResult = this.doWhileCommand(((DoWhileCmd) C));
@@ -272,6 +279,68 @@ public class CGenerator extends AbstractGenerator {
       }
     }
     return _switchResult;
+  }
+  
+  public String forCommand(final ForCmd C) {
+    StringConcatenation _builder = new StringConcatenation();
+    String mips = _builder.toString();
+    String _nextLabel = this.nextLabel();
+    final String start = (_nextLabel + "_for");
+    String _nextLabel_1 = this.nextLabel();
+    final String end = (_nextLabel_1 + "_endfor");
+    String _mips = mips;
+    StringConcatenation _builder_1 = new StringConcatenation();
+    CharSequence _assign = this.assign(C.getInitAsg());
+    _builder_1.append(_assign);
+    _builder_1.newLineIfNotEmpty();
+    CharSequence _store = this.store(C.getInit());
+    _builder_1.append(_store);
+    _builder_1.newLineIfNotEmpty();
+    _builder_1.append(start);
+    _builder_1.append(":");
+    _builder_1.newLineIfNotEmpty();
+    CharSequence _expression = this.expression(C.getExp());
+    _builder_1.append(_expression);
+    _builder_1.newLineIfNotEmpty();
+    CharSequence _pop = this.pop("t0");
+    _builder_1.append(_pop);
+    _builder_1.newLineIfNotEmpty();
+    _builder_1.append("beq\t\t$t0, $0, ");
+    _builder_1.append(end);
+    _builder_1.newLineIfNotEmpty();
+    {
+      EList<Command> _commands = C.getCommands();
+      for(final Command c : _commands) {
+        CharSequence _command = this.command(c);
+        _builder_1.append(_command);
+        _builder_1.newLineIfNotEmpty();
+      }
+    }
+    {
+      Assignment _incAsg = C.getIncAsg();
+      boolean _tripleNotEquals = (_incAsg != null);
+      if (_tripleNotEquals) {
+        CharSequence _assign_1 = this.assign(C.getIncAsg());
+        _builder_1.append(_assign_1);
+        _builder_1.newLineIfNotEmpty();
+        CharSequence _store_1 = this.store(C.getInc());
+        _builder_1.append(_store_1);
+        _builder_1.newLineIfNotEmpty();
+      } else {
+        CharSequence _expression_1 = this.expression(C.getInc());
+        _builder_1.append(_expression_1);
+        _builder_1.newLineIfNotEmpty();
+      }
+    }
+    _builder_1.append("j ");
+    _builder_1.append(start);
+    _builder_1.newLineIfNotEmpty();
+    _builder_1.append(end);
+    _builder_1.append(":");
+    _builder_1.newLineIfNotEmpty();
+    _builder_1.newLine();
+    mips = (_mips + _builder_1);
+    return mips;
   }
   
   public String whileCommand(final WhileCmd C) {
@@ -298,7 +367,7 @@ public class CGenerator extends AbstractGenerator {
     {
       EList<Command> _commands = C.getCommands();
       for(final Command c : _commands) {
-        Object _command = this.command(c);
+        CharSequence _command = this.command(c);
         _builder_1.append(_command);
         _builder_1.newLineIfNotEmpty();
       }
@@ -327,7 +396,7 @@ public class CGenerator extends AbstractGenerator {
     {
       EList<Command> _commands = C.getCommands();
       for(final Command c : _commands) {
-        Object _command = this.command(c);
+        CharSequence _command = this.command(c);
         _builder_1.append(_command);
         _builder_1.newLineIfNotEmpty();
       }
@@ -879,10 +948,9 @@ public class CGenerator extends AbstractGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append(".text");
     _builder.newLine();
-    CharSequence _evalExp = this.evalExp("la", strLabel);
+    CharSequence _evalExp = this.evalExp("la", ("_" + strLabel));
     _builder.append(_evalExp);
     _builder.newLineIfNotEmpty();
-    _builder.newLine();
     String mips = _builder.toString();
     return mips;
   }

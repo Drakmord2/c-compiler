@@ -164,13 +164,13 @@ class CGenerator extends AbstractGenerator {
 		return mips
 	}
 	
-	def command(Command C) {
+	def CharSequence command(Command C) {
 		
 		switch C {
 			case C instanceof PrintCmd: 		printCommand(C as PrintCmd)
 			case C instanceof IfCmd: 		ifCommand(C as IfCmd)
 			case C instanceof WhileCmd: 		whileCommand(C as WhileCmd)
-//			case C instanceof ForCmd: 		'forCommand(C as ForCmd)'
+			case C instanceof ForCmd: 		forCommand(C as ForCmd)
 //			case C instanceof SwitchCmd: 	'switchCommand(C as SwitchCmd)'
 			case C instanceof DoWhileCmd: 	doWhileCommand(C as DoWhileCmd)
 			case C instanceof VarCmd:		varCommand(C as VarCmd)
@@ -179,6 +179,36 @@ class CGenerator extends AbstractGenerator {
 			case C instanceof ReturnCmd: 	returnCommand(C as ReturnCmd)
 //			case C instanceof DeclCmd: 		'declCommand(C as DeclCmd)'
 		}
+	}
+	
+	def forCommand(ForCmd C) {
+		var mips 	= ''''''
+		val start	= nextLabel+"_for"
+		val end		= nextLabel+"_endfor"
+	    
+	    mips +=
+	    '''
+		«assign(C.initAsg)»
+		«store(C.init)»
+		«start»:
+		«expression(C.exp)»
+		«pop('t0')»
+		beq		$t0, $0, «end»
+		«FOR c : C.commands»
+			«command(c)»
+		«ENDFOR»
+		«IF C.incAsg !== null»
+		«assign(C.incAsg)»
+		«store(C.inc)»
+		«ELSE»
+		«expression(C.inc)»
+		«ENDIF»
+		j «start»
+		«end»:
+		
+		'''
+		
+		return mips
 	}
 	
 	def whileCommand(WhileCmd C) {
@@ -599,8 +629,7 @@ class CGenerator extends AbstractGenerator {
 			.data
 			_«strLabel»: .asciiz "«E.^val»"
 			.text
-			«evalExp('la', strLabel)»
-			
+			«evalExp('la', '_'+strLabel)»
 			''' 
 			
 			return mips
