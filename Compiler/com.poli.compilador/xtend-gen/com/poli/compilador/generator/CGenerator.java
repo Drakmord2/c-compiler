@@ -89,17 +89,18 @@ public class CGenerator extends AbstractGenerator {
   
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
-    this.init();
     Program p = IteratorExtensions.<Program>head(Iterators.<Program>filter(resource.getAllContents(), Program.class));
     String filename = resource.getURI().lastSegment().split("\\.")[0];
     if ((p == null)) {
       return;
     }
+    this.init();
     fsa.generateFile((filename + ".asm"), this.compile(p));
   }
   
   public CharSequence compile(final Program P) {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.newLine();
     {
       EList<Definition> _definition = P.getDefinition();
       for(final Definition D : _definition) {
@@ -238,7 +239,7 @@ public class CGenerator extends AbstractGenerator {
       }
     }
     _builder.append("\t");
-    CharSequence _functionEntry = this.functionEntry(0, 0);
+    CharSequence _functionEntry = this.functionEntry(0, 12);
     _builder.append(_functionEntry, "\t");
     _builder.newLineIfNotEmpty();
     {
@@ -338,12 +339,12 @@ public class CGenerator extends AbstractGenerator {
           CharSequence _expression = this.expression(((VarDecl)decl).getVal().getExp());
           _builder_1.append(_expression);
           _builder_1.newLineIfNotEmpty();
-          CharSequence _pop = this.pop("t9");
+          CharSequence _pop = this.pop("t7");
           _builder_1.append(_pop);
           _builder_1.newLineIfNotEmpty();
-          _builder_1.append("sw\t\t$t9, ");
-          _builder_1.append(this.index);
-          _builder_1.append("($sp)");
+          _builder_1.append("sw\t\t$t7, -");
+          _builder_1.append((this.index + 4));
+          _builder_1.append("($fp)");
           _builder_1.newLineIfNotEmpty();
         }
       }
@@ -903,7 +904,9 @@ public class CGenerator extends AbstractGenerator {
       boolean _containsKey = this.locals.containsKey(varname);
       if (_containsKey) {
         Integer _get = this.locals.get(varname);
-        _xifexpression_2 = (_get + "($sp)");
+        int _plus = ((_get).intValue() + 4);
+        String _plus_1 = ("-" + Integer.valueOf(_plus));
+        _xifexpression_2 = (_plus_1 + "($fp)");
       } else {
         _xifexpression_2 = ("_" + varname);
       }
@@ -1145,28 +1148,32 @@ public class CGenerator extends AbstractGenerator {
     final String varname = varexp.getValor().getName();
     StringConcatenation _builder = new StringConcatenation();
     String mips = _builder.toString();
-    boolean _contains = this.globals.contains(varname);
-    if (_contains) {
+    boolean _containsKey = this.locals.containsKey(varname);
+    if (_containsKey) {
       String _mips = mips;
       StringConcatenation _builder_1 = new StringConcatenation();
-      CharSequence _pop = this.pop("t9");
+      CharSequence _pop = this.pop("t7");
       _builder_1.append(_pop);
       _builder_1.newLineIfNotEmpty();
-      _builder_1.append("sw\t\t$t9, _");
-      _builder_1.append(varname);
+      CharSequence _indexed = this.indexed("sw", "t7", (this.locals.get(varname)).intValue(), "fp");
+      _builder_1.append(_indexed);
       _builder_1.newLineIfNotEmpty();
       _builder_1.newLine();
       mips = (_mips + _builder_1);
       return mips;
     }
-    boolean _containsKey = this.locals.containsKey(varname);
-    if (_containsKey) {
+    boolean _contains = this.globals.contains(varname);
+    if (_contains) {
       String _mips_1 = mips;
+      StringConcatenation _builder_2 = new StringConcatenation();
       CharSequence _pop_1 = this.pop("t9");
-      mips = (_mips_1 + _pop_1);
-      String _mips_2 = mips;
-      CharSequence _indexed = this.indexed("sw", "t9", (this.locals.get(varname)).intValue(), "sp");
-      mips = (_mips_2 + _indexed);
+      _builder_2.append(_pop_1);
+      _builder_2.newLineIfNotEmpty();
+      _builder_2.append("sw\t\t$t9, _");
+      _builder_2.append(varname);
+      _builder_2.newLineIfNotEmpty();
+      _builder_2.newLine();
+      mips = (_mips_1 + _builder_2);
       return mips;
     }
     return mips;
@@ -1199,8 +1206,8 @@ public class CGenerator extends AbstractGenerator {
     _builder.append(opCode);
     _builder.append("\t\t$");
     _builder.append(reg1);
-    _builder.append(", ");
-    _builder.append(offset);
+    _builder.append(", -");
+    _builder.append((offset + 4));
     _builder.append("($");
     _builder.append(reg2);
     _builder.append(")");

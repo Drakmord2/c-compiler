@@ -72,17 +72,18 @@ class CGenerator extends AbstractGenerator {
 	}
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-		this.init()
 		var Program p	= resource.allContents.filter(Program).head
 		var filename 	= resource.URI.lastSegment.split("\\.").get(0)
 		
 		if (p === null) {return}
 		
+		this.init()
 	    fsa.generateFile(filename+".asm", p.compile)
 	}
 
 	def compile(Program P) 
 	'''
+
 		«FOR D : P.definition»
 		    «definition(D)»
 		«ENDFOR»
@@ -159,7 +160,7 @@ class CGenerator extends AbstractGenerator {
 		«ELSE»
 		_«F.name»:
 		«ENDIF»
-			«functionEntry(0, 0)»
+			«functionEntry(0, 12)»
 			«FOR C : F.commands»
 				«command(C)»
 		    «ENDFOR»
@@ -197,8 +198,8 @@ class CGenerator extends AbstractGenerator {
 			'''
 			«IF decl.^val !== null»
 			«expression(decl.^val.exp)»
-			«pop('t9')»
-			sw		$t9, «index»($sp)
+			«pop('t7')»
+			sw		$t7, -«index+4»($fp)
 			«ENDIF»
 			
 			'''
@@ -573,8 +574,8 @@ class CGenerator extends AbstractGenerator {
 			val decl 	= E.valor as VarDecl
 			val tipo 	= decl.tipo.tipo
 			
-			val opCode = if (tipo == 'string') 'la' else 'lw'
-			val id = if (locals.containsKey(varname)) locals.get(varname)+"($sp)" else '_'+varname
+			val opCode	= if (tipo == 'string') 'la' else 'lw'
+			val id 		= if (locals.containsKey(varname)) "-"+(locals.get(varname)+4)+"($fp)" else '_'+varname
 			
 			mips += evalExp(opCode, id)
 			
@@ -731,6 +732,17 @@ class CGenerator extends AbstractGenerator {
 		val varname	= varexp.valor.name
 		var mips 	= ''''''
 		
+		if (locals.containsKey(varname)) {
+			mips += 
+			'''
+			«pop('t7')»
+			«indexed('sw', 't7', locals.get(varname), 'fp')»
+			
+			'''
+			
+			return mips
+		}
+		
 		if (globals.contains(varname)) {
 			mips +=
 			'''
@@ -738,13 +750,6 @@ class CGenerator extends AbstractGenerator {
 			sw		$t9, _«varname»
 			
 			'''
-			return mips
-		}
-		
-		if (locals.containsKey(varname)) {
-			mips += pop('t9')
-			mips += indexed('sw', 't9', locals.get(varname), 'sp')
-			
 			return mips
 		}
 		
@@ -765,7 +770,7 @@ class CGenerator extends AbstractGenerator {
 
 	def CharSequence indexed(String opCode, String reg1, int offset, String reg2)
 	'''
-		«opCode»		$«reg1», «offset»($«reg2»)
+		«opCode»		$«reg1», -«offset+4»($«reg2»)
 	'''
 
 	def nextLabel() {
