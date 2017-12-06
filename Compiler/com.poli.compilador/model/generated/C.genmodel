@@ -75,7 +75,7 @@
     <genClasses ecoreClass="C.ecore#//SwitchCmd">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//SwitchCmd/exp"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//SwitchCmd/cases"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//SwitchCmd/commands"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//SwitchCmd/defaultCmds"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//DoWhileCmd">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//DoWhileCmd/commands"/>

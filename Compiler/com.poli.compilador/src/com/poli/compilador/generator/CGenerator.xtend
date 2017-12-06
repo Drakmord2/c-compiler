@@ -177,7 +177,7 @@ class CGenerator extends AbstractGenerator {
 			case C instanceof IfCmd: 		ifCommand(C as IfCmd)
 			case C instanceof WhileCmd: 		whileCommand(C as WhileCmd)
 			case C instanceof ForCmd: 		forCommand(C as ForCmd)
-//			case C instanceof SwitchCmd: 	'switchCommand(C as SwitchCmd)'
+			case C instanceof SwitchCmd: 	switchCommand(C as SwitchCmd)
 			case C instanceof DoWhileCmd: 	doWhileCommand(C as DoWhileCmd)
 			case C instanceof VarCmd:		varCommand(C as VarCmd)
 			case C instanceof BreakCmd: 		breakCommand(C as BreakCmd)
@@ -185,6 +185,28 @@ class CGenerator extends AbstractGenerator {
 			case C instanceof ReturnCmd: 	returnCommand(C as ReturnCmd)
 			case C instanceof DeclCmd: 		declCommand(C as DeclCmd)
 		}
+	}
+	
+	def switchCommand(SwitchCmd C) {
+		var mips = ''''''
+		
+		mips +=
+		'''
+		«expression(C.exp)»
+		«FOR cs : C.cases»
+«««			«cs.^val» // case expression
+			«FOR cmd : cs.commands»
+				«command(cmd)»
+			«ENDFOR»
+		«ENDFOR»
+		
+		«FOR defCmd : C.defaultCmds»
+			«command(defCmd)»
+		«ENDFOR»
+		
+		'''
+		
+		return mips
 	}
 	
 	def declCommand(DeclCmd C) {
@@ -200,8 +222,8 @@ class CGenerator extends AbstractGenerator {
 			«expression(decl.^val.exp)»
 			«pop('t7')»
 			sw		$t7, -«index+4»($fp)
-			«ENDIF»
 			
+			«ENDIF»
 			'''
 		}
 

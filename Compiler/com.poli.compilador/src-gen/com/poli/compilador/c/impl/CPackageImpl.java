@@ -963,7 +963,7 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSwitchCmd_Commands()
+  public EReference getSwitchCmd_DefaultCmds()
   {
     return (EReference)switchCmdEClass.getEStructuralFeatures().get(2);
   }
@@ -1581,7 +1581,7 @@ public class CPackageImpl extends EPackageImpl implements CPackage
     switchCmdEClass = createEClass(SWITCH_CMD);
     createEReference(switchCmdEClass, SWITCH_CMD__EXP);
     createEReference(switchCmdEClass, SWITCH_CMD__CASES);
-    createEReference(switchCmdEClass, SWITCH_CMD__COMMANDS);
+    createEReference(switchCmdEClass, SWITCH_CMD__DEFAULT_CMDS);
 
     doWhileCmdEClass = createEClass(DO_WHILE_CMD);
     createEReference(doWhileCmdEClass, DO_WHILE_CMD__COMMANDS);
@@ -1795,7 +1795,7 @@ public class CPackageImpl extends EPackageImpl implements CPackage
     initEClass(switchCmdEClass, SwitchCmd.class, "SwitchCmd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getSwitchCmd_Exp(), this.getExpression(), null, "exp", null, 0, 1, SwitchCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSwitchCmd_Cases(), this.getCase(), null, "cases", null, 0, -1, SwitchCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSwitchCmd_Commands(), this.getCommand(), null, "commands", null, 0, -1, SwitchCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSwitchCmd_DefaultCmds(), this.getCommand(), null, "defaultCmds", null, 0, -1, SwitchCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(doWhileCmdEClass, DoWhileCmd.class, "DoWhileCmd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getDoWhileCmd_Commands(), this.getCommand(), null, "commands", null, 0, -1, DoWhileCmd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

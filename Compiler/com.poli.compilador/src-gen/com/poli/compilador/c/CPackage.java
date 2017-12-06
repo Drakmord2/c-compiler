@@ -799,13 +799,13 @@ public interface CPackage extends EPackage
   int SWITCH_CMD__CASES = COMMAND_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Commands</b></em>' containment reference list.
+   * The feature id for the '<em><b>Default Cmds</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SWITCH_CMD__COMMANDS = COMMAND_FEATURE_COUNT + 2;
+  int SWITCH_CMD__DEFAULT_CMDS = COMMAND_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Switch Cmd</em>' class.
@@ -2059,15 +2059,15 @@ public interface CPackage extends EPackage
   EReference getSwitchCmd_Cases();
 
   /**
-   * Returns the meta object for the containment reference list '{@link com.poli.compilador.c.SwitchCmd#getCommands <em>Commands</em>}'.
+   * Returns the meta object for the containment reference list '{@link com.poli.compilador.c.SwitchCmd#getDefaultCmds <em>Default Cmds</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Commands</em>'.
-   * @see com.poli.compilador.c.SwitchCmd#getCommands()
+   * @return the meta object for the containment reference list '<em>Default Cmds</em>'.
+   * @see com.poli.compilador.c.SwitchCmd#getDefaultCmds()
    * @see #getSwitchCmd()
    * @generated
    */
-  EReference getSwitchCmd_Commands();
+  EReference getSwitchCmd_DefaultCmds();
 
   /**
    * Returns the meta object for class '{@link com.poli.compilador.c.DoWhileCmd <em>Do While Cmd</em>}'.
@@ -3098,12 +3098,12 @@ public interface CPackage extends EPackage
     EReference SWITCH_CMD__CASES = eINSTANCE.getSwitchCmd_Cases();
 
     /**
-     * The meta object literal for the '<em><b>Commands</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Default Cmds</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SWITCH_CMD__COMMANDS = eINSTANCE.getSwitchCmd_Commands();
+    EReference SWITCH_CMD__DEFAULT_CMDS = eINSTANCE.getSwitchCmd_DefaultCmds();
 
     /**
      * The meta object literal for the '{@link com.poli.compilador.c.impl.DoWhileCmdImpl <em>Do While Cmd</em>}' class.

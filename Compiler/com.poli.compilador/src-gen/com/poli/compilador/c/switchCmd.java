@@ -16,7 +16,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link com.poli.compilador.c.SwitchCmd#getExp <em>Exp</em>}</li>
  *   <li>{@link com.poli.compilador.c.SwitchCmd#getCases <em>Cases</em>}</li>
- *   <li>{@link com.poli.compilador.c.SwitchCmd#getCommands <em>Commands</em>}</li>
+ *   <li>{@link com.poli.compilador.c.SwitchCmd#getDefaultCmds <em>Default Cmds</em>}</li>
  * </ul>
  *
  * @see com.poli.compilador.c.CPackage#getSwitchCmd()
@@ -68,19 +68,19 @@ public interface SwitchCmd extends Command
   EList<Case> getCases();
 
   /**
-   * Returns the value of the '<em><b>Commands</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Default Cmds</b></em>' containment reference list.
    * The list contents are of type {@link com.poli.compilador.c.Command}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Commands</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Default Cmds</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Commands</em>' containment reference list.
-   * @see com.poli.compilador.c.CPackage#getSwitchCmd_Commands()
+   * @return the value of the '<em>Default Cmds</em>' containment reference list.
+   * @see com.poli.compilador.c.CPackage#getSwitchCmd_DefaultCmds()
    * @model containment="true"
    * @generated
    */
-  EList<Command> getCommands();
+  EList<Command> getDefaultCmds();
 
 } // SwitchCmd

@@ -10,6 +10,7 @@ import com.poli.compilador.c.ArithExp;
 import com.poli.compilador.c.ArrayAccess;
 import com.poli.compilador.c.Assignment;
 import com.poli.compilador.c.BreakCmd;
+import com.poli.compilador.c.Case;
 import com.poli.compilador.c.Command;
 import com.poli.compilador.c.ContinueCmd;
 import com.poli.compilador.c.DeclCmd;
@@ -35,6 +36,7 @@ import com.poli.compilador.c.RelExp;
 import com.poli.compilador.c.ReturnCmd;
 import com.poli.compilador.c.StrLit;
 import com.poli.compilador.c.Struct;
+import com.poli.compilador.c.SwitchCmd;
 import com.poli.compilador.c.Term;
 import com.poli.compilador.c.TrueLit;
 import com.poli.compilador.c.Var;
@@ -286,6 +288,12 @@ public class CGenerator extends AbstractGenerator {
       }
     }
     if (!_matched) {
+      if ((C instanceof SwitchCmd)) {
+        _matched=true;
+        _switchResult = this.switchCommand(((SwitchCmd) C));
+      }
+    }
+    if (!_matched) {
       if ((C instanceof DoWhileCmd)) {
         _matched=true;
         _switchResult = this.doWhileCommand(((DoWhileCmd) C));
@@ -324,6 +332,41 @@ public class CGenerator extends AbstractGenerator {
     return _switchResult;
   }
   
+  public String switchCommand(final SwitchCmd C) {
+    StringConcatenation _builder = new StringConcatenation();
+    String mips = _builder.toString();
+    String _mips = mips;
+    StringConcatenation _builder_1 = new StringConcatenation();
+    CharSequence _expression = this.expression(C.getExp());
+    _builder_1.append(_expression);
+    _builder_1.newLineIfNotEmpty();
+    {
+      EList<Case> _cases = C.getCases();
+      for(final Case cs : _cases) {
+        {
+          EList<Command> _commands = cs.getCommands();
+          for(final Command cmd : _commands) {
+            CharSequence _command = this.command(cmd);
+            _builder_1.append(_command);
+            _builder_1.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    _builder_1.newLine();
+    {
+      EList<Command> _defaultCmds = C.getDefaultCmds();
+      for(final Command defCmd : _defaultCmds) {
+        CharSequence _command_1 = this.command(defCmd);
+        _builder_1.append(_command_1);
+        _builder_1.newLineIfNotEmpty();
+      }
+    }
+    _builder_1.newLine();
+    mips = (_mips + _builder_1);
+    return mips;
+  }
+  
   public String declCommand(final DeclCmd C) {
     StringConcatenation _builder = new StringConcatenation();
     String mips = _builder.toString();
@@ -346,9 +389,9 @@ public class CGenerator extends AbstractGenerator {
           _builder_1.append((this.index + 4));
           _builder_1.append("($fp)");
           _builder_1.newLineIfNotEmpty();
+          _builder_1.newLine();
         }
       }
-      _builder_1.newLine();
       mips = _builder_1.toString();
     }
     int _index = this.index;

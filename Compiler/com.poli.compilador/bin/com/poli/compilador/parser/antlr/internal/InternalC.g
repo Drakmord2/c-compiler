@@ -1029,17 +1029,17 @@ ruleCommand returns [EObject current=null]
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getCommandAccess().getCommandsCommandParserRuleCall_3_7_2_0());
+							newCompositeNode(grammarAccess.getCommandAccess().getDefaultCmdsCommandParserRuleCall_3_7_2_0());
 						}
-						lv_commands_43_0=ruleCommand
+						lv_defaultCmds_43_0=ruleCommand
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getCommandRule());
 							}
 							add(
 								$current,
-								"commands",
-								lv_commands_43_0,
+								"defaultCmds",
+								lv_defaultCmds_43_0,
 								"com.poli.compilador.C.Command");
 							afterParserOrEnumRuleCall();
 						}

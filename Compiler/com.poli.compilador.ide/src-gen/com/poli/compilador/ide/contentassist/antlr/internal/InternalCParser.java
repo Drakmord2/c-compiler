@@ -9874,20 +9874,20 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Command__Group_3_7__2__Impl"
-    // InternalC.g:3156:1: rule__Command__Group_3_7__2__Impl : ( ( rule__Command__CommandsAssignment_3_7_2 )* ) ;
+    // InternalC.g:3156:1: rule__Command__Group_3_7__2__Impl : ( ( rule__Command__DefaultCmdsAssignment_3_7_2 )* ) ;
     public final void rule__Command__Group_3_7__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalC.g:3160:1: ( ( ( rule__Command__CommandsAssignment_3_7_2 )* ) )
-            // InternalC.g:3161:1: ( ( rule__Command__CommandsAssignment_3_7_2 )* )
+            // InternalC.g:3160:1: ( ( ( rule__Command__DefaultCmdsAssignment_3_7_2 )* ) )
+            // InternalC.g:3161:1: ( ( rule__Command__DefaultCmdsAssignment_3_7_2 )* )
             {
-            // InternalC.g:3161:1: ( ( rule__Command__CommandsAssignment_3_7_2 )* )
-            // InternalC.g:3162:2: ( rule__Command__CommandsAssignment_3_7_2 )*
+            // InternalC.g:3161:1: ( ( rule__Command__DefaultCmdsAssignment_3_7_2 )* )
+            // InternalC.g:3162:2: ( rule__Command__DefaultCmdsAssignment_3_7_2 )*
             {
-             before(grammarAccess.getCommandAccess().getCommandsAssignment_3_7_2()); 
-            // InternalC.g:3163:2: ( rule__Command__CommandsAssignment_3_7_2 )*
+             before(grammarAccess.getCommandAccess().getDefaultCmdsAssignment_3_7_2()); 
+            // InternalC.g:3163:2: ( rule__Command__DefaultCmdsAssignment_3_7_2 )*
             loop25:
             do {
                 int alt25=2;
@@ -9900,10 +9900,10 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
 
                 switch (alt25) {
             	case 1 :
-            	    // InternalC.g:3163:3: rule__Command__CommandsAssignment_3_7_2
+            	    // InternalC.g:3163:3: rule__Command__DefaultCmdsAssignment_3_7_2
             	    {
             	    pushFollow(FOLLOW_11);
-            	    rule__Command__CommandsAssignment_3_7_2();
+            	    rule__Command__DefaultCmdsAssignment_3_7_2();
 
             	    state._fsp--;
 
@@ -9916,7 +9916,7 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
                 }
             } while (true);
 
-             after(grammarAccess.getCommandAccess().getCommandsAssignment_3_7_2()); 
+             after(grammarAccess.getCommandAccess().getDefaultCmdsAssignment_3_7_2()); 
 
             }
 
@@ -19430,9 +19430,9 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Command__CasesAssignment_3_6"
 
 
-    // $ANTLR start "rule__Command__CommandsAssignment_3_7_2"
-    // InternalC.g:6431:1: rule__Command__CommandsAssignment_3_7_2 : ( ruleCommand ) ;
-    public final void rule__Command__CommandsAssignment_3_7_2() throws RecognitionException {
+    // $ANTLR start "rule__Command__DefaultCmdsAssignment_3_7_2"
+    // InternalC.g:6431:1: rule__Command__DefaultCmdsAssignment_3_7_2 : ( ruleCommand ) ;
+    public final void rule__Command__DefaultCmdsAssignment_3_7_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -19443,13 +19443,13 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
             // InternalC.g:6436:2: ( ruleCommand )
             // InternalC.g:6437:3: ruleCommand
             {
-             before(grammarAccess.getCommandAccess().getCommandsCommandParserRuleCall_3_7_2_0()); 
+             before(grammarAccess.getCommandAccess().getDefaultCmdsCommandParserRuleCall_3_7_2_0()); 
             pushFollow(FOLLOW_2);
             ruleCommand();
 
             state._fsp--;
 
-             after(grammarAccess.getCommandAccess().getCommandsCommandParserRuleCall_3_7_2_0()); 
+             after(grammarAccess.getCommandAccess().getDefaultCmdsCommandParserRuleCall_3_7_2_0()); 
 
             }
 
@@ -19468,7 +19468,7 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Command__CommandsAssignment_3_7_2"
+    // $ANTLR end "rule__Command__DefaultCmdsAssignment_3_7_2"
 
 
     // $ANTLR start "rule__Command__CommandsAssignment_4_3"

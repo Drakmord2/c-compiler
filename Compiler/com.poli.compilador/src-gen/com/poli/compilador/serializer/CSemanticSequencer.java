@@ -393,7 +393,7 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Command returns SwitchCmd
 	 *
 	 * Constraint:
-	 *     (exp=Expression cases+=Case* commands+=Command*)
+	 *     (exp=Expression cases+=Case* defaultCmds+=Command*)
 	 */
 	protected void sequence_Command(ISerializationContext context, SwitchCmd semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

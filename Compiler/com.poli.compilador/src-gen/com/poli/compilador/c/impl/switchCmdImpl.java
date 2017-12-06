@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link com.poli.compilador.c.impl.SwitchCmdImpl#getExp <em>Exp</em>}</li>
  *   <li>{@link com.poli.compilador.c.impl.SwitchCmdImpl#getCases <em>Cases</em>}</li>
- *   <li>{@link com.poli.compilador.c.impl.SwitchCmdImpl#getCommands <em>Commands</em>}</li>
+ *   <li>{@link com.poli.compilador.c.impl.SwitchCmdImpl#getDefaultCmds <em>Default Cmds</em>}</li>
  * </ul>
  *
  * @generated
@@ -62,14 +62,14 @@ public class SwitchCmdImpl extends CommandImpl implements SwitchCmd
   protected EList<Case> cases;
 
   /**
-   * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference list.
+   * The cached value of the '{@link #getDefaultCmds() <em>Default Cmds</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getCommands()
+   * @see #getDefaultCmds()
    * @generated
    * @ordered
    */
-  protected EList<Command> commands;
+  protected EList<Command> defaultCmds;
 
   /**
    * <!-- begin-user-doc -->
@@ -159,13 +159,13 @@ public class SwitchCmdImpl extends CommandImpl implements SwitchCmd
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Command> getCommands()
+  public EList<Command> getDefaultCmds()
   {
-    if (commands == null)
+    if (defaultCmds == null)
     {
-      commands = new EObjectContainmentEList<Command>(Command.class, this, CPackage.SWITCH_CMD__COMMANDS);
+      defaultCmds = new EObjectContainmentEList<Command>(Command.class, this, CPackage.SWITCH_CMD__DEFAULT_CMDS);
     }
-    return commands;
+    return defaultCmds;
   }
 
   /**
@@ -182,8 +182,8 @@ public class SwitchCmdImpl extends CommandImpl implements SwitchCmd
         return basicSetExp(null, msgs);
       case CPackage.SWITCH_CMD__CASES:
         return ((InternalEList<?>)getCases()).basicRemove(otherEnd, msgs);
-      case CPackage.SWITCH_CMD__COMMANDS:
-        return ((InternalEList<?>)getCommands()).basicRemove(otherEnd, msgs);
+      case CPackage.SWITCH_CMD__DEFAULT_CMDS:
+        return ((InternalEList<?>)getDefaultCmds()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -202,8 +202,8 @@ public class SwitchCmdImpl extends CommandImpl implements SwitchCmd
         return getExp();
       case CPackage.SWITCH_CMD__CASES:
         return getCases();
-      case CPackage.SWITCH_CMD__COMMANDS:
-        return getCommands();
+      case CPackage.SWITCH_CMD__DEFAULT_CMDS:
+        return getDefaultCmds();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -226,9 +226,9 @@ public class SwitchCmdImpl extends CommandImpl implements SwitchCmd
         getCases().clear();
         getCases().addAll((Collection<? extends Case>)newValue);
         return;
-      case CPackage.SWITCH_CMD__COMMANDS:
-        getCommands().clear();
-        getCommands().addAll((Collection<? extends Command>)newValue);
+      case CPackage.SWITCH_CMD__DEFAULT_CMDS:
+        getDefaultCmds().clear();
+        getDefaultCmds().addAll((Collection<? extends Command>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -250,8 +250,8 @@ public class SwitchCmdImpl extends CommandImpl implements SwitchCmd
       case CPackage.SWITCH_CMD__CASES:
         getCases().clear();
         return;
-      case CPackage.SWITCH_CMD__COMMANDS:
-        getCommands().clear();
+      case CPackage.SWITCH_CMD__DEFAULT_CMDS:
+        getDefaultCmds().clear();
         return;
     }
     super.eUnset(featureID);
@@ -271,8 +271,8 @@ public class SwitchCmdImpl extends CommandImpl implements SwitchCmd
         return exp != null;
       case CPackage.SWITCH_CMD__CASES:
         return cases != null && !cases.isEmpty();
-      case CPackage.SWITCH_CMD__COMMANDS:
-        return commands != null && !commands.isEmpty();
+      case CPackage.SWITCH_CMD__DEFAULT_CMDS:
+        return defaultCmds != null && !defaultCmds.isEmpty();
     }
     return super.eIsSet(featureID);
   }

@@ -1581,7 +1581,7 @@ public class InternalCParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCommand"
-    // InternalC.g:629:1: ruleCommand returns [EObject current=null] : ( ( () otherlv_1= 'if' otherlv_2= '(' ( (lv_exp_3_0= ruleExpression ) ) otherlv_4= ')' otherlv_5= '{' ( (lv_trueCommands_6_0= ruleCommand ) )* otherlv_7= '}' (otherlv_8= 'else' otherlv_9= '{' ( (lv_falseCommands_10_0= ruleCommand ) )* otherlv_11= '}' )? ) | ( () otherlv_13= 'while' otherlv_14= '(' ( (lv_exp_15_0= ruleExpression ) ) otherlv_16= ')' otherlv_17= '{' ( (lv_commands_18_0= ruleCommand ) )* otherlv_19= '}' ) | ( () otherlv_21= 'for' otherlv_22= '(' ( (lv_init_23_0= rulelValue ) ) ( (lv_initAsg_24_0= ruleAssignment ) ) otherlv_25= ';' ( (lv_exp_26_0= ruleExpression ) ) otherlv_27= ';' ( (lv_inc_28_0= ruleFactor ) ) ( (lv_incAsg_29_0= ruleAssignment ) )? otherlv_30= ')' otherlv_31= '{' ( (lv_commands_32_0= ruleCommand ) )* otherlv_33= '}' ) | ( () otherlv_35= 'switch' otherlv_36= '(' ( (lv_exp_37_0= ruleExpression ) ) otherlv_38= ')' otherlv_39= '{' ( (lv_cases_40_0= ruleCase ) )* (otherlv_41= 'default' otherlv_42= ':' ( (lv_commands_43_0= ruleCommand ) )* )? otherlv_44= '}' ) | ( () otherlv_46= 'do' otherlv_47= '{' ( (lv_commands_48_0= ruleCommand ) )* otherlv_49= '}' otherlv_50= 'while' otherlv_51= '(' ( (lv_exp_52_0= ruleExpression ) ) otherlv_53= ')' otherlv_54= ';' ) | ( () ( (lv_lval_56_0= ruleFactor ) ) ( (lv_asg_57_0= ruleAssignment ) )? otherlv_58= ';' ) | ( () otherlv_60= 'break' otherlv_61= ';' ) | ( () otherlv_63= 'continue' otherlv_64= ';' ) | ( () otherlv_66= 'return' ( (lv_exp_67_0= ruleExpression ) )? otherlv_68= ';' ) | ( () ( (lv_val_70_0= ruleDeclaration ) ) ) | ( () otherlv_72= 'printf' otherlv_73= '(' ( (lv_exp_74_0= ruleExpression ) )? otherlv_75= ')' otherlv_76= ';' ) ) ;
+    // InternalC.g:629:1: ruleCommand returns [EObject current=null] : ( ( () otherlv_1= 'if' otherlv_2= '(' ( (lv_exp_3_0= ruleExpression ) ) otherlv_4= ')' otherlv_5= '{' ( (lv_trueCommands_6_0= ruleCommand ) )* otherlv_7= '}' (otherlv_8= 'else' otherlv_9= '{' ( (lv_falseCommands_10_0= ruleCommand ) )* otherlv_11= '}' )? ) | ( () otherlv_13= 'while' otherlv_14= '(' ( (lv_exp_15_0= ruleExpression ) ) otherlv_16= ')' otherlv_17= '{' ( (lv_commands_18_0= ruleCommand ) )* otherlv_19= '}' ) | ( () otherlv_21= 'for' otherlv_22= '(' ( (lv_init_23_0= rulelValue ) ) ( (lv_initAsg_24_0= ruleAssignment ) ) otherlv_25= ';' ( (lv_exp_26_0= ruleExpression ) ) otherlv_27= ';' ( (lv_inc_28_0= ruleFactor ) ) ( (lv_incAsg_29_0= ruleAssignment ) )? otherlv_30= ')' otherlv_31= '{' ( (lv_commands_32_0= ruleCommand ) )* otherlv_33= '}' ) | ( () otherlv_35= 'switch' otherlv_36= '(' ( (lv_exp_37_0= ruleExpression ) ) otherlv_38= ')' otherlv_39= '{' ( (lv_cases_40_0= ruleCase ) )* (otherlv_41= 'default' otherlv_42= ':' ( (lv_defaultCmds_43_0= ruleCommand ) )* )? otherlv_44= '}' ) | ( () otherlv_46= 'do' otherlv_47= '{' ( (lv_commands_48_0= ruleCommand ) )* otherlv_49= '}' otherlv_50= 'while' otherlv_51= '(' ( (lv_exp_52_0= ruleExpression ) ) otherlv_53= ')' otherlv_54= ';' ) | ( () ( (lv_lval_56_0= ruleFactor ) ) ( (lv_asg_57_0= ruleAssignment ) )? otherlv_58= ';' ) | ( () otherlv_60= 'break' otherlv_61= ';' ) | ( () otherlv_63= 'continue' otherlv_64= ';' ) | ( () otherlv_66= 'return' ( (lv_exp_67_0= ruleExpression ) )? otherlv_68= ';' ) | ( () ( (lv_val_70_0= ruleDeclaration ) ) ) | ( () otherlv_72= 'printf' otherlv_73= '(' ( (lv_exp_74_0= ruleExpression ) )? otherlv_75= ')' otherlv_76= ';' ) ) ;
     public final EObject ruleCommand() throws RecognitionException {
         EObject current = null;
 
@@ -1656,7 +1656,7 @@ public class InternalCParser extends AbstractInternalAntlrParser {
 
         EObject lv_cases_40_0 = null;
 
-        EObject lv_commands_43_0 = null;
+        EObject lv_defaultCmds_43_0 = null;
 
         EObject lv_commands_48_0 = null;
 
@@ -1677,10 +1677,10 @@ public class InternalCParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalC.g:635:2: ( ( ( () otherlv_1= 'if' otherlv_2= '(' ( (lv_exp_3_0= ruleExpression ) ) otherlv_4= ')' otherlv_5= '{' ( (lv_trueCommands_6_0= ruleCommand ) )* otherlv_7= '}' (otherlv_8= 'else' otherlv_9= '{' ( (lv_falseCommands_10_0= ruleCommand ) )* otherlv_11= '}' )? ) | ( () otherlv_13= 'while' otherlv_14= '(' ( (lv_exp_15_0= ruleExpression ) ) otherlv_16= ')' otherlv_17= '{' ( (lv_commands_18_0= ruleCommand ) )* otherlv_19= '}' ) | ( () otherlv_21= 'for' otherlv_22= '(' ( (lv_init_23_0= rulelValue ) ) ( (lv_initAsg_24_0= ruleAssignment ) ) otherlv_25= ';' ( (lv_exp_26_0= ruleExpression ) ) otherlv_27= ';' ( (lv_inc_28_0= ruleFactor ) ) ( (lv_incAsg_29_0= ruleAssignment ) )? otherlv_30= ')' otherlv_31= '{' ( (lv_commands_32_0= ruleCommand ) )* otherlv_33= '}' ) | ( () otherlv_35= 'switch' otherlv_36= '(' ( (lv_exp_37_0= ruleExpression ) ) otherlv_38= ')' otherlv_39= '{' ( (lv_cases_40_0= ruleCase ) )* (otherlv_41= 'default' otherlv_42= ':' ( (lv_commands_43_0= ruleCommand ) )* )? otherlv_44= '}' ) | ( () otherlv_46= 'do' otherlv_47= '{' ( (lv_commands_48_0= ruleCommand ) )* otherlv_49= '}' otherlv_50= 'while' otherlv_51= '(' ( (lv_exp_52_0= ruleExpression ) ) otherlv_53= ')' otherlv_54= ';' ) | ( () ( (lv_lval_56_0= ruleFactor ) ) ( (lv_asg_57_0= ruleAssignment ) )? otherlv_58= ';' ) | ( () otherlv_60= 'break' otherlv_61= ';' ) | ( () otherlv_63= 'continue' otherlv_64= ';' ) | ( () otherlv_66= 'return' ( (lv_exp_67_0= ruleExpression ) )? otherlv_68= ';' ) | ( () ( (lv_val_70_0= ruleDeclaration ) ) ) | ( () otherlv_72= 'printf' otherlv_73= '(' ( (lv_exp_74_0= ruleExpression ) )? otherlv_75= ')' otherlv_76= ';' ) ) )
-            // InternalC.g:636:2: ( ( () otherlv_1= 'if' otherlv_2= '(' ( (lv_exp_3_0= ruleExpression ) ) otherlv_4= ')' otherlv_5= '{' ( (lv_trueCommands_6_0= ruleCommand ) )* otherlv_7= '}' (otherlv_8= 'else' otherlv_9= '{' ( (lv_falseCommands_10_0= ruleCommand ) )* otherlv_11= '}' )? ) | ( () otherlv_13= 'while' otherlv_14= '(' ( (lv_exp_15_0= ruleExpression ) ) otherlv_16= ')' otherlv_17= '{' ( (lv_commands_18_0= ruleCommand ) )* otherlv_19= '}' ) | ( () otherlv_21= 'for' otherlv_22= '(' ( (lv_init_23_0= rulelValue ) ) ( (lv_initAsg_24_0= ruleAssignment ) ) otherlv_25= ';' ( (lv_exp_26_0= ruleExpression ) ) otherlv_27= ';' ( (lv_inc_28_0= ruleFactor ) ) ( (lv_incAsg_29_0= ruleAssignment ) )? otherlv_30= ')' otherlv_31= '{' ( (lv_commands_32_0= ruleCommand ) )* otherlv_33= '}' ) | ( () otherlv_35= 'switch' otherlv_36= '(' ( (lv_exp_37_0= ruleExpression ) ) otherlv_38= ')' otherlv_39= '{' ( (lv_cases_40_0= ruleCase ) )* (otherlv_41= 'default' otherlv_42= ':' ( (lv_commands_43_0= ruleCommand ) )* )? otherlv_44= '}' ) | ( () otherlv_46= 'do' otherlv_47= '{' ( (lv_commands_48_0= ruleCommand ) )* otherlv_49= '}' otherlv_50= 'while' otherlv_51= '(' ( (lv_exp_52_0= ruleExpression ) ) otherlv_53= ')' otherlv_54= ';' ) | ( () ( (lv_lval_56_0= ruleFactor ) ) ( (lv_asg_57_0= ruleAssignment ) )? otherlv_58= ';' ) | ( () otherlv_60= 'break' otherlv_61= ';' ) | ( () otherlv_63= 'continue' otherlv_64= ';' ) | ( () otherlv_66= 'return' ( (lv_exp_67_0= ruleExpression ) )? otherlv_68= ';' ) | ( () ( (lv_val_70_0= ruleDeclaration ) ) ) | ( () otherlv_72= 'printf' otherlv_73= '(' ( (lv_exp_74_0= ruleExpression ) )? otherlv_75= ')' otherlv_76= ';' ) )
+            // InternalC.g:635:2: ( ( ( () otherlv_1= 'if' otherlv_2= '(' ( (lv_exp_3_0= ruleExpression ) ) otherlv_4= ')' otherlv_5= '{' ( (lv_trueCommands_6_0= ruleCommand ) )* otherlv_7= '}' (otherlv_8= 'else' otherlv_9= '{' ( (lv_falseCommands_10_0= ruleCommand ) )* otherlv_11= '}' )? ) | ( () otherlv_13= 'while' otherlv_14= '(' ( (lv_exp_15_0= ruleExpression ) ) otherlv_16= ')' otherlv_17= '{' ( (lv_commands_18_0= ruleCommand ) )* otherlv_19= '}' ) | ( () otherlv_21= 'for' otherlv_22= '(' ( (lv_init_23_0= rulelValue ) ) ( (lv_initAsg_24_0= ruleAssignment ) ) otherlv_25= ';' ( (lv_exp_26_0= ruleExpression ) ) otherlv_27= ';' ( (lv_inc_28_0= ruleFactor ) ) ( (lv_incAsg_29_0= ruleAssignment ) )? otherlv_30= ')' otherlv_31= '{' ( (lv_commands_32_0= ruleCommand ) )* otherlv_33= '}' ) | ( () otherlv_35= 'switch' otherlv_36= '(' ( (lv_exp_37_0= ruleExpression ) ) otherlv_38= ')' otherlv_39= '{' ( (lv_cases_40_0= ruleCase ) )* (otherlv_41= 'default' otherlv_42= ':' ( (lv_defaultCmds_43_0= ruleCommand ) )* )? otherlv_44= '}' ) | ( () otherlv_46= 'do' otherlv_47= '{' ( (lv_commands_48_0= ruleCommand ) )* otherlv_49= '}' otherlv_50= 'while' otherlv_51= '(' ( (lv_exp_52_0= ruleExpression ) ) otherlv_53= ')' otherlv_54= ';' ) | ( () ( (lv_lval_56_0= ruleFactor ) ) ( (lv_asg_57_0= ruleAssignment ) )? otherlv_58= ';' ) | ( () otherlv_60= 'break' otherlv_61= ';' ) | ( () otherlv_63= 'continue' otherlv_64= ';' ) | ( () otherlv_66= 'return' ( (lv_exp_67_0= ruleExpression ) )? otherlv_68= ';' ) | ( () ( (lv_val_70_0= ruleDeclaration ) ) ) | ( () otherlv_72= 'printf' otherlv_73= '(' ( (lv_exp_74_0= ruleExpression ) )? otherlv_75= ')' otherlv_76= ';' ) ) )
+            // InternalC.g:636:2: ( ( () otherlv_1= 'if' otherlv_2= '(' ( (lv_exp_3_0= ruleExpression ) ) otherlv_4= ')' otherlv_5= '{' ( (lv_trueCommands_6_0= ruleCommand ) )* otherlv_7= '}' (otherlv_8= 'else' otherlv_9= '{' ( (lv_falseCommands_10_0= ruleCommand ) )* otherlv_11= '}' )? ) | ( () otherlv_13= 'while' otherlv_14= '(' ( (lv_exp_15_0= ruleExpression ) ) otherlv_16= ')' otherlv_17= '{' ( (lv_commands_18_0= ruleCommand ) )* otherlv_19= '}' ) | ( () otherlv_21= 'for' otherlv_22= '(' ( (lv_init_23_0= rulelValue ) ) ( (lv_initAsg_24_0= ruleAssignment ) ) otherlv_25= ';' ( (lv_exp_26_0= ruleExpression ) ) otherlv_27= ';' ( (lv_inc_28_0= ruleFactor ) ) ( (lv_incAsg_29_0= ruleAssignment ) )? otherlv_30= ')' otherlv_31= '{' ( (lv_commands_32_0= ruleCommand ) )* otherlv_33= '}' ) | ( () otherlv_35= 'switch' otherlv_36= '(' ( (lv_exp_37_0= ruleExpression ) ) otherlv_38= ')' otherlv_39= '{' ( (lv_cases_40_0= ruleCase ) )* (otherlv_41= 'default' otherlv_42= ':' ( (lv_defaultCmds_43_0= ruleCommand ) )* )? otherlv_44= '}' ) | ( () otherlv_46= 'do' otherlv_47= '{' ( (lv_commands_48_0= ruleCommand ) )* otherlv_49= '}' otherlv_50= 'while' otherlv_51= '(' ( (lv_exp_52_0= ruleExpression ) ) otherlv_53= ')' otherlv_54= ';' ) | ( () ( (lv_lval_56_0= ruleFactor ) ) ( (lv_asg_57_0= ruleAssignment ) )? otherlv_58= ';' ) | ( () otherlv_60= 'break' otherlv_61= ';' ) | ( () otherlv_63= 'continue' otherlv_64= ';' ) | ( () otherlv_66= 'return' ( (lv_exp_67_0= ruleExpression ) )? otherlv_68= ';' ) | ( () ( (lv_val_70_0= ruleDeclaration ) ) ) | ( () otherlv_72= 'printf' otherlv_73= '(' ( (lv_exp_74_0= ruleExpression ) )? otherlv_75= ')' otherlv_76= ';' ) )
             {
-            // InternalC.g:636:2: ( ( () otherlv_1= 'if' otherlv_2= '(' ( (lv_exp_3_0= ruleExpression ) ) otherlv_4= ')' otherlv_5= '{' ( (lv_trueCommands_6_0= ruleCommand ) )* otherlv_7= '}' (otherlv_8= 'else' otherlv_9= '{' ( (lv_falseCommands_10_0= ruleCommand ) )* otherlv_11= '}' )? ) | ( () otherlv_13= 'while' otherlv_14= '(' ( (lv_exp_15_0= ruleExpression ) ) otherlv_16= ')' otherlv_17= '{' ( (lv_commands_18_0= ruleCommand ) )* otherlv_19= '}' ) | ( () otherlv_21= 'for' otherlv_22= '(' ( (lv_init_23_0= rulelValue ) ) ( (lv_initAsg_24_0= ruleAssignment ) ) otherlv_25= ';' ( (lv_exp_26_0= ruleExpression ) ) otherlv_27= ';' ( (lv_inc_28_0= ruleFactor ) ) ( (lv_incAsg_29_0= ruleAssignment ) )? otherlv_30= ')' otherlv_31= '{' ( (lv_commands_32_0= ruleCommand ) )* otherlv_33= '}' ) | ( () otherlv_35= 'switch' otherlv_36= '(' ( (lv_exp_37_0= ruleExpression ) ) otherlv_38= ')' otherlv_39= '{' ( (lv_cases_40_0= ruleCase ) )* (otherlv_41= 'default' otherlv_42= ':' ( (lv_commands_43_0= ruleCommand ) )* )? otherlv_44= '}' ) | ( () otherlv_46= 'do' otherlv_47= '{' ( (lv_commands_48_0= ruleCommand ) )* otherlv_49= '}' otherlv_50= 'while' otherlv_51= '(' ( (lv_exp_52_0= ruleExpression ) ) otherlv_53= ')' otherlv_54= ';' ) | ( () ( (lv_lval_56_0= ruleFactor ) ) ( (lv_asg_57_0= ruleAssignment ) )? otherlv_58= ';' ) | ( () otherlv_60= 'break' otherlv_61= ';' ) | ( () otherlv_63= 'continue' otherlv_64= ';' ) | ( () otherlv_66= 'return' ( (lv_exp_67_0= ruleExpression ) )? otherlv_68= ';' ) | ( () ( (lv_val_70_0= ruleDeclaration ) ) ) | ( () otherlv_72= 'printf' otherlv_73= '(' ( (lv_exp_74_0= ruleExpression ) )? otherlv_75= ')' otherlv_76= ';' ) )
+            // InternalC.g:636:2: ( ( () otherlv_1= 'if' otherlv_2= '(' ( (lv_exp_3_0= ruleExpression ) ) otherlv_4= ')' otherlv_5= '{' ( (lv_trueCommands_6_0= ruleCommand ) )* otherlv_7= '}' (otherlv_8= 'else' otherlv_9= '{' ( (lv_falseCommands_10_0= ruleCommand ) )* otherlv_11= '}' )? ) | ( () otherlv_13= 'while' otherlv_14= '(' ( (lv_exp_15_0= ruleExpression ) ) otherlv_16= ')' otherlv_17= '{' ( (lv_commands_18_0= ruleCommand ) )* otherlv_19= '}' ) | ( () otherlv_21= 'for' otherlv_22= '(' ( (lv_init_23_0= rulelValue ) ) ( (lv_initAsg_24_0= ruleAssignment ) ) otherlv_25= ';' ( (lv_exp_26_0= ruleExpression ) ) otherlv_27= ';' ( (lv_inc_28_0= ruleFactor ) ) ( (lv_incAsg_29_0= ruleAssignment ) )? otherlv_30= ')' otherlv_31= '{' ( (lv_commands_32_0= ruleCommand ) )* otherlv_33= '}' ) | ( () otherlv_35= 'switch' otherlv_36= '(' ( (lv_exp_37_0= ruleExpression ) ) otherlv_38= ')' otherlv_39= '{' ( (lv_cases_40_0= ruleCase ) )* (otherlv_41= 'default' otherlv_42= ':' ( (lv_defaultCmds_43_0= ruleCommand ) )* )? otherlv_44= '}' ) | ( () otherlv_46= 'do' otherlv_47= '{' ( (lv_commands_48_0= ruleCommand ) )* otherlv_49= '}' otherlv_50= 'while' otherlv_51= '(' ( (lv_exp_52_0= ruleExpression ) ) otherlv_53= ')' otherlv_54= ';' ) | ( () ( (lv_lval_56_0= ruleFactor ) ) ( (lv_asg_57_0= ruleAssignment ) )? otherlv_58= ';' ) | ( () otherlv_60= 'break' otherlv_61= ';' ) | ( () otherlv_63= 'continue' otherlv_64= ';' ) | ( () otherlv_66= 'return' ( (lv_exp_67_0= ruleExpression ) )? otherlv_68= ';' ) | ( () ( (lv_val_70_0= ruleDeclaration ) ) ) | ( () otherlv_72= 'printf' otherlv_73= '(' ( (lv_exp_74_0= ruleExpression ) )? otherlv_75= ')' otherlv_76= ';' ) )
             int alt24=11;
             switch ( input.LA(1) ) {
             case 26:
@@ -2345,10 +2345,10 @@ public class InternalCParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalC.g:958:3: ( () otherlv_35= 'switch' otherlv_36= '(' ( (lv_exp_37_0= ruleExpression ) ) otherlv_38= ')' otherlv_39= '{' ( (lv_cases_40_0= ruleCase ) )* (otherlv_41= 'default' otherlv_42= ':' ( (lv_commands_43_0= ruleCommand ) )* )? otherlv_44= '}' )
+                    // InternalC.g:958:3: ( () otherlv_35= 'switch' otherlv_36= '(' ( (lv_exp_37_0= ruleExpression ) ) otherlv_38= ')' otherlv_39= '{' ( (lv_cases_40_0= ruleCase ) )* (otherlv_41= 'default' otherlv_42= ':' ( (lv_defaultCmds_43_0= ruleCommand ) )* )? otherlv_44= '}' )
                     {
-                    // InternalC.g:958:3: ( () otherlv_35= 'switch' otherlv_36= '(' ( (lv_exp_37_0= ruleExpression ) ) otherlv_38= ')' otherlv_39= '{' ( (lv_cases_40_0= ruleCase ) )* (otherlv_41= 'default' otherlv_42= ':' ( (lv_commands_43_0= ruleCommand ) )* )? otherlv_44= '}' )
-                    // InternalC.g:959:4: () otherlv_35= 'switch' otherlv_36= '(' ( (lv_exp_37_0= ruleExpression ) ) otherlv_38= ')' otherlv_39= '{' ( (lv_cases_40_0= ruleCase ) )* (otherlv_41= 'default' otherlv_42= ':' ( (lv_commands_43_0= ruleCommand ) )* )? otherlv_44= '}'
+                    // InternalC.g:958:3: ( () otherlv_35= 'switch' otherlv_36= '(' ( (lv_exp_37_0= ruleExpression ) ) otherlv_38= ')' otherlv_39= '{' ( (lv_cases_40_0= ruleCase ) )* (otherlv_41= 'default' otherlv_42= ':' ( (lv_defaultCmds_43_0= ruleCommand ) )* )? otherlv_44= '}' )
+                    // InternalC.g:959:4: () otherlv_35= 'switch' otherlv_36= '(' ( (lv_exp_37_0= ruleExpression ) ) otherlv_38= ')' otherlv_39= '{' ( (lv_cases_40_0= ruleCase ) )* (otherlv_41= 'default' otherlv_42= ':' ( (lv_defaultCmds_43_0= ruleCommand ) )* )? otherlv_44= '}'
                     {
                     // InternalC.g:959:4: ()
                     // InternalC.g:960:5: 
@@ -2457,7 +2457,7 @@ public class InternalCParser extends AbstractInternalAntlrParser {
                         }
                     } while (true);
 
-                    // InternalC.g:1020:4: (otherlv_41= 'default' otherlv_42= ':' ( (lv_commands_43_0= ruleCommand ) )* )?
+                    // InternalC.g:1020:4: (otherlv_41= 'default' otherlv_42= ':' ( (lv_defaultCmds_43_0= ruleCommand ) )* )?
                     int alt19=2;
                     int LA19_0 = input.LA(1);
 
@@ -2466,7 +2466,7 @@ public class InternalCParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt19) {
                         case 1 :
-                            // InternalC.g:1021:5: otherlv_41= 'default' otherlv_42= ':' ( (lv_commands_43_0= ruleCommand ) )*
+                            // InternalC.g:1021:5: otherlv_41= 'default' otherlv_42= ':' ( (lv_defaultCmds_43_0= ruleCommand ) )*
                             {
                             otherlv_41=(Token)match(input,31,FOLLOW_22); 
 
@@ -2476,7 +2476,7 @@ public class InternalCParser extends AbstractInternalAntlrParser {
 
                             					newLeafNode(otherlv_42, grammarAccess.getCommandAccess().getColonKeyword_3_7_1());
                             				
-                            // InternalC.g:1029:5: ( (lv_commands_43_0= ruleCommand ) )*
+                            // InternalC.g:1029:5: ( (lv_defaultCmds_43_0= ruleCommand ) )*
                             loop18:
                             do {
                                 int alt18=2;
@@ -2489,16 +2489,16 @@ public class InternalCParser extends AbstractInternalAntlrParser {
 
                                 switch (alt18) {
                             	case 1 :
-                            	    // InternalC.g:1030:6: (lv_commands_43_0= ruleCommand )
+                            	    // InternalC.g:1030:6: (lv_defaultCmds_43_0= ruleCommand )
                             	    {
-                            	    // InternalC.g:1030:6: (lv_commands_43_0= ruleCommand )
-                            	    // InternalC.g:1031:7: lv_commands_43_0= ruleCommand
+                            	    // InternalC.g:1030:6: (lv_defaultCmds_43_0= ruleCommand )
+                            	    // InternalC.g:1031:7: lv_defaultCmds_43_0= ruleCommand
                             	    {
 
-                            	    							newCompositeNode(grammarAccess.getCommandAccess().getCommandsCommandParserRuleCall_3_7_2_0());
+                            	    							newCompositeNode(grammarAccess.getCommandAccess().getDefaultCmdsCommandParserRuleCall_3_7_2_0());
                             	    						
                             	    pushFollow(FOLLOW_10);
-                            	    lv_commands_43_0=ruleCommand();
+                            	    lv_defaultCmds_43_0=ruleCommand();
 
                             	    state._fsp--;
 
@@ -2508,8 +2508,8 @@ public class InternalCParser extends AbstractInternalAntlrParser {
                             	    							}
                             	    							add(
                             	    								current,
-                            	    								"commands",
-                            	    								lv_commands_43_0,
+                            	    								"defaultCmds",
+                            	    								lv_defaultCmds_43_0,
                             	    								"com.poli.compilador.C.Command");
                             	    							afterParserOrEnumRuleCall();
                             	    						

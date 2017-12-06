@@ -96,7 +96,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cases" upperBound="-1"
         eType="#//Case" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="commands" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultCmds" upperBound="-1"
         eType="#//Command" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DoWhileCmd" eSuperTypes="#//Command">
