@@ -25,7 +25,7 @@ Command		: {IfCmd} 		'if''(' exp=Expression ')' '{' (trueCommands+=Command)* '}'
 			| {ContinueCmd} 'continue'';' 
 			| {ReturnCmd} 	'return' exp=Expression? ';'
 			| {DeclCmd} 		val=Declaration 
-			| {PrintCmd}    'printf''(' exp=Expression? ')'';';
+			| {PrintCmd}    'print''(' exp=Expression? ')'';';
 			
 Argument		: exp+=Expression (',' exp+=Expression)* ;
 Assignment	: '=' exp=Expression;

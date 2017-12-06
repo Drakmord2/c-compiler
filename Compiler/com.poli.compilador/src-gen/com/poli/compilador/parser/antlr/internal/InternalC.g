@@ -1290,9 +1290,9 @@ ruleCommand returns [EObject current=null]
 						$current);
 				}
 			)
-			otherlv_72='printf'
+			otherlv_72='print'
 			{
-				newLeafNode(otherlv_72, grammarAccess.getCommandAccess().getPrintfKeyword_10_1());
+				newLeafNode(otherlv_72, grammarAccess.getCommandAccess().getPrintKeyword_10_1());
 			}
 			otherlv_73='('
 			{

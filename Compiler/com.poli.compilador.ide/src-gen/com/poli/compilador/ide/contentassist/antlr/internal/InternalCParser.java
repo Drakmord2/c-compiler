@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalCParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_LO", "RULE_RO", "RULE_AO1", "RULE_AO2", "RULE_UO", "RULE_TYPELIT", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'function'", "'('", "')'", "'{'", "'}'", "','", "';'", "'**'", "'struct'", "'if'", "'else'", "'while'", "'for'", "'switch'", "'default'", "':'", "'do'", "'break'", "'continue'", "'return'", "'printf'", "'='", "'.'", "'['", "']'", "'case'", "'true'", "'false'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_LO", "RULE_RO", "RULE_AO1", "RULE_AO2", "RULE_UO", "RULE_TYPELIT", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'function'", "'('", "')'", "'{'", "'}'", "','", "';'", "'**'", "'struct'", "'if'", "'else'", "'while'", "'for'", "'switch'", "'default'", "':'", "'do'", "'break'", "'continue'", "'return'", "'print'", "'='", "'.'", "'['", "']'", "'case'", "'true'", "'false'"
     };
     public static final int T__19=19;
     public static final int T__17=17;
@@ -12072,21 +12072,21 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Command__Group_10__1__Impl"
-    // InternalC.g:3913:1: rule__Command__Group_10__1__Impl : ( 'printf' ) ;
+    // InternalC.g:3913:1: rule__Command__Group_10__1__Impl : ( 'print' ) ;
     public final void rule__Command__Group_10__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalC.g:3917:1: ( ( 'printf' ) )
-            // InternalC.g:3918:1: ( 'printf' )
+            // InternalC.g:3917:1: ( ( 'print' ) )
+            // InternalC.g:3918:1: ( 'print' )
             {
-            // InternalC.g:3918:1: ( 'printf' )
-            // InternalC.g:3919:2: 'printf'
+            // InternalC.g:3918:1: ( 'print' )
+            // InternalC.g:3919:2: 'print'
             {
-             before(grammarAccess.getCommandAccess().getPrintfKeyword_10_1()); 
+             before(grammarAccess.getCommandAccess().getPrintKeyword_10_1()); 
             match(input,37,FOLLOW_2); 
-             after(grammarAccess.getCommandAccess().getPrintfKeyword_10_1()); 
+             after(grammarAccess.getCommandAccess().getPrintKeyword_10_1()); 
 
             }
 

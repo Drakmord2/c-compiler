@@ -460,7 +460,7 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValDeclarationParserRuleCall_9_1_0 = (RuleCall)cValAssignment_9_1.eContents().get(0);
 		private final Group cGroup_10 = (Group)cAlternatives.eContents().get(10);
 		private final Action cPrintCmdAction_10_0 = (Action)cGroup_10.eContents().get(0);
-		private final Keyword cPrintfKeyword_10_1 = (Keyword)cGroup_10.eContents().get(1);
+		private final Keyword cPrintKeyword_10_1 = (Keyword)cGroup_10.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_10_2 = (Keyword)cGroup_10.eContents().get(2);
 		private final Assignment cExpAssignment_10_3 = (Assignment)cGroup_10.eContents().get(3);
 		private final RuleCall cExpExpressionParserRuleCall_10_3_0 = (RuleCall)cExpAssignment_10_3.eContents().get(0);
@@ -479,7 +479,7 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		//	| {ContinueCmd} 'continue' ';'
 		//	| {ReturnCmd} 'return' exp=Expression? ';'
 		//	| {DeclCmd} val=Declaration
-		//	| {PrintCmd} 'printf' '(' exp=Expression? ')' ';';
+		//	| {PrintCmd} 'print' '(' exp=Expression? ')' ';';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{IfCmd} 'if' '(' exp=Expression ')' '{' trueCommands+=Command* '}' ('else' '{' falseCommands+=Command* '}')? |
@@ -488,7 +488,7 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		//'switch' '(' exp=Expression ')' '{' cases+=Case* ('default' ':' defaultCmds+=Command*)? '}' | {DoWhileCmd} 'do' '{'
 		//commands+=Command* '}' 'while' '(' exp=Expression ')' ';' | {VarCmd} lval=Factor asg=Assignment? ';' | {BreakCmd}
 		//'break' ';' | {ContinueCmd} 'continue' ';' | {ReturnCmd} 'return' exp=Expression? ';' | {DeclCmd} val=Declaration |
-		//{PrintCmd} 'printf' '(' exp=Expression? ')' ';'
+		//{PrintCmd} 'print' '(' exp=Expression? ')' ';'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//{IfCmd} 'if' '(' exp=Expression ')' '{' trueCommands+=Command* '}' ('else' '{' falseCommands+=Command* '}')?
@@ -801,14 +801,14 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		//Declaration
 		public RuleCall getValDeclarationParserRuleCall_9_1_0() { return cValDeclarationParserRuleCall_9_1_0; }
 		
-		//{PrintCmd} 'printf' '(' exp=Expression? ')' ';'
+		//{PrintCmd} 'print' '(' exp=Expression? ')' ';'
 		public Group getGroup_10() { return cGroup_10; }
 		
 		//{PrintCmd}
 		public Action getPrintCmdAction_10_0() { return cPrintCmdAction_10_0; }
 		
-		//'printf'
-		public Keyword getPrintfKeyword_10_1() { return cPrintfKeyword_10_1; }
+		//'print'
+		public Keyword getPrintKeyword_10_1() { return cPrintKeyword_10_1; }
 		
 		//'('
 		public Keyword getLeftParenthesisKeyword_10_2() { return cLeftParenthesisKeyword_10_2; }
@@ -1611,7 +1611,7 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 	//	| {ContinueCmd} 'continue' ';'
 	//	| {ReturnCmd} 'return' exp=Expression? ';'
 	//	| {DeclCmd} val=Declaration
-	//	| {PrintCmd} 'printf' '(' exp=Expression? ')' ';';
+	//	| {PrintCmd} 'print' '(' exp=Expression? ')' ';';
 	public CommandElements getCommandAccess() {
 		return pCommand;
 	}

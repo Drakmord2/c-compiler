@@ -3916,9 +3916,9 @@ rule__Command__Group_10__1__Impl
 	}
 :
 (
-	{ before(grammarAccess.getCommandAccess().getPrintfKeyword_10_1()); }
-	'printf'
-	{ after(grammarAccess.getCommandAccess().getPrintfKeyword_10_1()); }
+	{ before(grammarAccess.getCommandAccess().getPrintKeyword_10_1()); }
+	'print'
+	{ after(grammarAccess.getCommandAccess().getPrintKeyword_10_1()); }
 )
 ;
 finally {
