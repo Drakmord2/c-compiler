@@ -214,7 +214,7 @@ class CGenerator extends AbstractGenerator {
 		val mips = 
 		'''
 		«IF loopCount != 0»
-			j endLabel
+«««			j endLoop
 		«ENDIF»
 		'''
 		
@@ -226,7 +226,7 @@ class CGenerator extends AbstractGenerator {
 		val mips = 
 		'''
 		«IF loopCount != 0»
-			j startLabel
+«««			j startLoop
 		«ENDIF»
 		'''
 		
@@ -471,29 +471,20 @@ class CGenerator extends AbstractGenerator {
 			
 			if (E.arg instanceof Var) {
 			    val vName = (E.arg as Var).valor.name
-
-				if (op == "++") {
-					mips +=
-					'''
-					lw		$t9, _«vName»
-					«push('t9')»
-					addiu	$t9, $t9, 1
-					sw		$t9, _«vName»
-					
-					'''
-					
-				}
+				val id = getReference(vName)
 				
-				if (op == "--") {
-					mips +=
-					'''
-					lw		$t9, _«vName»
-					«push('t9')»
-					addiu	$t9, $t9, -1
-					sw		$t9, _«vName»
-					
-					'''
-				}
+				mips +=
+				'''
+				lw		$t9, «id»
+				«push('t9')»
+				«IF op == "++"»
+				addiu	$t9, $t9, 1
+				«ELSEIF op == "--"»
+				addiu	$t9, $t9, -1
+				«ENDIF»
+				sw		$t9, «id»
+				
+				'''
 			}
 			
 			return mips
@@ -504,29 +495,20 @@ class CGenerator extends AbstractGenerator {
 			
 			if (E.arg instanceof Var) {
 			    val vName = (E.arg as Var).valor.name
+			    val id = getReference(vName)
 
-				if (op == "++") {
-					mips +=
-					'''
-					lw		$t9, _«vName»
-					addiu	$t9, $t9, 1
-					sw		$t9, _«vName»
-					«push('t9')»
-					
-					'''
-					
-				}
+				mips +=
+				'''
+				lw		$t9, «id»
+				«IF op == "++"»
+				addiu	$t9, $t9, 1
+				«ELSEIF op == "--"»
+				addiu	$t9, $t9, -1
+				«ENDIF»
+				sw		$t9, «id»
+				«push('t9')»
 				
-				if (op == "--") {
-					mips +=
-					'''
-					lw		$t9, _«vName»
-					addiu	$t9, $t9, -1
-					sw		$t9, _«vName»
-					«push('t9')»
-					
-					'''
-				}
+				'''
 			}
 			
 			return mips
@@ -574,8 +556,8 @@ class CGenerator extends AbstractGenerator {
 			val decl 	= E.valor as VarDecl
 			val tipo 	= decl.tipo.tipo
 			
-			val opCode	= if (tipo == 'string') 'la' else 'lw'
-			val id 		= if (locals.containsKey(varname)) "-"+(locals.get(varname)+4)+"($fp)" else '_'+varname
+			val opCode	= if (tipo == 'string' && globals.contains(varname)) 'la' else 'lw'
+			val id 		= getReference(varname)
 			
 			mips += evalExp(opCode, id)
 			
@@ -772,6 +754,14 @@ class CGenerator extends AbstractGenerator {
 	'''
 		«opCode»		$«reg1», -«offset+4»($«reg2»)
 	'''
+
+	def getReference(String varname) {
+		if (locals.containsKey(varname)) {
+			return "-"+(locals.get(varname) + 4)+"($fp)" 
+		}
+		
+		return '_'+varname
+	}
 
 	def nextLabel() {
 		this.label++
