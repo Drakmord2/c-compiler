@@ -23,11 +23,6 @@
     <genClasses ecoreClass="C.ecore#//Struct">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//Struct/decl"/>
     </genClasses>
-    <genClasses ecoreClass="C.ecore#//IdDef">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//IdDef/tipo"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//IdDef/name"/>
-    </genClasses>
-    <genClasses ecoreClass="C.ecore#//Variable"/>
     <genClasses ecoreClass="C.ecore#//Command"/>
     <genClasses ecoreClass="C.ecore#//Argument">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//Argument/exp"/>

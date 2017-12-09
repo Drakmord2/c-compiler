@@ -243,62 +243,6 @@ public interface CPackage extends EPackage
   int STRUCT_FEATURE_COUNT = DEFINITION_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link com.poli.compilador.c.impl.IdDefImpl <em>Id Def</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.poli.compilador.c.impl.IdDefImpl
-   * @see com.poli.compilador.c.impl.CPackageImpl#getIdDef()
-   * @generated
-   */
-  int ID_DEF = 5;
-
-  /**
-   * The feature id for the '<em><b>Tipo</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ID_DEF__TIPO = 0;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ID_DEF__NAME = 1;
-
-  /**
-   * The number of structural features of the '<em>Id Def</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ID_DEF_FEATURE_COUNT = 2;
-
-  /**
-   * The meta object id for the '{@link com.poli.compilador.c.impl.VariableImpl <em>Variable</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.poli.compilador.c.impl.VariableImpl
-   * @see com.poli.compilador.c.impl.CPackageImpl#getVariable()
-   * @generated
-   */
-  int VARIABLE = 6;
-
-  /**
-   * The number of structural features of the '<em>Variable</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE_FEATURE_COUNT = 0;
-
-  /**
    * The meta object id for the '{@link com.poli.compilador.c.impl.CommandImpl <em>Command</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -306,7 +250,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getCommand()
    * @generated
    */
-  int COMMAND = 7;
+  int COMMAND = 5;
 
   /**
    * The number of structural features of the '<em>Command</em>' class.
@@ -325,7 +269,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getArgument()
    * @generated
    */
-  int ARGUMENT = 8;
+  int ARGUMENT = 6;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference list.
@@ -353,7 +297,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getAssignment()
    * @generated
    */
-  int ASSIGNMENT = 9;
+  int ASSIGNMENT = 7;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -381,7 +325,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getExpression()
    * @generated
    */
-  int EXPRESSION = 10;
+  int EXPRESSION = 8;
 
   /**
    * The number of structural features of the '<em>Expression</em>' class.
@@ -400,7 +344,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getPointerExp()
    * @generated
    */
-  int POINTER_EXP = 11;
+  int POINTER_EXP = 9;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -409,7 +353,7 @@ public interface CPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POINTER_EXP__EXP = VARIABLE_FEATURE_COUNT + 0;
+  int POINTER_EXP__EXP = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Pointer Exp</em>' class.
@@ -418,7 +362,7 @@ public interface CPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POINTER_EXP_FEATURE_COUNT = VARIABLE_FEATURE_COUNT + 1;
+  int POINTER_EXP_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link com.poli.compilador.c.impl.CaseImpl <em>Case</em>}' class.
@@ -428,7 +372,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getCase()
    * @generated
    */
-  int CASE = 12;
+  int CASE = 10;
 
   /**
    * The feature id for the '<em><b>Val</b></em>' containment reference.
@@ -465,7 +409,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getType()
    * @generated
    */
-  int TYPE = 13;
+  int TYPE = 11;
 
   /**
    * The feature id for the '<em><b>Tipo</b></em>' attribute.
@@ -502,7 +446,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getLiteral()
    * @generated
    */
-  int LITERAL = 14;
+  int LITERAL = 12;
 
   /**
    * The number of structural features of the '<em>Literal</em>' class.
@@ -521,7 +465,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getVarDecl()
    * @generated
    */
-  int VAR_DECL = 15;
+  int VAR_DECL = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -576,7 +520,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getStrDecl()
    * @generated
    */
-  int STR_DECL = 16;
+  int STR_DECL = 14;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -622,7 +566,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getIfCmd()
    * @generated
    */
-  int IF_CMD = 17;
+  int IF_CMD = 15;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -668,7 +612,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getWhileCmd()
    * @generated
    */
-  int WHILE_CMD = 18;
+  int WHILE_CMD = 16;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -705,7 +649,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getForCmd()
    * @generated
    */
-  int FOR_CMD = 19;
+  int FOR_CMD = 17;
 
   /**
    * The feature id for the '<em><b>Init</b></em>' containment reference.
@@ -778,7 +722,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getSwitchCmd()
    * @generated
    */
-  int SWITCH_CMD = 20;
+  int SWITCH_CMD = 18;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -824,7 +768,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getDoWhileCmd()
    * @generated
    */
-  int DO_WHILE_CMD = 21;
+  int DO_WHILE_CMD = 19;
 
   /**
    * The feature id for the '<em><b>Commands</b></em>' containment reference list.
@@ -861,7 +805,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getVarCmd()
    * @generated
    */
-  int VAR_CMD = 22;
+  int VAR_CMD = 20;
 
   /**
    * The feature id for the '<em><b>Lval</b></em>' containment reference.
@@ -898,7 +842,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getBreakCmd()
    * @generated
    */
-  int BREAK_CMD = 23;
+  int BREAK_CMD = 21;
 
   /**
    * The number of structural features of the '<em>Break Cmd</em>' class.
@@ -917,7 +861,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getContinueCmd()
    * @generated
    */
-  int CONTINUE_CMD = 24;
+  int CONTINUE_CMD = 22;
 
   /**
    * The number of structural features of the '<em>Continue Cmd</em>' class.
@@ -936,7 +880,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getReturnCmd()
    * @generated
    */
-  int RETURN_CMD = 25;
+  int RETURN_CMD = 23;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -964,7 +908,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getDeclCmd()
    * @generated
    */
-  int DECL_CMD = 26;
+  int DECL_CMD = 24;
 
   /**
    * The feature id for the '<em><b>Val</b></em>' containment reference.
@@ -992,7 +936,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getPrintCmd()
    * @generated
    */
-  int PRINT_CMD = 27;
+  int PRINT_CMD = 25;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -1020,7 +964,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getLogicExp()
    * @generated
    */
-  int LOGIC_EXP = 28;
+  int LOGIC_EXP = 26;
 
   /**
    * The feature id for the '<em><b>Args</b></em>' containment reference list.
@@ -1057,7 +1001,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getRelExp()
    * @generated
    */
-  int REL_EXP = 29;
+  int REL_EXP = 27;
 
   /**
    * The feature id for the '<em><b>Args</b></em>' containment reference list.
@@ -1094,7 +1038,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getArithExp()
    * @generated
    */
-  int ARITH_EXP = 30;
+  int ARITH_EXP = 28;
 
   /**
    * The feature id for the '<em><b>Args</b></em>' containment reference list.
@@ -1131,7 +1075,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getTerm()
    * @generated
    */
-  int TERM = 31;
+  int TERM = 29;
 
   /**
    * The feature id for the '<em><b>Args</b></em>' containment reference list.
@@ -1168,7 +1112,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getPostfixOp()
    * @generated
    */
-  int POSTFIX_OP = 32;
+  int POSTFIX_OP = 30;
 
   /**
    * The feature id for the '<em><b>Arg</b></em>' containment reference.
@@ -1205,7 +1149,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getPrefixOp()
    * @generated
    */
-  int PREFIX_OP = 33;
+  int PREFIX_OP = 31;
 
   /**
    * The feature id for the '<em><b>Uo</b></em>' attribute.
@@ -1242,7 +1186,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getParenteses()
    * @generated
    */
-  int PARENTESES = 34;
+  int PARENTESES = 32;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -1270,7 +1214,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getVar()
    * @generated
    */
-  int VAR = 35;
+  int VAR = 33;
 
   /**
    * The feature id for the '<em><b>Valor</b></em>' reference.
@@ -1298,7 +1242,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getFuncCall()
    * @generated
    */
-  int FUNC_CALL = 36;
+  int FUNC_CALL = 34;
 
   /**
    * The feature id for the '<em><b>Def</b></em>' containment reference.
@@ -1335,7 +1279,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getFieldAccess()
    * @generated
    */
-  int FIELD_ACCESS = 37;
+  int FIELD_ACCESS = 35;
 
   /**
    * The feature id for the '<em><b>Obj</b></em>' containment reference.
@@ -1372,7 +1316,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getArrayAccess()
    * @generated
    */
-  int ARRAY_ACCESS = 38;
+  int ARRAY_ACCESS = 36;
 
   /**
    * The feature id for the '<em><b>Arr</b></em>' containment reference.
@@ -1409,7 +1353,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getIntLit()
    * @generated
    */
-  int INT_LIT = 39;
+  int INT_LIT = 37;
 
   /**
    * The feature id for the '<em><b>Val</b></em>' attribute.
@@ -1437,7 +1381,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getTrueLit()
    * @generated
    */
-  int TRUE_LIT = 40;
+  int TRUE_LIT = 38;
 
   /**
    * The number of structural features of the '<em>True Lit</em>' class.
@@ -1456,7 +1400,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getFalseLit()
    * @generated
    */
-  int FALSE_LIT = 41;
+  int FALSE_LIT = 39;
 
   /**
    * The number of structural features of the '<em>False Lit</em>' class.
@@ -1475,7 +1419,7 @@ public interface CPackage extends EPackage
    * @see com.poli.compilador.c.impl.CPackageImpl#getStrLit()
    * @generated
    */
-  int STR_LIT = 42;
+  int STR_LIT = 40;
 
   /**
    * The feature id for the '<em><b>Val</b></em>' attribute.
@@ -1622,48 +1566,6 @@ public interface CPackage extends EPackage
    * @generated
    */
   EReference getStruct_Decl();
-
-  /**
-   * Returns the meta object for class '{@link com.poli.compilador.c.IdDef <em>Id Def</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Id Def</em>'.
-   * @see com.poli.compilador.c.IdDef
-   * @generated
-   */
-  EClass getIdDef();
-
-  /**
-   * Returns the meta object for the containment reference '{@link com.poli.compilador.c.IdDef#getTipo <em>Tipo</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Tipo</em>'.
-   * @see com.poli.compilador.c.IdDef#getTipo()
-   * @see #getIdDef()
-   * @generated
-   */
-  EReference getIdDef_Tipo();
-
-  /**
-   * Returns the meta object for the containment reference '{@link com.poli.compilador.c.IdDef#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Name</em>'.
-   * @see com.poli.compilador.c.IdDef#getName()
-   * @see #getIdDef()
-   * @generated
-   */
-  EReference getIdDef_Name();
-
-  /**
-   * Returns the meta object for class '{@link com.poli.compilador.c.Variable <em>Variable</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Variable</em>'.
-   * @see com.poli.compilador.c.Variable
-   * @generated
-   */
-  EClass getVariable();
 
   /**
    * Returns the meta object for class '{@link com.poli.compilador.c.Command <em>Command</em>}'.
@@ -2736,42 +2638,6 @@ public interface CPackage extends EPackage
      * @generated
      */
     EReference STRUCT__DECL = eINSTANCE.getStruct_Decl();
-
-    /**
-     * The meta object literal for the '{@link com.poli.compilador.c.impl.IdDefImpl <em>Id Def</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.poli.compilador.c.impl.IdDefImpl
-     * @see com.poli.compilador.c.impl.CPackageImpl#getIdDef()
-     * @generated
-     */
-    EClass ID_DEF = eINSTANCE.getIdDef();
-
-    /**
-     * The meta object literal for the '<em><b>Tipo</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ID_DEF__TIPO = eINSTANCE.getIdDef_Tipo();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ID_DEF__NAME = eINSTANCE.getIdDef_Name();
-
-    /**
-     * The meta object literal for the '{@link com.poli.compilador.c.impl.VariableImpl <em>Variable</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.poli.compilador.c.impl.VariableImpl
-     * @see com.poli.compilador.c.impl.CPackageImpl#getVariable()
-     * @generated
-     */
-    EClass VARIABLE = eINSTANCE.getVariable();
 
     /**
      * The meta object literal for the '{@link com.poli.compilador.c.impl.CommandImpl <em>Command</em>}' class.

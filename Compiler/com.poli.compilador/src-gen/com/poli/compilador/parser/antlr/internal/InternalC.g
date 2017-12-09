@@ -213,9 +213,9 @@ ruleFunction returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getFunctionAccess().getParamsIdDefParserRuleCall_5_0_0());
+						newCompositeNode(grammarAccess.getFunctionAccess().getParamsDeclarationParserRuleCall_5_0_0());
 					}
-					lv_params_5_0=ruleIdDef
+					lv_params_5_0=ruleDeclaration
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getFunctionRule());
@@ -224,7 +224,7 @@ ruleFunction returns [EObject current=null]
 							$current,
 							"params",
 							lv_params_5_0,
-							"com.poli.compilador.C.IdDef");
+							"com.poli.compilador.C.Declaration");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -237,9 +237,9 @@ ruleFunction returns [EObject current=null]
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getFunctionAccess().getParamsIdDefParserRuleCall_5_1_1_0());
+							newCompositeNode(grammarAccess.getFunctionAccess().getParamsDeclarationParserRuleCall_5_1_1_0());
 						}
-						lv_params_7_0=ruleIdDef
+						lv_params_7_0=ruleDeclaration
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getFunctionRule());
@@ -248,7 +248,7 @@ ruleFunction returns [EObject current=null]
 								$current,
 								"params",
 								lv_params_7_0,
-								"com.poli.compilador.C.IdDef");
+								"com.poli.compilador.C.Declaration");
 							afterParserOrEnumRuleCall();
 						}
 					)
@@ -516,104 +516,6 @@ ruleStruct returns [EObject current=null]
 		otherlv_6=';'
 		{
 			newLeafNode(otherlv_6, grammarAccess.getStructAccess().getSemicolonKeyword_6());
-		}
-	)
-;
-
-// Entry rule entryRuleIdDef
-entryRuleIdDef returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getIdDefRule()); }
-	iv_ruleIdDef=ruleIdDef
-	{ $current=$iv_ruleIdDef.current; }
-	EOF;
-
-// Rule IdDef
-ruleIdDef returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			(
-				{
-					newCompositeNode(grammarAccess.getIdDefAccess().getTipoTypeParserRuleCall_0_0());
-				}
-				lv_tipo_0_0=ruleType
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getIdDefRule());
-					}
-					set(
-						$current,
-						"tipo",
-						lv_tipo_0_0,
-						"com.poli.compilador.C.Type");
-					afterParserOrEnumRuleCall();
-				}
-			)
-		)
-		(
-			(
-				{
-					newCompositeNode(grammarAccess.getIdDefAccess().getNameVariableParserRuleCall_1_0());
-				}
-				lv_name_1_0=ruleVariable
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getIdDefRule());
-					}
-					set(
-						$current,
-						"name",
-						lv_name_1_0,
-						"com.poli.compilador.C.Variable");
-					afterParserOrEnumRuleCall();
-				}
-			)
-		)
-	)
-;
-
-// Entry rule entryRuleVariable
-entryRuleVariable returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getVariableRule()); }
-	iv_ruleVariable=ruleVariable
-	{ $current=$iv_ruleVariable.current; }
-	EOF;
-
-// Rule Variable
-ruleVariable returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			(
-				{
-					$current = forceCreateModelElement(
-						grammarAccess.getVariableAccess().getVariableAction_0_0(),
-						$current);
-				}
-			)
-			this_ID_1=RULE_ID
-			{
-				newLeafNode(this_ID_1, grammarAccess.getVariableAccess().getIDTerminalRuleCall_0_1());
-			}
-		)
-		    |
-		{
-			newCompositeNode(grammarAccess.getVariableAccess().getPointerExpParserRuleCall_1());
-		}
-		this_PointerExp_2=rulePointerExp
-		{
-			$current = $this_PointerExp_2.current;
-			afterParserOrEnumRuleCall();
 		}
 	)
 ;

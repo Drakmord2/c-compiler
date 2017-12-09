@@ -70,8 +70,6 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
       case CPackage.FUNCTION: return createFunction();
       case CPackage.DECLARATION: return createDeclaration();
       case CPackage.STRUCT: return createStruct();
-      case CPackage.ID_DEF: return createIdDef();
-      case CPackage.VARIABLE: return createVariable();
       case CPackage.COMMAND: return createCommand();
       case CPackage.ARGUMENT: return createArgument();
       case CPackage.ASSIGNMENT: return createAssignment();
@@ -166,28 +164,6 @@ public class CFactoryImpl extends EFactoryImpl implements CFactory
   {
     StructImpl struct = new StructImpl();
     return struct;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public IdDef createIdDef()
-  {
-    IdDefImpl idDef = new IdDefImpl();
-    return idDef;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Variable createVariable()
-  {
-    VariableImpl variable = new VariableImpl();
-    return variable;
   }
 
   /**

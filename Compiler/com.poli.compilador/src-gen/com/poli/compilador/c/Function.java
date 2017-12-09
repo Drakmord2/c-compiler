@@ -53,7 +53,7 @@ public interface Function extends Definition
 
   /**
    * Returns the value of the '<em><b>Params</b></em>' containment reference list.
-   * The list contents are of type {@link com.poli.compilador.c.IdDef}.
+   * The list contents are of type {@link com.poli.compilador.c.Declaration}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Params</em>' containment reference list isn't clear,
@@ -65,7 +65,7 @@ public interface Function extends Definition
    * @model containment="true"
    * @generated
    */
-  EList<IdDef> getParams();
+  EList<Declaration> getParams();
 
   /**
    * Returns the value of the '<em><b>Commands</b></em>' containment reference list.

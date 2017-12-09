@@ -111,7 +111,7 @@ class CGenerator extends AbstractGenerator {
 		if (D instanceof VarDecl) {
 			var mips 	= ''''''
 			val vName	= D.name
-			val size 	= 4
+			var size 	= 4
 			globals.add(vName)
 			
 			if (D.tipo.tipo == 'string') {
@@ -125,6 +125,13 @@ class CGenerator extends AbstractGenerator {
 				''' 
 				
 				return mips
+			}
+			
+			if (D.tipo.exp !== null) {
+				val arrIdx 	= D.tipo.exp
+				val arrSize	= (arrIdx as IntLit).^val
+				
+				size = arrSize*4;
 			}
 			
 			mips =
@@ -149,6 +156,8 @@ class CGenerator extends AbstractGenerator {
 	def function(Function F) {
 		fName.push(F.name)
 		globals.add(F.name)
+		val paramSize = F.params.size * 4
+		val localSize = 12
 		
 		var mips = 
 		'''
@@ -160,11 +169,11 @@ class CGenerator extends AbstractGenerator {
 		«ELSE»
 		_«F.name»:
 		«ENDIF»
-			«functionEntry(0, 12)»
+			«functionEntry(paramSize, localSize)»
 			«FOR C : F.commands»
 				«command(C)»
 		    «ENDFOR»
-		    «functionExit(0)»
+		    «functionExit(paramSize)»
 		
 		'''
 		return mips
@@ -218,6 +227,7 @@ class CGenerator extends AbstractGenerator {
 		if (decl instanceof VarDecl) {
 			mips =
 			'''
+			# «vName»
 			«IF decl.^val !== null»
 			«expression(decl.^val.exp)»
 			«pop('t7')»
@@ -339,9 +349,9 @@ class CGenerator extends AbstractGenerator {
 	    '''
 	    «expression(C.exp)»
 	    «pop('a0')»
-	    «IF tipo == Validator.Tipo.INT || tipo == Validator.Tipo.BOOL»
+	    «IF tipo == Validator.Tipo.INT || tipo == Validator.Tipo.BOOL || tipo === null»
 	    li		$v0, 1
-	    «ELSE»
+	    «ELSEIF tipo == Validator.Tipo.STR»
 	    li		$v0, 4
 	    «ENDIF»
 	    syscall
@@ -402,7 +412,11 @@ class CGenerator extends AbstractGenerator {
 			mips +=
 				'''
 				«assign(V.asg)»
+				«IF V.lval instanceof ArrayAccess»
+				«storeArray(V.lval as ArrayAccess)»
+				«ELSE»
 				«store(V.lval)»
+				«ENDIF»
 				'''
 			return mips
 		}
@@ -561,16 +575,27 @@ class CGenerator extends AbstractGenerator {
 			return mips
 		}
 		
-		if (E instanceof FieldAccess) {
-			
-		}
-		
 		if (E instanceof ArrayAccess) {
+			val arr 		= E.arr as Var
+			val varname 	= arr.valor.name
+			val decl 	= arr.valor as VarDecl
+			val tipo 	= decl.tipo.tipo
 			
-		}
-		
-		if (E instanceof PointerExp) {
+			var idx = ''''''
+			if (E.index instanceof IntLit) {
+				idx = '''+«(E.index as IntLit).^val * 4»'''
+			} else {
+				mips += expression(E.index)
+				mips += pop('t5')
+				idx = '''+0($t5)'''
+			}
 			
+			val opCode	= if (tipo == 'string' && globals.contains(varname)) 'la' else 'lw'
+			val id 		= getReference(varname) + idx
+			
+			mips += evalExp(opCode, id)
+			
+			return mips
 		}
 		
 		if (E instanceof Var) {
@@ -612,6 +637,13 @@ class CGenerator extends AbstractGenerator {
 			mips += storeString(E, strLabel)
 			
 			return mips
+		}
+		
+		//TODO
+	    if (E instanceof FieldAccess) {
+		}
+		//TODO
+		if (E instanceof PointerExp) {
 		}
 		
 		return mips
@@ -671,29 +703,6 @@ class CGenerator extends AbstractGenerator {
 		
 	 	'''
 	 	return mips
-	}
-	
-	def storeString(StrLit E, String strLabel) {
-			var mips = 
-			'''
-			.data
-			_«strLabel»: .asciiz "«E.^val»"
-			.text
-			«evalExp('la', '_'+strLabel)»
-			''' 
-			
-			return mips
-	}
-	
-	def CharSequence evalExp(String opCode, String value) {
-			var mips =
-			'''
-			«opCode»		$t8, «value»
-			«push('t8')»
-			
-			'''
-			
-			return mips
 	}
 	
 	def argument(Argument A)
@@ -758,6 +767,58 @@ class CGenerator extends AbstractGenerator {
 		}
 		
 		return mips
+	}
+	
+	def storeArray(ArrayAccess A) {
+		var mips 	= ''''''
+		val varname	= (A.arr as Var).valor.name
+		val arrIdx 	= (A.index as IntLit).^val * 4
+		
+		if (locals.containsKey(varname)) {
+			mips += 
+			'''
+			«pop('t7')»
+			«indexed('sw', 't7', locals.get(varname), 'fp')»
+			
+			'''
+			
+			return mips
+		}
+		
+		if (globals.contains(varname)) {
+			mips +=
+			'''
+			«pop('t9')»
+			sw		$t9, _«varname»+«arrIdx»
+			
+			'''
+			return mips
+		}
+		
+		return mips
+	}
+	
+	def storeString(StrLit E, String strLabel) {
+			var mips = 
+			'''
+			.data
+			_«strLabel»: .asciiz "«E.^val»"
+			.text
+			«evalExp('la', '_'+strLabel)»
+			''' 
+			
+			return mips
+	}
+	
+	def CharSequence evalExp(String opCode, String value) {
+			var mips =
+			'''
+			«opCode»		$t8, «value»
+			«push('t8')»
+			
+			'''
+			
+			return mips
 	}
 	
 	def CharSequence push(String reg)

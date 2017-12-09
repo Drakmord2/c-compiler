@@ -75,11 +75,11 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Assignment cParamsAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
-		private final RuleCall cParamsIdDefParserRuleCall_5_0_0 = (RuleCall)cParamsAssignment_5_0.eContents().get(0);
+		private final RuleCall cParamsDeclarationParserRuleCall_5_0_0 = (RuleCall)cParamsAssignment_5_0.eContents().get(0);
 		private final Group cGroup_5_1 = (Group)cGroup_5.eContents().get(1);
 		private final Keyword cCommaKeyword_5_1_0 = (Keyword)cGroup_5_1.eContents().get(0);
 		private final Assignment cParamsAssignment_5_1_1 = (Assignment)cGroup_5_1.eContents().get(1);
-		private final RuleCall cParamsIdDefParserRuleCall_5_1_1_0 = (RuleCall)cParamsAssignment_5_1_1.eContents().get(0);
+		private final RuleCall cParamsDeclarationParserRuleCall_5_1_1_0 = (RuleCall)cParamsAssignment_5_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		private final Keyword cLeftCurlyBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		private final Assignment cCommandsAssignment_8 = (Assignment)cGroup.eContents().get(8);
@@ -87,10 +87,12 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//Function:
-		//	{Function} 'function' tipo=Type name=ID '(' (params+=IdDef (',' params+=IdDef)*)? ')' '{' commands+=Command* '}';
+		//	{Function} 'function' tipo=Type name=ID '(' (params+=Declaration (',' params+=Declaration)*)? ')' '{'
+		//	commands+=Command* '}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{Function} 'function' tipo=Type name=ID '(' (params+=IdDef (',' params+=IdDef)*)? ')' '{' commands+=Command* '}'
+		//{Function} 'function' tipo=Type name=ID '(' (params+=Declaration (',' params+=Declaration)*)? ')' '{' commands+=Command*
+		//'}'
 		public Group getGroup() { return cGroup; }
 		
 		//{Function}
@@ -114,26 +116,26 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		//'('
 		public Keyword getLeftParenthesisKeyword_4() { return cLeftParenthesisKeyword_4; }
 		
-		//(params+=IdDef (',' params+=IdDef)*)?
+		//(params+=Declaration (',' params+=Declaration)*)?
 		public Group getGroup_5() { return cGroup_5; }
 		
-		//params+=IdDef
+		//params+=Declaration
 		public Assignment getParamsAssignment_5_0() { return cParamsAssignment_5_0; }
 		
-		//IdDef
-		public RuleCall getParamsIdDefParserRuleCall_5_0_0() { return cParamsIdDefParserRuleCall_5_0_0; }
+		//Declaration
+		public RuleCall getParamsDeclarationParserRuleCall_5_0_0() { return cParamsDeclarationParserRuleCall_5_0_0; }
 		
-		//(',' params+=IdDef)*
+		//(',' params+=Declaration)*
 		public Group getGroup_5_1() { return cGroup_5_1; }
 		
 		//','
 		public Keyword getCommaKeyword_5_1_0() { return cCommaKeyword_5_1_0; }
 		
-		//params+=IdDef
+		//params+=Declaration
 		public Assignment getParamsAssignment_5_1_1() { return cParamsAssignment_5_1_1; }
 		
-		//IdDef
-		public RuleCall getParamsIdDefParserRuleCall_5_1_1_0() { return cParamsIdDefParserRuleCall_5_1_1_0; }
+		//Declaration
+		public RuleCall getParamsDeclarationParserRuleCall_5_1_1_0() { return cParamsDeclarationParserRuleCall_5_1_1_0; }
 		
 		//')'
 		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
@@ -297,60 +299,6 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//';'
 		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
-	}
-	public class IdDefElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.poli.compilador.C.IdDef");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cTipoAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cTipoTypeParserRuleCall_0_0 = (RuleCall)cTipoAssignment_0.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameVariableParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		
-		//IdDef:
-		//	tipo=Type name=Variable;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//tipo=Type name=Variable
-		public Group getGroup() { return cGroup; }
-		
-		//tipo=Type
-		public Assignment getTipoAssignment_0() { return cTipoAssignment_0; }
-		
-		//Type
-		public RuleCall getTipoTypeParserRuleCall_0_0() { return cTipoTypeParserRuleCall_0_0; }
-		
-		//name=Variable
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
-		
-		//Variable
-		public RuleCall getNameVariableParserRuleCall_1_0() { return cNameVariableParserRuleCall_1_0; }
-	}
-	public class VariableElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.poli.compilador.C.Variable");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Action cVariableAction_0_0 = (Action)cGroup_0.eContents().get(0);
-		private final RuleCall cIDTerminalRuleCall_0_1 = (RuleCall)cGroup_0.eContents().get(1);
-		private final RuleCall cPointerExpParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		
-		//Variable:
-		//	{Variable} ID | PointerExp;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//{Variable} ID | PointerExp
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
-		//{Variable} ID
-		public Group getGroup_0() { return cGroup_0; }
-		
-		//{Variable}
-		public Action getVariableAction_0_0() { return cVariableAction_0_0; }
-		
-		//ID
-		public RuleCall getIDTerminalRuleCall_0_1() { return cIDTerminalRuleCall_0_1; }
-		
-		//PointerExp
-		public RuleCall getPointerExpParserRuleCall_1() { return cPointerExpParserRuleCall_1; }
 	}
 	public class CommandElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.poli.compilador.C.Command");
@@ -1439,8 +1387,6 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 	private final FunctionElements pFunction;
 	private final DeclarationElements pDeclaration;
 	private final StructElements pStruct;
-	private final IdDefElements pIdDef;
-	private final VariableElements pVariable;
 	private final CommandElements pCommand;
 	private final ArgumentElements pArgument;
 	private final AssignmentElements pAssignment;
@@ -1476,8 +1422,6 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		this.pFunction = new FunctionElements();
 		this.pDeclaration = new DeclarationElements();
 		this.pStruct = new StructElements();
-		this.pIdDef = new IdDefElements();
-		this.pVariable = new VariableElements();
 		this.pCommand = new CommandElements();
 		this.pArgument = new ArgumentElements();
 		this.pAssignment = new AssignmentElements();
@@ -1549,7 +1493,8 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Function:
-	//	{Function} 'function' tipo=Type name=ID '(' (params+=IdDef (',' params+=IdDef)*)? ')' '{' commands+=Command* '}';
+	//	{Function} 'function' tipo=Type name=ID '(' (params+=Declaration (',' params+=Declaration)*)? ')' '{'
+	//	commands+=Command* '}';
 	public FunctionElements getFunctionAccess() {
 		return pFunction;
 	}
@@ -1577,26 +1522,6 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getStructRule() {
 		return getStructAccess().getRule();
-	}
-	
-	//IdDef:
-	//	tipo=Type name=Variable;
-	public IdDefElements getIdDefAccess() {
-		return pIdDef;
-	}
-	
-	public ParserRule getIdDefRule() {
-		return getIdDefAccess().getRule();
-	}
-	
-	//Variable:
-	//	{Variable} ID | PointerExp;
-	public VariableElements getVariableAccess() {
-		return pVariable;
-	}
-	
-	public ParserRule getVariableRule() {
-		return getVariableAccess().getRule();
 	}
 	
 	//Command:

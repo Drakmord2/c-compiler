@@ -101,16 +101,6 @@ public class CAdapterFactory extends AdapterFactoryImpl
         return createStructAdapter();
       }
       @Override
-      public Adapter caseIdDef(IdDef object)
-      {
-        return createIdDefAdapter();
-      }
-      @Override
-      public Adapter caseVariable(Variable object)
-      {
-        return createVariableAdapter();
-      }
-      @Override
       public Adapter caseCommand(Command object)
       {
         return createCommandAdapter();
@@ -383,36 +373,6 @@ public class CAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createStructAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.IdDef <em>Id Def</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.poli.compilador.c.IdDef
-   * @generated
-   */
-  public Adapter createIdDefAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.poli.compilador.c.Variable <em>Variable</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.poli.compilador.c.Variable
-   * @generated
-   */
-  public Adapter createVariableAdapter()
   {
     return null;
   }

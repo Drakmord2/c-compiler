@@ -13,10 +13,13 @@ import com.poli.compilador.c.Expression;
 import com.poli.compilador.c.FieldAccess;
 import com.poli.compilador.c.ForCmd;
 import com.poli.compilador.c.IfCmd;
+import com.poli.compilador.c.IntLit;
 import com.poli.compilador.c.StrDecl;
 import com.poli.compilador.c.Struct;
 import com.poli.compilador.c.SwitchCmd;
+import com.poli.compilador.c.Type;
 import com.poli.compilador.c.Var;
+import com.poli.compilador.c.VarDecl;
 import com.poli.compilador.c.WhileCmd;
 import com.poli.compilador.validation.AbstractCValidator;
 import com.poli.compilador.validation.Validator;
@@ -101,6 +104,32 @@ public class CValidator extends AbstractCValidator {
       this.error("Struct field not defined.", v, CPackage.Literals.FIELD_ACCESS__FIELD);
     }
     if ((v instanceof ArrayAccess)) {
+      Expression _arr = ((ArrayAccess)v).getArr();
+      final Var lvalue_1 = ((Var) _arr);
+      Definition _valor_2 = lvalue_1.getValor();
+      final Declaration decl = ((Declaration) _valor_2);
+      if (((decl instanceof VarDecl) != true)) {
+        this.error("Illegal access. Not a variable.", v, CPackage.Literals.ARRAY_ACCESS__ARR);
+        return;
+      }
+      final Type tipo = ((VarDecl) decl).getTipo();
+      Expression _exp = tipo.getExp();
+      boolean _tripleEquals = (_exp == null);
+      if (_tripleEquals) {
+        this.error("Illegal access. Not an Array.", v, CPackage.Literals.ARRAY_ACCESS__INDEX);
+        return;
+      }
+      final Expression index = ((ArrayAccess)v).getIndex();
+      Validator.Tipo _tipode = Validator.tipode(index, null);
+      boolean _notEquals_1 = (!Objects.equal(_tipode, Validator.Tipo.INT));
+      if (_notEquals_1) {
+        this.error("Illegal access. Non integer index.", v, CPackage.Literals.ARRAY_ACCESS__INDEX);
+        return;
+      }
+      if (((((IntLit) tipo.getExp()).getVal() < (((IntLit) index).getVal() + 1)) || (((IntLit) index).getVal() < 0))) {
+        this.error("Array out of bounds.", v, CPackage.Literals.ARRAY_ACCESS__INDEX);
+        return;
+      }
     }
   }
 }

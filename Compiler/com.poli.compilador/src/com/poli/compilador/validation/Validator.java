@@ -21,6 +21,10 @@ public class Validator {
 			return Tipo.BOOL;
 		}
 		
+		if (e instanceof StrLit) {
+			return Tipo.STR;
+		}
+		
 		if (e instanceof LogicExp) {
 			LogicExp le = (LogicExp)e;
 			

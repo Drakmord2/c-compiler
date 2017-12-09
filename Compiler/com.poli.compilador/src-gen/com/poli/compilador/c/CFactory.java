@@ -69,24 +69,6 @@ public interface CFactory extends EFactory
   Struct createStruct();
 
   /**
-   * Returns a new object of class '<em>Id Def</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Id Def</em>'.
-   * @generated
-   */
-  IdDef createIdDef();
-
-  /**
-   * Returns a new object of class '<em>Variable</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Variable</em>'.
-   * @generated
-   */
-  Variable createVariable();
-
-  /**
    * Returns a new object of class '<em>Command</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

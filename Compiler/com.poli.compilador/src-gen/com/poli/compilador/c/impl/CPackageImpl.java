@@ -23,7 +23,6 @@ import com.poli.compilador.c.FieldAccess;
 import com.poli.compilador.c.ForCmd;
 import com.poli.compilador.c.FuncCall;
 import com.poli.compilador.c.Function;
-import com.poli.compilador.c.IdDef;
 import com.poli.compilador.c.IfCmd;
 import com.poli.compilador.c.IntLit;
 import com.poli.compilador.c.Literal;
@@ -46,7 +45,6 @@ import com.poli.compilador.c.Type;
 import com.poli.compilador.c.Var;
 import com.poli.compilador.c.VarCmd;
 import com.poli.compilador.c.VarDecl;
-import com.poli.compilador.c.Variable;
 import com.poli.compilador.c.WhileCmd;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -98,20 +96,6 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * @generated
    */
   private EClass structEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass idDefEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass variableEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -546,46 +530,6 @@ public class CPackageImpl extends EPackageImpl implements CPackage
   public EReference getStruct_Decl()
   {
     return (EReference)structEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getIdDef()
-  {
-    return idDefEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getIdDef_Tipo()
-  {
-    return (EReference)idDefEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getIdDef_Name()
-  {
-    return (EReference)idDefEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getVariable()
-  {
-    return variableEClass;
   }
 
   /**
@@ -1525,12 +1469,6 @@ public class CPackageImpl extends EPackageImpl implements CPackage
     structEClass = createEClass(STRUCT);
     createEReference(structEClass, STRUCT__DECL);
 
-    idDefEClass = createEClass(ID_DEF);
-    createEReference(idDefEClass, ID_DEF__TIPO);
-    createEReference(idDefEClass, ID_DEF__NAME);
-
-    variableEClass = createEClass(VARIABLE);
-
     commandEClass = createEClass(COMMAND);
 
     argumentEClass = createEClass(ARGUMENT);
@@ -1689,7 +1627,6 @@ public class CPackageImpl extends EPackageImpl implements CPackage
     functionEClass.getESuperTypes().add(this.getDefinition());
     declarationEClass.getESuperTypes().add(this.getDefinition());
     structEClass.getESuperTypes().add(this.getDefinition());
-    pointerExpEClass.getESuperTypes().add(this.getVariable());
     pointerExpEClass.getESuperTypes().add(this.getExpression());
     literalEClass.getESuperTypes().add(this.getExpression());
     varDeclEClass.getESuperTypes().add(this.getDeclaration());
@@ -1730,7 +1667,7 @@ public class CPackageImpl extends EPackageImpl implements CPackage
 
     initEClass(functionEClass, Function.class, "Function", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getFunction_Tipo(), this.getType(), null, "tipo", null, 0, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFunction_Params(), this.getIdDef(), null, "params", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFunction_Params(), this.getDeclaration(), null, "params", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFunction_Commands(), this.getCommand(), null, "commands", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(declarationEClass, Declaration.class, "Declaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1738,12 +1675,6 @@ public class CPackageImpl extends EPackageImpl implements CPackage
 
     initEClass(structEClass, Struct.class, "Struct", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getStruct_Decl(), this.getDeclaration(), null, "decl", null, 0, -1, Struct.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(idDefEClass, IdDef.class, "IdDef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getIdDef_Tipo(), this.getType(), null, "tipo", null, 0, 1, IdDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getIdDef_Name(), this.getVariable(), null, "name", null, 0, 1, IdDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(commandEClass, Command.class, "Command", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

@@ -15,6 +15,9 @@ import com.poli.compilador.c.SwitchCmd
 import com.poli.compilador.c.Var
 import com.poli.compilador.c.WhileCmd
 import org.eclipse.xtext.validation.Check
+import com.poli.compilador.c.Declaration
+import com.poli.compilador.c.VarDecl
+import com.poli.compilador.c.IntLit
 
 /**
  * This class contains custom validation rules. 
@@ -93,6 +96,30 @@ class CValidator extends AbstractCValidator {
 		}
 		
 		if (v instanceof ArrayAccess) {
+			val lvalue 	= v.arr as Var
+			val decl 	= lvalue.valor as Declaration
+			
+			if (decl instanceof VarDecl != true) {
+				error('Illegal access. Not a variable.', v, CPackage.Literals.ARRAY_ACCESS__ARR)
+				return
+			}
+			
+			val tipo = (decl as VarDecl).tipo
+			if (tipo.exp === null) {
+				error('Illegal access. Not an Array.', v, CPackage.Literals.ARRAY_ACCESS__INDEX)
+				return
+			}
+			
+			val index = v.index
+			if (Validator.tipode(index, null) != Validator.Tipo.INT) {
+				error('Illegal access. Non integer index.', v, CPackage.Literals.ARRAY_ACCESS__INDEX)
+				return
+			}
+			
+			if ( (tipo.exp as IntLit).^val < ((index as IntLit).^val + 1) || (index as IntLit).^val < 0) {
+				error('Array out of bounds.', v, CPackage.Literals.ARRAY_ACCESS__INDEX)
+				return
+			}
 			
 		}
 	}

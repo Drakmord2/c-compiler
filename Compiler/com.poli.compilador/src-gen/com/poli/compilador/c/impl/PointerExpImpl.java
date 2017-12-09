@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class PointerExpImpl extends VariableImpl implements PointerExp
+public class PointerExpImpl extends ExpressionImpl implements PointerExp
 {
   /**
    * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.

@@ -5,8 +5,8 @@ package com.poli.compilador.c.impl;
 
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Command;
+import com.poli.compilador.c.Declaration;
 import com.poli.compilador.c.Function;
-import com.poli.compilador.c.IdDef;
 import com.poli.compilador.c.Type;
 
 import java.util.Collection;
@@ -59,7 +59,7 @@ public class FunctionImpl extends DefinitionImpl implements Function
    * @generated
    * @ordered
    */
-  protected EList<IdDef> params;
+  protected EList<Declaration> params;
 
   /**
    * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference list.
@@ -145,11 +145,11 @@ public class FunctionImpl extends DefinitionImpl implements Function
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<IdDef> getParams()
+  public EList<Declaration> getParams()
   {
     if (params == null)
     {
-      params = new EObjectContainmentEList<IdDef>(IdDef.class, this, CPackage.FUNCTION__PARAMS);
+      params = new EObjectContainmentEList<Declaration>(Declaration.class, this, CPackage.FUNCTION__PARAMS);
     }
     return params;
   }
@@ -224,7 +224,7 @@ public class FunctionImpl extends DefinitionImpl implements Function
         return;
       case CPackage.FUNCTION__PARAMS:
         getParams().clear();
-        getParams().addAll((Collection<? extends IdDef>)newValue);
+        getParams().addAll((Collection<? extends Declaration>)newValue);
         return;
       case CPackage.FUNCTION__COMMANDS:
         getCommands().clear();
