@@ -581,17 +581,26 @@ class CGenerator extends AbstractGenerator {
 			val decl 	= arr.valor as VarDecl
 			val tipo 	= decl.tipo.tipo
 			
+			var id = ''''''
 			var idx = ''''''
 			if (E.index instanceof IntLit) {
 				idx = '''+«(E.index as IntLit).^val * 4»'''
+				id 	= getReference(varname) + idx
 			} else {
-				mips += expression(E.index)
-				mips += pop('t5')
-				idx = '''+0($t5)'''
+				mips += 
+				'''
+				«expression(E.index)»
+				«pop('t5')»
+				la		$t6, «getReference(varname)»
+				sll		$t5, $t5, 2
+				add		$t5, $t6, $t5
+				
+				'''
+				
+				id  = '''0($t5)'''
 			}
 			
 			val opCode	= if (tipo == 'string' && globals.contains(varname)) 'la' else 'lw'
-			val id 		= getReference(varname) + idx
 			
 			mips += evalExp(opCode, id)
 			

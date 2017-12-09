@@ -116,6 +116,10 @@ class CValidator extends AbstractCValidator {
 				return
 			}
 			
+			if (index instanceof Var) {
+				return
+			}
+			
 			if ( (tipo.exp as IntLit).^val < ((index as IntLit).^val + 1) || (index as IntLit).^val < 0) {
 				error('Array out of bounds.', v, CPackage.Literals.ARRAY_ACCESS__INDEX)
 				return

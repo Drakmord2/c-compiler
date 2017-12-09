@@ -126,6 +126,9 @@ public class CValidator extends AbstractCValidator {
         this.error("Illegal access. Non integer index.", v, CPackage.Literals.ARRAY_ACCESS__INDEX);
         return;
       }
+      if ((index instanceof Var)) {
+        return;
+      }
       if (((((IntLit) tipo.getExp()).getVal() < (((IntLit) index).getVal() + 1)) || (((IntLit) index).getVal() < 0))) {
         this.error("Array out of bounds.", v, CPackage.Literals.ARRAY_ACCESS__INDEX);
         return;

@@ -936,26 +936,43 @@ public class CGenerator extends AbstractGenerator {
       final VarDecl decl = ((VarDecl) _valor);
       final String tipo = decl.getTipo().getTipo();
       StringConcatenation _builder_4 = new StringConcatenation();
-      String idx = _builder_4.toString();
+      String id_2 = _builder_4.toString();
+      StringConcatenation _builder_5 = new StringConcatenation();
+      String idx = _builder_5.toString();
       Expression _index = ((ArrayAccess)E).getIndex();
       if ((_index instanceof IntLit)) {
-        StringConcatenation _builder_5 = new StringConcatenation();
-        _builder_5.append("+");
+        StringConcatenation _builder_6 = new StringConcatenation();
+        _builder_6.append("+");
         Expression _index_1 = ((ArrayAccess)E).getIndex();
         int _val = ((IntLit) _index_1).getVal();
         int _multiply = (_val * 4);
-        _builder_5.append(_multiply);
-        idx = _builder_5.toString();
+        _builder_6.append(_multiply);
+        idx = _builder_6.toString();
+        String _reference = this.getReference(varname);
+        String _plus = (_reference + idx);
+        id_2 = _plus;
       } else {
         String _mips_16 = mips;
+        StringConcatenation _builder_7 = new StringConcatenation();
         CharSequence _expression_1 = this.expression(((ArrayAccess)E).getIndex());
-        mips = (_mips_16 + _expression_1);
-        String _mips_17 = mips;
+        _builder_7.append(_expression_1);
+        _builder_7.newLineIfNotEmpty();
         CharSequence _pop = this.pop("t5");
-        mips = (_mips_17 + _pop);
-        StringConcatenation _builder_6 = new StringConcatenation();
-        _builder_6.append("+0($t5)");
-        idx = _builder_6.toString();
+        _builder_7.append(_pop);
+        _builder_7.newLineIfNotEmpty();
+        _builder_7.append("la\t\t$t6, ");
+        String _reference_1 = this.getReference(varname);
+        _builder_7.append(_reference_1);
+        _builder_7.newLineIfNotEmpty();
+        _builder_7.append("sll\t\t$t5, $t5, 2");
+        _builder_7.newLine();
+        _builder_7.append("add\t\t$t5, $t6, $t5");
+        _builder_7.newLine();
+        _builder_7.newLine();
+        mips = (_mips_16 + _builder_7);
+        StringConcatenation _builder_8 = new StringConcatenation();
+        _builder_8.append("0($t5)");
+        id_2 = _builder_8.toString();
       }
       String _xifexpression_1 = null;
       if ((Objects.equal(tipo, "string") && this.globals.contains(varname))) {
@@ -964,11 +981,9 @@ public class CGenerator extends AbstractGenerator {
         _xifexpression_1 = "lw";
       }
       final String opCode = _xifexpression_1;
-      String _reference = this.getReference(varname);
-      final String id_2 = (_reference + idx);
-      String _mips_18 = mips;
+      String _mips_17 = mips;
       CharSequence _evalExp = this.evalExp(opCode, id_2);
-      mips = (_mips_18 + _evalExp);
+      mips = (_mips_17 + _evalExp);
       return mips;
     }
     if ((E instanceof Var)) {
@@ -984,36 +999,36 @@ public class CGenerator extends AbstractGenerator {
       }
       final String opCode_1 = _xifexpression_2;
       final String id_3 = this.getReference(varname_1);
-      String _mips_19 = mips;
+      String _mips_18 = mips;
       CharSequence _evalExp_1 = this.evalExp(opCode_1, id_3);
-      mips = (_mips_19 + _evalExp_1);
+      mips = (_mips_18 + _evalExp_1);
       return mips;
     }
     if ((E instanceof IntLit)) {
       final int valor = ((IntLit)E).getVal();
-      String _mips_20 = mips;
+      String _mips_19 = mips;
       CharSequence _evalExp_2 = this.evalExp("li", Integer.valueOf(valor).toString());
-      mips = (_mips_20 + _evalExp_2);
+      mips = (_mips_19 + _evalExp_2);
       return mips;
     }
     if ((E instanceof TrueLit)) {
-      String _mips_21 = mips;
+      String _mips_20 = mips;
       CharSequence _evalExp_3 = this.evalExp("li", "1");
-      mips = (_mips_21 + _evalExp_3);
+      mips = (_mips_20 + _evalExp_3);
       return mips;
     }
     if ((E instanceof FalseLit)) {
-      String _mips_22 = mips;
+      String _mips_21 = mips;
       CharSequence _evalExp_4 = this.evalExp("li", "0");
-      mips = (_mips_22 + _evalExp_4);
+      mips = (_mips_21 + _evalExp_4);
       return mips;
     }
     if ((E instanceof StrLit)) {
       String _nextLabel = this.nextLabel();
       final String strLabel = ("S" + _nextLabel);
-      String _mips_23 = mips;
+      String _mips_22 = mips;
       String _storeString = this.storeString(((StrLit)E), strLabel);
-      mips = (_mips_23 + _storeString);
+      mips = (_mips_22 + _storeString);
       return mips;
     }
     if ((E instanceof FieldAccess)) {
