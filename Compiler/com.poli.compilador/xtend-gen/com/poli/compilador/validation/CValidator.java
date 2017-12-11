@@ -107,7 +107,12 @@ public class CValidator extends AbstractCValidator {
       Expression _arr = ((ArrayAccess)v).getArr();
       final Var lvalue_1 = ((Var) _arr);
       Definition _valor_2 = lvalue_1.getValor();
-      final Declaration decl = ((Declaration) _valor_2);
+      boolean _notEquals_1 = ((_valor_2 instanceof Declaration) != true);
+      if (_notEquals_1) {
+        return;
+      }
+      Definition _valor_3 = lvalue_1.getValor();
+      final Declaration decl = ((Declaration) _valor_3);
       if (((decl instanceof VarDecl) != true)) {
         this.error("Illegal access. Not a variable.", v, CPackage.Literals.ARRAY_ACCESS__ARR);
         return;
@@ -121,8 +126,8 @@ public class CValidator extends AbstractCValidator {
       }
       final Expression index = ((ArrayAccess)v).getIndex();
       Validator.Tipo _tipode = Validator.tipode(index, null);
-      boolean _notEquals_1 = (!Objects.equal(_tipode, Validator.Tipo.INT));
-      if (_notEquals_1) {
+      boolean _notEquals_2 = (!Objects.equal(_tipode, Validator.Tipo.INT));
+      if (_notEquals_2) {
         this.error("Illegal access. Non integer index.", v, CPackage.Literals.ARRAY_ACCESS__INDEX);
         return;
       }

@@ -56,18 +56,18 @@ import java.util.HashMap
 class CGenerator extends AbstractGenerator {
 	
 	public int label
-	public int loopCount
 	public int index
 	public Stack<String> globals
 	public Stack<String> fName
+	public Stack<Pair<String, String>> loops
 	public HashMap<String, Integer> locals
 	
 	def init() {
 		this.label 		= 0
-		this.loopCount	= 0
 		this.index		= 0
 		this.globals		= new Stack
 		this.fName		= new Stack
+		this.loops		= new Stack
 		this.locals		= new HashMap
 	}
 
@@ -241,35 +241,33 @@ class CGenerator extends AbstractGenerator {
 		return mips
 	}
 	
-	//TODO
 	def breakCommand(BreakCmd C) {
+		val endloop = (loops.peek).value
+		
 		val mips = 
 		'''
-		«IF loopCount != 0»
-«««			j endLoop
-		«ENDIF»
+			j «endloop»
 		'''
 		
 		return mips
 	}
 	
-	//TODO
 	def continueCommand(ContinueCmd C) {
+		val startloop = (loops.peek).key
+		
 		val mips = 
 		'''
-		«IF loopCount != 0»
-«««			j startLoop
-		«ENDIF»
+			j «startloop»
 		'''
 		
 		return mips
 	}
 	
 	def forCommand(ForCmd C) {
-		loopCount++
 		var mips 	= ''''''
 		val start	= nextLabel+"_for"
 		val end		= nextLabel+"_endfor"
+		loops.push(new Pair(start, end))
 	    
 	    mips +=
 	    '''
@@ -293,15 +291,15 @@ class CGenerator extends AbstractGenerator {
 		
 		'''
 		
-		loopCount--
+		loops.pop
 		return mips
 	}
 	
 	def whileCommand(WhileCmd C) {
-		loopCount++
 		var mips 	= ''''''
 		val start	= nextLabel+"_while"
 		val end		= nextLabel+"_endwhile"
+	    loops.push(new Pair(start, end))
 	    
 	    mips +=
 	    '''
@@ -316,14 +314,16 @@ class CGenerator extends AbstractGenerator {
 		«end»:
 		
 		'''
-		loopCount--
+		
+		loops.pop
 		return mips
 	}
 	
 	def doWhileCommand(DoWhileCmd C) {
-		loopCount++
 		var mips 	= ''''''
 		val start	= nextLabel+"_dowhile"
+		val end		= nextLabel+"_enddowhile"
+		loops.push(new Pair(start, end))
 	    
 	    mips +=
 	    '''
@@ -334,10 +334,11 @@ class CGenerator extends AbstractGenerator {
 		«expression(C.exp)»
 		«pop('t0')»
 		bne		$t0, $0, «start»
+		end
 		
 		'''
 		
-		loopCount--
+		loops.pop
 		return mips
 	}
 	

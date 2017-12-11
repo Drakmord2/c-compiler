@@ -97,7 +97,12 @@ class CValidator extends AbstractCValidator {
 		
 		if (v instanceof ArrayAccess) {
 			val lvalue 	= v.arr as Var
-			val decl 	= lvalue.valor as Declaration
+			
+			if (lvalue.valor instanceof Declaration != true) {
+				return
+			}
+			
+			val decl = lvalue.valor as Declaration
 			
 			if (decl instanceof VarDecl != true) {
 				error('Illegal access. Not a variable.', v, CPackage.Literals.ARRAY_ACCESS__ARR)

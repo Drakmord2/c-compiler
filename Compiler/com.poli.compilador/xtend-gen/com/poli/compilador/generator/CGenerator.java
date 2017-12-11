@@ -53,6 +53,7 @@ import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
+import org.eclipse.xtext.xbase.lib.Pair;
 
 /**
  * Generates code from your model files on save.
@@ -63,13 +64,13 @@ import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 public class CGenerator extends AbstractGenerator {
   public int label;
   
-  public int loopCount;
-  
   public int index;
   
   public Stack<String> globals;
   
   public Stack<String> fName;
+  
+  public Stack<Pair<String, String>> loops;
   
   public HashMap<String, Integer> locals;
   
@@ -77,12 +78,13 @@ public class CGenerator extends AbstractGenerator {
     HashMap<String, Integer> _xblockexpression = null;
     {
       this.label = 0;
-      this.loopCount = 0;
       this.index = 0;
       Stack<String> _stack = new Stack<String>();
       this.globals = _stack;
       Stack<String> _stack_1 = new Stack<String>();
       this.fName = _stack_1;
+      Stack<Pair<String, String>> _stack_2 = new Stack<Pair<String, String>>();
+      this.loops = _stack_2;
       HashMap<String, Integer> _hashMap = new HashMap<String, Integer>();
       _xblockexpression = this.locals = _hashMap;
     }
@@ -413,33 +415,34 @@ public class CGenerator extends AbstractGenerator {
   }
   
   public String breakCommand(final BreakCmd C) {
+    final String endloop = this.loops.peek().getValue();
     StringConcatenation _builder = new StringConcatenation();
-    {
-      if ((this.loopCount != 0)) {
-      }
-    }
+    _builder.append("j ");
+    _builder.append(endloop);
+    _builder.newLineIfNotEmpty();
     final String mips = _builder.toString();
     return mips;
   }
   
   public String continueCommand(final ContinueCmd C) {
+    final String startloop = this.loops.peek().getKey();
     StringConcatenation _builder = new StringConcatenation();
-    {
-      if ((this.loopCount != 0)) {
-      }
-    }
+    _builder.append("j ");
+    _builder.append(startloop);
+    _builder.newLineIfNotEmpty();
     final String mips = _builder.toString();
     return mips;
   }
   
   public String forCommand(final ForCmd C) {
-    this.loopCount++;
     StringConcatenation _builder = new StringConcatenation();
     String mips = _builder.toString();
     String _nextLabel = this.nextLabel();
     final String start = (_nextLabel + "_for");
     String _nextLabel_1 = this.nextLabel();
     final String end = (_nextLabel_1 + "_endfor");
+    Pair<String, String> _pair = new Pair<String, String>(start, end);
+    this.loops.push(_pair);
     String _mips = mips;
     StringConcatenation _builder_1 = new StringConcatenation();
     CharSequence _assign = this.assign(C.getInitAsg());
@@ -492,18 +495,19 @@ public class CGenerator extends AbstractGenerator {
     _builder_1.newLineIfNotEmpty();
     _builder_1.newLine();
     mips = (_mips + _builder_1);
-    this.loopCount--;
+    this.loops.pop();
     return mips;
   }
   
   public String whileCommand(final WhileCmd C) {
-    this.loopCount++;
     StringConcatenation _builder = new StringConcatenation();
     String mips = _builder.toString();
     String _nextLabel = this.nextLabel();
     final String start = (_nextLabel + "_while");
     String _nextLabel_1 = this.nextLabel();
     final String end = (_nextLabel_1 + "_endwhile");
+    Pair<String, String> _pair = new Pair<String, String>(start, end);
+    this.loops.push(_pair);
     String _mips = mips;
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append(start);
@@ -534,16 +538,19 @@ public class CGenerator extends AbstractGenerator {
     _builder_1.newLineIfNotEmpty();
     _builder_1.newLine();
     mips = (_mips + _builder_1);
-    this.loopCount--;
+    this.loops.pop();
     return mips;
   }
   
   public String doWhileCommand(final DoWhileCmd C) {
-    this.loopCount++;
     StringConcatenation _builder = new StringConcatenation();
     String mips = _builder.toString();
     String _nextLabel = this.nextLabel();
     final String start = (_nextLabel + "_dowhile");
+    String _nextLabel_1 = this.nextLabel();
+    final String end = (_nextLabel_1 + "_enddowhile");
+    Pair<String, String> _pair = new Pair<String, String>(start, end);
+    this.loops.push(_pair);
     String _mips = mips;
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append(start);
@@ -566,9 +573,11 @@ public class CGenerator extends AbstractGenerator {
     _builder_1.append("bne\t\t$t0, $0, ");
     _builder_1.append(start);
     _builder_1.newLineIfNotEmpty();
+    _builder_1.append("end");
+    _builder_1.newLine();
     _builder_1.newLine();
     mips = (_mips + _builder_1);
-    this.loopCount--;
+    this.loops.pop();
     return mips;
   }
   
