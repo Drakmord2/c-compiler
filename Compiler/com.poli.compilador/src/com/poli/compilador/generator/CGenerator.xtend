@@ -157,7 +157,9 @@ class CGenerator extends AbstractGenerator {
 		fName.push(F.name)
 		globals.add(F.name)
 		val paramSize = F.params.size * 4
-		val localSize = 12
+		
+		//TODO calculate local variables size
+		val localSize = 12 
 		
 		var mips = 
 		'''
@@ -198,23 +200,43 @@ class CGenerator extends AbstractGenerator {
 	
 	def switchCommand(SwitchCmd C) {
 		var mips = ''''''
+		var Stack<String> caseLabel = new Stack
+		var end = nextLabel+"_endswitch"
+		loops.push(new Pair("", end))
 		
 		mips +=
 		'''
 		«expression(C.exp)»
+		«pop('t0')»
 		«FOR cs : C.cases»
-«««			«cs.^val» // case expression
+		«val label = caseLabel.push(nextLabel+"_switch")»
+		«var tipo = Validator.tipode(cs.^val, null)»
+		«IF tipo == Validator.Tipo.INT»
+		beq $t0, «(cs.^val as IntLit).^val», «label»
+		«ELSEIF tipo == Validator.Tipo.BOOL && cs.^val instanceof TrueLit»
+		bne $t0, $0, «label»
+		«ELSEIF tipo == Validator.Tipo.BOOL && cs.^val instanceof FalseLit»
+		beq $t0, $0, «label»
+		«ENDIF»
+		«ENDFOR»
+		«val defLabel = nextLabel+"_default"»
+		j «defLabel»
+		
+		«{caseLabel = orderStack(caseLabel); ""}»
+		«FOR cs : C.cases»
+		«caseLabel.pop»:
 			«FOR cmd : cs.commands»
 				«command(cmd)»
 			«ENDFOR»
 		«ENDFOR»
-		
 		«FOR defCmd : C.defaultCmds»
+		«defLabel»:
 			«command(defCmd)»
 		«ENDFOR»
-		
+		«end»:
 		'''
 		
+		loops.pop
 		return mips
 	}
 	
@@ -247,6 +269,7 @@ class CGenerator extends AbstractGenerator {
 		val mips = 
 		'''
 			j «endloop»
+			
 		'''
 		
 		return mips
@@ -258,6 +281,7 @@ class CGenerator extends AbstractGenerator {
 		val mips = 
 		'''
 			j «startloop»
+			
 		'''
 		
 		return mips
@@ -860,6 +884,16 @@ class CGenerator extends AbstractGenerator {
 		this.label++
 		
 		return 'L'+this.label
+	}
+	
+	def orderStack(Stack<String> s) {
+		var Stack<String> ordered = new Stack
+		
+		while(! s.empty()) {
+			ordered.push(s.pop)
+		}
+		
+		return ordered
 	}
 	
 }

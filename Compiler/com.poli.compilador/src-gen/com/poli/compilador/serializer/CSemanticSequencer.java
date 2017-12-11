@@ -567,10 +567,16 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Literal returns FalseLit
 	 *
 	 * Constraint:
-	 *     {FalseLit}
+	 *     val='false'
 	 */
 	protected void sequence_Literal(ISerializationContext context, FalseLit semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, CPackage.Literals.FALSE_LIT__VAL) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CPackage.Literals.FALSE_LIT__VAL));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getLiteralAccess().getValFalseKeyword_2_1_0(), semanticObject.getVal());
+		feeder.finish();
 	}
 	
 	
@@ -648,10 +654,16 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Literal returns TrueLit
 	 *
 	 * Constraint:
-	 *     {TrueLit}
+	 *     val='true'
 	 */
 	protected void sequence_Literal(ISerializationContext context, TrueLit semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, CPackage.Literals.TRUE_LIT__VAL) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CPackage.Literals.TRUE_LIT__VAL));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getLiteralAccess().getValTrueKeyword_1_1_0(), semanticObject.getVal());
+		feeder.finish();
 	}
 	
 	

@@ -50,7 +50,7 @@ PointerExp	: {PointerExp} '**' '(' exp=Expression ')' ;
 Case			: 'case' val=Atom ':' (commands+=Command)* ;
 
 Type			: tipo=TYPELIT ('[' exp=Expression? ']')?;
-Literal		: {IntLit} val=INT | {TrueLit} 'true' | {FalseLit} 'false' | {StrLit} val=STRING;
+Literal		: {IntLit} val=INT | {TrueLit} val='true' | {FalseLit} val='false' | {StrLit} val=STRING;
 
 //--------------------------------------------------------------------
 

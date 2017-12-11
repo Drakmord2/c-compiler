@@ -347,35 +347,103 @@ public class CGenerator extends AbstractGenerator {
   public String switchCommand(final SwitchCmd C) {
     StringConcatenation _builder = new StringConcatenation();
     String mips = _builder.toString();
+    Stack<String> caseLabel = new Stack<String>();
+    String _nextLabel = this.nextLabel();
+    String end = (_nextLabel + "_endswitch");
+    Pair<String, String> _pair = new Pair<String, String>("", end);
+    this.loops.push(_pair);
     String _mips = mips;
     StringConcatenation _builder_1 = new StringConcatenation();
     CharSequence _expression = this.expression(C.getExp());
     _builder_1.append(_expression);
     _builder_1.newLineIfNotEmpty();
+    CharSequence _pop = this.pop("t0");
+    _builder_1.append(_pop);
+    _builder_1.newLineIfNotEmpty();
     {
       EList<Case> _cases = C.getCases();
       for(final Case cs : _cases) {
+        String _nextLabel_1 = this.nextLabel();
+        String _plus = (_nextLabel_1 + "_switch");
+        final String label = caseLabel.push(_plus);
+        _builder_1.newLineIfNotEmpty();
+        Validator.Tipo tipo = Validator.tipode(cs.getVal(), null);
+        _builder_1.newLineIfNotEmpty();
         {
-          EList<Command> _commands = cs.getCommands();
+          boolean _equals = Objects.equal(tipo, Validator.Tipo.INT);
+          if (_equals) {
+            _builder_1.append("beq $t0, ");
+            Expression _val = cs.getVal();
+            int _val_1 = ((IntLit) _val).getVal();
+            _builder_1.append(_val_1);
+            _builder_1.append(", ");
+            _builder_1.append(label);
+            _builder_1.newLineIfNotEmpty();
+          } else {
+            if ((Objects.equal(tipo, Validator.Tipo.BOOL) && (cs.getVal() instanceof TrueLit))) {
+              _builder_1.append("bne $t0, $0, ");
+              _builder_1.append(label);
+              _builder_1.newLineIfNotEmpty();
+            } else {
+              if ((Objects.equal(tipo, Validator.Tipo.BOOL) && (cs.getVal() instanceof FalseLit))) {
+                _builder_1.append("beq $t0, $0, ");
+                _builder_1.append(label);
+                _builder_1.newLineIfNotEmpty();
+              }
+            }
+          }
+        }
+      }
+    }
+    String _nextLabel_2 = this.nextLabel();
+    final String defLabel = (_nextLabel_2 + "_default");
+    _builder_1.newLineIfNotEmpty();
+    _builder_1.append("j ");
+    _builder_1.append(defLabel);
+    _builder_1.newLineIfNotEmpty();
+    _builder_1.newLine();
+    String _xblockexpression = null;
+    {
+      caseLabel = this.orderStack(caseLabel);
+      _xblockexpression = "";
+    }
+    _builder_1.append(_xblockexpression);
+    _builder_1.newLineIfNotEmpty();
+    {
+      EList<Case> _cases_1 = C.getCases();
+      for(final Case cs_1 : _cases_1) {
+        String _pop_1 = caseLabel.pop();
+        _builder_1.append(_pop_1);
+        _builder_1.append(":");
+        _builder_1.newLineIfNotEmpty();
+        {
+          EList<Command> _commands = cs_1.getCommands();
           for(final Command cmd : _commands) {
+            _builder_1.append("\t");
             CharSequence _command = this.command(cmd);
-            _builder_1.append(_command);
+            _builder_1.append(_command, "\t");
             _builder_1.newLineIfNotEmpty();
           }
         }
       }
     }
-    _builder_1.newLine();
     {
       EList<Command> _defaultCmds = C.getDefaultCmds();
       for(final Command defCmd : _defaultCmds) {
+        _builder_1.append(defLabel);
+        _builder_1.append(":");
+        _builder_1.newLineIfNotEmpty();
+        _builder_1.append("\t");
         CharSequence _command_1 = this.command(defCmd);
-        _builder_1.append(_command_1);
+        _builder_1.append(_command_1, "\t");
         _builder_1.newLineIfNotEmpty();
       }
     }
-    _builder_1.newLine();
+    _builder_1.append(end);
+    _builder_1.append(":");
+    _builder_1.newLineIfNotEmpty();
     mips = (_mips + _builder_1);
+    this.loops.pop();
     return mips;
   }
   
@@ -420,6 +488,7 @@ public class CGenerator extends AbstractGenerator {
     _builder.append("j ");
     _builder.append(endloop);
     _builder.newLineIfNotEmpty();
+    _builder.newLine();
     final String mips = _builder.toString();
     return mips;
   }
@@ -430,6 +499,7 @@ public class CGenerator extends AbstractGenerator {
     _builder.append("j ");
     _builder.append(startloop);
     _builder.newLineIfNotEmpty();
+    _builder.newLine();
     final String mips = _builder.toString();
     return mips;
   }
@@ -1371,5 +1441,13 @@ public class CGenerator extends AbstractGenerator {
   public String nextLabel() {
     this.label++;
     return ("L" + Integer.valueOf(this.label));
+  }
+  
+  public Stack<String> orderStack(final Stack<String> s) {
+    Stack<String> ordered = new Stack<String>();
+    while ((!s.empty())) {
+      ordered.push(s.pop());
+    }
+    return ordered;
   }
 }

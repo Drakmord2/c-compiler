@@ -1600,11 +1600,11 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
                 if ( (LA2_1==RULE_ID) ) {
                     int LA2_4 = input.LA(3);
 
-                    if ( (LA2_4==RULE_ID) ) {
-                        alt2=3;
-                    }
-                    else if ( (LA2_4==20) ) {
+                    if ( (LA2_4==20) ) {
                         alt2=1;
+                    }
+                    else if ( (LA2_4==RULE_ID) ) {
+                        alt2=3;
                     }
                     else {
                         NoViableAltException nvae =
@@ -17409,21 +17409,31 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Literal__Group_1__1__Impl"
-    // InternalC.g:5704:1: rule__Literal__Group_1__1__Impl : ( 'true' ) ;
+    // InternalC.g:5704:1: rule__Literal__Group_1__1__Impl : ( ( rule__Literal__ValAssignment_1_1 ) ) ;
     public final void rule__Literal__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalC.g:5708:1: ( ( 'true' ) )
-            // InternalC.g:5709:1: ( 'true' )
+            // InternalC.g:5708:1: ( ( ( rule__Literal__ValAssignment_1_1 ) ) )
+            // InternalC.g:5709:1: ( ( rule__Literal__ValAssignment_1_1 ) )
             {
-            // InternalC.g:5709:1: ( 'true' )
-            // InternalC.g:5710:2: 'true'
+            // InternalC.g:5709:1: ( ( rule__Literal__ValAssignment_1_1 ) )
+            // InternalC.g:5710:2: ( rule__Literal__ValAssignment_1_1 )
             {
-             before(grammarAccess.getLiteralAccess().getTrueKeyword_1_1()); 
-            match(input,43,FOLLOW_2); 
-             after(grammarAccess.getLiteralAccess().getTrueKeyword_1_1()); 
+             before(grammarAccess.getLiteralAccess().getValAssignment_1_1()); 
+            // InternalC.g:5711:2: ( rule__Literal__ValAssignment_1_1 )
+            // InternalC.g:5711:3: rule__Literal__ValAssignment_1_1
+            {
+            pushFollow(FOLLOW_2);
+            rule__Literal__ValAssignment_1_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getLiteralAccess().getValAssignment_1_1()); 
 
             }
 
@@ -17554,21 +17564,31 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Literal__Group_2__1__Impl"
-    // InternalC.g:5758:1: rule__Literal__Group_2__1__Impl : ( 'false' ) ;
+    // InternalC.g:5758:1: rule__Literal__Group_2__1__Impl : ( ( rule__Literal__ValAssignment_2_1 ) ) ;
     public final void rule__Literal__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalC.g:5762:1: ( ( 'false' ) )
-            // InternalC.g:5763:1: ( 'false' )
+            // InternalC.g:5762:1: ( ( ( rule__Literal__ValAssignment_2_1 ) ) )
+            // InternalC.g:5763:1: ( ( rule__Literal__ValAssignment_2_1 ) )
             {
-            // InternalC.g:5763:1: ( 'false' )
-            // InternalC.g:5764:2: 'false'
+            // InternalC.g:5763:1: ( ( rule__Literal__ValAssignment_2_1 ) )
+            // InternalC.g:5764:2: ( rule__Literal__ValAssignment_2_1 )
             {
-             before(grammarAccess.getLiteralAccess().getFalseKeyword_2_1()); 
-            match(input,44,FOLLOW_2); 
-             after(grammarAccess.getLiteralAccess().getFalseKeyword_2_1()); 
+             before(grammarAccess.getLiteralAccess().getValAssignment_2_1()); 
+            // InternalC.g:5765:2: ( rule__Literal__ValAssignment_2_1 )
+            // InternalC.g:5765:3: rule__Literal__ValAssignment_2_1
+            {
+            pushFollow(FOLLOW_2);
+            rule__Literal__ValAssignment_2_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getLiteralAccess().getValAssignment_2_1()); 
 
             }
 
@@ -20120,18 +20140,108 @@ public class InternalCParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Literal__ValAssignment_0_1"
 
 
+    // $ANTLR start "rule__Literal__ValAssignment_1_1"
+    // InternalC.g:6721:1: rule__Literal__ValAssignment_1_1 : ( ( 'true' ) ) ;
+    public final void rule__Literal__ValAssignment_1_1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalC.g:6725:1: ( ( ( 'true' ) ) )
+            // InternalC.g:6726:2: ( ( 'true' ) )
+            {
+            // InternalC.g:6726:2: ( ( 'true' ) )
+            // InternalC.g:6727:3: ( 'true' )
+            {
+             before(grammarAccess.getLiteralAccess().getValTrueKeyword_1_1_0()); 
+            // InternalC.g:6728:3: ( 'true' )
+            // InternalC.g:6729:4: 'true'
+            {
+             before(grammarAccess.getLiteralAccess().getValTrueKeyword_1_1_0()); 
+            match(input,43,FOLLOW_2); 
+             after(grammarAccess.getLiteralAccess().getValTrueKeyword_1_1_0()); 
+
+            }
+
+             after(grammarAccess.getLiteralAccess().getValTrueKeyword_1_1_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Literal__ValAssignment_1_1"
+
+
+    // $ANTLR start "rule__Literal__ValAssignment_2_1"
+    // InternalC.g:6740:1: rule__Literal__ValAssignment_2_1 : ( ( 'false' ) ) ;
+    public final void rule__Literal__ValAssignment_2_1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalC.g:6744:1: ( ( ( 'false' ) ) )
+            // InternalC.g:6745:2: ( ( 'false' ) )
+            {
+            // InternalC.g:6745:2: ( ( 'false' ) )
+            // InternalC.g:6746:3: ( 'false' )
+            {
+             before(grammarAccess.getLiteralAccess().getValFalseKeyword_2_1_0()); 
+            // InternalC.g:6747:3: ( 'false' )
+            // InternalC.g:6748:4: 'false'
+            {
+             before(grammarAccess.getLiteralAccess().getValFalseKeyword_2_1_0()); 
+            match(input,44,FOLLOW_2); 
+             after(grammarAccess.getLiteralAccess().getValFalseKeyword_2_1_0()); 
+
+            }
+
+             after(grammarAccess.getLiteralAccess().getValFalseKeyword_2_1_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Literal__ValAssignment_2_1"
+
+
     // $ANTLR start "rule__Literal__ValAssignment_3_1"
-    // InternalC.g:6721:1: rule__Literal__ValAssignment_3_1 : ( RULE_STRING ) ;
+    // InternalC.g:6759:1: rule__Literal__ValAssignment_3_1 : ( RULE_STRING ) ;
     public final void rule__Literal__ValAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalC.g:6725:1: ( ( RULE_STRING ) )
-            // InternalC.g:6726:2: ( RULE_STRING )
+            // InternalC.g:6763:1: ( ( RULE_STRING ) )
+            // InternalC.g:6764:2: ( RULE_STRING )
             {
-            // InternalC.g:6726:2: ( RULE_STRING )
-            // InternalC.g:6727:3: RULE_STRING
+            // InternalC.g:6764:2: ( RULE_STRING )
+            // InternalC.g:6765:3: RULE_STRING
             {
              before(grammarAccess.getLiteralAccess().getValSTRINGTerminalRuleCall_3_1_0()); 
             match(input,RULE_STRING,FOLLOW_2); 

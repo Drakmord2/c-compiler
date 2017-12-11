@@ -1397,9 +1397,29 @@ public class CPackageImpl extends EPackageImpl implements CPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getTrueLit_Val()
+  {
+    return (EAttribute)trueLitEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getFalseLit()
   {
     return falseLitEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getFalseLit_Val()
+  {
+    return (EAttribute)falseLitEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1588,8 +1608,10 @@ public class CPackageImpl extends EPackageImpl implements CPackage
     createEAttribute(intLitEClass, INT_LIT__VAL);
 
     trueLitEClass = createEClass(TRUE_LIT);
+    createEAttribute(trueLitEClass, TRUE_LIT__VAL);
 
     falseLitEClass = createEClass(FALSE_LIT);
+    createEAttribute(falseLitEClass, FALSE_LIT__VAL);
 
     strLitEClass = createEClass(STR_LIT);
     createEAttribute(strLitEClass, STR_LIT__VAL);
@@ -1795,8 +1817,10 @@ public class CPackageImpl extends EPackageImpl implements CPackage
     initEAttribute(getIntLit_Val(), ecorePackage.getEInt(), "val", null, 0, 1, IntLit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(trueLitEClass, TrueLit.class, "TrueLit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTrueLit_Val(), ecorePackage.getEString(), "val", null, 0, 1, TrueLit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(falseLitEClass, FalseLit.class, "FalseLit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getFalseLit_Val(), ecorePackage.getEString(), "val", null, 0, 1, FalseLit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(strLitEClass, StrLit.class, "StrLit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getStrLit_Val(), ecorePackage.getEString(), "val", null, 0, 1, StrLit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

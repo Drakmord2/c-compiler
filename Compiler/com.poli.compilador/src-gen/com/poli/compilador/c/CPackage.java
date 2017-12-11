@@ -1384,13 +1384,22 @@ public interface CPackage extends EPackage
   int TRUE_LIT = 38;
 
   /**
+   * The feature id for the '<em><b>Val</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TRUE_LIT__VAL = LITERAL_FEATURE_COUNT + 0;
+
+  /**
    * The number of structural features of the '<em>True Lit</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TRUE_LIT_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 0;
+  int TRUE_LIT_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link com.poli.compilador.c.impl.FalseLitImpl <em>False Lit</em>}' class.
@@ -1403,13 +1412,22 @@ public interface CPackage extends EPackage
   int FALSE_LIT = 39;
 
   /**
+   * The feature id for the '<em><b>Val</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FALSE_LIT__VAL = LITERAL_FEATURE_COUNT + 0;
+
+  /**
    * The number of structural features of the '<em>False Lit</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FALSE_LIT_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 0;
+  int FALSE_LIT_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link com.poli.compilador.c.impl.StrLitImpl <em>Str Lit</em>}' class.
@@ -2480,6 +2498,17 @@ public interface CPackage extends EPackage
   EClass getTrueLit();
 
   /**
+   * Returns the meta object for the attribute '{@link com.poli.compilador.c.TrueLit#getVal <em>Val</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Val</em>'.
+   * @see com.poli.compilador.c.TrueLit#getVal()
+   * @see #getTrueLit()
+   * @generated
+   */
+  EAttribute getTrueLit_Val();
+
+  /**
    * Returns the meta object for class '{@link com.poli.compilador.c.FalseLit <em>False Lit</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2488,6 +2517,17 @@ public interface CPackage extends EPackage
    * @generated
    */
   EClass getFalseLit();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.poli.compilador.c.FalseLit#getVal <em>Val</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Val</em>'.
+   * @see com.poli.compilador.c.FalseLit#getVal()
+   * @see #getFalseLit()
+   * @generated
+   */
+  EAttribute getFalseLit_Val();
 
   /**
    * Returns the meta object for class '{@link com.poli.compilador.c.StrLit <em>Str Lit</em>}'.
@@ -3396,6 +3436,14 @@ public interface CPackage extends EPackage
     EClass TRUE_LIT = eINSTANCE.getTrueLit();
 
     /**
+     * The meta object literal for the '<em><b>Val</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TRUE_LIT__VAL = eINSTANCE.getTrueLit_Val();
+
+    /**
      * The meta object literal for the '{@link com.poli.compilador.c.impl.FalseLitImpl <em>False Lit</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3404,6 +3452,14 @@ public interface CPackage extends EPackage
      * @generated
      */
     EClass FALSE_LIT = eINSTANCE.getFalseLit();
+
+    /**
+     * The meta object literal for the '<em><b>Val</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FALSE_LIT__VAL = eINSTANCE.getFalseLit_Val();
 
     /**
      * The meta object literal for the '{@link com.poli.compilador.c.impl.StrLitImpl <em>Str Lit</em>}' class.

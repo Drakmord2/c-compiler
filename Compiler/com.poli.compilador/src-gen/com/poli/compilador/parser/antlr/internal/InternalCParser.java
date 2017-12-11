@@ -5151,23 +5151,23 @@ public class InternalCParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLiteral"
-    // InternalC.g:2160:1: ruleLiteral returns [EObject current=null] : ( ( () ( (lv_val_1_0= RULE_INT ) ) ) | ( () otherlv_3= 'true' ) | ( () otherlv_5= 'false' ) | ( () ( (lv_val_7_0= RULE_STRING ) ) ) ) ;
+    // InternalC.g:2160:1: ruleLiteral returns [EObject current=null] : ( ( () ( (lv_val_1_0= RULE_INT ) ) ) | ( () ( (lv_val_3_0= 'true' ) ) ) | ( () ( (lv_val_5_0= 'false' ) ) ) | ( () ( (lv_val_7_0= RULE_STRING ) ) ) ) ;
     public final EObject ruleLiteral() throws RecognitionException {
         EObject current = null;
 
         Token lv_val_1_0=null;
-        Token otherlv_3=null;
-        Token otherlv_5=null;
+        Token lv_val_3_0=null;
+        Token lv_val_5_0=null;
         Token lv_val_7_0=null;
 
 
         	enterRule();
 
         try {
-            // InternalC.g:2166:2: ( ( ( () ( (lv_val_1_0= RULE_INT ) ) ) | ( () otherlv_3= 'true' ) | ( () otherlv_5= 'false' ) | ( () ( (lv_val_7_0= RULE_STRING ) ) ) ) )
-            // InternalC.g:2167:2: ( ( () ( (lv_val_1_0= RULE_INT ) ) ) | ( () otherlv_3= 'true' ) | ( () otherlv_5= 'false' ) | ( () ( (lv_val_7_0= RULE_STRING ) ) ) )
+            // InternalC.g:2166:2: ( ( ( () ( (lv_val_1_0= RULE_INT ) ) ) | ( () ( (lv_val_3_0= 'true' ) ) ) | ( () ( (lv_val_5_0= 'false' ) ) ) | ( () ( (lv_val_7_0= RULE_STRING ) ) ) ) )
+            // InternalC.g:2167:2: ( ( () ( (lv_val_1_0= RULE_INT ) ) ) | ( () ( (lv_val_3_0= 'true' ) ) ) | ( () ( (lv_val_5_0= 'false' ) ) ) | ( () ( (lv_val_7_0= RULE_STRING ) ) ) )
             {
-            // InternalC.g:2167:2: ( ( () ( (lv_val_1_0= RULE_INT ) ) ) | ( () otherlv_3= 'true' ) | ( () otherlv_5= 'false' ) | ( () ( (lv_val_7_0= RULE_STRING ) ) ) )
+            // InternalC.g:2167:2: ( ( () ( (lv_val_1_0= RULE_INT ) ) ) | ( () ( (lv_val_3_0= 'true' ) ) ) | ( () ( (lv_val_5_0= 'false' ) ) ) | ( () ( (lv_val_7_0= RULE_STRING ) ) ) )
             int alt38=4;
             switch ( input.LA(1) ) {
             case RULE_INT:
@@ -5248,10 +5248,10 @@ public class InternalCParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalC.g:2196:3: ( () otherlv_3= 'true' )
+                    // InternalC.g:2196:3: ( () ( (lv_val_3_0= 'true' ) ) )
                     {
-                    // InternalC.g:2196:3: ( () otherlv_3= 'true' )
-                    // InternalC.g:2197:4: () otherlv_3= 'true'
+                    // InternalC.g:2196:3: ( () ( (lv_val_3_0= 'true' ) ) )
+                    // InternalC.g:2197:4: () ( (lv_val_3_0= 'true' ) )
                     {
                     // InternalC.g:2197:4: ()
                     // InternalC.g:2198:5: 
@@ -5264,10 +5264,28 @@ public class InternalCParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_3=(Token)match(input,43,FOLLOW_2); 
+                    // InternalC.g:2204:4: ( (lv_val_3_0= 'true' ) )
+                    // InternalC.g:2205:5: (lv_val_3_0= 'true' )
+                    {
+                    // InternalC.g:2205:5: (lv_val_3_0= 'true' )
+                    // InternalC.g:2206:6: lv_val_3_0= 'true'
+                    {
+                    lv_val_3_0=(Token)match(input,43,FOLLOW_2); 
 
-                    				newLeafNode(otherlv_3, grammarAccess.getLiteralAccess().getTrueKeyword_1_1());
-                    			
+                    						newLeafNode(lv_val_3_0, grammarAccess.getLiteralAccess().getValTrueKeyword_1_1_0());
+                    					
+
+                    						if (current==null) {
+                    							current = createModelElement(grammarAccess.getLiteralRule());
+                    						}
+                    						setWithLastConsumed(current, "val", lv_val_3_0, "true");
+                    					
+
+                    }
+
+
+                    }
+
 
                     }
 
@@ -5275,13 +5293,13 @@ public class InternalCParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalC.g:2210:3: ( () otherlv_5= 'false' )
+                    // InternalC.g:2220:3: ( () ( (lv_val_5_0= 'false' ) ) )
                     {
-                    // InternalC.g:2210:3: ( () otherlv_5= 'false' )
-                    // InternalC.g:2211:4: () otherlv_5= 'false'
+                    // InternalC.g:2220:3: ( () ( (lv_val_5_0= 'false' ) ) )
+                    // InternalC.g:2221:4: () ( (lv_val_5_0= 'false' ) )
                     {
-                    // InternalC.g:2211:4: ()
-                    // InternalC.g:2212:5: 
+                    // InternalC.g:2221:4: ()
+                    // InternalC.g:2222:5: 
                     {
 
                     					current = forceCreateModelElement(
@@ -5291,10 +5309,28 @@ public class InternalCParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_5=(Token)match(input,44,FOLLOW_2); 
+                    // InternalC.g:2228:4: ( (lv_val_5_0= 'false' ) )
+                    // InternalC.g:2229:5: (lv_val_5_0= 'false' )
+                    {
+                    // InternalC.g:2229:5: (lv_val_5_0= 'false' )
+                    // InternalC.g:2230:6: lv_val_5_0= 'false'
+                    {
+                    lv_val_5_0=(Token)match(input,44,FOLLOW_2); 
 
-                    				newLeafNode(otherlv_5, grammarAccess.getLiteralAccess().getFalseKeyword_2_1());
-                    			
+                    						newLeafNode(lv_val_5_0, grammarAccess.getLiteralAccess().getValFalseKeyword_2_1_0());
+                    					
+
+                    						if (current==null) {
+                    							current = createModelElement(grammarAccess.getLiteralRule());
+                    						}
+                    						setWithLastConsumed(current, "val", lv_val_5_0, "false");
+                    					
+
+                    }
+
+
+                    }
+
 
                     }
 
@@ -5302,13 +5338,13 @@ public class InternalCParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalC.g:2224:3: ( () ( (lv_val_7_0= RULE_STRING ) ) )
+                    // InternalC.g:2244:3: ( () ( (lv_val_7_0= RULE_STRING ) ) )
                     {
-                    // InternalC.g:2224:3: ( () ( (lv_val_7_0= RULE_STRING ) ) )
-                    // InternalC.g:2225:4: () ( (lv_val_7_0= RULE_STRING ) )
+                    // InternalC.g:2244:3: ( () ( (lv_val_7_0= RULE_STRING ) ) )
+                    // InternalC.g:2245:4: () ( (lv_val_7_0= RULE_STRING ) )
                     {
-                    // InternalC.g:2225:4: ()
-                    // InternalC.g:2226:5: 
+                    // InternalC.g:2245:4: ()
+                    // InternalC.g:2246:5: 
                     {
 
                     					current = forceCreateModelElement(
@@ -5318,11 +5354,11 @@ public class InternalCParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalC.g:2232:4: ( (lv_val_7_0= RULE_STRING ) )
-                    // InternalC.g:2233:5: (lv_val_7_0= RULE_STRING )
+                    // InternalC.g:2252:4: ( (lv_val_7_0= RULE_STRING ) )
+                    // InternalC.g:2253:5: (lv_val_7_0= RULE_STRING )
                     {
-                    // InternalC.g:2233:5: (lv_val_7_0= RULE_STRING )
-                    // InternalC.g:2234:6: lv_val_7_0= RULE_STRING
+                    // InternalC.g:2253:5: (lv_val_7_0= RULE_STRING )
+                    // InternalC.g:2254:6: lv_val_7_0= RULE_STRING
                     {
                     lv_val_7_0=(Token)match(input,RULE_STRING,FOLLOW_2); 
 

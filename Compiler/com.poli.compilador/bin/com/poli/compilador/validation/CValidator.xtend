@@ -18,6 +18,7 @@ import org.eclipse.xtext.validation.Check
 import com.poli.compilador.c.Declaration
 import com.poli.compilador.c.VarDecl
 import com.poli.compilador.c.IntLit
+import com.poli.compilador.c.Literal
 
 /**
  * This class contains custom validation rules. 
@@ -57,9 +58,22 @@ class CValidator extends AbstractCValidator {
 	def checkSwitch (SwitchCmd c) {
 		val tipo = Validator.tipode(c.exp, null)
 		
-		if ( tipo != Validator.Tipo.BOOL) {
-			error('Condition must be a Bool. '+tipo+' given.', c, CPackage.Literals.SWITCH_CMD__EXP)
+		if ( tipo === null) {
+			error('Invalid switch expression. ', c, CPackage.Literals.SWITCH_CMD__EXP)
 		}  
+		
+		for(cs: c.cases) {
+			var tipoCase = Validator.tipode(cs.^val, null)
+			
+			if (tipoCase != tipo) {
+				error('Invalid case type. ', c, CPackage.Literals.SWITCH_CMD__CASES)
+			}
+			
+			if (cs.^val instanceof Literal != true) {
+				error('Invalid case. ', c, CPackage.Literals.SWITCH_CMD__CASES)
+			}
+		}
+		
 	}
 	
 	@Check

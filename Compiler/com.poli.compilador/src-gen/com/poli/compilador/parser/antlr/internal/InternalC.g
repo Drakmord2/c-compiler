@@ -2201,10 +2201,20 @@ ruleLiteral returns [EObject current=null]
 						$current);
 				}
 			)
-			otherlv_3='true'
-			{
-				newLeafNode(otherlv_3, grammarAccess.getLiteralAccess().getTrueKeyword_1_1());
-			}
+			(
+				(
+					lv_val_3_0='true'
+					{
+						newLeafNode(lv_val_3_0, grammarAccess.getLiteralAccess().getValTrueKeyword_1_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getLiteralRule());
+						}
+						setWithLastConsumed($current, "val", lv_val_3_0, "true");
+					}
+				)
+			)
 		)
 		    |
 		(
@@ -2215,10 +2225,20 @@ ruleLiteral returns [EObject current=null]
 						$current);
 				}
 			)
-			otherlv_5='false'
-			{
-				newLeafNode(otherlv_5, grammarAccess.getLiteralAccess().getFalseKeyword_2_1());
-			}
+			(
+				(
+					lv_val_5_0='false'
+					{
+						newLeafNode(lv_val_5_0, grammarAccess.getLiteralAccess().getValFalseKeyword_2_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getLiteralRule());
+						}
+						setWithLastConsumed($current, "val", lv_val_5_0, "false");
+					}
+				)
+			)
 		)
 		    |
 		(

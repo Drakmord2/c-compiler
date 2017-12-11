@@ -136,8 +136,12 @@
     <genClasses ecoreClass="C.ecore#//IntLit">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//IntLit/val"/>
     </genClasses>
-    <genClasses ecoreClass="C.ecore#//TrueLit"/>
-    <genClasses ecoreClass="C.ecore#//FalseLit"/>
+    <genClasses ecoreClass="C.ecore#//TrueLit">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//TrueLit/val"/>
+    </genClasses>
+    <genClasses ecoreClass="C.ecore#//FalseLit">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//FalseLit/val"/>
+    </genClasses>
     <genClasses ecoreClass="C.ecore#//StrLit">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//StrLit/val"/>
     </genClasses>

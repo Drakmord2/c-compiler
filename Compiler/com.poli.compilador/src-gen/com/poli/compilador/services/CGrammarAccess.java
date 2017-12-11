@@ -1322,20 +1322,22 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValINTTerminalRuleCall_0_1_0 = (RuleCall)cValAssignment_0_1.eContents().get(0);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Action cTrueLitAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Keyword cTrueKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Assignment cValAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final Keyword cValTrueKeyword_1_1_0 = (Keyword)cValAssignment_1_1.eContents().get(0);
 		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
 		private final Action cFalseLitAction_2_0 = (Action)cGroup_2.eContents().get(0);
-		private final Keyword cFalseKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
+		private final Assignment cValAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final Keyword cValFalseKeyword_2_1_0 = (Keyword)cValAssignment_2_1.eContents().get(0);
 		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
 		private final Action cStrLitAction_3_0 = (Action)cGroup_3.eContents().get(0);
 		private final Assignment cValAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
 		private final RuleCall cValSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cValAssignment_3_1.eContents().get(0);
 		
 		//Literal:
-		//	{IntLit} val=INT | {TrueLit} 'true' | {FalseLit} 'false' | {StrLit} val=STRING;
+		//	{IntLit} val=INT | {TrueLit} val='true' | {FalseLit} val='false' | {StrLit} val=STRING;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{IntLit} val=INT | {TrueLit} 'true' | {FalseLit} 'false' | {StrLit} val=STRING
+		//{IntLit} val=INT | {TrueLit} val='true' | {FalseLit} val='false' | {StrLit} val=STRING
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//{IntLit} val=INT
@@ -1350,23 +1352,29 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getValINTTerminalRuleCall_0_1_0() { return cValINTTerminalRuleCall_0_1_0; }
 		
-		//{TrueLit} 'true'
+		//{TrueLit} val='true'
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//{TrueLit}
 		public Action getTrueLitAction_1_0() { return cTrueLitAction_1_0; }
 		
-		//'true'
-		public Keyword getTrueKeyword_1_1() { return cTrueKeyword_1_1; }
+		//val='true'
+		public Assignment getValAssignment_1_1() { return cValAssignment_1_1; }
 		
-		//{FalseLit} 'false'
+		//'true'
+		public Keyword getValTrueKeyword_1_1_0() { return cValTrueKeyword_1_1_0; }
+		
+		//{FalseLit} val='false'
 		public Group getGroup_2() { return cGroup_2; }
 		
 		//{FalseLit}
 		public Action getFalseLitAction_2_0() { return cFalseLitAction_2_0; }
 		
+		//val='false'
+		public Assignment getValAssignment_2_1() { return cValAssignment_2_1; }
+		
 		//'false'
-		public Keyword getFalseKeyword_2_1() { return cFalseKeyword_2_1; }
+		public Keyword getValFalseKeyword_2_1_0() { return cValFalseKeyword_2_1_0; }
 		
 		//{StrLit} val=STRING
 		public Group getGroup_3() { return cGroup_3; }
@@ -1671,7 +1679,7 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Literal:
-	//	{IntLit} val=INT | {TrueLit} 'true' | {FalseLit} 'false' | {StrLit} val=STRING;
+	//	{IntLit} val=INT | {TrueLit} val='true' | {FalseLit} val='false' | {StrLit} val=STRING;
 	public LiteralElements getLiteralAccess() {
 		return pLiteral;
 	}

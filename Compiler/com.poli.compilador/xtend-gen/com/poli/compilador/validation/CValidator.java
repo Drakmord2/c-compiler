@@ -6,6 +6,7 @@ package com.poli.compilador.validation;
 import com.google.common.base.Objects;
 import com.poli.compilador.c.ArrayAccess;
 import com.poli.compilador.c.CPackage;
+import com.poli.compilador.c.Case;
 import com.poli.compilador.c.Declaration;
 import com.poli.compilador.c.Definition;
 import com.poli.compilador.c.DoWhileCmd;
@@ -14,6 +15,7 @@ import com.poli.compilador.c.FieldAccess;
 import com.poli.compilador.c.ForCmd;
 import com.poli.compilador.c.IfCmd;
 import com.poli.compilador.c.IntLit;
+import com.poli.compilador.c.Literal;
 import com.poli.compilador.c.StrDecl;
 import com.poli.compilador.c.Struct;
 import com.poli.compilador.c.SwitchCmd;
@@ -63,9 +65,23 @@ public class CValidator extends AbstractCValidator {
   @Check
   public void checkSwitch(final SwitchCmd c) {
     final Validator.Tipo tipo = Validator.tipode(c.getExp(), null);
-    boolean _notEquals = (!Objects.equal(tipo, Validator.Tipo.BOOL));
-    if (_notEquals) {
-      this.error((("Condition must be a Bool. " + tipo) + " given."), c, CPackage.Literals.SWITCH_CMD__EXP);
+    if ((tipo == null)) {
+      this.error("Invalid switch expression. ", c, CPackage.Literals.SWITCH_CMD__EXP);
+    }
+    EList<Case> _cases = c.getCases();
+    for (final Case cs : _cases) {
+      {
+        Validator.Tipo tipoCase = Validator.tipode(cs.getVal(), null);
+        boolean _notEquals = (!Objects.equal(tipoCase, tipo));
+        if (_notEquals) {
+          this.error("Invalid case type. ", c, CPackage.Literals.SWITCH_CMD__CASES);
+        }
+        Expression _val = cs.getVal();
+        boolean _notEquals_1 = ((_val instanceof Literal) != true);
+        if (_notEquals_1) {
+          this.error("Invalid case. ", c, CPackage.Literals.SWITCH_CMD__CASES);
+        }
+      }
     }
   }
   
