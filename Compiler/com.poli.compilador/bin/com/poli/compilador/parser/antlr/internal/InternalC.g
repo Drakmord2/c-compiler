@@ -211,64 +211,37 @@ ruleFunction returns [EObject current=null]
 		}
 		(
 			(
-				(
-					{
-						newCompositeNode(grammarAccess.getFunctionAccess().getParamsDeclarationParserRuleCall_5_0_0());
-					}
-					lv_params_5_0=ruleDeclaration
-					{
-						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getFunctionRule());
-						}
-						add(
-							$current,
-							"params",
-							lv_params_5_0,
-							"com.poli.compilador.C.Declaration");
-						afterParserOrEnumRuleCall();
-					}
-				)
-			)
-			(
-				otherlv_6=','
 				{
-					newLeafNode(otherlv_6, grammarAccess.getFunctionAccess().getCommaKeyword_5_1_0());
+					newCompositeNode(grammarAccess.getFunctionAccess().getParamsDeclarationParserRuleCall_5_0());
 				}
-				(
-					(
-						{
-							newCompositeNode(grammarAccess.getFunctionAccess().getParamsDeclarationParserRuleCall_5_1_1_0());
-						}
-						lv_params_7_0=ruleDeclaration
-						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getFunctionRule());
-							}
-							add(
-								$current,
-								"params",
-								lv_params_7_0,
-								"com.poli.compilador.C.Declaration");
-							afterParserOrEnumRuleCall();
-						}
-					)
-				)
-			)*
-		)?
-		otherlv_8=')'
+				lv_params_5_0=ruleDeclaration
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getFunctionRule());
+					}
+					add(
+						$current,
+						"params",
+						lv_params_5_0,
+						"com.poli.compilador.C.Declaration");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+		otherlv_6=')'
 		{
-			newLeafNode(otherlv_8, grammarAccess.getFunctionAccess().getRightParenthesisKeyword_6());
+			newLeafNode(otherlv_6, grammarAccess.getFunctionAccess().getRightParenthesisKeyword_6());
 		}
-		otherlv_9='{'
+		otherlv_7='{'
 		{
-			newLeafNode(otherlv_9, grammarAccess.getFunctionAccess().getLeftCurlyBracketKeyword_7());
+			newLeafNode(otherlv_7, grammarAccess.getFunctionAccess().getLeftCurlyBracketKeyword_7());
 		}
 		(
 			(
 				{
 					newCompositeNode(grammarAccess.getFunctionAccess().getCommandsCommandParserRuleCall_8_0());
 				}
-				lv_commands_10_0=ruleCommand
+				lv_commands_8_0=ruleCommand
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getFunctionRule());
@@ -276,15 +249,15 @@ ruleFunction returns [EObject current=null]
 					add(
 						$current,
 						"commands",
-						lv_commands_10_0,
+						lv_commands_8_0,
 						"com.poli.compilador.C.Command");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)*
-		otherlv_11='}'
+		otherlv_9='}'
 		{
-			newLeafNode(otherlv_11, grammarAccess.getFunctionAccess().getRightCurlyBracketKeyword_9());
+			newLeafNode(otherlv_9, grammarAccess.getFunctionAccess().getRightCurlyBracketKeyword_9());
 		}
 	)
 ;

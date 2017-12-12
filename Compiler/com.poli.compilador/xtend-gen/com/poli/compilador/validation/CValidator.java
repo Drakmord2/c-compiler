@@ -13,6 +13,8 @@ import com.poli.compilador.c.DoWhileCmd;
 import com.poli.compilador.c.Expression;
 import com.poli.compilador.c.FieldAccess;
 import com.poli.compilador.c.ForCmd;
+import com.poli.compilador.c.FuncCall;
+import com.poli.compilador.c.Function;
 import com.poli.compilador.c.IfCmd;
 import com.poli.compilador.c.IntLit;
 import com.poli.compilador.c.Literal;
@@ -35,6 +37,16 @@ import org.eclipse.xtext.validation.Check;
  */
 @SuppressWarnings("all")
 public class CValidator extends AbstractCValidator {
+  @Check
+  public void checkFunction(final Function F) {
+    int _size = F.getParams().size();
+    boolean _greaterThan = (_size > 4);
+    if (_greaterThan) {
+      this.error("Maximum number of parameters exceeded.", F, CPackage.Literals.FUNCTION__PARAMS);
+      return;
+    }
+  }
+  
   @Check
   public void checkIf(final IfCmd c) {
     final Validator.Tipo tipo = Validator.tipode(c.getExp(), null);
@@ -95,64 +107,116 @@ public class CValidator extends AbstractCValidator {
   }
   
   @Check
-  public void checkAccess(final Expression v) {
+  public void checkLValue(final Expression v) {
     if ((v instanceof FieldAccess)) {
-      Expression _obj = ((FieldAccess)v).getObj();
-      final Var lvalue = ((Var) _obj);
-      Definition _valor = lvalue.getValor();
-      boolean _notEquals = ((_valor instanceof StrDecl) != true);
-      if (_notEquals) {
-        this.error("Illegal access. Not a Struct.", v, CPackage.Literals.FIELD_ACCESS__OBJ);
-        return;
-      }
-      Definition _valor_1 = lvalue.getValor();
-      final StrDecl strDecl = ((StrDecl) _valor_1);
-      final Struct struct = strDecl.getStr();
-      final EList<Declaration> decls = struct.getDecl();
-      final String campo = ((FieldAccess)v).getField();
-      for (final Declaration d : decls) {
-        String _name = d.getName();
-        boolean _equals = Objects.equal(_name, campo);
-        if (_equals) {
-          return;
-        }
-      }
-      this.error("Struct field not defined.", v, CPackage.Literals.FIELD_ACCESS__FIELD);
+      this.checkFieldAccess(((FieldAccess)v));
     }
     if ((v instanceof ArrayAccess)) {
-      Expression _arr = ((ArrayAccess)v).getArr();
-      final Var lvalue_1 = ((Var) _arr);
-      Definition _valor_2 = lvalue_1.getValor();
-      boolean _notEquals_1 = ((_valor_2 instanceof Declaration) != true);
-      if (_notEquals_1) {
+      this.checkArrayAccess(((ArrayAccess)v));
+    }
+    if ((v instanceof FuncCall)) {
+      this.checkFunctionCall(((FuncCall)v));
+    }
+  }
+  
+  public void checkFieldAccess(final FieldAccess v) {
+    Expression _obj = v.getObj();
+    final Var lvalue = ((Var) _obj);
+    Definition _valor = lvalue.getValor();
+    boolean _notEquals = ((_valor instanceof StrDecl) != true);
+    if (_notEquals) {
+      this.error("Illegal access. Not a Struct.", v, CPackage.Literals.FIELD_ACCESS__OBJ);
+      return;
+    }
+    Definition _valor_1 = lvalue.getValor();
+    final StrDecl strDecl = ((StrDecl) _valor_1);
+    final Struct struct = strDecl.getStr();
+    final EList<Declaration> decls = struct.getDecl();
+    final String campo = v.getField();
+    for (final Declaration d : decls) {
+      String _name = d.getName();
+      boolean _equals = Objects.equal(_name, campo);
+      if (_equals) {
         return;
       }
-      Definition _valor_3 = lvalue_1.getValor();
-      final Declaration decl = ((Declaration) _valor_3);
-      if (((decl instanceof VarDecl) != true)) {
-        this.error("Illegal access. Not a variable.", v, CPackage.Literals.ARRAY_ACCESS__ARR);
-        return;
-      }
-      final Type tipo = ((VarDecl) decl).getTipo();
-      Expression _exp = tipo.getExp();
-      boolean _tripleEquals = (_exp == null);
-      if (_tripleEquals) {
-        this.error("Illegal access. Not an Array.", v, CPackage.Literals.ARRAY_ACCESS__INDEX);
-        return;
-      }
-      final Expression index = ((ArrayAccess)v).getIndex();
-      Validator.Tipo _tipode = Validator.tipode(index, null);
-      boolean _notEquals_2 = (!Objects.equal(_tipode, Validator.Tipo.INT));
-      if (_notEquals_2) {
-        this.error("Illegal access. Non integer index.", v, CPackage.Literals.ARRAY_ACCESS__INDEX);
-        return;
-      }
-      if ((index instanceof Var)) {
-        return;
-      }
-      if (((((IntLit) tipo.getExp()).getVal() < (((IntLit) index).getVal() + 1)) || (((IntLit) index).getVal() < 0))) {
-        this.error("Array out of bounds.", v, CPackage.Literals.ARRAY_ACCESS__INDEX);
-        return;
+    }
+    this.error("Struct field not defined.", v, CPackage.Literals.FIELD_ACCESS__FIELD);
+  }
+  
+  public void checkArrayAccess(final ArrayAccess v) {
+    Expression _arr = v.getArr();
+    final Var lvalue = ((Var) _arr);
+    Definition _valor = lvalue.getValor();
+    boolean _notEquals = ((_valor instanceof Declaration) != true);
+    if (_notEquals) {
+      return;
+    }
+    Definition _valor_1 = lvalue.getValor();
+    final Declaration decl = ((Declaration) _valor_1);
+    if (((decl instanceof VarDecl) != true)) {
+      this.error("Illegal access. Not a variable.", v, CPackage.Literals.ARRAY_ACCESS__ARR);
+      return;
+    }
+    final Type tipo = ((VarDecl) decl).getTipo();
+    Expression _exp = tipo.getExp();
+    boolean _tripleEquals = (_exp == null);
+    if (_tripleEquals) {
+      this.error("Illegal access. Not an Array.", v, CPackage.Literals.ARRAY_ACCESS__INDEX);
+      return;
+    }
+    final Expression index = v.getIndex();
+    Validator.Tipo _tipode = Validator.tipode(index, null);
+    boolean _notEquals_1 = (!Objects.equal(_tipode, Validator.Tipo.INT));
+    if (_notEquals_1) {
+      this.error("Illegal access. Non integer index.", v, CPackage.Literals.ARRAY_ACCESS__INDEX);
+      return;
+    }
+    if ((index instanceof Var)) {
+      return;
+    }
+    if (((((IntLit) tipo.getExp()).getVal() < (((IntLit) index).getVal() + 1)) || (((IntLit) index).getVal() < 0))) {
+      this.error("Array out of bounds.", v, CPackage.Literals.ARRAY_ACCESS__INDEX);
+      return;
+    }
+  }
+  
+  public void checkFunctionCall(final FuncCall F) {
+    Expression _def = F.getDef();
+    final Definition def = ((Var) _def).getValor();
+    EList<Declaration> _xifexpression = null;
+    if ((def instanceof Function)) {
+      _xifexpression = ((Function) def).getParams();
+    } else {
+      return;
+    }
+    final EList<Declaration> params = _xifexpression;
+    final EList<Expression> args = F.getArg().getExp();
+    int _size = params.size();
+    int _size_1 = args.size();
+    boolean _notEquals = (_size != _size_1);
+    if (_notEquals) {
+      this.error("Wrong number of arguments.", F, CPackage.Literals.FUNC_CALL__ARG);
+      return;
+    }
+    for (int i = 0; (i < params.size()); i++) {
+      {
+        final Validator.Tipo tipoA = Validator.tipode(args.get(i), null);
+        Declaration _get = params.get(i);
+        final Type tipoP = ((VarDecl) _get).getTipo();
+        if ((Objects.equal(tipoP.getTipo(), "int") && (!Objects.equal(tipoA, Validator.Tipo.INT)))) {
+          this.error("Invalid argument type.", F, CPackage.Literals.FUNC_CALL__ARG);
+          return;
+        } else {
+          if ((Objects.equal(tipoP.getTipo(), "bool") && (!Objects.equal(tipoA, Validator.Tipo.BOOL)))) {
+            this.error("Invalid argument type.", F, CPackage.Literals.FUNC_CALL__ARG);
+            return;
+          } else {
+            if ((Objects.equal(tipoP.getTipo(), "string") && (!Objects.equal(tipoA, Validator.Tipo.STR)))) {
+              this.error("Invalid argument type.", F, CPackage.Literals.FUNC_CALL__ARG);
+              return;
+            }
+          }
+        }
       }
     }
   }

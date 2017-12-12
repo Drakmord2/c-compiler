@@ -19,6 +19,8 @@ import com.poli.compilador.c.Declaration
 import com.poli.compilador.c.VarDecl
 import com.poli.compilador.c.IntLit
 import com.poli.compilador.c.Literal
+import com.poli.compilador.c.Function
+import com.poli.compilador.c.FuncCall
 
 /**
  * This class contains custom validation rules. 
@@ -26,6 +28,14 @@ import com.poli.compilador.c.Literal
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class CValidator extends AbstractCValidator {
+	
+	@Check	
+	def checkFunction(Function F) {
+		if ( F.params.size > 4 ) {
+			error('Maximum number of parameters exceeded.', F, CPackage.Literals.FUNCTION__PARAMS)
+			return
+		}
+	}
 	
 	@Check
 	def checkIf (IfCmd c) {
@@ -86,61 +96,100 @@ class CValidator extends AbstractCValidator {
 	}
 	
 	@Check
-	def checkAccess (Expression v) {
+	def checkLValue (Expression v) {
 		if (v instanceof FieldAccess ) {
-			val lvalue 	= v.obj as Var
-			
-			if (lvalue.valor instanceof StrDecl != true) {
-				error('Illegal access. Not a Struct.', v, CPackage.Literals.FIELD_ACCESS__OBJ)
-				return
-			}
-			
-			val strDecl	= lvalue.valor as StrDecl
-			val struct 	= strDecl.str
-			val decls	= struct.decl
-			val campo 	= v.field
-			
-			for (d : decls) {
-				if (d.name == campo) {
-					return
-				}
-			}
-			
-			error('Struct field not defined.', v, CPackage.Literals.FIELD_ACCESS__FIELD)
+			checkFieldAccess(v)
 		}
 		
 		if (v instanceof ArrayAccess) {
-			val lvalue 	= v.arr as Var
-			
-			if (lvalue.valor instanceof Declaration != true) {
+			checkArrayAccess(v)
+		}
+		
+		if (v instanceof FuncCall) {
+			checkFunctionCall(v)
+		}
+	}
+	
+	def checkFieldAccess(FieldAccess v) {
+		val lvalue 	= v.obj as Var
+		
+		if (lvalue.valor instanceof StrDecl != true) {
+			error('Illegal access. Not a Struct.', v, CPackage.Literals.FIELD_ACCESS__OBJ)
+			return
+		}
+		
+		val strDecl	= lvalue.valor as StrDecl
+		val struct 	= strDecl.str
+		val decls	= struct.decl
+		val campo 	= v.field
+		
+		for (d : decls) {
+			if (d.name == campo) {
 				return
 			}
+		}
+		
+		error('Struct field not defined.', v, CPackage.Literals.FIELD_ACCESS__FIELD)
+	}
+	
+	def checkArrayAccess(ArrayAccess v) {
+		val lvalue 	= v.arr as Var
+		
+		if (lvalue.valor instanceof Declaration != true) {
+			return
+		}
+		
+		val decl = lvalue.valor as Declaration
+		
+		if (decl instanceof VarDecl != true) {
+			error('Illegal access. Not a variable.', v, CPackage.Literals.ARRAY_ACCESS__ARR)
+			return
+		}
+		
+		val tipo = (decl as VarDecl).tipo
+		if (tipo.exp === null) {
+			error('Illegal access. Not an Array.', v, CPackage.Literals.ARRAY_ACCESS__INDEX)
+			return
+		}
+		
+		val index = v.index
+		if (Validator.tipode(index, null) != Validator.Tipo.INT) {
+			error('Illegal access. Non integer index.', v, CPackage.Literals.ARRAY_ACCESS__INDEX)
+			return
+		}
+		
+		if (index instanceof Var) {
+			return
+		}
+		
+		if ( (tipo.exp as IntLit).^val < ((index as IntLit).^val + 1) || (index as IntLit).^val < 0) {
+			error('Array out of bounds.', v, CPackage.Literals.ARRAY_ACCESS__INDEX)
+			return
+		}
+	}
+	
+	def checkFunctionCall(FuncCall F) {
+		val def 		= (F.def as Var).valor
+		val params 	= if(def instanceof Function) (def as Function).params else return
+		val args 	= F.arg.exp
+		
+		if (params.size != args.size) {
+			error('Wrong number of arguments.', F, CPackage.Literals.FUNC_CALL__ARG)
+			return
+		}
+		
+		for(var i = 0; i < params.size; i++) {
+			val tipoA = Validator.tipode(args.get(i), null)
+			val tipoP = (params.get(i) as VarDecl).tipo
 			
-			val decl = lvalue.valor as Declaration
-			
-			if (decl instanceof VarDecl != true) {
-				error('Illegal access. Not a variable.', v, CPackage.Literals.ARRAY_ACCESS__ARR)
+			if (tipoP.tipo == "int" && tipoA != Validator.Tipo.INT ) {
+				error('Invalid argument type.', F, CPackage.Literals.FUNC_CALL__ARG)
 				return
-			}
-			
-			val tipo = (decl as VarDecl).tipo
-			if (tipo.exp === null) {
-				error('Illegal access. Not an Array.', v, CPackage.Literals.ARRAY_ACCESS__INDEX)
+			} else if(tipoP.tipo == "bool" && tipoA != Validator.Tipo.BOOL) {
+				error('Invalid argument type.', F, CPackage.Literals.FUNC_CALL__ARG)
 				return
-			}
-			
-			val index = v.index
-			if (Validator.tipode(index, null) != Validator.Tipo.INT) {
-				error('Illegal access. Non integer index.', v, CPackage.Literals.ARRAY_ACCESS__INDEX)
-				return
-			}
-			
-			if (index instanceof Var) {
-				return
-			}
-			
-			if ( (tipo.exp as IntLit).^val < ((index as IntLit).^val + 1) || (index as IntLit).^val < 0) {
-				error('Array out of bounds.', v, CPackage.Literals.ARRAY_ACCESS__INDEX)
+			} else if(tipoP.tipo == "string" && tipoA != Validator.Tipo.STR) {
+				error('Invalid argument type.', F, CPackage.Literals.FUNC_CALL__ARG)
 				return
 			}
 			

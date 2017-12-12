@@ -8,7 +8,7 @@ generate c "http://www.poli.com/compilador/C"
 Program		: (definition+=Definition)* ;
 Definition	: Struct | Function | Declaration;
 		  	
-Function		: {Function}		'function' tipo=Type name=ID '(' (params+=Declaration (',' params+=Declaration)*)? ')' '{' (commands+=Command)* '}';
+Function		: {Function}		'function' tipo=Type name=ID '(' params+=Declaration* ')' '{' (commands+=Command)* '}';
 Declaration 	: {Declaration}	( {VarDecl.obj=current} (tipo=Type '**'? name=ID (val=Assignment)?) | {StrDecl.obj=current} ('struct' str=[Struct|ID] name=ID) ) ';' ;
 Struct		: {Struct} 		'struct' name=ID '{' decl+=Declaration* '}' ';' ;
 

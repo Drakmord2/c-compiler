@@ -544,7 +544,7 @@ public class CSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Function returns Function
 	 *
 	 * Constraint:
-	 *     (tipo=Type name=ID (params+=Declaration params+=Declaration*)? commands+=Command*)
+	 *     (tipo=Type name=ID params+=Declaration* commands+=Command*)
 	 */
 	protected void sequence_Function(ISerializationContext context, Function semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

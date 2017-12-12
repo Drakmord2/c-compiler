@@ -106,19 +106,24 @@ public class Validator {
 		}
 		
 		if (e instanceof Var) {
-			Definition def	= ((Var) e).getValor();
-			Declaration decl	= (Declaration) def;
-			Type tipoDecl	= ((VarDecl) decl).getTipo();
+			Definition def = ((Var) e).getValor();
 			
-			switch (tipoDecl.getTipo()) {
-				case "int": 
-					return Tipo.INT;
-				case "bool":
-					return Tipo.BOOL;
-				case "string":
-					return Tipo.STR;
-				default:
-					return null;
+			if (def instanceof Declaration) {
+				
+				Declaration decl	= (Declaration) def;
+				Type tipoDecl	= ((VarDecl) decl).getTipo();
+				
+				switch (tipoDecl.getTipo()) {
+					case "int": 
+						return Tipo.INT;
+					case "bool":
+						return Tipo.BOOL;
+					case "string":
+						return Tipo.STR;
+					default:
+						return null;
+				}
+				
 			}
 		}
 		

@@ -73,13 +73,8 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cNameIDTerminalRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
 		private final Keyword cLeftParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Assignment cParamsAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
-		private final RuleCall cParamsDeclarationParserRuleCall_5_0_0 = (RuleCall)cParamsAssignment_5_0.eContents().get(0);
-		private final Group cGroup_5_1 = (Group)cGroup_5.eContents().get(1);
-		private final Keyword cCommaKeyword_5_1_0 = (Keyword)cGroup_5_1.eContents().get(0);
-		private final Assignment cParamsAssignment_5_1_1 = (Assignment)cGroup_5_1.eContents().get(1);
-		private final RuleCall cParamsDeclarationParserRuleCall_5_1_1_0 = (RuleCall)cParamsAssignment_5_1_1.eContents().get(0);
+		private final Assignment cParamsAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cParamsDeclarationParserRuleCall_5_0 = (RuleCall)cParamsAssignment_5.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		private final Keyword cLeftCurlyBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		private final Assignment cCommandsAssignment_8 = (Assignment)cGroup.eContents().get(8);
@@ -87,12 +82,10 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//Function:
-		//	{Function} 'function' tipo=Type name=ID '(' (params+=Declaration (',' params+=Declaration)*)? ')' '{'
-		//	commands+=Command* '}';
+		//	{Function} 'function' tipo=Type name=ID '(' params+=Declaration* ')' '{' commands+=Command* '}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{Function} 'function' tipo=Type name=ID '(' (params+=Declaration (',' params+=Declaration)*)? ')' '{' commands+=Command*
-		//'}'
+		//{Function} 'function' tipo=Type name=ID '(' params+=Declaration* ')' '{' commands+=Command* '}'
 		public Group getGroup() { return cGroup; }
 		
 		//{Function}
@@ -116,26 +109,11 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 		//'('
 		public Keyword getLeftParenthesisKeyword_4() { return cLeftParenthesisKeyword_4; }
 		
-		//(params+=Declaration (',' params+=Declaration)*)?
-		public Group getGroup_5() { return cGroup_5; }
-		
-		//params+=Declaration
-		public Assignment getParamsAssignment_5_0() { return cParamsAssignment_5_0; }
+		//params+=Declaration*
+		public Assignment getParamsAssignment_5() { return cParamsAssignment_5; }
 		
 		//Declaration
-		public RuleCall getParamsDeclarationParserRuleCall_5_0_0() { return cParamsDeclarationParserRuleCall_5_0_0; }
-		
-		//(',' params+=Declaration)*
-		public Group getGroup_5_1() { return cGroup_5_1; }
-		
-		//','
-		public Keyword getCommaKeyword_5_1_0() { return cCommaKeyword_5_1_0; }
-		
-		//params+=Declaration
-		public Assignment getParamsAssignment_5_1_1() { return cParamsAssignment_5_1_1; }
-		
-		//Declaration
-		public RuleCall getParamsDeclarationParserRuleCall_5_1_1_0() { return cParamsDeclarationParserRuleCall_5_1_1_0; }
+		public RuleCall getParamsDeclarationParserRuleCall_5_0() { return cParamsDeclarationParserRuleCall_5_0; }
 		
 		//')'
 		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
@@ -1501,8 +1479,7 @@ public class CGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Function:
-	//	{Function} 'function' tipo=Type name=ID '(' (params+=Declaration (',' params+=Declaration)*)? ')' '{'
-	//	commands+=Command* '}';
+	//	{Function} 'function' tipo=Type name=ID '(' params+=Declaration* ')' '{' commands+=Command* '}';
 	public FunctionElements getFunctionAccess() {
 		return pFunction;
 	}

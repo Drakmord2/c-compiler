@@ -34,7 +34,6 @@ import com.poli.compilador.c.TrueLit
 import com.poli.compilador.c.Var
 import com.poli.compilador.c.VarCmd
 import com.poli.compilador.c.WhileCmd
-import com.poli.compilador.c.Argument
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
@@ -47,6 +46,7 @@ import com.poli.compilador.c.Expression
 import com.poli.compilador.c.Assignment
 import com.poli.compilador.c.VarDecl
 import java.util.HashMap
+import org.eclipse.emf.common.util.EList
 
 /**
  * Generates code from your model files on save.
@@ -61,6 +61,7 @@ class CGenerator extends AbstractGenerator {
 	public Stack<String> fName
 	public Stack<Pair<String, String>> loops
 	public HashMap<String, Integer> locals
+	public HashMap<String, Integer> params
 	
 	def init() {
 		this.label 		= 0
@@ -69,6 +70,7 @@ class CGenerator extends AbstractGenerator {
 		this.fName		= new Stack
 		this.loops		= new Stack
 		this.locals		= new HashMap
+		this.params		= new HashMap
 	}
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
@@ -110,7 +112,8 @@ class CGenerator extends AbstractGenerator {
 		
 		if (D instanceof VarDecl) {
 			var mips 	= ''''''
-			val vName	= D.name
+			this.index++
+			val vName	= D.name + index
 			var size 	= 4
 			globals.add(vName)
 			
@@ -156,7 +159,7 @@ class CGenerator extends AbstractGenerator {
 	def function(Function F) {
 		fName.push(F.name)
 		globals.add(F.name)
-		val paramSize = F.params.size * 4
+		val paramSize = getParamSize(F.params)
 		
 		//TODO calculate local variables size
 		val localSize = 12 
@@ -580,18 +583,20 @@ class CGenerator extends AbstractGenerator {
 		}
 		
 		if (E instanceof FuncCall) {
-			
-			if (E.arg !== null) {
-				for(arg : E.arg.exp) {
-					mips += expression(arg)
-				}
-			}
-
 			val func 		= E.def as Var
 			val funcName 	= if (func.valor.name == "main") func.valor.name else "_"+func.valor.name
-			
+
 			mips += 
 			'''
+			«var argNum = 0»
+			«IF E.arg !== null»
+				«FOR arg : E.arg.exp»
+				«expression(arg)»
+				«pop('t0')»
+				move		$a«argNum++», $t0
+				«ENDFOR»
+				
+			«ENDIF»	
 			«jumpLink(funcName)»
 			«push('v0')»
 			
@@ -637,7 +642,8 @@ class CGenerator extends AbstractGenerator {
 			val decl 	= E.valor as VarDecl
 			val tipo 	= decl.tipo.tipo
 			
-			val opCode	= if (tipo == 'string' && globals.contains(varname)) 'la' else 'lw'
+			var opCode	= if (tipo == 'string' && globals.contains(varname)) 'la' else 'lw'
+			opCode 		= if(params.containsKey(varname)) 'move' else opCode
 			val id 		= getReference(varname)
 			
 			mips += evalExp(opCode, id)
@@ -738,11 +744,7 @@ class CGenerator extends AbstractGenerator {
 	 	'''
 	 	return mips
 	}
-	
-	def argument(Argument A)
-	'''
-	# arg
-	'''
+
 		
 //------------------------------------------------------------------------------------------
 // AUX
@@ -873,11 +875,38 @@ class CGenerator extends AbstractGenerator {
 	'''
 
 	def getReference(String varname) {
+		if (params.containsKey(varname)) {
+			return "$a"+params.get(varname)
+		}
+		
 		if (locals.containsKey(varname)) {
 			return "-"+(locals.get(varname) + 4)+"($fp)" 
 		}
 		
 		return '_'+varname
+	}
+	
+	def getParamSize(EList<Declaration> decs) {
+		var size = 0
+		var argNum = 0
+		
+		for(d : decs) {
+			val tipo 		= (d as VarDecl).tipo
+			val paramName 	= (d as VarDecl).name
+			var paramSize 	= 0
+			
+			if (tipo.exp !== null) {
+				paramSize = (tipo.exp as IntLit).^val * 4
+			} else {
+				paramSize = 4
+			}
+			
+			params.put(paramName, argNum)
+			argNum++
+			size += paramSize
+		}
+		
+		return size
 	}
 
 	def nextLabel() {

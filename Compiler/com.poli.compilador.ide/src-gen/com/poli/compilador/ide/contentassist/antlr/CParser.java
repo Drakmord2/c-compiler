@@ -40,8 +40,6 @@ public class CParser extends AbstractContentAssistParser {
 					put(grammarAccess.getLValueAccess().getAlternatives_0_2(), "rule__LValue__Alternatives_0_2");
 					put(grammarAccess.getLiteralAccess().getAlternatives(), "rule__Literal__Alternatives");
 					put(grammarAccess.getFunctionAccess().getGroup(), "rule__Function__Group__0");
-					put(grammarAccess.getFunctionAccess().getGroup_5(), "rule__Function__Group_5__0");
-					put(grammarAccess.getFunctionAccess().getGroup_5_1(), "rule__Function__Group_5_1__0");
 					put(grammarAccess.getDeclarationAccess().getGroup(), "rule__Declaration__Group__0");
 					put(grammarAccess.getDeclarationAccess().getGroup_1_0(), "rule__Declaration__Group_1_0__0");
 					put(grammarAccess.getDeclarationAccess().getGroup_1_0_1(), "rule__Declaration__Group_1_0_1__0");
@@ -91,8 +89,7 @@ public class CParser extends AbstractContentAssistParser {
 					put(grammarAccess.getProgramAccess().getDefinitionAssignment(), "rule__Program__DefinitionAssignment");
 					put(grammarAccess.getFunctionAccess().getTipoAssignment_2(), "rule__Function__TipoAssignment_2");
 					put(grammarAccess.getFunctionAccess().getNameAssignment_3(), "rule__Function__NameAssignment_3");
-					put(grammarAccess.getFunctionAccess().getParamsAssignment_5_0(), "rule__Function__ParamsAssignment_5_0");
-					put(grammarAccess.getFunctionAccess().getParamsAssignment_5_1_1(), "rule__Function__ParamsAssignment_5_1_1");
+					put(grammarAccess.getFunctionAccess().getParamsAssignment_5(), "rule__Function__ParamsAssignment_5");
 					put(grammarAccess.getFunctionAccess().getCommandsAssignment_8(), "rule__Function__CommandsAssignment_8");
 					put(grammarAccess.getDeclarationAccess().getTipoAssignment_1_0_1_0(), "rule__Declaration__TipoAssignment_1_0_1_0");
 					put(grammarAccess.getDeclarationAccess().getNameAssignment_1_0_1_2(), "rule__Declaration__NameAssignment_1_0_1_2");
