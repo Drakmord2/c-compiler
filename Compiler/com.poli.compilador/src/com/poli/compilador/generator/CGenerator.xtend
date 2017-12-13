@@ -57,22 +57,24 @@ import java.util.List
  */
 class CGenerator extends AbstractGenerator {
 	
-	public int label
-	public int index
-	public int localSize
-	public Stack<String> globals
-	public Stack<String> fName
-	public Stack<Pair<String, String>> loops
-	public HashMap<String, Integer> locals
-	public HashMap<String, Integer> params
+	public int label 						// unique label
+	public int suffix 						// unique suffix
+	public int index 						// unique index
+	public int localSize 					// local variables size in bytes
+	public Stack<String> fName 				// function name
+	public Stack<Pair<String, String>> loops	// start label, end label
+	public HashMap<String, String> globals 	// real Id, unique Id
+	public HashMap<String, Integer> locals 	// real Id, heap offset 
+	public HashMap<String, Integer> params 	// real Id, register $a0-$a3
 	
 	def init() {
 		this.label 		= 0
+		this.suffix		= 0
 		this.index		= 0
 		this.localSize	= 0
-		this.globals		= new Stack
 		this.fName		= new Stack
 		this.loops		= new Stack
+		this.globals		= new HashMap
 		this.locals		= new HashMap
 		this.params		= new HashMap
 	}
@@ -118,9 +120,9 @@ class CGenerator extends AbstractGenerator {
 		
 		if (D instanceof VarDecl) {
 			var mips 	= ''''''
-			this.index++
-			val vName	= D.name + index
-			globals.add(vName)
+			this.suffix++
+			val vName	= D.name + suffix
+			globals.put(D.name, vName)
 			
 			if (D.tipo.tipo == 'string') {
 				var content = if (D.^val === null) "" else (D.^val.exp as StrLit).^val
@@ -164,7 +166,7 @@ class CGenerator extends AbstractGenerator {
 	
 	def function(Function F) {
 		fName.push(F.name)
-		globals.add(F.name)
+		globals.put(F.name, F.name)
 		val paramSize = getParamSize(F.params)
 		
 		var mips = 
@@ -259,7 +261,7 @@ class CGenerator extends AbstractGenerator {
 			«IF decl.^val !== null»
 			«expression(decl.^val.exp)»
 			«pop('t7')»
-			sw		$t7, -«index+4»($fp)
+			sw		$t7, -«index+8»($fp)
 			
 			«ENDIF»
 			'''
@@ -633,7 +635,7 @@ class CGenerator extends AbstractGenerator {
 				id  = '''0($t5)'''
 			}
 			
-			val opCode	= if (tipo == 'string' && globals.contains(varname)) 'la' else 'lw'
+			val opCode	= if (tipo == 'string' && globals.containsKey(varname)) 'la' else 'lw'
 			
 			mips += evalExp(opCode, id)
 			
@@ -645,7 +647,7 @@ class CGenerator extends AbstractGenerator {
 			val decl 	= E.valor as VarDecl
 			val tipo 	= decl.tipo.tipo
 			
-			var opCode	= if (tipo == 'string' && globals.contains(varname)) 'la' else 'lw'
+			var opCode	= if (tipo == 'string' && globals.containsKey(varname)) 'la' else 'lw'
 			opCode 		= if(params.containsKey(varname)) 'move' else opCode
 			val id 		= getReference(varname)
 			
@@ -788,18 +790,18 @@ class CGenerator extends AbstractGenerator {
 			mips += 
 			'''
 			«pop('t7')»
-			«indexed('sw', 't7', locals.get(varname), 'fp')»
+			«indexed('sw', 't7', locals.get(varname)+8, 'fp')»
 			
 			'''
 			
 			return mips
 		}
 		
-		if (globals.contains(varname)) {
+		if (globals.containsKey(varname)) {
 			mips +=
 			'''
 			«pop('t9')»
-			sw		$t9, _«varname»
+			sw		$t9, _«globals.get(varname)»
 			
 			'''
 			return mips
@@ -817,18 +819,18 @@ class CGenerator extends AbstractGenerator {
 			mips += 
 			'''
 			«pop('t7')»
-			«indexed('sw', 't7', locals.get(varname), 'fp')»
+			«indexed('sw', 't7', locals.get(varname)+arrIdx+8, 'fp')»
 			
 			'''
 			
 			return mips
 		}
 		
-		if (globals.contains(varname)) {
+		if (globals.containsKey(varname)) {
 			mips +=
 			'''
 			«pop('t9')»
-			sw		$t9, _«varname»+«arrIdx»
+			sw		$t9, _«globals.get(varname)»+«arrIdx»
 			
 			'''
 			return mips
@@ -874,7 +876,7 @@ class CGenerator extends AbstractGenerator {
 
 	def CharSequence indexed(String opCode, String reg1, int offset, String reg2)
 	'''
-		«opCode»		$«reg1», -«offset+4»($«reg2»)
+		«opCode»		$«reg1», -«offset»($«reg2»)
 	'''
 
 	def getReference(String varname) {
@@ -883,10 +885,10 @@ class CGenerator extends AbstractGenerator {
 		}
 		
 		if (locals.containsKey(varname)) {
-			return "-"+(locals.get(varname) + 4)+"($fp)" 
+			return "-"+(locals.get(varname)+8)+"($fp)" 
 		}
 		
-		return '_'+varname
+		return '_'+globals.get(varname)
 	}
 	
 	def getParamSize(EList<Declaration> decs) {

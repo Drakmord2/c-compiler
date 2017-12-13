@@ -67,15 +67,17 @@ import org.eclipse.xtext.xbase.lib.Pair;
 public class CGenerator extends AbstractGenerator {
   public int label;
   
+  public int suffix;
+  
   public int index;
   
   public int localSize;
   
-  public Stack<String> globals;
-  
   public Stack<String> fName;
   
   public Stack<Pair<String, String>> loops;
+  
+  public HashMap<String, String> globals;
   
   public HashMap<String, Integer> locals;
   
@@ -85,18 +87,19 @@ public class CGenerator extends AbstractGenerator {
     HashMap<String, Integer> _xblockexpression = null;
     {
       this.label = 0;
+      this.suffix = 0;
       this.index = 0;
       this.localSize = 0;
       Stack<String> _stack = new Stack<String>();
-      this.globals = _stack;
-      Stack<String> _stack_1 = new Stack<String>();
-      this.fName = _stack_1;
-      Stack<Pair<String, String>> _stack_2 = new Stack<Pair<String, String>>();
-      this.loops = _stack_2;
-      HashMap<String, Integer> _hashMap = new HashMap<String, Integer>();
-      this.locals = _hashMap;
+      this.fName = _stack;
+      Stack<Pair<String, String>> _stack_1 = new Stack<Pair<String, String>>();
+      this.loops = _stack_1;
+      HashMap<String, String> _hashMap = new HashMap<String, String>();
+      this.globals = _hashMap;
       HashMap<String, Integer> _hashMap_1 = new HashMap<String, Integer>();
-      _xblockexpression = this.params = _hashMap_1;
+      this.locals = _hashMap_1;
+      HashMap<String, Integer> _hashMap_2 = new HashMap<String, Integer>();
+      _xblockexpression = this.params = _hashMap_2;
     }
     return _xblockexpression;
   }
@@ -165,10 +168,10 @@ public class CGenerator extends AbstractGenerator {
     if ((D instanceof VarDecl)) {
       StringConcatenation _builder = new StringConcatenation();
       String mips = _builder.toString();
-      this.index++;
+      this.suffix++;
       String _name = ((VarDecl)D).getName();
-      final String vName = (_name + Integer.valueOf(this.index));
-      this.globals.add(vName);
+      final String vName = (_name + Integer.valueOf(this.suffix));
+      this.globals.put(((VarDecl)D).getName(), vName);
       String _tipo = ((VarDecl)D).getTipo().getTipo();
       boolean _equals = Objects.equal(_tipo, "string");
       if (_equals) {
@@ -239,7 +242,7 @@ public class CGenerator extends AbstractGenerator {
   
   public String function(final Function F) {
     this.fName.push(F.getName());
-    this.globals.add(F.getName());
+    this.globals.put(F.getName(), F.getName());
     final int paramSize = this.getParamSize(F.getParams());
     StringConcatenation _builder = new StringConcatenation();
     _builder.append(".text");
@@ -480,7 +483,7 @@ public class CGenerator extends AbstractGenerator {
           _builder_1.append(_pop);
           _builder_1.newLineIfNotEmpty();
           _builder_1.append("sw\t\t$t7, -");
-          _builder_1.append((this.index + 4));
+          _builder_1.append((this.index + 8));
           _builder_1.append("($fp)");
           _builder_1.newLineIfNotEmpty();
           _builder_1.newLine();
@@ -1080,7 +1083,7 @@ public class CGenerator extends AbstractGenerator {
         id_2 = _builder_8.toString();
       }
       String _xifexpression_1 = null;
-      if ((Objects.equal(tipo, "string") && this.globals.contains(varname))) {
+      if ((Objects.equal(tipo, "string") && this.globals.containsKey(varname))) {
         _xifexpression_1 = "la";
       } else {
         _xifexpression_1 = "lw";
@@ -1097,7 +1100,7 @@ public class CGenerator extends AbstractGenerator {
       final VarDecl decl_1 = ((VarDecl) _valor_1);
       final String tipo_1 = decl_1.getTipo().getTipo();
       String _xifexpression_2 = null;
-      if ((Objects.equal(tipo_1, "string") && this.globals.contains(varname_1))) {
+      if ((Objects.equal(tipo_1, "string") && this.globals.containsKey(varname_1))) {
         _xifexpression_2 = "la";
       } else {
         _xifexpression_2 = "lw";
@@ -1319,22 +1322,25 @@ public class CGenerator extends AbstractGenerator {
       CharSequence _pop = this.pop("t7");
       _builder_1.append(_pop);
       _builder_1.newLineIfNotEmpty();
-      CharSequence _indexed = this.indexed("sw", "t7", (this.locals.get(varname)).intValue(), "fp");
+      Integer _get = this.locals.get(varname);
+      int _plus = ((_get).intValue() + 8);
+      CharSequence _indexed = this.indexed("sw", "t7", _plus, "fp");
       _builder_1.append(_indexed);
       _builder_1.newLineIfNotEmpty();
       _builder_1.newLine();
       mips = (_mips + _builder_1);
       return mips;
     }
-    boolean _contains = this.globals.contains(varname);
-    if (_contains) {
+    boolean _containsKey_1 = this.globals.containsKey(varname);
+    if (_containsKey_1) {
       String _mips_1 = mips;
       StringConcatenation _builder_2 = new StringConcatenation();
       CharSequence _pop_1 = this.pop("t9");
       _builder_2.append(_pop_1);
       _builder_2.newLineIfNotEmpty();
       _builder_2.append("sw\t\t$t9, _");
-      _builder_2.append(varname);
+      String _get_1 = this.globals.get(varname);
+      _builder_2.append(_get_1);
       _builder_2.newLineIfNotEmpty();
       _builder_2.newLine();
       mips = (_mips_1 + _builder_2);
@@ -1358,22 +1364,26 @@ public class CGenerator extends AbstractGenerator {
       CharSequence _pop = this.pop("t7");
       _builder_1.append(_pop);
       _builder_1.newLineIfNotEmpty();
-      CharSequence _indexed = this.indexed("sw", "t7", (this.locals.get(varname)).intValue(), "fp");
+      Integer _get = this.locals.get(varname);
+      int _plus = ((_get).intValue() + arrIdx);
+      int _plus_1 = (_plus + 8);
+      CharSequence _indexed = this.indexed("sw", "t7", _plus_1, "fp");
       _builder_1.append(_indexed);
       _builder_1.newLineIfNotEmpty();
       _builder_1.newLine();
       mips = (_mips + _builder_1);
       return mips;
     }
-    boolean _contains = this.globals.contains(varname);
-    if (_contains) {
+    boolean _containsKey_1 = this.globals.containsKey(varname);
+    if (_containsKey_1) {
       String _mips_1 = mips;
       StringConcatenation _builder_2 = new StringConcatenation();
       CharSequence _pop_1 = this.pop("t9");
       _builder_2.append(_pop_1);
       _builder_2.newLineIfNotEmpty();
       _builder_2.append("sw\t\t$t9, _");
-      _builder_2.append(varname);
+      String _get_1 = this.globals.get(varname);
+      _builder_2.append(_get_1);
       _builder_2.append("+");
       _builder_2.append(arrIdx);
       _builder_2.newLineIfNotEmpty();
@@ -1446,7 +1456,7 @@ public class CGenerator extends AbstractGenerator {
     _builder.append("\t\t$");
     _builder.append(reg1);
     _builder.append(", -");
-    _builder.append((offset + 4));
+    _builder.append(offset);
     _builder.append("($");
     _builder.append(reg2);
     _builder.append(")");
@@ -1463,11 +1473,12 @@ public class CGenerator extends AbstractGenerator {
     boolean _containsKey_1 = this.locals.containsKey(varname);
     if (_containsKey_1) {
       Integer _get_1 = this.locals.get(varname);
-      int _plus = ((_get_1).intValue() + 4);
+      int _plus = ((_get_1).intValue() + 8);
       String _plus_1 = ("-" + Integer.valueOf(_plus));
       return (_plus_1 + "($fp)");
     }
-    return ("_" + varname);
+    String _get_2 = this.globals.get(varname);
+    return ("_" + _get_2);
   }
   
   public int getParamSize(final EList<Declaration> decs) {
