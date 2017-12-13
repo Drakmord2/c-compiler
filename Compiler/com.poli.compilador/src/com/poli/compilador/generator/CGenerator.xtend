@@ -265,9 +265,14 @@ class CGenerator extends AbstractGenerator {
 			
 			«ENDIF»
 			'''
+			
+			if(decl.tipo.exp !== null) {
+				index += (decl.tipo.exp as IntLit).^val * 4
+			} else {
+				index += 4;
+			}
 		}
-
-		index += 4;
+		
 		return mips
 	}
 	
@@ -596,9 +601,9 @@ class CGenerator extends AbstractGenerator {
 			«var argNum = 0»
 			«IF E.arg !== null»
 				«FOR arg : E.arg.exp»
-				«expression(arg)»
-				«pop('t0')»
-				move		$a«argNum++», $t0
+					«expression(arg)»
+					«pop('t0')»
+					move		$a«argNum++», $t0 
 				«ENDFOR»
 				
 			«ENDIF»	
@@ -606,7 +611,7 @@ class CGenerator extends AbstractGenerator {
 			«push('v0')»
 			
 			'''
-			
+
 			return mips
 		}
 		
@@ -618,7 +623,7 @@ class CGenerator extends AbstractGenerator {
 			
 			var id = ''''''
 			var idx = ''''''
-			if (E.index instanceof IntLit) {
+			if (E.index instanceof IntLit && locals.containsKey(varname) != true) {
 				idx = '''+«(E.index as IntLit).^val * 4»'''
 				id 	= getReference(varname) + idx
 			} else {
@@ -626,9 +631,19 @@ class CGenerator extends AbstractGenerator {
 				'''
 				«expression(E.index)»
 				«pop('t5')»
-				la		$t6, «getReference(varname)»
-				sll		$t5, $t5, 2
-				add		$t5, $t6, $t5
+				
+				«IF locals.containsKey(varname)»
+					la		$t6, -8($fp)
+					li		$t4, «locals.get(varname)»
+					sll		$t4, $t4, 2
+					sub		$t6, $t6, $t4
+					sll		$t5, $t5, 2
+					sub		$t5, $t6, $t5
+				«ELSE»
+					la		$t6, «getReference(varname)»
+					sll		$t5, $t5, 2
+					add		$t5, $t6, $t5
+				«ENDIF»
 				
 				'''
 				

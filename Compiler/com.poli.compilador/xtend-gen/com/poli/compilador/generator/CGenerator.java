@@ -490,9 +490,19 @@ public class CGenerator extends AbstractGenerator {
         }
       }
       mips = _builder_1.toString();
+      Expression _exp = ((VarDecl)decl).getTipo().getExp();
+      boolean _tripleNotEquals_1 = (_exp != null);
+      if (_tripleNotEquals_1) {
+        int _index = this.index;
+        Expression _exp_1 = ((VarDecl)decl).getTipo().getExp();
+        int _val_1 = ((IntLit) _exp_1).getVal();
+        int _multiply = (_val_1 * 4);
+        this.index = (_index + _multiply);
+      } else {
+        int _index_1 = this.index;
+        this.index = (_index_1 + 4);
+      }
     }
-    int _index = this.index;
-    this.index = (_index + 4);
     return mips;
   }
   
@@ -1019,7 +1029,7 @@ public class CGenerator extends AbstractGenerator {
               _builder_3.append("move\t\t$a");
               int _plusPlus = argNum++;
               _builder_3.append(_plusPlus);
-              _builder_3.append(", $t0");
+              _builder_3.append(", $t0 ");
               _builder_3.newLineIfNotEmpty();
             }
           }
@@ -1047,12 +1057,11 @@ public class CGenerator extends AbstractGenerator {
       String id_2 = _builder_4.toString();
       StringConcatenation _builder_5 = new StringConcatenation();
       String idx = _builder_5.toString();
-      Expression _index = ((ArrayAccess)E).getIndex();
-      if ((_index instanceof IntLit)) {
+      if (((((ArrayAccess)E).getIndex() instanceof IntLit) && (this.locals.containsKey(varname) != true))) {
         StringConcatenation _builder_6 = new StringConcatenation();
         _builder_6.append("+");
-        Expression _index_1 = ((ArrayAccess)E).getIndex();
-        int _val = ((IntLit) _index_1).getVal();
+        Expression _index = ((ArrayAccess)E).getIndex();
+        int _val = ((IntLit) _index).getVal();
         int _multiply = (_val * 4);
         _builder_6.append(_multiply);
         idx = _builder_6.toString();
@@ -1068,14 +1077,35 @@ public class CGenerator extends AbstractGenerator {
         CharSequence _pop_1 = this.pop("t5");
         _builder_7.append(_pop_1);
         _builder_7.newLineIfNotEmpty();
-        _builder_7.append("la\t\t$t6, ");
-        String _reference_1 = this.getReference(varname);
-        _builder_7.append(_reference_1);
-        _builder_7.newLineIfNotEmpty();
-        _builder_7.append("sll\t\t$t5, $t5, 2");
         _builder_7.newLine();
-        _builder_7.append("add\t\t$t5, $t6, $t5");
-        _builder_7.newLine();
+        {
+          boolean _containsKey = this.locals.containsKey(varname);
+          if (_containsKey) {
+            _builder_7.append("la\t\t$t6, -8($fp)");
+            _builder_7.newLine();
+            _builder_7.append("li\t\t$t4, ");
+            Integer _get = this.locals.get(varname);
+            _builder_7.append(_get);
+            _builder_7.newLineIfNotEmpty();
+            _builder_7.append("sll\t\t$t4, $t4, 2");
+            _builder_7.newLine();
+            _builder_7.append("sub\t\t$t6, $t6, $t4");
+            _builder_7.newLine();
+            _builder_7.append("sll\t\t$t5, $t5, 2");
+            _builder_7.newLine();
+            _builder_7.append("sub\t\t$t5, $t6, $t5");
+            _builder_7.newLine();
+          } else {
+            _builder_7.append("la\t\t$t6, ");
+            String _reference_1 = this.getReference(varname);
+            _builder_7.append(_reference_1);
+            _builder_7.newLineIfNotEmpty();
+            _builder_7.append("sll\t\t$t5, $t5, 2");
+            _builder_7.newLine();
+            _builder_7.append("add\t\t$t5, $t6, $t5");
+            _builder_7.newLine();
+          }
+        }
         _builder_7.newLine();
         mips = (_mips_15 + _builder_7);
         StringConcatenation _builder_8 = new StringConcatenation();
@@ -1107,8 +1137,8 @@ public class CGenerator extends AbstractGenerator {
       }
       String opCode_1 = _xifexpression_2;
       String _xifexpression_3 = null;
-      boolean _containsKey = this.params.containsKey(varname_1);
-      if (_containsKey) {
+      boolean _containsKey_1 = this.params.containsKey(varname_1);
+      if (_containsKey_1) {
         _xifexpression_3 = "move";
       } else {
         _xifexpression_3 = opCode_1;
