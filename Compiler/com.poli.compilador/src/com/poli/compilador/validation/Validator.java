@@ -107,7 +107,7 @@ public class Validator {
 		
 		if (e instanceof Var) {
 			Definition def = ((Var) e).getValor();
-			
+
 			if (def instanceof Declaration) {
 				
 				Declaration decl	= (Declaration) def;
@@ -125,12 +125,33 @@ public class Validator {
 				}
 				
 			}
+			
+			if (def instanceof Function) {
+				Type tipo = ((Function) def).getTipo();
+				
+				switch (tipo.getTipo()) {
+					case "int": 
+						return Tipo.INT;
+					case "bool":
+						return Tipo.BOOL;
+					case "string":
+						return Tipo.STR;
+					default:
+						return null;
+				}
+			}
 		}
 		
 		if (e instanceof ArrayAccess) {
 			Expression lval = ((ArrayAccess) e).getArr();
 			
 			return tipode(lval,null);
+		}
+		
+		if (e instanceof FuncCall) {
+			Expression lval = ((FuncCall) e).getDef();
+			
+			return tipode(lval, null);
 		}
 		
 		return null;

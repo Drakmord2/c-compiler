@@ -48,6 +48,7 @@ class CValidator extends AbstractCValidator {
 				}
 				
 				val tipo = Validator.tipode(c.exp, null)
+				
 				if (tipo == Validator.Tipo.INT && F.tipo.tipo != "int") {
 					error('Invalid return type.', c, CPackage.Literals.RETURN_CMD__EXP)
 				}
