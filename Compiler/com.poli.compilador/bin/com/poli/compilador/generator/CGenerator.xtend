@@ -159,7 +159,7 @@ class CGenerator extends AbstractGenerator {
 	def function(Function F) {
 		fName.push(F.name)
 		globals.put(F.name, F.name)
-		val paramSize = getParamSize(F.params)
+		getParamSize(F.params)
 		
 		var mips = 
 		'''
@@ -171,11 +171,11 @@ class CGenerator extends AbstractGenerator {
 		«ELSE»
 		_«F.name»:
 		«ENDIF»
-			«functionEntry(paramSize)»
+			«functionEntry(0)»
 			«FOR C : F.commands»
 				«command(C)»
 		    «ENDFOR»
-		    «functionExit(paramSize)»
+		    «functionExit(0)»
 		
 		'''
 		return mips

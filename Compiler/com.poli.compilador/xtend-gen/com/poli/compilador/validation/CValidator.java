@@ -21,6 +21,7 @@ import com.poli.compilador.c.Function;
 import com.poli.compilador.c.IfCmd;
 import com.poli.compilador.c.IntLit;
 import com.poli.compilador.c.Literal;
+import com.poli.compilador.c.Program;
 import com.poli.compilador.c.ReturnCmd;
 import com.poli.compilador.c.StrDecl;
 import com.poli.compilador.c.Struct;
@@ -44,6 +45,21 @@ import org.eclipse.xtext.xbase.lib.IteratorExtensions;
  */
 @SuppressWarnings("all")
 public class CValidator extends AbstractCValidator {
+  @Check
+  public void checkProgram(final Program p) {
+    final EList<Definition> definitions = p.getDefinition();
+    for (final Definition d : definitions) {
+      if ((d instanceof Function)) {
+        String _name = ((Function)d).getName();
+        boolean _equals = Objects.equal(_name, "main");
+        if (_equals) {
+          return;
+        }
+      }
+    }
+    this.error("Entry point not defined. (main function)", p, CPackage.Literals.PROGRAM__DEFINITION);
+  }
+  
   @Check
   public void checkFunction(final Function F) {
     int _size = F.getParams().size();

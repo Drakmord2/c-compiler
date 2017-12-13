@@ -230,7 +230,7 @@ public class CGenerator extends AbstractGenerator {
   public String function(final Function F) {
     this.fName.push(F.getName());
     this.globals.put(F.getName(), F.getName());
-    final int paramSize = this.getParamSize(F.getParams());
+    this.getParamSize(F.getParams());
     StringConcatenation _builder = new StringConcatenation();
     _builder.append(".text");
     _builder.newLine();
@@ -254,7 +254,7 @@ public class CGenerator extends AbstractGenerator {
       }
     }
     _builder.append("\t");
-    CharSequence _functionEntry = this.functionEntry(paramSize);
+    CharSequence _functionEntry = this.functionEntry(0);
     _builder.append(_functionEntry, "\t");
     _builder.newLineIfNotEmpty();
     {
@@ -267,7 +267,7 @@ public class CGenerator extends AbstractGenerator {
       }
     }
     _builder.append("    ");
-    CharSequence _functionExit = this.functionExit(paramSize);
+    CharSequence _functionExit = this.functionExit(0);
     _builder.append(_functionExit, "    ");
     _builder.newLineIfNotEmpty();
     _builder.newLine();

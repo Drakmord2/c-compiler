@@ -24,6 +24,7 @@ import com.poli.compilador.c.FuncCall
 import com.poli.compilador.c.VarCmd
 import com.poli.compilador.c.Command
 import com.poli.compilador.c.ReturnCmd
+import com.poli.compilador.c.Program
 
 /**
  * This class contains custom validation rules. 
@@ -31,6 +32,21 @@ import com.poli.compilador.c.ReturnCmd
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class CValidator extends AbstractCValidator {
+	
+	@Check
+	def checkProgram(Program p) {
+		val definitions = p.definition
+		
+		for(d : definitions) {
+			if (d instanceof Function) {
+				if (d.name == 'main') {
+					return
+				}
+			}
+		}
+		
+		error('Entry point not defined. (main function)', p, CPackage.Literals.PROGRAM__DEFINITION)
+	}
 	
 	@Check	
 	def checkFunction(Function F) {
