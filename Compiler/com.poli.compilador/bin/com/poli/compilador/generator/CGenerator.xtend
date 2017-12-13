@@ -47,6 +47,8 @@ import com.poli.compilador.c.Assignment
 import com.poli.compilador.c.VarDecl
 import java.util.HashMap
 import org.eclipse.emf.common.util.EList
+import java.util.ArrayList
+import java.util.List
 
 /**
  * Generates code from your model files on save.
@@ -57,6 +59,7 @@ class CGenerator extends AbstractGenerator {
 	
 	public int label
 	public int index
+	public int localSize
 	public Stack<String> globals
 	public Stack<String> fName
 	public Stack<Pair<String, String>> loops
@@ -66,6 +69,7 @@ class CGenerator extends AbstractGenerator {
 	def init() {
 		this.label 		= 0
 		this.index		= 0
+		this.localSize	= 0
 		this.globals		= new Stack
 		this.fName		= new Stack
 		this.loops		= new Stack
@@ -80,6 +84,8 @@ class CGenerator extends AbstractGenerator {
 		if (p === null) {return}
 		
 		this.init()
+		this.calculateLocals(resource, p)
+		
 	    fsa.generateFile(filename+".asm", p.compile)
 	}
 
@@ -114,7 +120,6 @@ class CGenerator extends AbstractGenerator {
 			var mips 	= ''''''
 			this.index++
 			val vName	= D.name + index
-			var size 	= 4
 			globals.add(vName)
 			
 			if (D.tipo.tipo == 'string') {
@@ -130,6 +135,7 @@ class CGenerator extends AbstractGenerator {
 				return mips
 			}
 			
+			var size = 4
 			if (D.tipo.exp !== null) {
 				val arrIdx 	= D.tipo.exp
 				val arrSize	= (arrIdx as IntLit).^val
@@ -161,9 +167,6 @@ class CGenerator extends AbstractGenerator {
 		globals.add(F.name)
 		val paramSize = getParamSize(F.params)
 		
-		//TODO calculate local variables size
-		val localSize = 12 
-		
 		var mips = 
 		'''
 		.text
@@ -174,7 +177,7 @@ class CGenerator extends AbstractGenerator {
 		«ELSE»
 		_«F.name»:
 		«ENDIF»
-			«functionEntry(paramSize, localSize)»
+			«functionEntry(paramSize)»
 			«FOR C : F.commands»
 				«command(C)»
 		    «ENDFOR»
@@ -750,14 +753,14 @@ class CGenerator extends AbstractGenerator {
 // AUX
 //------------------------------------------------------------------------------------------
 		
-	def functionEntry(int paramSize, int localSize)
+	def functionEntry(int paramSize)
 	'''
 		sw	 	$ra, 0($sp)
 		addiu 	$sp, $sp, -4
 		sw   	$fp, 0($sp)
 		addiu	$sp, $sp, -4
 		addiu 	$fp, $sp, «paramSize + 8»
-		addiu 	$sp, $sp, -«localSize»
+		addiu 	$sp, $sp, -«this.localSize»
 		
 	'''
 	
@@ -923,6 +926,41 @@ class CGenerator extends AbstractGenerator {
 		}
 		
 		return ordered
+	}
+	
+	def calculateLocals(Resource resource, Program p) {
+		val declarations				= resource.allContents.filter(Declaration).toList
+		val definitions 				= p.definition
+		var List<Declaration> global	= new ArrayList
+		var List<Declaration> local 	= new ArrayList
+		var size 					= 0
+		
+		for(d : definitions) {
+			if (d instanceof Declaration) {
+				global.add(d)
+			}
+		}
+		
+		for(d : declarations) {
+			if (global.indexOf(d) == -1) {
+				local.add(d)
+			}
+		}
+		
+		for(l : local) {
+			if (l instanceof VarDecl) {
+				if (l.tipo.exp === null) {
+					size += 4
+				} else {
+					val arrIdx 	= l.tipo.exp
+					val arrSize	= (arrIdx as IntLit).^val
+					
+					size += arrSize*4;
+				}
+			}
+		}
+		
+		this.localSize = size
 	}
 	
 }

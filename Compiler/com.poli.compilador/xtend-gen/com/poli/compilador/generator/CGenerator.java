@@ -45,7 +45,9 @@ import com.poli.compilador.c.VarCmd;
 import com.poli.compilador.c.VarDecl;
 import com.poli.compilador.c.WhileCmd;
 import com.poli.compilador.validation.Validator;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -67,6 +69,8 @@ public class CGenerator extends AbstractGenerator {
   
   public int index;
   
+  public int localSize;
+  
   public Stack<String> globals;
   
   public Stack<String> fName;
@@ -82,6 +86,7 @@ public class CGenerator extends AbstractGenerator {
     {
       this.label = 0;
       this.index = 0;
+      this.localSize = 0;
       Stack<String> _stack = new Stack<String>();
       this.globals = _stack;
       Stack<String> _stack_1 = new Stack<String>();
@@ -104,6 +109,7 @@ public class CGenerator extends AbstractGenerator {
       return;
     }
     this.init();
+    this.calculateLocals(resource, p);
     fsa.generateFile((filename + ".asm"), this.compile(p));
   }
   
@@ -162,7 +168,6 @@ public class CGenerator extends AbstractGenerator {
       this.index++;
       String _name = ((VarDecl)D).getName();
       final String vName = (_name + Integer.valueOf(this.index));
-      int size = 4;
       this.globals.add(vName);
       String _tipo = ((VarDecl)D).getTipo().getTipo();
       boolean _equals = Objects.equal(_tipo, "string");
@@ -190,6 +195,7 @@ public class CGenerator extends AbstractGenerator {
         mips = _builder_1.toString();
         return mips;
       }
+      int size = 4;
       Expression _exp_1 = ((VarDecl)D).getTipo().getExp();
       boolean _tripleNotEquals = (_exp_1 != null);
       if (_tripleNotEquals) {
@@ -235,7 +241,6 @@ public class CGenerator extends AbstractGenerator {
     this.fName.push(F.getName());
     this.globals.add(F.getName());
     final int paramSize = this.getParamSize(F.getParams());
-    final int localSize = 12;
     StringConcatenation _builder = new StringConcatenation();
     _builder.append(".text");
     _builder.newLine();
@@ -259,7 +264,7 @@ public class CGenerator extends AbstractGenerator {
       }
     }
     _builder.append("\t");
-    CharSequence _functionEntry = this.functionEntry(paramSize, localSize);
+    CharSequence _functionEntry = this.functionEntry(paramSize);
     _builder.append(_functionEntry, "\t");
     _builder.newLineIfNotEmpty();
     {
@@ -1246,7 +1251,7 @@ public class CGenerator extends AbstractGenerator {
     return mips;
   }
   
-  public CharSequence functionEntry(final int paramSize, final int localSize) {
+  public CharSequence functionEntry(final int paramSize) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("sw\t \t$ra, 0($sp)");
     _builder.newLine();
@@ -1260,7 +1265,7 @@ public class CGenerator extends AbstractGenerator {
     _builder.append((paramSize + 8));
     _builder.newLineIfNotEmpty();
     _builder.append("addiu \t$sp, $sp, -");
-    _builder.append(localSize);
+    _builder.append(this.localSize);
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     return _builder;
@@ -1503,5 +1508,45 @@ public class CGenerator extends AbstractGenerator {
       ordered.push(s.pop());
     }
     return ordered;
+  }
+  
+  public int calculateLocals(final Resource resource, final Program p) {
+    int _xblockexpression = (int) 0;
+    {
+      final List<Declaration> declarations = IteratorExtensions.<Declaration>toList(Iterators.<Declaration>filter(resource.getAllContents(), Declaration.class));
+      final EList<Definition> definitions = p.getDefinition();
+      List<Declaration> global = new ArrayList<Declaration>();
+      List<Declaration> local = new ArrayList<Declaration>();
+      int size = 0;
+      for (final Definition d : definitions) {
+        if ((d instanceof Declaration)) {
+          global.add(((Declaration)d));
+        }
+      }
+      for (final Declaration d_1 : declarations) {
+        int _indexOf = global.indexOf(d_1);
+        boolean _equals = (_indexOf == (-1));
+        if (_equals) {
+          local.add(d_1);
+        }
+      }
+      for (final Declaration l : local) {
+        if ((l instanceof VarDecl)) {
+          Expression _exp = ((VarDecl)l).getTipo().getExp();
+          boolean _tripleEquals = (_exp == null);
+          if (_tripleEquals) {
+            int _size = size;
+            size = (_size + 4);
+          } else {
+            final Expression arrIdx = ((VarDecl)l).getTipo().getExp();
+            final int arrSize = ((IntLit) arrIdx).getVal();
+            int _size_1 = size;
+            size = (_size_1 + (arrSize * 4));
+          }
+        }
+      }
+      _xblockexpression = this.localSize = size;
+    }
+    return _xblockexpression;
   }
 }
