@@ -4,9 +4,12 @@
 package com.poli.compilador.validation;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Iterators;
 import com.poli.compilador.c.ArrayAccess;
+import com.poli.compilador.c.Assignment;
 import com.poli.compilador.c.CPackage;
 import com.poli.compilador.c.Case;
+import com.poli.compilador.c.Command;
 import com.poli.compilador.c.Declaration;
 import com.poli.compilador.c.Definition;
 import com.poli.compilador.c.DoWhileCmd;
@@ -18,17 +21,21 @@ import com.poli.compilador.c.Function;
 import com.poli.compilador.c.IfCmd;
 import com.poli.compilador.c.IntLit;
 import com.poli.compilador.c.Literal;
+import com.poli.compilador.c.ReturnCmd;
 import com.poli.compilador.c.StrDecl;
 import com.poli.compilador.c.Struct;
 import com.poli.compilador.c.SwitchCmd;
 import com.poli.compilador.c.Type;
 import com.poli.compilador.c.Var;
+import com.poli.compilador.c.VarCmd;
 import com.poli.compilador.c.VarDecl;
 import com.poli.compilador.c.WhileCmd;
 import com.poli.compilador.validation.AbstractCValidator;
 import com.poli.compilador.validation.Validator;
+import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.validation.Check;
+import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 
 /**
  * This class contains custom validation rules.
@@ -44,6 +51,24 @@ public class CValidator extends AbstractCValidator {
     if (_greaterThan) {
       this.error("Maximum number of parameters exceeded.", F, CPackage.Literals.FUNCTION__PARAMS);
       return;
+    }
+    final List<Command> commands = IteratorExtensions.<Command>toList(Iterators.<Command>filter(F.eAllContents(), Command.class));
+    for (final Command c : commands) {
+      if ((c instanceof ReturnCmd)) {
+        if (((((ReturnCmd)c).getExp() == null) && (!Objects.equal(F.getTipo().getTipo(), "void")))) {
+          this.error("Invalid return type.", c, CPackage.Literals.RETURN_CMD__EXP);
+        }
+        final Validator.Tipo tipo = Validator.tipode(((ReturnCmd)c).getExp(), null);
+        if ((Objects.equal(tipo, Validator.Tipo.INT) && (!Objects.equal(F.getTipo().getTipo(), "int")))) {
+          this.error("Invalid return type.", c, CPackage.Literals.RETURN_CMD__EXP);
+        }
+        if ((Objects.equal(tipo, Validator.Tipo.BOOL) && (!Objects.equal(F.getTipo().getTipo(), "bool")))) {
+          this.error("Invalid return type.", c, CPackage.Literals.RETURN_CMD__EXP);
+        }
+        if ((Objects.equal(tipo, Validator.Tipo.STR) && (!Objects.equal(F.getTipo().getTipo(), "string")))) {
+          this.error("Invalid return type.", c, CPackage.Literals.RETURN_CMD__EXP);
+        }
+      }
     }
   }
   
@@ -103,6 +128,24 @@ public class CValidator extends AbstractCValidator {
     boolean _notEquals = (!Objects.equal(tipo, Validator.Tipo.BOOL));
     if (_notEquals) {
       this.error((("Condition must be a Bool. " + tipo) + " given."), c, CPackage.Literals.FOR_CMD__EXP);
+    }
+  }
+  
+  @Check
+  public void checkVarCmd(final VarCmd C) {
+    Assignment _asg = C.getAsg();
+    boolean _tripleNotEquals = (_asg != null);
+    if (_tripleNotEquals) {
+      final Expression lval = C.getLval();
+      final Expression asg = C.getAsg().getExp();
+      Validator.Tipo tipoVar = Validator.tipode(lval, null);
+      Validator.Tipo tipoAsg = Validator.tipode(asg, null);
+      Validator.Tipo _tipode = Validator.tipode(lval, null);
+      Validator.Tipo _tipode_1 = Validator.tipode(asg, null);
+      boolean _notEquals = (!Objects.equal(_tipode, _tipode_1));
+      if (_notEquals) {
+        this.error(((("Incompatible assignment types. Expected: " + tipoVar) + " Got: ") + tipoAsg), C, CPackage.Literals.VAR_CMD__ASG);
+      }
     }
   }
   

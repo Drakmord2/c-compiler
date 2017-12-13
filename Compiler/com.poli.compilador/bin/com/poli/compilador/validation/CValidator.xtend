@@ -21,6 +21,9 @@ import com.poli.compilador.c.IntLit
 import com.poli.compilador.c.Literal
 import com.poli.compilador.c.Function
 import com.poli.compilador.c.FuncCall
+import com.poli.compilador.c.VarCmd
+import com.poli.compilador.c.Command
+import com.poli.compilador.c.ReturnCmd
 
 /**
  * This class contains custom validation rules. 
@@ -34,6 +37,29 @@ class CValidator extends AbstractCValidator {
 		if ( F.params.size > 4 ) {
 			error('Maximum number of parameters exceeded.', F, CPackage.Literals.FUNCTION__PARAMS)
 			return
+		}
+		
+		val commands = F.eAllContents.filter(Command).toList;
+		
+		for(c : commands) {
+			if (c instanceof ReturnCmd) {
+				if (c.exp === null && F.tipo.tipo != "void") {
+					error('Invalid return type.', c, CPackage.Literals.RETURN_CMD__EXP)
+				}
+				
+				val tipo = Validator.tipode(c.exp, null)
+				if (tipo == Validator.Tipo.INT && F.tipo.tipo != "int") {
+					error('Invalid return type.', c, CPackage.Literals.RETURN_CMD__EXP)
+				}
+				
+				if (tipo == Validator.Tipo.BOOL && F.tipo.tipo != "bool") {
+					error('Invalid return type.', c, CPackage.Literals.RETURN_CMD__EXP)
+				}
+				
+				if (tipo == Validator.Tipo.STR && F.tipo.tipo != "string") {
+					error('Invalid return type.', c, CPackage.Literals.RETURN_CMD__EXP)
+				}
+			}
 		}
 	}
 	
@@ -93,6 +119,22 @@ class CValidator extends AbstractCValidator {
 		if ( tipo != Validator.Tipo.BOOL) {
 			error('Condition must be a Bool. '+tipo+' given.', c, CPackage.Literals.FOR_CMD__EXP)
 		} 
+	}
+	
+	@Check
+	def checkVarCmd (VarCmd C) {
+		if (C.asg !== null) {
+			val lval	= C.lval
+			val asg 	= C.asg.exp
+			
+			var tipoVar = Validator.tipode(lval, null)
+			var tipoAsg = Validator.tipode(asg, null)
+			
+			if (Validator.tipode(lval, null) != Validator.tipode(asg, null)) {
+				error('Incompatible assignment types. Expected: '+tipoVar+' Got: '+tipoAsg, C, CPackage.Literals.VAR_CMD__ASG)
+			}
+		}
+
 	}
 	
 	@Check

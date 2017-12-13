@@ -13,7 +13,6 @@ import com.poli.compilador.c.Declaration
 import com.poli.compilador.c.Definition
 import com.poli.compilador.c.DoWhileCmd
 import com.poli.compilador.c.FalseLit
-import com.poli.compilador.c.FieldAccess
 import com.poli.compilador.c.ForCmd
 import com.poli.compilador.c.FuncCall
 import com.poli.compilador.c.Function
@@ -21,13 +20,11 @@ import com.poli.compilador.c.IfCmd
 import com.poli.compilador.c.IntLit
 import com.poli.compilador.c.LogicExp
 import com.poli.compilador.c.Parenteses
-import com.poli.compilador.c.PointerExp
 import com.poli.compilador.c.PostfixOp
 import com.poli.compilador.c.PrefixOp
 import com.poli.compilador.c.Program
 import com.poli.compilador.c.RelExp
 import com.poli.compilador.c.ReturnCmd
-import com.poli.compilador.c.Struct
 import com.poli.compilador.c.SwitchCmd
 import com.poli.compilador.c.Term
 import com.poli.compilador.c.TrueLit
@@ -107,12 +104,7 @@ class CGenerator extends AbstractGenerator {
 		switch D {
 			case (D instanceof Function): 	function(D as Function)
 			case (D instanceof Declaration):	declaration(D as Declaration)
-			case (D instanceof Struct): 		struct(D as Struct)
 		}
-		
-	}
-	
-	def struct(Struct S) {
 		
 	}
 	
@@ -697,13 +689,6 @@ class CGenerator extends AbstractGenerator {
 			mips += storeString(E, strLabel)
 			
 			return mips
-		}
-		
-		//TODO
-	    if (E instanceof FieldAccess) {
-		}
-		//TODO
-		if (E instanceof PointerExp) {
 		}
 		
 		return mips

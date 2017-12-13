@@ -127,6 +127,12 @@ public class Validator {
 			}
 		}
 		
+		if (e instanceof ArrayAccess) {
+			Expression lval = ((ArrayAccess) e).getArr();
+			
+			return tipode(lval,null);
+		}
+		
 		return null;
 	}
 	

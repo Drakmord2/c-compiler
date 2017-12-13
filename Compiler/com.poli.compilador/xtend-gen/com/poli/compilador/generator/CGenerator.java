@@ -19,7 +19,6 @@ import com.poli.compilador.c.Definition;
 import com.poli.compilador.c.DoWhileCmd;
 import com.poli.compilador.c.Expression;
 import com.poli.compilador.c.FalseLit;
-import com.poli.compilador.c.FieldAccess;
 import com.poli.compilador.c.ForCmd;
 import com.poli.compilador.c.FuncCall;
 import com.poli.compilador.c.Function;
@@ -27,7 +26,6 @@ import com.poli.compilador.c.IfCmd;
 import com.poli.compilador.c.IntLit;
 import com.poli.compilador.c.LogicExp;
 import com.poli.compilador.c.Parenteses;
-import com.poli.compilador.c.PointerExp;
 import com.poli.compilador.c.PostfixOp;
 import com.poli.compilador.c.PrefixOp;
 import com.poli.compilador.c.PrintCmd;
@@ -35,7 +33,6 @@ import com.poli.compilador.c.Program;
 import com.poli.compilador.c.RelExp;
 import com.poli.compilador.c.ReturnCmd;
 import com.poli.compilador.c.StrLit;
-import com.poli.compilador.c.Struct;
 import com.poli.compilador.c.SwitchCmd;
 import com.poli.compilador.c.Term;
 import com.poli.compilador.c.TrueLit;
@@ -122,7 +119,7 @@ public class CGenerator extends AbstractGenerator {
     {
       EList<Definition> _definition = P.getDefinition();
       for(final Definition D : _definition) {
-        Object _definition_1 = this.definition(D);
+        String _definition_1 = this.definition(D);
         _builder.append(_definition_1);
         _builder.newLineIfNotEmpty();
       }
@@ -138,8 +135,8 @@ public class CGenerator extends AbstractGenerator {
     return _builder;
   }
   
-  public Object definition(final Definition D) {
-    Object _switchResult = null;
+  public String definition(final Definition D) {
+    String _switchResult = null;
     boolean _matched = false;
     if ((D instanceof Function)) {
       _matched=true;
@@ -151,17 +148,7 @@ public class CGenerator extends AbstractGenerator {
         _switchResult = this.declaration(((Declaration) D));
       }
     }
-    if (!_matched) {
-      if ((D instanceof Struct)) {
-        _matched=true;
-        _switchResult = this.struct(((Struct) D));
-      }
-    }
     return _switchResult;
-  }
-  
-  public Object struct(final Struct S) {
-    return null;
   }
   
   public String declaration(final Declaration D) {
@@ -1176,10 +1163,6 @@ public class CGenerator extends AbstractGenerator {
       String _storeString = this.storeString(((StrLit)E), strLabel);
       mips = (_mips_21 + _storeString);
       return mips;
-    }
-    if ((E instanceof FieldAccess)) {
-    }
-    if ((E instanceof PointerExp)) {
     }
     return mips;
   }
